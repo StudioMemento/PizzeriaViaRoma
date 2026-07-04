@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0B">
+<title>Pizzeria Via Roma - Maniago</title>
+<meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
+<style>
+:root{
+  --nero:#0A0A0B; --nero-2:#0F0F11;
+  --oro:#C6A15B; --oro-vivo:#D9B36A;
+  --bianco:#F1ECE1; --grigio:rgba(241,236,225,.56);
+  --hair:rgba(198,161,91,.28); --hair-soft:rgba(198,161,91,.13);
+  --tab-h:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--nero);color:var(--bianco);
+  font-family:"Jost",system-ui,sans-serif;font-weight:300;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a,button{touch-action:manipulation}
+.chips button:active,.lang button:active,.btn-oro:active,.soc-links a:active,.tabbar a:active{transform:scale(.97)}
+:focus-visible{outline:1px solid var(--oro);outline-offset:4px}
+
+.hairline{border:0;height:1px;background:var(--hair);width:52px;margin:26px auto}
+.corners{position:absolute;inset:16px;pointer-events:none;z-index:3}
+.corners i{position:absolute;width:24px;height:24px;border:1px solid var(--hair)}
+.corners i:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.corners i:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.corners i:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.corners i:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+.pizza{
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 52%,transparent 71%);
+  mask-image:radial-gradient(circle at 50% 50%,#000 52%,transparent 71%);
+}
+.arc{position:absolute;border:1px dotted var(--hair);border-radius:50%;pointer-events:none}
+
+/* ---------------- top bar ---------------- */
+.top{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(10px + env(safe-area-inset-top)) 20px 10px;
+  background:linear-gradient(180deg,rgba(10,10,11,.9),rgba(10,10,11,0));
+  transition:background .3s;
+}
+.top.solid{background:rgba(10,10,11,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair-soft)}
+.top .mark{height:38px;width:38px;object-fit:contain}
+.lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
+.lang button{font-size:10px;letter-spacing:.14em;padding:5px 10px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
+.lang button.on{color:var(--nero);background:var(--oro)}
+
+/* ---------------- screens ---------------- */
+.screen{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.screen.compact{min-height:auto;padding:100px 0}
+.bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.bgimg.vis{opacity:1}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.88) 0%,rgba(10,10,11,.5) 45%,rgba(10,10,11,.94) 100%)}
+.inner{position:relative;z-index:2;width:100%;max-width:640px;padding:0 28px;text-align:center}
+
+#splash .logo{width:min(52vw,220px);margin:0 auto 30px;opacity:0;transform:scale(.96);transition:opacity 1.4s ease,transform 1.4s ease}
+#splash.ready .logo{opacity:1;transform:none}
+#splash .split{
+  font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--oro);
+  display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:26px;
+}
+#splash .split::before,#splash .split::after{content:"";width:44px;height:1px;background:var(--hair)}
+#splash h1{font-size:clamp(15px,4vw,19px);color:var(--grigio);font-weight:300;letter-spacing:.12em}
+#splash .diamond{width:7px;height:7px;background:var(--oro);transform:rotate(45deg);margin:30px auto 0;opacity:.8}
+
+.story .eyebrow{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro);margin-bottom:20px}
+.story h2{font-size:clamp(29px,7.4vw,46px);font-weight:200;letter-spacing:.14em;text-transform:uppercase;line-height:1.28}
+.story p{color:var(--grigio);margin-top:22px;font-size:15.5px;max-width:44ch;margin-left:auto;margin-right:auto}
+.num{
+  position:absolute;top:50%;left:12px;transform:translateY(-50%) rotate(180deg);
+  writing-mode:vertical-rl;font-size:9px;letter-spacing:.42em;color:rgba(198,161,91,.4);z-index:2;text-transform:uppercase;
+}
+
+#audaci-hero .pz{position:relative;width:min(76vw,410px);margin:0 auto 8px}
+#audaci-hero .pz .arc{inset:-7%}
+#audaci-hero .pz .arc.a2{inset:-13%;border-color:var(--hair-soft)}
+#audaci-hero h2{font-size:clamp(33px,9vw,52px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
+#audaci-hero .sub{color:var(--grigio);font-size:14px;letter-spacing:.08em;margin-top:10px}
+
+.fx{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.fx.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fx{opacity:1;transform:none;transition:none}}
+
+.teaser{background:var(--nero-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft)}
+.teaser .pz-s{position:relative;width:min(52vw,250px);margin:0 auto 24px}
+.teaser .pz-s .arc{inset:-7%}
+.teaser h2{font-size:clamp(22px,5.8vw,30px);font-weight:200;letter-spacing:.14em;text-transform:uppercase;line-height:1.35}
+.teaser p{color:var(--grigio);margin-top:14px}
+.mini-list{margin:28px auto 0;max-width:330px;text-align:left}
+.mini-list div{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--hair-soft);
+  font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+}
+.mini-list div:last-child{border:0}
+.mini-list b{font-weight:400;color:var(--oro);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.btn-oro{
+  display:inline-block;margin-top:32px;border:1px solid var(--oro);color:var(--oro);
+  font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;padding:16px 34px;
+  transition:background .25s,color .25s;
+}
+.btn-oro:hover{background:var(--oro);color:var(--nero)}
+
+.strip-wrap{padding:88px 0 56px;border-bottom:1px solid var(--hair-soft)}
+.strip-head{text-align:center;margin-bottom:12px}
+.strip-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 12vw;overscroll-behavior-x:contain}
+.strip::-webkit-scrollbar{display:none}
+.strip img{flex:0 0 min(70vw,370px);aspect-ratio:1;object-fit:cover;scroll-snap-align:center}
+
+/* quote screen */
+.quote h2{font-size:clamp(22px,6vw,32px);font-weight:200;letter-spacing:.1em;line-height:1.55;font-style:italic}
+.quote .who{margin-top:22px;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+
+/* ---------------- menu ---------------- */
+#menu{padding:100px 0 30px}
+.menu-head{text-align:center;padding:0 28px;margin-bottom:34px}
+.menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+.menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
+.menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
+.chips{
+  position:sticky;top:calc(58px + env(safe-area-inset-top));z-index:40;
+  display:flex;gap:8px;overflow-x:auto;padding:14px 20px;
+  background:rgba(10,10,11,.95);backdrop-filter:blur(14px);
+  border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);
+  scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chips button{
+  flex:0 0 auto;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  padding:9px 16px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);transition:all .25s;
+}
+.chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro)}
+
+.mcat{max-width:640px;margin:0 auto;padding:60px 28px 6px}
+.cat-hero{position:relative;width:min(58vw,280px);margin:0 auto 28px}
+.cat-hero .arc{inset:-6%}
+.cat-hero img.photo{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
+.cat-hero .illu{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--hair-soft);border-radius:50%}
+.cat-hero .illu svg{width:44%;height:44%;stroke:var(--oro);fill:none;stroke-width:1.1;opacity:.9}
+.mcat header{margin-bottom:12px;display:flex;align-items:baseline;gap:16px;text-align:left}
+.mcat .n{font-size:12px;letter-spacing:.2em;color:var(--hair);font-weight:300}
+.mcat h3{font-size:clamp(23px,5.6vw,30px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
+.mcat .tag{font-size:12.5px;color:var(--oro);letter-spacing:.06em;margin:-4px 0 0 44px;text-align:left}
+.mcat .rule{width:44px;height:1px;background:var(--oro);opacity:.75;margin:18px 0 4px 44px}
+
+.item{padding:16px 0;border-bottom:1px solid var(--hair-soft)}
+.item:last-child{border:0}
+.item .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.item .nome{font-size:13.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--oro-vivo)}
+.item .dots{flex:1;border-bottom:1px dotted var(--hair);transform:translateY(-4px);min-width:18px}
+.item .prezzo{color:var(--bianco);font-variant-numeric:tabular-nums;font-size:15px;font-weight:300;white-space:nowrap}
+.item .desc{color:var(--grigio);font-size:13px;margin-top:5px;line-height:1.55;max-width:54ch}
+.item .sub{display:block;font-size:10px;letter-spacing:.14em;color:var(--grigio);text-transform:uppercase;margin-top:2px}
+.item.multi .pricegrid{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:7px;font-size:12.5px;color:var(--grigio)}
+.item.multi .pricegrid b{color:var(--bianco);font-weight:300;margin-left:6px;font-variant-numeric:tabular-nums}
+.groupline{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);margin:34px 0 2px;display:flex;align-items:center;gap:12px}
+.groupline::after{content:"";flex:1;height:1px;background:var(--hair-soft)}
+.groupsub{font-size:12.5px;color:var(--grigio);margin:10px 0 0}
+
+
+/* ---------------- social ---------------- */
+#social{padding:100px 28px 90px;max-width:640px;margin:0 auto;text-align:center}
+#social .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+#social h2{font-size:clamp(24px,6vw,34px);font-weight:200;letter-spacing:.22em;text-transform:uppercase;margin-top:8px}
+.soc-links{display:flex;justify-content:center;gap:12px;margin-top:34px;flex-wrap:wrap}
+.soc-links a{
+  display:flex;align-items:center;gap:10px;
+  border:1px solid var(--hair);border-radius:999px;padding:12px 22px;
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--grigio);
+  transition:border-color .25s,color .25s;
+}
+.soc-links a:hover{border-color:var(--oro);color:var(--oro)}
+.soc-links i{font-size:18px;color:var(--oro)}
+.reviews{margin-top:46px;display:grid;gap:14px;text-align:left}
+.rev{border:1px solid var(--hair-soft);padding:22px 22px 18px;position:relative;background:var(--nero-2)}
+.rev .stars{color:var(--oro);font-size:12px;letter-spacing:.3em;margin-bottom:10px}
+.rev p{color:var(--grigio);font-size:14px;font-style:italic;line-height:1.6}
+.rev .src{margin-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(241,236,225,.4)}
+.rev .src b{color:var(--oro);font-weight:400}
+.mapwrap{margin-top:46px;border:1px solid var(--hair-soft);position:relative}
+.mapwrap iframe{
+  display:block;width:100%;height:340px;border:0;
+  filter:invert(92%) hue-rotate(180deg) grayscale(30%) contrast(.9);
+}
+.mapwrap .tag{
+  position:absolute;left:0;right:0;bottom:0;padding:10px;
+  background:rgba(10,10,11,.85);font-size:9.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--grigio);text-align:center;
+}
+
+#dove{padding:100px 28px 60px;text-align:center;background:var(--nero-2);border-top:1px solid var(--hair-soft)}
+#dove .logo-s{width:110px;margin:0 auto 30px}
+#dove h2{font-size:clamp(23px,6vw,32px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
+.info{margin-top:36px;display:grid;gap:26px;max-width:420px;margin-left:auto;margin-right:auto}
+.info h4{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--oro);margin-bottom:8px;font-weight:400}
+.info p,.info a{color:var(--grigio);font-size:15px}
+.info a{border-bottom:1px solid var(--hair)}
+.foot{margin-top:60px;font-size:10px;letter-spacing:.18em;color:rgba(241,236,225,.28);text-transform:uppercase}
+.foot a{color:rgba(241,236,225,.5)}
+
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  display:flex;height:calc(var(--tab-h) + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  background:rgba(12,12,13,.97);backdrop-filter:blur(16px);
+  border-top:1px solid var(--hair-soft);
+}
+.tabbar a{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--grigio);transition:color .2s;
+}
+.tabbar a i{font-size:21px}
+.tabbar a.on{color:var(--oro)}
+
+@media(min-width:760px){
+  .inner{max-width:720px}
+  .story p{font-size:16.5px}
+  .strip img{flex-basis:340px}
+}
+</style>
+</head>
+<body>
+
+<div class="top" id="topbar">
+  <img class="mark" src="assets/logo-oro.png" alt="Pizzeria Via Roma">
+  <div class="lang" role="group" aria-label="Language">
+    <button data-lang="it" class="on">IT</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="de">DE</button>
+  </div>
+</div>
+
+<!-- 01 · SPLASH -->
+<section class="screen" id="storia">
+  <img class="bgimg" data-src="assets/int.webp" alt="">
+  <div class="veil" style="background:linear-gradient(180deg,rgba(10,10,11,.93),rgba(10,10,11,.82) 50%,rgba(10,10,11,.96))"></div>
+  <div class="corners"><i></i><i></i><i></i><i></i></div>
+  <div class="inner" id="splash">
+    <p class="split"><span data-i18n="sp_kicker">Maniago · Friuli</span></p>
+    <img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma, Maniago">
+    <h1 data-i18n="tagline">La pizza di sempre, con un tocco in più.</h1>
+    <div class="diamond"></div>
+  </div>
+</section>
+
+<!-- 02 · L'ANGOLO -->
+<section class="screen story">
+  <span class="num">01 · Via Roma 43</span>
+  <img class="bgimg" data-src="assets/ext.webp" alt="">
+  <div class="veil"></div>
+  <div class="inner fx">
+    <h2 data-i18n="s1_title">In centro,<br>all'angolo di sempre</h2>
+    <hr class="hairline">
+    <p data-i18n="s1_body">A due passi da Piazza Italia, nella città delle coltellerie, la Pizzeria Via Roma è il punto fermo delle sere di Maniago. La pietra, l'insegna, la porta aperta dalle 18:00, tutti i giorni.</p>
+  </div>
+</section>
+
+<!-- 03 · L'ATMOSFERA -->
+<section class="screen story">
+  <span class="num">02 · La sala</span>
+  <img class="bgimg" data-src="assets/intv1.webp" alt="">
+  <div class="veil"></div>
+  <div class="inner fx">
+    <h2 data-i18n="s2_title">Nero, ottone<br>e luce calda</h2>
+    <hr class="hairline">
+    <p data-i18n="s2_body">Una sala disegnata per stare bene: toni scuri, dettagli in ottone, il soffitto color senape che scalda ogni tavolo. Il posto giusto per una cena lenta o una pizza veloce al bancone.</p>
+  </div>
+</section>
+
+<!-- 04 · L'IMPASTO -->
+<section class="screen story">
+  <span class="num">03 · L'impasto</span>
+  <img class="bgimg" data-src="assets/pizza3.webp" alt="">
+  <div class="veil"></div>
+  <div class="inner fx">
+    <h2 data-i18n="s3_title">Farina<br>Molino Rachello<br>dal 1901</h2>
+    <hr class="hairline">
+    <p data-i18n="s3_body">Frumenti italiani selezionati e coltivati in modo sostenibile, una filiera etica trasparente in ogni fase, dalla selezione del seme alla macinazione. Impasto a lunga lievitazione: leggero, digeribile, fragrante.</p>
+  </div>
+</section>
+
+<!-- 05 · LE AUDACI -->
+<section class="screen compact" id="audaci-hero">
+  <div class="inner fx">
+    <div class="pz">
+      <span class="arc"></span><span class="arc a2"></span>
+      <img class="pizza bgimg" style="position:static" data-src="assets/pizza1.webp" alt="">
+    </div>
+    <h2 data-i18n="a_title">Le Audaci</h2>
+    <p class="sub" data-i18n="a_sub">Per chi vuole farsi tentare un pò!</p>
+    <hr class="hairline">
+    <p style="color:var(--grigio);font-size:14.5px;max-width:40ch;margin:0 auto" data-i18n="a_body">Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.</p>
+  </div>
+</section>
+
+<!-- 06 · CORNICIONE -->
+<section class="screen compact teaser">
+  <div class="inner fx">
+    <div class="pz-s">
+      <span class="arc"></span>
+      <img class="pizza bgimg" style="position:static" data-src="assets/pizza2.webp" alt="">
+    </div>
+    <h2 data-i18n="t_title">Hai già provato il nostro cornicione ripieno?</h2>
+    <p data-i18n="t_body">Il vero must della nostra pizza.</p>
+    <div class="mini-list">
+      <div><span>Ricotta</span><b>2,50</b></div>
+      <div><span>Brie</span><b>3,00</b></div>
+      <div><span data-i18n="gorgo">Gorgonzola dolce</span><b>1,00</b></div>
+    </div>
+    <a class="btn-oro" href="#menu" data-i18n="t_cta">Scopri il menù</a>
+  </div>
+</section>
+
+<!-- 07 · STRIP -->
+<div class="strip-wrap">
+  <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
+  <div class="strip">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza3.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza8.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza6.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza5.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza4.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza1.webp" alt="">
+    <img class="pizza bgimg" style="position:static" data-src="assets/pizza2.webp" alt="">
+  </div>
+</div>
+
+<!-- 08 · MENU -->
+<section id="menu">
+  <div class="menu-head fx">
+    <p class="k-s" data-i18n="m_eyebrow">La carta</p>
+    <h2 data-i18n="m_title">Il Menù</h2>
+    <p data-i18n="m_note">Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno</p>
+  </div>
+  <nav class="chips" id="chips" aria-label="Menu categories"></nav>
+  <div id="carta"></div>
+</section>
+
+<!-- 09 · QUOTE -->
+<section class="screen story quote">
+  <img class="bgimg" data-src="assets/intv2.webp" alt="">
+  <div class="veil"></div>
+  <div class="inner fx">
+    <h2 data-i18n="q_text">«La semplicità è l'ultima sofisticazione.»</h2>
+    <p class="who">Leonardo da Vinci</p>
+  </div>
+</section>
+
+
+<!-- SOCIAL -->
+<section id="social">
+  <p class="k-s" data-i18n="so_eyebrow">Seguici</p>
+  <h2 data-i18n="so_title">Social & Recensioni</h2>
+  <div class="soc-links">
+    <a href="https://www.instagram.com/pizzeriaviaromamaniago/" target="_blank" rel="noopener"><i class="ph-thin ph-instagram-logo"></i>Instagram</a>
+    <a href="https://www.facebook.com/people/Pizzeria-Via-Roma/61562436140782/" target="_blank" rel="noopener"><i class="ph-thin ph-facebook-logo"></i>Facebook</a>
+    <a href="https://www.tripadvisor.it/Restaurant_Review-g790406-d20931745-Reviews-Pizzeria_Via_Roma-Maniago_Province_of_Pordenone_Friuli_Venezia_Giulia.html" target="_blank" rel="noopener"><i class="ph-thin ph-star"></i>Tripadvisor</a>
+  </div>
+  <div class="reviews">
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r1">Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.</p><div class="src"><b>Google</b><span>Marta V.&nbsp;·&nbsp;Maniago</span></div></div>
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r2">Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.</p><div class="src"><b>Tripadvisor</b><span>Giulio B.&nbsp;·&nbsp;Pordenone</span></div></div>
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r3">La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.</p><div class="src"><b>Google</b><span>Sara T.&nbsp;·&nbsp;Udine</span></div></div>
+  </div>
+  <div class="mapwrap fx">
+    <iframe title="Mappa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Pizzeria%20Via%20Roma%2C%20Via%20Roma%2043%2C%20Maniago&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+    <div class="tag">Via Roma 43 · Maniago (PN)</div>
+  </div>
+</section>
+
+<!-- 10 · DOVE -->
+<section id="dove">
+  <img class="logo-s" src="assets/logo-oro.png" alt="">
+  <h2 data-i18n="d_title">Vi aspettiamo</h2>
+  <div class="info">
+    <div>
+      <h4 data-i18n="d_dove">Dove</h4>
+      <p>Via Roma 43 · 33085 Maniago (PN)</p>
+      <p><a href="https://maps.google.com/?q=Pizzeria+Via+Roma+Maniago" target="_blank" rel="noopener" data-i18n="d_maps">Apri in Google Maps</a></p>
+    </div>
+    <div>
+      <h4 data-i18n="d_orari">Orari</h4>
+      <p data-i18n="d_orari_v">Tutti i giorni · 18:00 - 23:00</p>
+    </div>
+    <div>
+      <h4 data-i18n="d_contatti">Contatti</h4>
+      <p><a href="tel:+390427541232">0427 541232</a></p>
+      <p style="margin-top:6px">
+        <a href="https://www.instagram.com/pizzeriaviaromamaniago/" target="_blank" rel="noopener">Instagram</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.facebook.com/people/Pizzeria-Via-Roma/61562436140782/" target="_blank" rel="noopener">Facebook</a>
+      </p>
+    </div>
+  </div>
+  <p class="foot">© 2026 Pizzeria Via Roma · demo <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
+</section>
+
+<nav class="tabbar" aria-label="Navigazione">
+  <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Storia</span></a>
+  <a href="#menu" data-tab="menu"><i class="ph-thin ph-fork-knife"></i><span data-i18n="tab_menu">Menù</span></a>
+  <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
+  <a href="#dove" data-tab="dove"><i class="ph-thin ph-map-pin"></i><span data-i18n="tab_dove">Dove</span></a>
+</nav>
+
+<script>
+/* =============== UI + narrative i18n =============== */
+const T = {
+it:{
+  sp_kicker:"Maniago · Friuli", tagline:"La pizza di sempre, con un tocco in più.", scroll:"scorri",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"In centro,<br>all'angolo di sempre",
+  s1_body:"A due passi da Piazza Italia, nella città delle coltellerie, la Pizzeria Via Roma è il punto fermo delle sere di Maniago. La pietra, l'insegna, la porta aperta dalle 18:00, tutti i giorni.",
+  s2_eyebrow:"L'atmosfera", s2_title:"Nero, ottone<br>e luce calda",
+  s2_body:"Una sala disegnata per stare bene: toni scuri, dettagli in ottone, il soffitto color senape che scalda ogni tavolo. Il posto giusto per una cena lenta o una pizza veloce al bancone.",
+  s3_eyebrow:"La materia prima", s3_title:"Farina<br>Molino Rachello<br>dal 1901",
+  s3_body:"Frumenti italiani selezionati e coltivati in modo sostenibile, una filiera etica trasparente in ogni fase, dalla selezione del seme alla macinazione. Impasto a lunga lievitazione: leggero, digeribile, fragrante.",
+  a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un pò!",
+  a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
+  t_title:"Hai già provato il nostro cornicione ripieno?", t_body:"Il vero must della nostra pizza.",
+  t_cta:"Scopri il menù", gorgo:"Gorgonzola dolce", strip_k:"Dal nostro forno",
+  m_eyebrow:"La carta", m_title:"Il Menù",
+  m_note:"Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno",
+  q_text:"«La semplicità è l'ultima sofisticazione.»",
+  so_eyebrow:"Seguici", so_title:"Social & Recensioni",
+  r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
+  r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
+  r3:"La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.",
+  d_title:"Vi aspettiamo", d_dove:"Dove", d_maps:"Apri in Google Maps",
+  d_orari:"Orari", d_orari_v:"Tutti i giorni · 18:00 - 23:00", d_contatti:"Contatti",
+  tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
+  cats:{
+    classiche:["Le Classiche","Le nostre radici, intramontabili"],
+    audaci:["Le Audaci","Per chi vuole farsi tentare un pò!"],
+    bianche:["Le Bianche","Gusto, equilibrio e leggerezza"],
+    calzoni:["I Calzoni","Amore ripieno"],
+    cucina:["Dalla Cucina","Anche se incredibile… non si ha sempre voglia di pizza"],
+    stuzzicherie:["Stuzzicherie","Il miglior antidoto alla fame"],
+    bevande:["Le Bevande","Alla spina, artigianali e del territorio"],
+    dolci:["I Dolci della Casa!","La miglior conclusione"]
+  },
+  varianti:"Varianti", coperto:"Coperto", impasti:"Impasti speciali", cornice:"Cornicione ripieno",
+  spina:"Alla spina", bottiglia:"La selezione di birre in bottiglia", vini:"Vini e bollicine", spritz:"Spritz & Co.",
+  calice:"calice", caraffa:"caraffa", bott:"bottiglia"
+},
+en:{
+  sp_kicker:"Maniago · Friuli, Italy", tagline:"The pizza you know, with a little something more.", scroll:"scroll",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"Downtown,<br>on the usual corner",
+  s1_body:"Steps from Piazza Italia, in the town of master knife-makers, Pizzeria Via Roma is where Maniago's evenings begin. The stone façade, the sign, the door open from 6 pm, every day.",
+  s2_eyebrow:"The atmosphere", s2_title:"Black, brass<br>and warm light",
+  s2_body:"A room designed for lingering: dark tones, brass details, a mustard ceiling that warms every table. The right place for a slow dinner or a quick pizza at the counter.",
+  s3_eyebrow:"The raw material", s3_title:"Molino Rachello<br>flour<br>since 1901",
+  s3_body:"Selected Italian wheat, sustainably grown, with an ethical and transparent supply chain at every step, from seed to milling. Slow-leavened dough: light, digestible, fragrant.",
+  a_title:"Le Audaci", a_sub:"For those who like temptation!",
+  a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
+  t_title:"Have you tried our stuffed crust?", t_body:"The true must of our pizza.",
+  t_cta:"Discover the menu", gorgo:"Sweet gorgonzola", strip_k:"From our oven",
+  m_eyebrow:"The menu", m_title:"The Menu",
+  m_note:"Slow-leavened dough, selected ingredients, oven baked",
+  q_text:"“Simplicity is the ultimate sophistication.”",
+  so_eyebrow:"Follow us", so_title:"Social & Reviews",
+  r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
+  r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
+  r3:"The pizza you know, with a little something more, truly. We'll be back for sure.",
+  d_title:"We're waiting for you", d_dove:"Where", d_maps:"Open in Google Maps",
+  d_orari:"Hours", d_orari_v:"Every day · 6 pm - 11 pm", d_contatti:"Contact",
+  tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
+  cats:{
+    classiche:["Le Classiche","Our roots, timeless"],
+    audaci:["Le Audaci","For those who like temptation"],
+    bianche:["Le Bianche","Taste, balance and lightness"],
+    calzoni:["I Calzoni","Filled with love"],
+    cucina:["From the Kitchen","Hard to believe… but sometimes it's not a pizza night"],
+    stuzzicherie:["Starters","The best antidote to hunger"],
+    bevande:["Drinks","On tap, craft and local"],
+    dolci:["House Desserts!","The best way to end"]
+  },
+  varianti:"Extras", coperto:"Cover charge", impasti:"Special doughs", cornice:"Stuffed crust",
+  spina:"On tap", bottiglia:"Our bottled craft beers", vini:"Wines & bubbles", spritz:"Spritz & Co.",
+  calice:"glass", caraffa:"carafe", bott:"bottle"
+},
+de:{
+  sp_kicker:"Maniago · Friaul, Italien", tagline:"Die Pizza von immer, mit dem gewissen Etwas.", scroll:"scrollen",
+  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Im Zentrum,<br>an der vertrauten Ecke",
+  s1_body:"Wenige Schritte von der Piazza Italia, in der Stadt der Messerschmiede, ist die Pizzeria Via Roma der Fixpunkt der Abende von Maniago. Der Stein, das Schild, die Tür ab 18 Uhr geöffnet, jeden Tag.",
+  s2_eyebrow:"Die Atmosphäre", s2_title:"Schwarz, Messing<br>und warmes Licht",
+  s2_body:"Ein Raum zum Verweilen: dunkle Töne, Messingdetails, eine senffarbene Decke, die jeden Tisch wärmt. Der richtige Ort für ein langes Abendessen oder eine schnelle Pizza an der Theke.",
+  s3_eyebrow:"Der Rohstoff", s3_title:"Mehl<br>Molino Rachello<br>seit 1901",
+  s3_body:"Ausgewählter italienischer Weizen, nachhaltig angebaut, mit einer ethischen und transparenten Lieferkette in jedem Schritt, vom Saatgut bis zur Mahlung. Lang gereifter Teig: leicht, bekömmlich, duftend.",
+  a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
+  a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
+  t_title:"Schon unseren gefüllten Rand probiert?", t_body:"Das wahre Muss unserer Pizza.",
+  t_cta:"Zur Speisekarte", gorgo:"Milder Gorgonzola", strip_k:"Aus unserem Ofen",
+  m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
+  m_note:"Lang gereifter Teig, ausgewählte Zutaten, im Ofen gebacken",
+  q_text:"„Einfachheit ist die höchste Stufe der Vollendung.“",
+  so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
+  r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
+  r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
+  r3:"Die Pizza von immer, mit dem gewissen Etwas, wirklich. Wir kommen sicher wieder.",
+  d_title:"Wir erwarten Sie", d_dove:"Wo", d_maps:"In Google Maps öffnen",
+  d_orari:"Öffnungszeiten", d_orari_v:"Täglich · 18:00 - 23:00 Uhr", d_contatti:"Kontakt",
+  tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
+  cats:{
+    classiche:["Le Classiche","Unsere Wurzeln, zeitlos"],
+    audaci:["Le Audaci","Für alle, die sich verführen lassen"],
+    bianche:["Le Bianche","Geschmack, Balance und Leichtigkeit"],
+    calzoni:["I Calzoni","Mit Liebe gefüllt"],
+    cucina:["Aus der Küche","Kaum zu glauben… aber manchmal ist kein Pizza-Abend"],
+    stuzzicherie:["Vorspeisen","Das beste Mittel gegen Hunger"],
+    bevande:["Getränke","Vom Fass, handwerklich und regional"],
+    dolci:["Hausgemachte Desserts!","Der beste Abschluss"]
+  },
+  varianti:"Extras", coperto:"Gedeck", impasti:"Spezialteige", cornice:"Gefüllter Rand",
+  spina:"Vom Fass", bottiglia:"Unsere Craft-Biere in der Flasche", vini:"Weine & Prickelndes", spritz:"Spritz & Co.",
+  calice:"Glas", caraffa:"Karaffe", bott:"Flasche"
+}
+};
+
+/* =============== traduzione ingredienti (ordine: frasi lunghe prima) =============== */
+const TERMS = [
+["mozzarella di Bufala in cottura","buffalo mozzarella, baked in","Büffelmozzarella, mitgebacken"],
+["mozzarella di Bufala fuori cottura","buffalo mozzarella, added fresh","Büffelmozzarella, frisch dazu"],
+["prosciutto crudo San Daniele","San Daniele cured ham","San-Daniele-Rohschinken"],
+["passata di pomodorino giallo","yellow cherry-tomato passata","gelbe Kirschtomaten-Passata"],
+["passata di peperoni","sweet-pepper passata","Paprika-Passata"],
+["pomodorini semi dry","semi-dried cherry tomatoes","halbgetrocknete Kirschtomaten"],
+["pizzette fritte con pomodoro, mozzarella e grana","fried mini pizzas with tomato, mozzarella and Grana","frittierte Mini-Pizzen mit Tomate, Mozzarella und Grana"],
+["pane con impasto della pizza","bread from our pizza dough","Brot aus unserem Pizzateig"],
+["provola affumicata di bufala","smoked buffalo provola","geräucherte Büffel-Provola"],
+["provola affumicata","smoked provola","geräucherte Provola"],
+["ricotta affumicata","smoked ricotta","geräucherte Ricotta"],
+["Grana Padano in scaglie","Grana Padano shavings","Grana-Padano-Späne"],
+["Grana a scaglie","Grana shavings","Grana-Späne"],
+["grana a scaglie","Grana shavings","Grana-Späne"],
+["Grana in cottura","Grana, baked in","Grana, mitgebacken"],
+["bordo ripieno di","crust stuffed with","Rand gefüllt mit"],
+["melanzane fritte","fried aubergine","frittierte Auberginen"],
+["patate al forno","oven-roasted potatoes","Ofenkartoffeln"],
+["fonduta di montasio","Montasio fondue","Montasio-Fondue"],
+["crema di olive nere","black-olive cream","Creme von schwarzen Oliven"],
+["formaggio di capra","goat's cheese","Ziegenkäse"],
+["formaggio salato","local salted cheese","regionaler Salzkäse"],
+["formaggi misti","mixed cheeses","gemischter Käse"],
+["verdure miste","mixed vegetables","gemischtes Gemüse"],
+["granella di pistacchio","chopped pistachios","gehackte Pistazien"],
+["tuorlo d'uovo","egg yolk","Eigelb"],
+["lardo alle erbe","herbed lardo","Kräuter-Lardo"],
+["salame piccante","spicy salami","scharfe Salami"],
+["salsa caesar","Caesar dressing","Caesar-Dressing"],
+["pollo fritto","crispy fried chicken","knuspriges Hähnchen"],
+["misticanza","mixed leaves","Blattsalate"],
+["cipolla rossa","red onion","rote Zwiebel"],
+["peperoncino","chilli","Peperoncino"],
+["pepe nero","black pepper","schwarzer Pfeffer"],
+["olive nere","black olives","schwarze Oliven"],
+["miele piccante","spicy honey","scharfer Honig"],
+["naturale / frizzante","still / sparkling","still / sprudelnd"],
+["Non filtrata, non pastorizzata","Unfiltered, unpasteurised","Unfiltriert, nicht pasteurisiert"],
+["Artigianale Friulana","Friulian craft brewery","Friaulische Craft-Brauerei"],
+["Senza glutine","Gluten-free","Glutenfrei"],
+["American pale ale","American pale ale","American Pale Ale"],
+["ripieno:","filling:","Füllung:"],
+["base:","base:","Basis:"],
+["pomodorini","cherry tomatoes","Kirschtomaten"],
+["pomodoro","tomato","Tomate"],
+["basilico","basil","Basilikum"],
+["aglio","garlic","Knoblauch"],
+["olive","olives","Oliven"],
+["olio","oil","Öl"],
+["origano","oregano","Oregano"],
+["capperi","capers","Kapern"],
+["acciughe","anchovies","Sardellen"],
+["prosciutto","cooked ham","Kochschinken"],
+["porcini","porcini mushrooms","Steinpilze"],
+["funghi","mushrooms","Champignons"],
+["carciofi","artichokes","Artischocken"],
+["tonno","tuna","Thunfisch"],
+["cipolla","onion","Zwiebel"],
+["rucola","rocket","Rucola"],
+["pesto genovese","Genoese pesto","Pesto Genovese"],
+["bufala in cottura","buffalo mozzarella, baked in","Büffelmozzarella, mitgebacken"],
+["bufala","buffalo mozzarella","Büffelmozzarella"],
+["polenta","polenta","Polenta"],
+["würstel","frankfurters","Würstel"],
+["wurstel","frankfurters","Würstel"],
+["pancetta","pancetta","Pancetta"],
+["salamino","salami","Salami"],
+["salame","salami","Salami"],
+["salsiccia","Italian sausage","Salsiccia"],
+["bresaola","bresaola","Bresaola"],
+["zucchine","courgettes","Zucchini"],
+["pepe","pepper","Pfeffer"],
+["noci","walnuts","Walnüsse"],
+["miele","honey","Honig"],
+["porro","leek","Lauch"],
+["mandorle","almonds","Mandeln"],
+["patate","potatoes","Kartoffeln"],
+["Bionda","Blonde","Hell"],
+["Scura","Dark","Dunkel"],
+["Ipa","IPA","IPA"],
+];
+function trDesc(s){
+  if(LANG==="it"||!s) return s;
+  const i = LANG==="en"?1:2;
+  let out = s;
+  for(const t of TERMS) out = out.split(t[0]).join(t[i]);
+  return out;
+}
+/* nomi generici tradotti (le pizze restano in italiano) */
+const NAME_TR = {
+"Prosciutto Crudo":["Cured ham","Rohschinken"],
+"Prosciutto Crudo con Burrata":["Cured ham with burrata","Rohschinken mit Burrata"],
+"Prosciutto Crudo con Mozzarella di Bufala":["Cured ham with buffalo mozzarella","Rohschinken mit Büffelmozzarella"],
+"Tagliere di Affettati":["Cured-meat board","Aufschnitt-Brett"],
+"Tagliere di Formaggi":["Cheese board","Käse-Brett"],
+"Caprese con Bufala e Pomodorini":["Caprese with buffalo mozzarella & cherry tomatoes","Caprese mit Büffelmozzarella & Kirschtomaten"],
+"Cotoletta e Patate Fritte":["Cutlet & fries","Schnitzel & Pommes"],
+"Panino Vegetariano e Patate Fritte":["Veggie sandwich & fries","Vegetarisches Sandwich & Pommes"],
+"Hot Dog e Patate Fritte":["Hot dog & fries","Hot Dog & Pommes"],
+"Patatine Fritte":["French fries","Pommes frites"],
+"Alette di Pollo (6 pz)":["Chicken wings (6 pcs)","Chicken Wings (6 Stk.)"],
+"Anelli di Cipolla (6 pz)":["Onion rings (6 pcs)","Zwiebelringe (6 Stk.)"],
+"Pepite di Asiago (8 pz)":["Asiago nuggets (8 pcs)","Asiago-Nuggets (8 Stk.)"],
+"Montanare (4 pz)":["Montanare (4 pcs)","Montanare (4 Stk.)"],
+"Torta del Giorno":["Cake of the day","Kuchen des Tages"],
+"Gelato Artigianale":["Artisan gelato","Hausgemachtes Eis"],
+"Acqua 0,5 l · naturale / frizzante":["Water 0.5 l · still / sparkling","Wasser 0,5 l · still / sprudelnd"],
+"Bibite":["Soft drinks","Softdrinks"],
+"Aggiunte":["Extra toppings","Extra-Beläge"],
+"Di Bufala":["Buffalo mozzarella","Büffelmozzarella"],
+"Crudo":["Cured ham","Rohschinken"],
+"Porcini":["Porcini","Steinpilze"],
+"Gorgonzola dolce":["Sweet gorgonzola","Milder Gorgonzola"],
+};
+function trName(n){
+  if(LANG==="it") return n;
+  const t = NAME_TR[n];
+  return t ? t[LANG==="en"?0:1] : n;
+}
+
+/* =============== dati menù (carta v5 + board finale) =============== */
+const MENU = {
+classiche:[
+["Marinara Classica","pomodoro, aglio, olio, origano","6,00"],
+["Marinara d'Oro","passata di pomodorino giallo, aglio, origano","8,00"],
+["Margherita Classica","pomodoro, mozzarella, basilico","7,00"],
+["Margherita Affumicata","pomodoro, provola affumicata di bufala, pepe nero, basilico","8,50"],
+["Bufalina","pomodoro, mozzarella di Bufala in cottura, basilico","8,00"],
+["Primo Amore","pomodoro, mozzarella di Bufala in cottura, pomodorini, basilico","9,00"],
+["Siciliana","pomodoro, mozzarella, capperi, olive, acciughe, origano","8,00"],
+["Diavola","pomodoro, mozzarella, salame piccante","8,00"],
+["Prosciutto e Funghi","pomodoro, mozzarella, prosciutto, funghi","8,00"],
+["Capricciosa","pomodoro, mozzarella, prosciutto, funghi, carciofi","9,00"],
+["Tonno e Cipolla","pomodoro, mozzarella, tonno, cipolla","8,00"],
+["Formaggi","pomodoro, mozzarella, formaggi misti","8,50"],
+["Verdure","pomodoro, mozzarella, verdure miste","8,50"],
+["Rucola, Grana e Pomodorini","pomodoro, mozzarella, rucola, pomodorini, Grana Padano in scaglie","8,50"],
+],
+audaci:[
+["Burrata e Crudo","pomodoro, prosciutto crudo San Daniele, burrata","12,00"],
+["Genovese","passata di pomodorino giallo, bufala in cottura, pesto genovese, pomodorini semi dry","12,00"],
+["Alpina","bordo ripieno di Gorgonzola, pomodoro, mozzarella, porcini, speck","13,00"],
+["Tramontina","pomodoro, mozzarella, formaggio salato, polenta, pitina","12,00"],
+["Parmigiana","pomodoro, mozzarella, provola affumicata, Grana in cottura, melanzane fritte, basilico","11,00"],
+["Deliziosa","bordo ripieno di ricotta, pomodoro, mozzarella di Bufala in cottura, pomodorini, prosciutto crudo San Daniele","13,00"],
+["Grassa","pomodoro, mozzarella, würstel, pancetta, salamino, salsiccia","11,00"],
+["Maglio","pomodoro, mozzarella, cipolla rossa, salsiccia, patate al forno","10,00"],
+["San Daniele","pomodoro, mozzarella, prosciutto crudo San Daniele","10,00"],
+["Primavera","pomodoro, mozzarella di Bufala in cottura, rucola, pomodorini, Grana a scaglie, prosciutto crudo San Daniele","12,00"],
+["Brie, Speck e Ricotta","pomodoro, mozzarella, ricotta affumicata, brie, speck","10,50"],
+["Raf","pomodoro, mozzarella, salsiccia, gorgonzola, porcini, mozzarella di Bufala fuori cottura, rucola","12,00"],
+["Valtellina","pomodoro, mozzarella, bresaola, rucola, Grana Padano in scaglie","11,00"],
+["Greca","pomodoro, olive, cipolla rossa, pomodorini, feta, rucola","10,50"],
+["Delicata","mozzarella, lardo alle erbe, noci, miele, gorgonzola","12,00"],
+["Saporita","pomodoro, mozzarella, porro, guanciale, formaggio salato, miele piccante","12,00"],
+],
+bianche:[
+["Golosa","passata di peperoni, mozzarella, 'nduja, salsiccia, patate al forno","12,00"],
+["Povera","mozzarella, mortadella, burrata, granella di pistacchio","12,00"],
+["Carbonara","mozzarella, guanciale, tuorlo d'uovo, pecorino, pepe nero","12,00"],
+["Friuli","pomodoro, mozzarella, salame, radicchio, montasio","11,00"],
+["Monte Jouf (mezza luna)","ripieno: mozzarella, zucchine, pepe, ricotta · base: pomodoro, mozzarella, pancetta, patate","12,00"],
+["Sarah","mozzarella, pomodoro, patate al forno, brie, salamino","9,50"],
+["Frico","mozzarella, fonduta di montasio, cipolla, patate","12,00"],
+["Via Roma","mozzarella di Bufala in cottura, pomodorini semi dry, olive nere, ricotta affumicata","11,00"],
+["Friarielli e Salsiccia","mozzarella, friarielli, salsiccia, provola affumicata","10,50"],
+["Caprina","mozzarella, crema di olive nere, formaggio di capra, mandorle, pomodorini semi dry","12,00"],
+],
+calzoni:[
+["Classico","pomodoro, mozzarella, prosciutto, funghi","8,00"],
+["Piccante","mozzarella, 'nduja, salame piccante, peperoncino","9,00"],
+],
+cucina:[
+["Prosciutto Crudo","","10,00"],
+["Prosciutto Crudo con Burrata","","14,00"],
+["Prosciutto Crudo con Mozzarella di Bufala","","14,00"],
+["Tagliere di Affettati","","15,00"],
+["Tagliere di Formaggi","","12,00"],
+["Caprese con Bufala e Pomodorini","","10,00"],
+["Caesar Salad","misticanza, pollo fritto, grana a scaglie, pomodorini, salsa caesar","10,00"],
+["Insalata Bufalina","misticanza, pomodorini, olive, tonno, bufala","10,00"],
+["Cotoletta e Patate Fritte","","9,00"],
+["Panino Vegetariano e Patate Fritte","pane con impasto della pizza, verdure miste e bufala","10,00"],
+["Hot Dog e Patate Fritte","pane con impasto della pizza e wurstel","8,00"],
+],
+stuzzicherie:[
+["Stuzzica Mix","","10,00"],
+["Patatine Fritte","","5,00"],
+["Alette di Pollo (6 pz)","","6,00"],
+["Anelli di Cipolla (6 pz)","","6,00"],
+["Mini Frico (6 pz)","","7,00"],
+["Pepite di Asiago (8 pz)","","7,00"],
+["Montanare (4 pz)","pizzette fritte con pomodoro, mozzarella e grana","10,00"],
+],
+dolci:[
+["Tiramisù","","6,00"],
+["Panna Cotta","","5,50"],
+["Torta del Giorno","","6,00"],
+["Gelato Artigianale","","5,00"],
+]
+};
+
+/* immagine o illustrazione per ogni categoria */
+const CAT_IMG = { classiche:"assets/pizza3.webp", audaci:"assets/pizza1.webp", bianche:"assets/pizza8.webp", bevande:"assets/int.webp" };
+
+const VARIANTI = [["Aggiunte","1,00"],["Di Bufala","3,00"],["Burrata","4,00"],["Crudo","3,00"],["Porcini","2,00"],["Pitina","3,00"]];
+const CORNICE  = [["Ricotta","2,50"],["Brie","3,00"],["Gorgonzola dolce","1,00"]];
+const SPINA = [
+["Hirter Marzen","Bionda","3,50","5,50","16,50"],
+["Hirter Ambrata","Bionda","4,00","6,50","18,50"],
+["Blanche","Wieze","4,00","6,50","18,50"]];
+const BOTTIGLIA = [
+["Garlatti Costa · Artigianale Friulana","Non filtrata, non pastorizzata",[
+  ["Rush More","American pale ale · 0,3 l","4,50"],
+  ["Flag Keller Pils","Senza glutine · 0,3 l","4,50"],
+  ["German Alt","Scura · 0,3 l","4,50"]]],
+["Theresianer · Artigianale Friulana","",[
+  ["Guglielmo","Lagher · 0,5 l","6,50"],
+  ["Amleto","Bock · 0,5 l","6,50"],
+  ["Cordelia","Ipa · 0,5 l","6,50"]]]];
+const VINI = [
+["Cabernet Franc","2,00","6,00","10,00"],
+["Friulano","2,00","6,00","10,00"],
+["Prosecco DOC Treviso","3,00","8,00","15,00"]];
+const SPRITZ = [["Spritz Bianco","5,50"],["Spritz Rosso","6,50"],["Spritz Aperol","5,50"],["Spritz Campari","6,50"],["Americano","6,50"],["Negroni","5,50"],["Montenegro","6,50"],["Amaro del Capo","5,50"],["Vecchia Romagna","6,50"],["Martini","6,50"]];
+const ALTRO = [["Acqua 0,5 l · naturale / frizzante","2,00"],["Bibite","3,00"]];
+
+/* =============== render =============== */
+let LANG = "it";
+const $ = s => document.querySelector(s);
+
+function item(n,d,p){
+  return `<div class="item"><div class="row"><span class="nome">${trName(n)}</span><span class="dots"></span><span class="prezzo">${p}</span></div>${d?`<p class="desc">${trDesc(d)}</p>`:""}</div>`;
+}
+const simple = rows => rows.map(r=>item(r[0],"",r[1])).join("");
+
+function renderMenu(){
+  const t = T[LANG];
+  const order = ["classiche","audaci","bianche","calzoni","cucina","stuzzicherie","bevande","dolci"];
+  $("#chips").innerHTML = order.map((id,i)=>`<button data-go="${id}" class="${i===0?"on":""}">${t.cats[id][0]}</button>`).join("");
+
+  let html = "";
+  order.forEach((id,idx)=>{
+    const [titolo,tag] = t.cats[id];
+    const n = String(idx+1).padStart(2,"0");
+    html += `<section class="mcat fx" id="cat-${id}">`;
+    if(CAT_IMG[id]) html += `<div class="cat-hero"><span class="arc"></span><img class="${id==='bevande'?'photo':'pizza'}" ${id==='bevande'?'style="border-radius:50%"':''} src="${CAT_IMG[id]}" alt="" loading="lazy"${id==='bevande'?' class="photo"':''}></div>`;
+    html += `<header><span class="n">${n}</span><h3>${titolo}</h3></header><p class="tag">${tag}</p><div class="rule"></div>`;
+    if(MENU[id]) html += MENU[id].map(v=>item(v[0],v[1],v[2])).join("");
+
+    if(id==="calzoni") html += `<p class="groupline">${t.varianti}</p>` + simple(VARIANTI);
+    if(id==="audaci")  html += `<p class="groupline">${t.cornice}</p>` + simple(CORNICE)
+                             + simple([[t.impasti,"3,00"],[t.coperto,"1,50"]]);
+    if(id==="bevande"){
+      html += `<p class="groupline">${t.spina}</p>`;
+      html += SPINA.map(b=>`<div class="item multi"><div class="row"><span class="nome">${b[0]}</span><span class="dots"></span></div><span class="sub">${trDesc(b[1])}</span><div class="pricegrid"><span>0,3 l<b>${b[2]}</b></span><span>0,5 l<b>${b[3]}</b></span><span>1,5 l<b>${b[4]}</b></span></div></div>`).join("");
+      html += `<p class="groupline">${t.bottiglia}</p>`;
+      for(const g of BOTTIGLIA){
+        html += `<p class="groupsub">${trDesc(g[0])}${g[1]?`, ${trDesc(g[1])}`:""}</p>`;
+        html += g[2].map(b=>item(b[0],b[1],b[2])).join("");
+      }
+      html += `<p class="groupline">${t.vini}</p>`;
+      html += VINI.map(v=>`<div class="item multi"><div class="row"><span class="nome">${v[0]}</span><span class="dots"></span></div><div class="pricegrid"><span>${t.calice}<b>${v[1]}</b></span><span>${t.caraffa} 0,5<b>${v[2]}</b></span><span>${t.bott} 0,75<b>${v[3]}</b></span></div></div>`).join("");
+      html += `<p class="groupline">${t.spritz}</p>` + simple(SPRITZ) + simple(ALTRO);
+    }
+    html += `</section>`;
+  });
+  $("#carta").innerHTML = html;
+  bindChips(); observeAll();
+}
+
+/* =============== i18n apply =============== */
+function applyLang(l){
+  LANG = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const k = el.dataset.i18n;
+    if(T[l][k] !== undefined) el.innerHTML = T[l][k];
+  });
+  document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
+  renderMenu();
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
+
+/* =============== chips + spy =============== */
+let spyCat;
+function bindChips(){
+  document.querySelectorAll("#chips button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const el = document.getElementById("cat-"+b.dataset.go);
+      const y = el.getBoundingClientRect().top + scrollY - 126;
+      scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
+    });
+  });
+  if(spyCat) spyCat.disconnect();
+  spyCat = new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id.replace("cat-","");
+        document.querySelectorAll("#chips button").forEach(b=>{
+          const on = b.dataset.go===id;
+          b.classList.toggle("on",on);
+          if(on) b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+        });
+      }
+    });
+  },{rootMargin:"-25% 0px -65% 0px"});
+  document.querySelectorAll(".mcat").forEach(s=>spyCat.observe(s));
+}
+
+/* =============== reveal + lazy =============== */
+let fxObs;
+function observeAll(){
+  if(fxObs) fxObs.disconnect();
+  fxObs = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add("vis"); fxObs.unobserve(e.target); }
+  }),{threshold:.1});
+  document.querySelectorAll(".fx").forEach(el=>fxObs.observe(el));
+}
+const imgObs = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const im = e.target;
+    if(im.dataset.src){ im.src = im.dataset.src; im.onload = ()=>im.classList.add("vis"); }
+    imgObs.unobserve(im);
+  }
+}),{rootMargin:"250px"});
+document.querySelectorAll(".bgimg").forEach(im=>imgObs.observe(im));
+
+/* =============== top bar + tab spy =============== */
+const sent = document.createElement("div");
+sent.style.cssText = "position:absolute;top:60px;height:1px;width:1px;pointer-events:none";
+document.body.prepend(sent);
+new IntersectionObserver(([e])=>{$("#topbar").classList.toggle("solid",!e.isIntersecting)},{rootMargin:"0px"}).observe(sent);
+const tabSpy = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll(".tabbar a[data-tab]").forEach(a=>a.classList.toggle("on",a.dataset.tab===e.target.dataset.zone));
+    }
+  });
+},{rootMargin:"-40% 0px -55% 0px"});
+document.getElementById("storia").dataset.zone="storia";
+document.getElementById("menu").dataset.zone="menu";
+document.getElementById("dove").dataset.zone="dove";
+["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
+
+/* =============== init =============== */
+renderMenu();
+observeAll();
+requestAnimationFrame(()=>document.getElementById("splash").classList.add("ready"));
+</script>
+</body>
+</html>
