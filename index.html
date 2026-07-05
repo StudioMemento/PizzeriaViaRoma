@@ -50,16 +50,29 @@ a,button{touch-action:manipulation}
 /* ---------------- top bar ---------------- */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
+  padding-bottom:14px;
   display:flex;align-items:center;justify-content:space-between;
   padding:calc(10px + env(safe-area-inset-top)) 20px 10px;
   background:linear-gradient(180deg,rgba(10,10,11,.9),rgba(10,10,11,0));
   transition:background .3s;
 }
 .top.solid{background:rgba(10,10,11,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair-soft)}
-.top .mark{height:50px;width:50px;object-fit:contain}
+.top .mark{height:62px;width:62px;object-fit:contain}
 .lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
-.lang button{font-size:11.5px;letter-spacing:.14em;padding:7px 13px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
+.lang button{font-size:13px;letter-spacing:.14em;padding:9px 16px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
+
+
+/* dissolvenze blur ai bordi per uno scroll più morbido */
+.scrim{position:fixed;left:0;right:0;z-index:45;pointer-events:none}
+.scrim-top{top:0;height:120px;
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  -webkit-mask-image:linear-gradient(180deg,#000 34%,transparent);mask-image:linear-gradient(180deg,#000 34%,transparent);
+  background:linear-gradient(180deg,rgba(10,10,11,.55),transparent)}
+.scrim-bot{bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));height:96px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  -webkit-mask-image:linear-gradient(0deg,#000 34%,transparent);mask-image:linear-gradient(0deg,#000 34%,transparent);
+  background:linear-gradient(0deg,rgba(10,10,11,.6),transparent)}
 
 /* ---------------- screens ---------------- */
 .screen{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -198,11 +211,11 @@ a,button{touch-action:manipulation}
 .cat-hero img.photo{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
 .cat-hero .illu{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--hair-soft);border-radius:50%}
 .cat-hero .illu svg{width:44%;height:44%;stroke:var(--oro);fill:none;stroke-width:1.1;opacity:.9}
-.mcat header{margin-bottom:12px;display:flex;align-items:baseline;gap:16px;text-align:left}
-.mcat .n{font-size:12px;letter-spacing:.2em;color:var(--hair);font-weight:300}
+.mcat header{margin-bottom:6px;display:block;text-align:left}
+.mcat .n{display:block;font-size:12px;letter-spacing:.3em;color:var(--oro);font-weight:400;margin-bottom:10px}
 .mcat h3{font-size:clamp(23px,5.6vw,30px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
-.mcat .tag{font-size:12.5px;color:var(--oro);letter-spacing:.06em;margin:-4px 0 0 44px;text-align:left}
-.mcat .rule{width:44px;height:1px;background:var(--oro);opacity:.75;margin:18px 0 4px 44px}
+.mcat .tag{font-size:12.5px;color:var(--oro);letter-spacing:.06em;margin:8px 0 0;text-align:left}
+.mcat .rule{width:44px;height:1px;background:var(--oro);opacity:.75;margin:18px 0 4px}
 
 .item{padding:16px 0;border-bottom:1px solid var(--hair-soft)}
 .item:last-child{border:0}
@@ -290,6 +303,8 @@ a,button{touch-action:manipulation}
     <button data-lang="de">DE</button>
   </div>
 </div>
+<div class="scrim scrim-top"></div>
+<div class="scrim scrim-bot"></div>
 
 <!-- 01 · SPLASH -->
 <section class="screen" id="storia">
@@ -375,52 +390,6 @@ a,button{touch-action:manipulation}
   <div class="dots" id="fornodots"></div>
 </div>
 
-<!-- 08-11 · SEZIONI DEDICATE -->
-<section class="screen story">
-  <span class="num">04 · I calzoni</span>
-  <img class="bgimg" data-src="assets/pizza7.webp" alt="">
-  <div class="veil"></div><div class="blurband"></div>
-  <div class="inner fx">
-    <h2 data-i18n="xc_title">I Calzoni</h2>
-    <hr class="hairline">
-    <p data-i18n="xc_body">Chiusi, dorati, ripieni d'amore. La nostra pasta piegata attorno al suo cuore, dal classico al piccante.</p>
-    <a class="golink" href="#cat-calzoni" data-i18n="sel_cta">Scopri la selezione</a>
-  </div>
-</section>
-<section class="screen story">
-  <span class="num">05 · Dalla cucina</span>
-  <img class="bgimg" data-src="assets/int.webp" alt="">
-  <div class="veil"></div><div class="blurband"></div>
-  <div class="inner fx">
-    <h2 data-i18n="xk_title">Dalla Cucina</h2>
-    <hr class="hairline">
-    <p data-i18n="xk_body">Taglieri col San Daniele, caprese di bufala, insalate e piatti veloci. Per quando non è serata da pizza.</p>
-    <a class="golink" href="#cat-cucina" data-i18n="sel_cta">Scopri la selezione</a>
-  </div>
-</section>
-<section class="screen story">
-  <span class="num">06 · Stuzzicherie</span>
-  <img class="bgimg" data-src="assets/intv1.webp" alt="">
-  <div class="veil"></div><div class="blurband"></div>
-  <div class="inner fx">
-    <h2 data-i18n="xs_title">Stuzzicherie</h2>
-    <hr class="hairline">
-    <p data-i18n="xs_body">Fritti caldi e assaggi da condividere: montanare, mini frico, alette. Il miglior antidoto alla fame.</p>
-    <a class="golink" href="#cat-stuzzicherie" data-i18n="sel_cta">Scopri la selezione</a>
-  </div>
-</section>
-<section class="screen story">
-  <span class="num">07 · I dolci</span>
-  <img class="bgimg" data-src="assets/intv2.webp" alt="">
-  <div class="veil"></div><div class="blurband"></div>
-  <div class="inner fx">
-    <h2 data-i18n="xd_title">I Dolci della Casa</h2>
-    <hr class="hairline">
-    <p data-i18n="xd_body">Tiramisù, panna cotta e la torta del giorno. La miglior conclusione.</p>
-    <a class="golink" href="#cat-dolci" data-i18n="sel_cta">Scopri la selezione</a>
-  </div>
-</section>
-
 <!-- 08 · MENU -->
 <section id="menu">
   <div class="menu-head fx">
@@ -460,7 +429,6 @@ a,button{touch-action:manipulation}
   <div class="mapwrap fx">
     <iframe title="Mappa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
       src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
-    <div class="tag">Via Roma 43 · Maniago (PN)</div>
   </div>
 </section>
 
@@ -474,7 +442,7 @@ a,button{touch-action:manipulation}
     </div>
     <div>
       <h4 data-i18n="d_orari">Orari</h4>
-      <p data-i18n="d_orari_v">Tutti i giorni · 18:00 - 23:00</p>
+      <p data-i18n="d_orari_v">Mar - Dom · 18:00 - 23:00 · Lun chiuso</p>
     </div>
     <div>
       <h4 data-i18n="d_contatti">Contatti</h4>
@@ -509,17 +477,12 @@ it:{
   m_eyebrow:"La carta", m_title:"Il Menù",
   m_note:"Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno",
   q_text:"«La semplicità è l'ultima sofisticazione.»",
-  sel_cta:"Scopri la selezione",
-  xc_title:"I Calzoni", xc_body:"Chiusi, dorati, ripieni d'amore. La nostra pasta piegata attorno al suo cuore, dal classico al piccante.",
-  xk_title:"Dalla Cucina", xk_body:"Taglieri col San Daniele, caprese di bufala, insalate e piatti veloci. Per quando non è serata da pizza.",
-  xs_title:"Stuzzicherie", xs_body:"Fritti caldi e assaggi da condividere: montanare, mini frico, alette. Il miglior antidoto alla fame.",
-  xd_title:"I Dolci della Casa", xd_body:"Tiramisù, panna cotta e la torta del giorno. La miglior conclusione.",
   so_eyebrow:"Seguici", so_title:"Social & Recensioni",
   r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
   r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
   r3:"La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.",
   d_title:"Vi aspettiamo", d_dove:"Dove", d_maps:"Apri in Google Maps",
-  d_orari:"Orari", d_orari_v:"Tutti i giorni · 18:00 - 23:00", d_contatti:"Contatti",
+  d_orari:"Orari", d_orari_v:"Mar - Dom · 18:00 - 23:00 · Lun chiuso", d_contatti:"Contatti",
   tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
   cats:{
     classiche:["Le Classiche","Le nostre radici, intramontabili"],
@@ -550,17 +513,12 @@ en:{
   m_eyebrow:"The menu", m_title:"The Menu",
   m_note:"Slow-leavened dough, selected ingredients, oven baked",
   q_text:"“Simplicity is the ultimate sophistication.”",
-  sel_cta:"Discover the selection",
-  xc_title:"I Calzoni", xc_body:"Folded, golden, filled with love. Our dough wrapped around its heart, from classic to spicy.",
-  xk_title:"From the Kitchen", xk_body:"San Daniele boards, buffalo caprese, salads and quick dishes. For when it's not a pizza night.",
-  xs_title:"Starters", xs_body:"Hot fried bites to share: montanare, mini frico, wings. The best antidote to hunger.",
-  xd_title:"House Desserts", xd_body:"Tiramisù, panna cotta and the cake of the day. The best way to end.",
   so_eyebrow:"Follow us", so_title:"Social & Reviews",
   r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
   r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
   r3:"The pizza you know, with a little something more, truly. We'll be back for sure.",
   d_title:"We're waiting for you", d_dove:"Where", d_maps:"Open in Google Maps",
-  d_orari:"Hours", d_orari_v:"Every day · 6 pm - 11 pm", d_contatti:"Contact",
+  d_orari:"Hours", d_orari_v:"Tue - Sun · 6 pm - 11 pm · Mon closed", d_contatti:"Contact",
   tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
   cats:{
     classiche:["Le Classiche","Our roots, timeless"],
@@ -591,17 +549,12 @@ de:{
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
   m_note:"Lang gereifter Teig, ausgewählte Zutaten, im Ofen gebacken",
   q_text:"„Einfachheit ist die höchste Stufe der Vollendung.“",
-  sel_cta:"Zur Auswahl",
-  xc_title:"I Calzoni", xc_body:"Gefaltet, goldbraun, mit Liebe gefüllt. Unser Teig um sein Herz gelegt, vom Klassiker bis zur scharfen Variante.",
-  xk_title:"Aus der Küche", xk_body:"San-Daniele-Bretter, Büffel-Caprese, Salate und schnelle Gerichte. Für Abende ohne Pizza.",
-  xs_title:"Vorspeisen", xs_body:"Heiße Häppchen zum Teilen: Montanare, Mini-Frico, Wings. Das beste Mittel gegen Hunger.",
-  xd_title:"Hausgemachte Desserts", xd_body:"Tiramisù, Panna Cotta und der Kuchen des Tages. Der beste Abschluss.",
   so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
   r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
   r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
   r3:"Die Pizza von immer, mit dem gewissen Etwas, wirklich. Wir kommen sicher wieder.",
   d_title:"Wir erwarten Sie", d_dove:"Wo", d_maps:"In Google Maps öffnen",
-  d_orari:"Öffnungszeiten", d_orari_v:"Täglich · 18:00 - 23:00 Uhr", d_contatti:"Kontakt",
+  d_orari:"Öffnungszeiten", d_orari_v:"Di - So · 18:00 - 23:00 · Mo Ruhetag", d_contatti:"Kontakt",
   tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
   cats:{
     classiche:["Le Classiche","Unsere Wurzeln, zeitlos"],
@@ -824,7 +777,16 @@ dolci:[
 };
 
 /* immagine o illustrazione per ogni categoria */
-const CAT_IMG = { classiche:"assets/pizza3.webp", audaci:"assets/pizza1.webp", bianche:"assets/pizza8.webp", bevande:"assets/int.webp" };
+const CAT_IMG = {
+  classiche:"assets/pizza3.webp",
+  audaci:"assets/pizza1.webp",
+  bianche:"assets/pizza8.webp",
+  calzoni:"assets/pizza7.webp",
+  cucina:"assets/int.webp",
+  stuzzicherie:"assets/pizza5.webp",
+  bevande:"assets/intv1.webp",
+  dolci:"assets/intv2.webp"
+};
 
 const VARIANTI = [["Aggiunte","1,00"],["Di Bufala","3,00"],["Burrata","4,00"],["Crudo","3,00"],["Porcini","2,00"],["Pitina","3,00"]];
 const CORNICE  = [["Ricotta","2,50"],["Brie","3,00"],["Gorgonzola dolce","1,00"]];
@@ -867,7 +829,10 @@ function renderMenu(){
     const [titolo,tag] = t.cats[id];
     const n = String(idx+1).padStart(2,"0");
     html += `<section class="mcat fx" id="cat-${id}">`;
-    if(CAT_IMG[id]) html += `<div class="cat-hero"><span class="arc"></span><img class="${id==='bevande'?'photo':'pizza'}" ${id==='bevande'?'style="border-radius:50%"':''} src="${CAT_IMG[id]}" alt="" loading="lazy"${id==='bevande'?' class="photo"':''}></div>`;
+    if(CAT_IMG[id]){
+      const isPhoto = ["cucina","bevande","dolci"].includes(id);
+      html += `<div class="cat-hero"><span class="arc"></span><img class="${isPhoto?'photo':'pizza'}" src="${CAT_IMG[id]}" alt="" loading="lazy"></div>`;
+    }
     html += `<header><span class="n">${n}</span><h3>${titolo}</h3></header><p class="tag">${tag}</p><div class="rule"></div>`;
     if(MENU[id]) html += MENU[id].map(v=>item(v[0],v[1],v[2])).join("");
 
