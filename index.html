@@ -169,12 +169,12 @@ a,button{touch-action:manipulation}
 .strip.dragging{cursor:grabbing;scroll-snap-type:none}
 .strip figure{flex:0 0 min(70vw,370px);scroll-snap-align:center;margin:0}
 .strip figure img{width:100%;aspect-ratio:1;object-fit:cover}
-.strip figcaption{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--grigio);margin-top:2px}
+.strip figcaption{text-align:center;margin-top:6px}
+.strip figcaption span{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grigio);border:1px solid var(--hair);border-radius:999px;padding:11px 19px}
 .strip-wrap{position:relative;overflow:hidden}
 .strip-wrap .edge{position:absolute;top:0;bottom:70px;width:16vw;max-width:150px;z-index:4;pointer-events:none}
 .strip-wrap .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
 .strip-wrap .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
-.forno-label{text-align:center;margin-top:16px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro-vivo)}
 
 /* quote screen */
 .quote h2{font-size:clamp(22px,6vw,32px);font-weight:200;letter-spacing:.1em;line-height:1.55;font-style:italic}
@@ -186,7 +186,7 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:calc(96px + env(safe-area-inset-top));z-index:40;background:rgba(12,12,14,.72);-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);border-bottom:1px solid var(--hair-soft)}
+.chipbar{position:sticky;top:var(--navh,90px);z-index:40;background:rgba(12,12,14,.72);-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);border-bottom:1px solid var(--hair-soft)}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
   display:flex;gap:9px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
@@ -384,7 +384,6 @@ a,button{touch-action:manipulation}
   <button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
   <button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
   <div class="strip" id="forno"></div>
-  <p class="forno-label" id="fornolabel"></p>
   <div class="dots" id="fornodots"></div>
 </div>
 
@@ -444,7 +443,7 @@ a,button{touch-action:manipulation}
     </div>
     <div>
       <h4 data-i18n="d_orari">Orari</h4>
-      <p data-i18n="d_orari_v">Mar - Dom · 18:00 - 23:00 · Lun chiuso</p>
+      <p data-i18n="d_orari_v">18:00 - 23:00 · Lunedì chiuso</p>
     </div>
     <div>
       <h4 data-i18n="d_contatti">Contatti</h4>
@@ -467,11 +466,11 @@ const T = {
 it:{
   sp_kicker:"Maniago · Friuli", tagline:"La pizza di sempre, con un tocco in più.", scroll:"scorri",
   s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"In centro,<br>all'angolo di sempre",
-  s1_body:"A due passi da Piazza Italia, nella città delle coltellerie, la Pizzeria Via Roma è il punto fermo delle sere di Maniago. La pietra, l'insegna, la porta aperta dalle 18:00, tutti i giorni.",
+  s1_body:"A due passi da Piazza Italia,<br>nella città delle coltellerie.<br><br>Il punto fermo delle sere di Maniago,<br>con la porta aperta dalle 18:00.",
   s2_eyebrow:"L'atmosfera", s2_title:"Nero, ottone<br>e luce calda",
-  s2_body:"Una sala disegnata per stare bene: toni scuri, dettagli in ottone, il soffitto color senape che scalda ogni tavolo. Il posto giusto per una cena lenta o una pizza veloce al bancone.",
+  s2_body:"Toni scuri, dettagli in ottone,<br>il soffitto senape che scalda ogni tavolo.<br><br>Per una cena lenta<br>o una pizza veloce al bancone.",
   s3_eyebrow:"La materia prima", s3_title:"Farina<br>Molino Rachello<br>dal 1901",
-  s3_body:"Frumenti italiani selezionati e coltivati in modo sostenibile, una filiera etica trasparente in ogni fase, dalla selezione del seme alla macinazione. Impasto a lunga lievitazione: leggero, digeribile, fragrante.",
+  s3_body:"Frumenti italiani selezionati,<br>filiera etica dal seme alla macinazione.<br><br>Impasto a lunga lievitazione:<br>leggero, digeribile, fragrante.",
   a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un pò!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
   t_title:"Hai già provato il nostro cornicione ripieno?", t_body:"Il vero must della nostra pizza.",
@@ -486,7 +485,7 @@ it:{
   r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
   r3:"La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.",
   d_title:"Vi aspettiamo", d_dove:"Dove", d_maps:"Apri in Google Maps",
-  d_orari:"Orari", d_orari_v:"Mar - Dom · 18:00 - 23:00 · Lun chiuso", d_contatti:"Contatti",
+  d_orari:"Orari", d_orari_v:"18:00 - 23:00 · Lunedì chiuso", d_contatti:"Contatti",
   tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
   cats:{
     classiche:["Le Classiche","Le nostre radici, intramontabili"],
@@ -505,11 +504,11 @@ it:{
 en:{
   sp_kicker:"Maniago · Friuli, Italy", tagline:"The pizza you know, with a little something more.", scroll:"scroll",
   s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"Downtown,<br>on the usual corner",
-  s1_body:"Steps from Piazza Italia, in the town of master knife-makers, Pizzeria Via Roma is where Maniago's evenings begin. The stone façade, the sign, the door open from 6 pm, every day.",
+  s1_body:"Steps from Piazza Italia,<br>in the town of master knife-makers.<br><br>Where Maniago's evenings begin,<br>the door open from 6 pm.",
   s2_eyebrow:"The atmosphere", s2_title:"Black, brass<br>and warm light",
-  s2_body:"A room designed for lingering: dark tones, brass details, a mustard ceiling that warms every table. The right place for a slow dinner or a quick pizza at the counter.",
+  s2_body:"Dark tones, brass details,<br>a mustard ceiling warming every table.<br><br>For a slow dinner<br>or a quick pizza at the counter.",
   s3_eyebrow:"The raw material", s3_title:"Molino Rachello<br>flour<br>since 1901",
-  s3_body:"Selected Italian wheat, sustainably grown, with an ethical and transparent supply chain at every step, from seed to milling. Slow-leavened dough: light, digestible, fragrant.",
+  s3_body:"Selected Italian wheat,<br>an ethical chain from seed to milling.<br><br>Slow-leavened dough:<br>light, digestible, fragrant.",
   a_title:"Le Audaci", a_sub:"For those who like temptation!",
   a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
   t_title:"Have you tried our stuffed crust?", t_body:"The true must of our pizza.",
@@ -524,7 +523,7 @@ en:{
   r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
   r3:"The pizza you know, with a little something more, truly. We'll be back for sure.",
   d_title:"We're waiting for you", d_dove:"Where", d_maps:"Open in Google Maps",
-  d_orari:"Hours", d_orari_v:"Tue - Sun · 6 pm - 11 pm · Mon closed", d_contatti:"Contact",
+  d_orari:"Hours", d_orari_v:"6 pm - 11 pm · Monday closed", d_contatti:"Contact",
   tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
   cats:{
     classiche:["Le Classiche","Our roots, timeless"],
@@ -543,11 +542,11 @@ en:{
 de:{
   sp_kicker:"Maniago · Friaul, Italien", tagline:"Die Pizza von immer, mit dem gewissen Etwas.", scroll:"scrollen",
   s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Im Zentrum,<br>an der vertrauten Ecke",
-  s1_body:"Wenige Schritte von der Piazza Italia, in der Stadt der Messerschmiede, ist die Pizzeria Via Roma der Fixpunkt der Abende von Maniago. Der Stein, das Schild, die Tür ab 18 Uhr geöffnet, jeden Tag.",
+  s1_body:"Wenige Schritte von der Piazza Italia,<br>in der Stadt der Messerschmiede.<br><br>Der Fixpunkt der Abende von Maniago,<br>die Tür ab 18 Uhr geöffnet.",
   s2_eyebrow:"Die Atmosphäre", s2_title:"Schwarz, Messing<br>und warmes Licht",
-  s2_body:"Ein Raum zum Verweilen: dunkle Töne, Messingdetails, eine senffarbene Decke, die jeden Tisch wärmt. Der richtige Ort für ein langes Abendessen oder eine schnelle Pizza an der Theke.",
+  s2_body:"Dunkle Töne, Messingdetails,<br>eine senffarbene Decke über jedem Tisch.<br><br>Für ein langes Abendessen<br>oder eine schnelle Pizza an der Theke.",
   s3_eyebrow:"Der Rohstoff", s3_title:"Mehl<br>Molino Rachello<br>seit 1901",
-  s3_body:"Ausgewählter italienischer Weizen, nachhaltig angebaut, mit einer ethischen und transparenten Lieferkette in jedem Schritt, vom Saatgut bis zur Mahlung. Lang gereifter Teig: leicht, bekömmlich, duftend.",
+  s3_body:"Ausgewählter italienischer Weizen,<br>ethische Kette vom Saatgut bis zur Mahlung.<br><br>Lang gereifter Teig:<br>leicht, bekömmlich, duftend.",
   a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
   a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
   t_title:"Schon unseren gefüllten Rand probiert?", t_body:"Das wahre Muss unserer Pizza.",
@@ -562,7 +561,7 @@ de:{
   r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
   r3:"Die Pizza von immer, mit dem gewissen Etwas, wirklich. Wir kommen sicher wieder.",
   d_title:"Wir erwarten Sie", d_dove:"Wo", d_maps:"In Google Maps öffnen",
-  d_orari:"Öffnungszeiten", d_orari_v:"Di - So · 18:00 - 23:00 · Mo Ruhetag", d_contatti:"Kontakt",
+  d_orari:"Öffnungszeiten", d_orari_v:"18:00 - 23:00 · Montag Ruhetag", d_contatti:"Kontakt",
   tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
   cats:{
     classiche:["Le Classiche","Unsere Wurzeln, zeitlos"],
@@ -882,7 +881,8 @@ function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
     b.addEventListener("click",()=>{
       const el = document.getElementById("cat-"+b.dataset.go);
-      const y = el.getBoundingClientRect().top + scrollY - 150;
+      const off = document.getElementById("topbar").offsetHeight + document.querySelector(".chipbar").offsetHeight + 8;
+      const y = el.getBoundingClientRect().top + scrollY - off;
       scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
     });
   });
@@ -961,7 +961,7 @@ const FORNO = [
 ];
 const forno = document.getElementById("forno");
 const N = FORNO.length;
-function fig(d){return `<figure><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"><figcaption>${d[1]}</figcaption></figure>`}
+function fig(d){return `<figure><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"><figcaption><span>${d[1]}</span></figcaption></figure>`}
 forno.innerHTML = fig(FORNO[N-1]) + FORNO.map(fig).join("") + fig(FORNO[0]);
 document.getElementById("fornodots").innerHTML = FORNO.map((_,i)=>`<i data-d="${i}"></i>`).join("");
 
@@ -971,7 +971,6 @@ let fornoIdx = 0;
 function setDot(i){
   fornoIdx = ((i%N)+N)%N;
   document.querySelectorAll("#fornodots i").forEach((d,k)=>d.classList.toggle("on",k===fornoIdx));
-  document.getElementById("fornolabel").textContent = FORNO[fornoIdx][1];
 }
 let fornoTick;
 forno.addEventListener("scroll",()=>{
@@ -1064,6 +1063,8 @@ document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
 /* =============== init =============== */
+function setNavH(){document.documentElement.style.setProperty("--navh", document.getElementById("topbar").offsetHeight + "px");}
+setNavH(); addEventListener("resize", setNavH);
 renderShow();
 renderMenu();
 observeAll();
