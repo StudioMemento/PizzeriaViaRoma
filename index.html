@@ -50,25 +50,19 @@ a,button{touch-action:manipulation}
 /* ---------------- top bar ---------------- */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  padding-bottom:14px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:calc(10px + env(safe-area-inset-top)) 20px 10px;
-  background:linear-gradient(180deg,rgba(10,10,11,.9),rgba(10,10,11,0));
-  transition:background .3s;
+  padding:calc(10px + env(safe-area-inset-top)) 20px 14px;
+  background:rgba(12,12,14,.72);
+  -webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);
+  border-bottom:1px solid var(--hair-soft);
 }
-.top.solid{background:rgba(10,10,11,.97);border-bottom:1px solid var(--hair-soft)}
+.top.solid{background:rgba(12,12,14,.82)}
 .top .mark{height:62px;width:62px;object-fit:contain}
 .lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
 .lang button{font-size:13px;letter-spacing:.14em;padding:9px 16px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 
 
-/* dissolvenze blur ai bordi per uno scroll più morbido */
-.scrim{position:fixed;left:0;right:0;z-index:45;pointer-events:none}
-.scrim-top{top:0;height:130px;
-  background:linear-gradient(180deg,#0A0A0B 12%,rgba(10,10,11,.72) 46%,transparent 100%)}
-.scrim-bot{bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));height:104px;
-  background:linear-gradient(0deg,#0A0A0B 14%,rgba(10,10,11,.72) 50%,transparent 100%)}
 
 /* ---------------- screens ---------------- */
 .screen{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -192,10 +186,10 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:calc(92px + env(safe-area-inset-top));z-index:40;background:#0A0A0B;border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft)}
+.chipbar{position:sticky;top:calc(96px + env(safe-area-inset-top));z-index:40;background:rgba(12,12,14,.72);-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);border-bottom:1px solid var(--hair-soft)}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
-  display:flex;gap:9px;overflow-x:auto;padding:16px 20px;scrollbar-width:none;
+  display:flex;gap:9px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
 }
 .chips::-webkit-scrollbar{display:none}
 .chips button{
@@ -203,12 +197,10 @@ a,button{touch-action:manipulation}
   padding:11px 19px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);transition:all .25s;
 }
 .chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro)}
-.chipbar .edge{position:absolute;top:0;bottom:0;width:52px;z-index:5;pointer-events:none}
-.chipbar .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
-.chipbar .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
 .chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro)}
-.chipchev.l{left:2px}.chipchev.r{right:2px}
+.chipchev.l{left:4px}.chipchev.r{right:4px}
 .chipchev i{font-size:16px}
+.chipchev{background:rgba(12,12,14,.9);border-radius:50%}
 
 .mcat{max-width:640px;margin:0 auto;padding:60px 28px 6px}
 .cat-hero{position:relative;width:min(58vw,280px);margin:0 auto 28px}
@@ -309,8 +301,6 @@ a,button{touch-action:manipulation}
     <button data-lang="de">DE</button>
   </div>
 </div>
-<div class="scrim scrim-top"></div>
-<div class="scrim scrim-bot"></div>
 
 <!-- 01 · SPLASH -->
 <section class="screen" id="storia">
@@ -406,7 +396,6 @@ a,button{touch-action:manipulation}
     <p data-i18n="m_note">Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno</p>
   </div>
   <div class="chipbar"><div class="chipbar-inner">
-    <div class="edge l"></div><div class="edge r"></div>
     <button class="chipchev l" data-chip="-1" aria-label="Indietro"><i class="ph-thin ph-caret-left"></i></button>
     <button class="chipchev r" data-chip="1" aria-label="Avanti"><i class="ph-thin ph-caret-right"></i></button>
     <nav class="chips" id="chips" aria-label="Menu categories"></nav>
