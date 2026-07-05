@@ -56,9 +56,9 @@ a,button{touch-action:manipulation}
   transition:background .3s;
 }
 .top.solid{background:rgba(10,10,11,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair-soft)}
-.top .mark{height:38px;width:38px;object-fit:contain}
+.top .mark{height:50px;width:50px;object-fit:contain}
 .lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
-.lang button{font-size:10px;letter-spacing:.14em;padding:5px 10px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
+.lang button{font-size:11.5px;letter-spacing:.14em;padding:7px 13px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 
 /* ---------------- screens ---------------- */
@@ -69,7 +69,7 @@ a,button{touch-action:manipulation}
 .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.88) 0%,rgba(10,10,11,.5) 45%,rgba(10,10,11,.94) 100%)}
 .inner{position:relative;z-index:2;width:100%;max-width:640px;padding:0 28px;text-align:center}
 
-#splash .logo{width:min(52vw,220px);margin:0 auto 30px;opacity:0;transform:scale(.96);transition:opacity 1.4s ease,transform 1.4s ease}
+#splash .logo{width:min(60vw,260px);margin:0 auto 30px;opacity:0;transform:scale(.96);transition:opacity 1.4s ease,transform 1.4s ease}
 #splash.ready .logo{opacity:1;transform:none}
 #splash .split{
   font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--oro);
@@ -123,6 +123,50 @@ a,button{touch-action:manipulation}
 .strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 12vw;overscroll-behavior-x:contain}
 .strip::-webkit-scrollbar{display:none}
 .strip img{flex:0 0 min(70vw,370px);aspect-ratio:1;object-fit:cover;scroll-snap-align:center}
+
+
+/* story: testo in basso a sinistra, gradient black->alpha fino a centro sezione */
+.story{align-items:flex-end}
+.story .inner{text-align:left;padding:0 28px 72px;margin:0 auto}
+.story .veil{background:linear-gradient(0deg,#0A0A0B 0%,rgba(10,10,11,.86) 26%,rgba(10,10,11,.28) 50%,rgba(10,10,11,.15) 100%)}
+.story .blurband{position:absolute;inset:auto 0 0 0;height:52%;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  -webkit-mask-image:linear-gradient(0deg,#000 30%,transparent);mask-image:linear-gradient(0deg,#000 30%,transparent);pointer-events:none}
+.story .hairline{margin:22px 0}
+.story p{margin-left:0;margin-right:0}
+.story .golink{display:inline-block;margin-top:26px;color:var(--oro);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;border-bottom:1px solid var(--hair);padding-bottom:6px}
+
+/* chevron + dots (condivisi dai caroselli) */
+.chev{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hair);border-radius:50%;color:var(--oro);background:rgba(10,10,11,.55);backdrop-filter:blur(6px)}
+.chev i{font-size:18px}
+.chev.l{left:10px}.chev.r{right:10px}
+.chev:active{transform:translateY(-50%) scale(.94)}
+.dots{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:18px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--hair);transition:all .25s}
+.dots i.on{background:var(--oro);transform:scale(1.4)}
+
+/* carosello categorie (catshow) */
+#catshow{position:relative;padding:96px 0 80px;border-top:1px solid var(--hair-soft)}
+#catshow .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
+#catshow .rail::-webkit-scrollbar{display:none}
+#catshow .rail.dragging{cursor:grabbing;scroll-snap-type:none}
+#catshow .slide{flex:0 0 100%;scroll-snap-align:center;text-align:center;padding:0 40px}
+#catshow .pz{position:relative;width:min(66vw,360px);margin:0 auto 6px}
+#catshow .pz .arc{inset:-7%}
+#catshow .pz .arc.a2{inset:-13%;border-color:var(--hair-soft)}
+#catshow h2{font-size:clamp(30px,8vw,48px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
+#catshow .sub{color:var(--grigio);font-size:13.5px;letter-spacing:.08em;margin-top:8px}
+#catshow .golink{display:inline-block;margin-top:24px;color:var(--oro);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;border-bottom:1px solid var(--hair);padding-bottom:6px}
+
+/* carosello forno: caption + loop */
+.strip{cursor:grab}
+.strip.dragging{cursor:grabbing;scroll-snap-type:none}
+.strip figure{flex:0 0 min(70vw,370px);scroll-snap-align:center;margin:0}
+.strip figure img{width:100%;aspect-ratio:1;object-fit:cover}
+.strip figcaption{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--grigio);margin-top:2px}
+.strip-wrap{position:relative}
+.forno-label{text-align:center;margin-top:16px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro-vivo)}
 
 /* quote screen */
 .quote h2{font-size:clamp(22px,6vw,32px);font-weight:200;letter-spacing:.1em;line-height:1.55;font-style:italic}
@@ -205,14 +249,14 @@ a,button{touch-action:manipulation}
   text-transform:uppercase;color:var(--grigio);text-align:center;
 }
 
-#dove{padding:100px 28px 60px;text-align:center;background:var(--nero-2);border-top:1px solid var(--hair-soft)}
+#dove{padding:90px 28px 50px;text-align:center;background:var(--nero-2);border-top:1px solid var(--hair-soft)}
 #dove .logo-s{width:110px;margin:0 auto 30px}
 #dove h2{font-size:clamp(23px,6vw,32px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
 .info{margin-top:36px;display:grid;gap:26px;max-width:420px;margin-left:auto;margin-right:auto}
 .info h4{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--oro);margin-bottom:8px;font-weight:400}
 .info p,.info a{color:var(--grigio);font-size:15px}
 .info a{border-bottom:1px solid var(--hair)}
-.foot{margin-top:60px;font-size:10px;letter-spacing:.18em;color:rgba(241,236,225,.28);text-transform:uppercase}
+.foot{margin-top:50px;font-size:10px;letter-spacing:.18em;color:rgba(241,236,225,.28);text-transform:uppercase}
 .foot a{color:rgba(241,236,225,.5)}
 
 .tabbar{
@@ -264,7 +308,7 @@ a,button{touch-action:manipulation}
 <section class="screen story">
   <span class="num">01 · Via Roma 43</span>
   <img class="bgimg" data-src="assets/ext.webp" alt="">
-  <div class="veil"></div>
+  <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
     <h2 data-i18n="s1_title">In centro,<br>all'angolo di sempre</h2>
     <hr class="hairline">
@@ -276,7 +320,7 @@ a,button{touch-action:manipulation}
 <section class="screen story">
   <span class="num">02 · La sala</span>
   <img class="bgimg" data-src="assets/intv1.webp" alt="">
-  <div class="veil"></div>
+  <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
     <h2 data-i18n="s2_title">Nero, ottone<br>e luce calda</h2>
     <hr class="hairline">
@@ -288,7 +332,7 @@ a,button{touch-action:manipulation}
 <section class="screen story">
   <span class="num">03 · L'impasto</span>
   <img class="bgimg" data-src="assets/pizza3.webp" alt="">
-  <div class="veil"></div>
+  <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
     <h2 data-i18n="s3_title">Farina<br>Molino Rachello<br>dal 1901</h2>
     <hr class="hairline">
@@ -296,18 +340,11 @@ a,button{touch-action:manipulation}
   </div>
 </section>
 
-<!-- 05 · LE AUDACI -->
-<section class="screen compact" id="audaci-hero">
-  <div class="inner fx">
-    <div class="pz">
-      <span class="arc"></span><span class="arc a2"></span>
-      <img class="pizza bgimg" style="position:static" data-src="assets/pizza1.webp" alt="">
-    </div>
-    <h2 data-i18n="a_title">Le Audaci</h2>
-    <p class="sub" data-i18n="a_sub">Per chi vuole farsi tentare un pò!</p>
-    <hr class="hairline">
-    <p style="color:var(--grigio);font-size:14.5px;max-width:40ch;margin:0 auto" data-i18n="a_body">Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.</p>
-  </div>
+<!-- 05 · LE NOSTRE PIZZE (carosello categorie) -->
+<section id="catshow">
+  <button class="chev l" data-show="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
+  <button class="chev r" data-show="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
+  <div class="rail" id="showrail"></div>
 </section>
 
 <!-- 06 · CORNICIONE -->
@@ -328,19 +365,61 @@ a,button{touch-action:manipulation}
   </div>
 </section>
 
-<!-- 07 · STRIP -->
+<!-- 07 · STRIP FORNO -->
 <div class="strip-wrap">
   <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
-  <div class="strip">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza3.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza8.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza6.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza5.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza4.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza1.webp" alt="">
-    <img class="pizza bgimg" style="position:static" data-src="assets/pizza2.webp" alt="">
-  </div>
+  <button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
+  <button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
+  <div class="strip" id="forno"></div>
+  <p class="forno-label" id="fornolabel"></p>
+  <div class="dots" id="fornodots"></div>
 </div>
+
+<!-- 08-11 · SEZIONI DEDICATE -->
+<section class="screen story">
+  <span class="num">04 · I calzoni</span>
+  <img class="bgimg" data-src="assets/pizza7.webp" alt="">
+  <div class="veil"></div><div class="blurband"></div>
+  <div class="inner fx">
+    <h2 data-i18n="xc_title">I Calzoni</h2>
+    <hr class="hairline">
+    <p data-i18n="xc_body">Chiusi, dorati, ripieni d'amore. La nostra pasta piegata attorno al suo cuore, dal classico al piccante.</p>
+    <a class="golink" href="#cat-calzoni" data-i18n="sel_cta">Scopri la selezione</a>
+  </div>
+</section>
+<section class="screen story">
+  <span class="num">05 · Dalla cucina</span>
+  <img class="bgimg" data-src="assets/int.webp" alt="">
+  <div class="veil"></div><div class="blurband"></div>
+  <div class="inner fx">
+    <h2 data-i18n="xk_title">Dalla Cucina</h2>
+    <hr class="hairline">
+    <p data-i18n="xk_body">Taglieri col San Daniele, caprese di bufala, insalate e piatti veloci. Per quando non è serata da pizza.</p>
+    <a class="golink" href="#cat-cucina" data-i18n="sel_cta">Scopri la selezione</a>
+  </div>
+</section>
+<section class="screen story">
+  <span class="num">06 · Stuzzicherie</span>
+  <img class="bgimg" data-src="assets/intv1.webp" alt="">
+  <div class="veil"></div><div class="blurband"></div>
+  <div class="inner fx">
+    <h2 data-i18n="xs_title">Stuzzicherie</h2>
+    <hr class="hairline">
+    <p data-i18n="xs_body">Fritti caldi e assaggi da condividere: montanare, mini frico, alette. Il miglior antidoto alla fame.</p>
+    <a class="golink" href="#cat-stuzzicherie" data-i18n="sel_cta">Scopri la selezione</a>
+  </div>
+</section>
+<section class="screen story">
+  <span class="num">07 · I dolci</span>
+  <img class="bgimg" data-src="assets/intv2.webp" alt="">
+  <div class="veil"></div><div class="blurband"></div>
+  <div class="inner fx">
+    <h2 data-i18n="xd_title">I Dolci della Casa</h2>
+    <hr class="hairline">
+    <p data-i18n="xd_body">Tiramisù, panna cotta e la torta del giorno. La miglior conclusione.</p>
+    <a class="golink" href="#cat-dolci" data-i18n="sel_cta">Scopri la selezione</a>
+  </div>
+</section>
 
 <!-- 08 · MENU -->
 <section id="menu">
@@ -356,7 +435,7 @@ a,button{touch-action:manipulation}
 <!-- 09 · QUOTE -->
 <section class="screen story quote">
   <img class="bgimg" data-src="assets/intv2.webp" alt="">
-  <div class="veil"></div>
+  <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
     <h2 data-i18n="q_text">«La semplicità è l'ultima sofisticazione.»</h2>
     <p class="who">Leonardo da Vinci</p>
@@ -374,26 +453,24 @@ a,button{touch-action:manipulation}
     <a href="https://www.tripadvisor.it/Restaurant_Review-g790406-d20931745-Reviews-Pizzeria_Via_Roma-Maniago_Province_of_Pordenone_Friuli_Venezia_Giulia.html" target="_blank" rel="noopener"><i class="ph-thin ph-star"></i>Tripadvisor</a>
   </div>
   <div class="reviews">
-    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r1">Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.</p><div class="src"><b>Google</b><span>Marta V.&nbsp;·&nbsp;Maniago</span></div></div>
-    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r2">Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.</p><div class="src"><b>Tripadvisor</b><span>Giulio B.&nbsp;·&nbsp;Pordenone</span></div></div>
-    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r3">La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.</p><div class="src"><b>Google</b><span>Sara T.&nbsp;·&nbsp;Udine</span></div></div>
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r1">Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.</p><div class="src"><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener"><b>Google&nbsp;↗</b></a><span>Marta V.</span></div></div>
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r2">Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.</p><div class="src"><a href="https://www.tripadvisor.it/Restaurant_Review-g790406-d20931745-Reviews-Pizzeria_Via_Roma-Maniago_Province_of_Pordenone_Friuli_Venezia_Giulia.html" target="_blank" rel="noopener"><b>Tripadvisor&nbsp;↗</b></a><span>Giulio B.</span></div></div>
+    <div class="rev fx"><div class="stars">★ ★ ★ ★ ★</div><p data-i18n="r3">La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.</p><div class="src"><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener"><b>Google&nbsp;↗</b></a><span>Sara T.</span></div></div>
   </div>
   <div class="mapwrap fx">
     <iframe title="Mappa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-      src="https://maps.google.com/maps?q=Pizzeria%20Via%20Roma%2C%20Via%20Roma%2043%2C%20Maniago&t=&z=16&ie=UTF8&iwloc=&output=embed"></iframe>
+      src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
     <div class="tag">Via Roma 43 · Maniago (PN)</div>
   </div>
 </section>
 
-<!-- 10 · DOVE -->
+<!-- DOVE / FOOTER -->
 <section id="dove">
   <img class="logo-s" src="assets/logo-oro.png" alt="">
-  <h2 data-i18n="d_title">Vi aspettiamo</h2>
   <div class="info">
     <div>
       <h4 data-i18n="d_dove">Dove</h4>
-      <p>Via Roma 43 · 33085 Maniago (PN)</p>
-      <p><a href="https://maps.google.com/?q=Pizzeria+Via+Roma+Maniago" target="_blank" rel="noopener" data-i18n="d_maps">Apri in Google Maps</a></p>
+      <p><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener">Via Roma 43 · Maniago (PN)</a></p>
     </div>
     <div>
       <h4 data-i18n="d_orari">Orari</h4>
@@ -402,14 +479,9 @@ a,button{touch-action:manipulation}
     <div>
       <h4 data-i18n="d_contatti">Contatti</h4>
       <p><a href="tel:+390427541232">0427 541232</a></p>
-      <p style="margin-top:6px">
-        <a href="https://www.instagram.com/pizzeriaviaromamaniago/" target="_blank" rel="noopener">Instagram</a>
-        &nbsp;·&nbsp;
-        <a href="https://www.facebook.com/people/Pizzeria-Via-Roma/61562436140782/" target="_blank" rel="noopener">Facebook</a>
-      </p>
     </div>
   </div>
-  <p class="foot">© 2026 Pizzeria Via Roma · demo <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
+  <p class="foot">© 2026 Pizzeria Via Roma · <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
 </section>
 
 <nav class="tabbar" aria-label="Navigazione">
@@ -437,6 +509,11 @@ it:{
   m_eyebrow:"La carta", m_title:"Il Menù",
   m_note:"Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno",
   q_text:"«La semplicità è l'ultima sofisticazione.»",
+  sel_cta:"Scopri la selezione",
+  xc_title:"I Calzoni", xc_body:"Chiusi, dorati, ripieni d'amore. La nostra pasta piegata attorno al suo cuore, dal classico al piccante.",
+  xk_title:"Dalla Cucina", xk_body:"Taglieri col San Daniele, caprese di bufala, insalate e piatti veloci. Per quando non è serata da pizza.",
+  xs_title:"Stuzzicherie", xs_body:"Fritti caldi e assaggi da condividere: montanare, mini frico, alette. Il miglior antidoto alla fame.",
+  xd_title:"I Dolci della Casa", xd_body:"Tiramisù, panna cotta e la torta del giorno. La miglior conclusione.",
   so_eyebrow:"Seguici", so_title:"Social & Recensioni",
   r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
   r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
@@ -473,6 +550,11 @@ en:{
   m_eyebrow:"The menu", m_title:"The Menu",
   m_note:"Slow-leavened dough, selected ingredients, oven baked",
   q_text:"“Simplicity is the ultimate sophistication.”",
+  sel_cta:"Discover the selection",
+  xc_title:"I Calzoni", xc_body:"Folded, golden, filled with love. Our dough wrapped around its heart, from classic to spicy.",
+  xk_title:"From the Kitchen", xk_body:"San Daniele boards, buffalo caprese, salads and quick dishes. For when it's not a pizza night.",
+  xs_title:"Starters", xs_body:"Hot fried bites to share: montanare, mini frico, wings. The best antidote to hunger.",
+  xd_title:"House Desserts", xd_body:"Tiramisù, panna cotta and the cake of the day. The best way to end.",
   so_eyebrow:"Follow us", so_title:"Social & Reviews",
   r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
   r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
@@ -509,6 +591,11 @@ de:{
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
   m_note:"Lang gereifter Teig, ausgewählte Zutaten, im Ofen gebacken",
   q_text:"„Einfachheit ist die höchste Stufe der Vollendung.“",
+  sel_cta:"Zur Auswahl",
+  xc_title:"I Calzoni", xc_body:"Gefaltet, goldbraun, mit Liebe gefüllt. Unser Teig um sein Herz gelegt, vom Klassiker bis zur scharfen Variante.",
+  xk_title:"Aus der Küche", xk_body:"San-Daniele-Bretter, Büffel-Caprese, Salate und schnelle Gerichte. Für Abende ohne Pizza.",
+  xs_title:"Vorspeisen", xs_body:"Heiße Häppchen zum Teilen: Montanare, Mini-Frico, Wings. Das beste Mittel gegen Hunger.",
+  xd_title:"Hausgemachte Desserts", xd_body:"Tiramisù, Panna Cotta und der Kuchen des Tages. Der beste Abschluss.",
   so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
   r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
   r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
@@ -814,7 +901,9 @@ function applyLang(l){
     if(T[l][k] !== undefined) el.innerHTML = T[l][k];
   });
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
+  renderShow();
   renderMenu();
+  document.querySelectorAll("#showrail .bgimg, #forno .bgimg").forEach(im=>imgObs.observe(im));
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
 
@@ -843,6 +932,98 @@ function bindChips(){
   },{rootMargin:"-25% 0px -65% 0px"});
   document.querySelectorAll(".mcat").forEach(s=>spyCat.observe(s));
 }
+
+
+/* =============== carosello categorie (catshow) =============== */
+const SHOW = [
+["classiche","assets/pizza3.webp"],
+["audaci","assets/pizza1.webp"],
+["bianche","assets/pizza8.webp"],
+];
+function renderShow(){
+  const t = T[LANG];
+  document.getElementById("showrail").innerHTML = SHOW.map(([id,img])=>`
+    <div class="slide">
+      <div class="pz"><span class="arc"></span><span class="arc a2"></span>
+        <img class="pizza bgimg" style="position:static" data-src="${img}" alt=""></div>
+      <h2>${t.cats[id][0]}</h2>
+      <p class="sub">${t.cats[id][1]}</p><hr class="hairline" style="margin:22px auto">
+      <a class="golink" href="#cat-${id}">${t.sel_cta}</a>
+    </div>`).join("");
+}
+
+/* =============== carosello forno: nomi, loop, dots, drag =============== */
+/* NB: nomi 5-6-7 dedotti dagli ingredienti in foto, da verificare col cliente */
+const FORNO = [
+["assets/pizza3.webp","Margherita Classica"],
+["assets/pizza8.webp","Povera"],
+["assets/pizza6.webp","Rucola, Grana e Pomodorini"],
+["assets/pizza1.webp","Burrata e Crudo"],
+["assets/pizza5.webp","Saporita"],
+["assets/pizza4.webp","Crudo e Mele"],
+["assets/pizza2.webp","Salsiccia e Melanzane"],
+];
+const forno = document.getElementById("forno");
+const N = FORNO.length;
+function fig(d){return `<figure><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"><figcaption>${d[1]}</figcaption></figure>`}
+forno.innerHTML = fig(FORNO[N-1]) + FORNO.map(fig).join("") + fig(FORNO[0]);
+document.getElementById("fornodots").innerHTML = FORNO.map((_,i)=>`<i data-d="${i}"></i>`).join("");
+
+const slideW = () => forno.querySelector("figure").getBoundingClientRect().width;
+const center = i => forno.scrollTo({left: (i+1)*slideW() - (forno.clientWidth - slideW())/2, behavior:"auto"});
+let fornoIdx = 0;
+function setDot(i){
+  fornoIdx = ((i%N)+N)%N;
+  document.querySelectorAll("#fornodots i").forEach((d,k)=>d.classList.toggle("on",k===fornoIdx));
+  document.getElementById("fornolabel").textContent = FORNO[fornoIdx][1];
+}
+let fornoTick;
+forno.addEventListener("scroll",()=>{
+  clearTimeout(fornoTick);
+  fornoTick = setTimeout(()=>{
+    const raw = Math.round((forno.scrollLeft + (forno.clientWidth - slideW())/2) / slideW()) - 1;
+    if(raw < 0){ center(N-1); setDot(N-1); }
+    else if(raw >= N){ center(0); setDot(0); }
+    else setDot(raw);
+  },90);
+},{passive:true});
+document.querySelectorAll("[data-forno]").forEach(b=>b.addEventListener("click",()=>{
+  forno.scrollBy({left: Number(b.dataset.forno)*slideW(), behavior:"smooth"});
+}));
+document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",()=>{
+  forno.scrollTo({left:(Number(d.dataset.d)+1)*slideW() - (forno.clientWidth - slideW())/2, behavior:"smooth"});
+}));
+
+/* chevrons catshow */
+const rail = document.getElementById("showrail");
+document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>{
+  rail.scrollBy({left: Number(b.dataset.show)*rail.clientWidth, behavior:"smooth"});
+}));
+
+/* drag-to-scroll desktop (mouse) per entrambi */
+function dragScroll(el){
+  let down=false, sx=0, sl=0, moved=false;
+  el.addEventListener("pointerdown",e=>{
+    if(e.pointerType!=="mouse") return;
+    down=true; moved=false; sx=e.clientX; sl=el.scrollLeft;
+    el.classList.add("dragging");
+  });
+  addEventListener("pointermove",e=>{
+    if(!down) return;
+    const dx = e.clientX - sx;
+    if(Math.abs(dx)>4) moved=true;
+    el.scrollLeft = sl - dx;
+  });
+  addEventListener("pointerup",()=>{
+    if(!down) return;
+    down=false; el.classList.remove("dragging");
+    const w = el.querySelector("figure, .slide").getBoundingClientRect().width;
+    const i = Math.round((el.scrollLeft + (el.clientWidth - w)/2) / w);
+    el.scrollTo({left: i*w - (el.clientWidth - w)/2, behavior:"smooth"});
+  });
+  el.addEventListener("click",e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
+}
+dragScroll(forno); dragScroll(rail);
 
 /* =============== reveal + lazy =============== */
 let fxObs;
@@ -880,8 +1061,15 @@ document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
 /* =============== init =============== */
+renderShow();
 renderMenu();
 observeAll();
+document.querySelectorAll("#showrail .bgimg, #forno .bgimg").forEach(im=>imgObs.observe(im));
+requestAnimationFrame(()=>{
+  const w = rail.querySelector(".slide").getBoundingClientRect().width;
+  rail.scrollTo({left: w, behavior:"auto"});   // parte su Le Audaci
+  center(0); setDot(0);                        // forno sul primo slide reale
+});
 requestAnimationFrame(()=>document.getElementById("splash").classList.add("ready"));
 </script>
 </body>
