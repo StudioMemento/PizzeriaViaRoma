@@ -56,7 +56,7 @@ a,button{touch-action:manipulation}
   background:linear-gradient(180deg,rgba(10,10,11,.9),rgba(10,10,11,0));
   transition:background .3s;
 }
-.top.solid{background:rgba(10,10,11,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--hair-soft)}
+.top.solid{background:rgba(10,10,11,.97);border-bottom:1px solid var(--hair-soft)}
 .top .mark{height:62px;width:62px;object-fit:contain}
 .lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
 .lang button{font-size:13px;letter-spacing:.14em;padding:9px 16px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
@@ -65,14 +65,10 @@ a,button{touch-action:manipulation}
 
 /* dissolvenze blur ai bordi per uno scroll più morbido */
 .scrim{position:fixed;left:0;right:0;z-index:45;pointer-events:none}
-.scrim-top{top:0;height:120px;
-  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
-  -webkit-mask-image:linear-gradient(180deg,#000 34%,transparent);mask-image:linear-gradient(180deg,#000 34%,transparent);
-  background:linear-gradient(180deg,rgba(10,10,11,.55),transparent)}
-.scrim-bot{bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));height:96px;
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  -webkit-mask-image:linear-gradient(0deg,#000 34%,transparent);mask-image:linear-gradient(0deg,#000 34%,transparent);
-  background:linear-gradient(0deg,rgba(10,10,11,.6),transparent)}
+.scrim-top{top:0;height:130px;
+  background:linear-gradient(180deg,#0A0A0B 12%,rgba(10,10,11,.72) 46%,transparent 100%)}
+.scrim-bot{bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));height:104px;
+  background:linear-gradient(0deg,#0A0A0B 14%,rgba(10,10,11,.72) 50%,transparent 100%)}
 
 /* ---------------- screens ---------------- */
 .screen{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -141,9 +137,8 @@ a,button{touch-action:manipulation}
 /* story: testo in basso a sinistra, gradient black->alpha fino a centro sezione */
 .story{align-items:flex-end}
 .story .inner{text-align:left;padding:0 28px 72px;margin:0 auto}
-.story .veil{background:linear-gradient(0deg,#0A0A0B 0%,rgba(10,10,11,.86) 26%,rgba(10,10,11,.28) 50%,rgba(10,10,11,.15) 100%)}
-.story .blurband{position:absolute;inset:auto 0 0 0;height:52%;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
-  -webkit-mask-image:linear-gradient(0deg,#000 30%,transparent);mask-image:linear-gradient(0deg,#000 30%,transparent);pointer-events:none}
+.story .veil{background:linear-gradient(0deg,#0A0A0B 2%,rgba(10,10,11,.92) 22%,rgba(10,10,11,.55) 44%,rgba(10,10,11,.12) 72%,transparent 100%)}
+.story .blurband{display:none}
 .story .hairline{margin:22px 0}
 .story p{margin-left:0;margin-right:0}
 .story .golink{display:inline-block;margin-top:26px;color:var(--oro);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;border-bottom:1px solid var(--hair);padding-bottom:6px}
@@ -151,20 +146,23 @@ a,button{touch-action:manipulation}
 /* chevron + dots (condivisi dai caroselli) */
 .chev{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
   width:42px;height:42px;display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--hair);border-radius:50%;color:var(--oro);background:rgba(10,10,11,.55);backdrop-filter:blur(6px)}
+  border:1px solid var(--hair);border-radius:50%;color:var(--oro);background:rgba(10,10,11,.72)}
 .chev i{font-size:18px}
-.chev.l{left:10px}.chev.r{right:10px}
+.chev.l{left:4vw}.chev.r{right:4vw}
 .chev:active{transform:translateY(-50%) scale(.94)}
-.dots{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:18px}
-.dots i{width:5px;height:5px;border-radius:50%;background:var(--hair);transition:all .25s}
-.dots i.on{background:var(--oro);transform:scale(1.4)}
+.dots{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:22px}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--hair);transition:all .25s;cursor:pointer}
+.dots i.on{background:var(--oro);transform:scale(1.5)}
 
 /* carosello categorie (catshow) */
-#catshow{position:relative;padding:96px 0 80px;border-top:1px solid var(--hair-soft)}
+#catshow{position:relative;padding:96px 0 80px;border-top:1px solid var(--hair-soft);overflow:hidden}
 #catshow .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab}
 #catshow .rail::-webkit-scrollbar{display:none}
 #catshow .rail.dragging{cursor:grabbing;scroll-snap-type:none}
 #catshow .slide{flex:0 0 100%;scroll-snap-align:center;text-align:center;padding:0 40px}
+#catshow .edge{position:absolute;top:0;bottom:0;width:16vw;max-width:150px;z-index:4;pointer-events:none}
+#catshow .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
+#catshow .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
 #catshow .pz{position:relative;width:min(66vw,360px);margin:0 auto 6px}
 #catshow .pz .arc{inset:-7%}
 #catshow .pz .arc.a2{inset:-13%;border-color:var(--hair-soft)}
@@ -178,7 +176,10 @@ a,button{touch-action:manipulation}
 .strip figure{flex:0 0 min(70vw,370px);scroll-snap-align:center;margin:0}
 .strip figure img{width:100%;aspect-ratio:1;object-fit:cover}
 .strip figcaption{text-align:center;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--grigio);margin-top:2px}
-.strip-wrap{position:relative}
+.strip-wrap{position:relative;overflow:hidden}
+.strip-wrap .edge{position:absolute;top:0;bottom:70px;width:16vw;max-width:150px;z-index:4;pointer-events:none}
+.strip-wrap .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
+.strip-wrap .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
 .forno-label{text-align:center;margin-top:16px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro-vivo)}
 
 /* quote screen */
@@ -191,19 +192,23 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
+.chipbar{position:sticky;top:calc(92px + env(safe-area-inset-top));z-index:40;background:#0A0A0B;border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft)}
+.chipbar-inner{position:relative;overflow:hidden}
 .chips{
-  position:sticky;top:calc(58px + env(safe-area-inset-top));z-index:40;
-  display:flex;gap:8px;overflow-x:auto;padding:14px 20px;
-  background:rgba(10,10,11,.95);backdrop-filter:blur(14px);
-  border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);
-  scrollbar-width:none;
+  display:flex;gap:9px;overflow-x:auto;padding:16px 20px;scrollbar-width:none;
 }
 .chips::-webkit-scrollbar{display:none}
 .chips button{
-  flex:0 0 auto;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
-  padding:9px 16px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);transition:all .25s;
+  flex:0 0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  padding:11px 19px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);transition:all .25s;
 }
 .chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro)}
+.chipbar .edge{position:absolute;top:0;bottom:0;width:52px;z-index:5;pointer-events:none}
+.chipbar .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
+.chipbar .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
+.chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro)}
+.chipchev.l{left:2px}.chipchev.r{right:2px}
+.chipchev i{font-size:16px}
 
 .mcat{max-width:640px;margin:0 auto;padding:60px 28px 6px}
 .cat-hero{position:relative;width:min(58vw,280px);margin:0 auto 28px}
@@ -230,6 +235,7 @@ a,button{touch-action:manipulation}
 .groupline{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);margin:34px 0 2px;display:flex;align-items:center;gap:12px}
 .groupline::after{content:"";flex:1;height:1px;background:var(--hair-soft)}
 .groupsub{font-size:12.5px;color:var(--grigio);margin:10px 0 0}
+.dolci-note{font-size:14.5px;color:var(--grigio);font-style:italic;padding:20px 0;line-height:1.6}
 
 
 /* ---------------- social ---------------- */
@@ -276,7 +282,7 @@ a,button{touch-action:manipulation}
   position:fixed;left:0;right:0;bottom:0;z-index:60;
   display:flex;height:calc(var(--tab-h) + env(safe-area-inset-bottom));
   padding-bottom:env(safe-area-inset-bottom);
-  background:rgba(12,12,13,.97);backdrop-filter:blur(16px);
+  background:rgba(10,10,11,.98);
   border-top:1px solid var(--hair-soft);
 }
 .tabbar a{
@@ -357,6 +363,7 @@ a,button{touch-action:manipulation}
 
 <!-- 05 · LE NOSTRE PIZZE (carosello categorie) -->
 <section id="catshow">
+  <div class="edge l"></div><div class="edge r"></div>
   <button class="chev l" data-show="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
   <button class="chev r" data-show="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
   <div class="rail" id="showrail"></div>
@@ -382,6 +389,7 @@ a,button{touch-action:manipulation}
 
 <!-- 07 · STRIP FORNO -->
 <div class="strip-wrap">
+  <div class="edge l"></div><div class="edge r"></div>
   <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
   <button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
   <button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
@@ -397,7 +405,12 @@ a,button{touch-action:manipulation}
     <h2 data-i18n="m_title">Il Menù</h2>
     <p data-i18n="m_note">Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno</p>
   </div>
-  <nav class="chips" id="chips" aria-label="Menu categories"></nav>
+  <div class="chipbar"><div class="chipbar-inner">
+    <div class="edge l"></div><div class="edge r"></div>
+    <button class="chipchev l" data-chip="-1" aria-label="Indietro"><i class="ph-thin ph-caret-left"></i></button>
+    <button class="chipchev r" data-chip="1" aria-label="Avanti"><i class="ph-thin ph-caret-right"></i></button>
+    <nav class="chips" id="chips" aria-label="Menu categories"></nav>
+  </div></div>
   <div id="carta"></div>
 </section>
 
@@ -477,6 +490,8 @@ it:{
   m_eyebrow:"La carta", m_title:"Il Menù",
   m_note:"Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno",
   q_text:"«La semplicità è l'ultima sofisticazione.»",
+  sel_cta:"Scopri la selezione",
+  dolci_note:"Chiedi al personale la disponibilità del giorno.",
   so_eyebrow:"Seguici", so_title:"Social & Recensioni",
   r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
   r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
@@ -513,6 +528,8 @@ en:{
   m_eyebrow:"The menu", m_title:"The Menu",
   m_note:"Slow-leavened dough, selected ingredients, oven baked",
   q_text:"“Simplicity is the ultimate sophistication.”",
+  sel_cta:"Discover the selection",
+  dolci_note:"Ask our staff about today\u2019s selection.",
   so_eyebrow:"Follow us", so_title:"Social & Reviews",
   r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
   r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
@@ -549,6 +566,8 @@ de:{
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
   m_note:"Lang gereifter Teig, ausgewählte Zutaten, im Ofen gebacken",
   q_text:"„Einfachheit ist die höchste Stufe der Vollendung.“",
+  sel_cta:"Zur Auswahl",
+  dolci_note:"Fragen Sie unser Personal nach der Auswahl des Tages.",
   so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
   r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
   r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
@@ -768,12 +787,7 @@ stuzzicherie:[
 ["Pepite di Asiago (8 pz)","","7,00"],
 ["Montanare (4 pz)","pizzette fritte con pomodoro, mozzarella e grana","10,00"],
 ],
-dolci:[
-["Tiramisù","","6,00"],
-["Panna Cotta","","5,50"],
-["Torta del Giorno","","6,00"],
-["Gelato Artigianale","","5,00"],
-]
+dolci:[]
 };
 
 /* immagine o illustrazione per ogni categoria */
@@ -834,7 +848,8 @@ function renderMenu(){
       html += `<div class="cat-hero"><span class="arc"></span><img class="${isPhoto?'photo':'pizza'}" src="${CAT_IMG[id]}" alt="" loading="lazy"></div>`;
     }
     html += `<header><span class="n">${n}</span><h3>${titolo}</h3></header><p class="tag">${tag}</p><div class="rule"></div>`;
-    if(MENU[id]) html += MENU[id].map(v=>item(v[0],v[1],v[2])).join("");
+    if(id==="dolci") html += `<p class="dolci-note">${t.dolci_note}</p>`;
+    else if(MENU[id]) html += MENU[id].map(v=>item(v[0],v[1],v[2])).join("");
 
     if(id==="calzoni") html += `<p class="groupline">${t.varianti}</p>` + simple(VARIANTI);
     if(id==="audaci")  html += `<p class="groupline">${t.cornice}</p>` + simple(CORNICE)
@@ -878,7 +893,7 @@ function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
     b.addEventListener("click",()=>{
       const el = document.getElementById("cat-"+b.dataset.go);
-      const y = el.getBoundingClientRect().top + scrollY - 126;
+      const y = el.getBoundingClientRect().top + scrollY - 150;
       scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
     });
   });
@@ -904,18 +919,45 @@ const SHOW = [
 ["classiche","assets/pizza3.webp"],
 ["audaci","assets/pizza1.webp"],
 ["bianche","assets/pizza8.webp"],
+["calzoni","assets/pizza7.webp"],
+["stuzzicherie","assets/pizza5.webp"],
+["cucina","assets/int.webp"],
 ];
 function renderShow(){
   const t = T[LANG];
-  document.getElementById("showrail").innerHTML = SHOW.map(([id,img])=>`
-    <div class="slide">
+  const slide = ([id,img]) => {
+    const isPhoto = ["cucina","bevande","dolci"].includes(id);
+    return `<div class="slide" data-cat="${id}">
       <div class="pz"><span class="arc"></span><span class="arc a2"></span>
-        <img class="pizza bgimg" style="position:static" data-src="${img}" alt=""></div>
+        <img class="${isPhoto?'photo':'pizza'} bgimg" style="position:static${isPhoto?';border-radius:50%':''}" data-src="${img}" alt=""></div>
       <h2>${t.cats[id][0]}</h2>
       <p class="sub">${t.cats[id][1]}</p><hr class="hairline" style="margin:22px auto">
       <a class="golink" href="#cat-${id}">${t.sel_cta}</a>
-    </div>`).join("");
+    </div>`;
+  };
+  // loop: clone ultimo in testa + clone primo in coda
+  document.getElementById("showrail").innerHTML =
+    slide(SHOW[SHOW.length-1]) + SHOW.map(slide).join("") + slide(SHOW[0]);
 }
+
+/* =============== carosello categorie: loop control =============== */
+const rail = document.getElementById("showrail");
+const SN = SHOW.length;
+const showW = () => rail.querySelector(".slide").getBoundingClientRect().width;
+const showCenter = i => rail.scrollTo({left:(i+1)*showW(), behavior:"auto"});
+let showIdx = 0, showTick;
+rail.addEventListener("scroll",()=>{
+  clearTimeout(showTick);
+  showTick = setTimeout(()=>{
+    const raw = Math.round(rail.scrollLeft/showW()) - 1;
+    if(raw < 0){ showCenter(SN-1); showIdx=SN-1; }
+    else if(raw >= SN){ showCenter(0); showIdx=0; }
+    else showIdx = raw;
+  },90);
+},{passive:true});
+document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>{
+  rail.scrollBy({left: Number(b.dataset.show)*showW(), behavior:"smooth"});
+}));
 
 /* =============== carosello forno: nomi, loop, dots, drag =============== */
 /* NB: nomi 5-6-7 dedotti dagli ingredienti in foto, da verificare col cliente */
@@ -959,12 +1001,6 @@ document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",
   forno.scrollTo({left:(Number(d.dataset.d)+1)*slideW() - (forno.clientWidth - slideW())/2, behavior:"smooth"});
 }));
 
-/* chevrons catshow */
-const rail = document.getElementById("showrail");
-document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>{
-  rail.scrollBy({left: Number(b.dataset.show)*rail.clientWidth, behavior:"smooth"});
-}));
-
 /* drag-to-scroll desktop (mouse) per entrambi */
 function dragScroll(el){
   let down=false, sx=0, sl=0, moved=false;
@@ -982,13 +1018,26 @@ function dragScroll(el){
   addEventListener("pointerup",()=>{
     if(!down) return;
     down=false; el.classList.remove("dragging");
-    const w = el.querySelector("figure, .slide").getBoundingClientRect().width;
-    const i = Math.round((el.scrollLeft + (el.clientWidth - w)/2) / w);
-    el.scrollTo({left: i*w - (el.clientWidth - w)/2, behavior:"smooth"});
+    const first = el.querySelector("figure, .slide");
+    const w = first.getBoundingClientRect().width;
+    const full = first.classList.contains("slide");   // rail: slide piena larghezza
+    if(full){
+      const i = Math.round(el.scrollLeft / w);
+      el.scrollTo({left: i*w, behavior:"smooth"});
+    } else {
+      const i = Math.round((el.scrollLeft + (el.clientWidth - w)/2) / w);
+      el.scrollTo({left: i*w - (el.clientWidth - w)/2, behavior:"smooth"});
+    }
   });
   el.addEventListener("click",e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
 }
 dragScroll(forno); dragScroll(rail);
+
+/* chevron chips */
+const chipsEl = document.getElementById("chips");
+document.querySelectorAll("[data-chip]").forEach(b=>b.addEventListener("click",()=>{
+  chipsEl.scrollBy({left: Number(b.dataset.chip)*160, behavior:"smooth"});
+}));
 
 /* =============== reveal + lazy =============== */
 let fxObs;
@@ -1031,9 +1080,8 @@ renderMenu();
 observeAll();
 document.querySelectorAll("#showrail .bgimg, #forno .bgimg").forEach(im=>imgObs.observe(im));
 requestAnimationFrame(()=>{
-  const w = rail.querySelector(".slide").getBoundingClientRect().width;
-  rail.scrollTo({left: w, behavior:"auto"});   // parte su Le Audaci
-  center(0); setDot(0);                        // forno sul primo slide reale
+  showCenter(0); showIdx=0;   // catshow sul primo slide reale (dopo il clone)
+  center(0); setDot(0);       // forno sul primo slide reale
 });
 requestAnimationFrame(()=>document.getElementById("splash").classList.add("ready"));
 </script>
