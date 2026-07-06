@@ -50,8 +50,8 @@ a,button{touch-action:manipulation}
 /* ---------------- top bar ---------------- */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:calc(10px + env(safe-area-inset-top)) 20px 118px;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 90px;
   pointer-events:none;
   -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
   -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
@@ -59,24 +59,22 @@ a,button{touch-action:manipulation}
   transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
 .top.solid{
-  padding:calc(12px + env(safe-area-inset-top)) 20px 110px;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 82px;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
-.top .brand{pointer-events:auto;display:inline-flex;align-items:center;border-radius:20px;padding:4px 12px;
-  background:rgba(10,10,11,.28);-webkit-backdrop-filter:saturate(150%) blur(10px);backdrop-filter:saturate(150%) blur(10px)}
-.top .mark{height:96px;width:auto;object-fit:contain;display:block}
+.top .brand{pointer-events:auto;display:inline-flex;align-items:center}
+.top .mark{height:58px;width:auto;object-fit:contain;display:block}
 .lang{
-  pointer-events:auto;align-self:flex-start;margin-top:6px;
+  pointer-events:auto;align-self:flex-start;
   display:flex;gap:2px;border:1px solid var(--hair);border-radius:999px;padding:3px;
   background:rgba(10,10,11,.4);-webkit-backdrop-filter:saturate(160%) blur(12px);backdrop-filter:saturate(160%) blur(12px);
 }
 .lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 @media(max-width:560px){
-  .top{padding-bottom:104px}
-  .top.solid{padding-bottom:98px}
-  .top .brand{padding:5px 11px}
-  .top .mark{height:78px}
+  .top{padding-bottom:90px}
+  .top.solid{padding-bottom:82px}
+  .top .mark{height:48px}
   .lang button{padding:6px 10px;font-size:11px}
 }
 
@@ -348,6 +346,49 @@ a,button{touch-action:manipulation}
 .btn-wa:hover{background:var(--oro);color:var(--nero)}
 .cust-hint{margin-top:16px;font-size:11px;letter-spacing:.05em;color:rgba(241,236,225,.42);max-width:40ch;margin-left:auto;margin-right:auto}
 
+/* ---------------- lightbox (foto a schermo intero) ---------------- */
+[data-zoom]{cursor:zoom-in}
+#lightbox{
+  position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
+  padding:max(20px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));
+  background:rgba(6,6,7,.92);-webkit-backdrop-filter:blur(18px) saturate(120%);backdrop-filter:blur(18px) saturate(120%);
+  opacity:0;visibility:hidden;transition:opacity .32s ease,visibility .32s ease;cursor:zoom-out;
+}
+#lightbox.on{opacity:1;visibility:visible}
+#lightbox figure{margin:0;max-width:100%;max-height:100%;display:flex;flex-direction:column;align-items:center;gap:14px;
+  transform:scale(.94);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+#lightbox.on figure{transform:scale(1)}
+#lightbox img{
+  max-width:100%;max-height:calc(100vh - 120px);width:auto;height:auto;object-fit:contain;
+  border-radius:4px;box-shadow:0 30px 90px -20px rgba(0,0,0,.9);cursor:default;
+}
+#lightbox figcaption{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--grigio);text-align:center}
+#lb-close{
+  position:absolute;top:max(16px,env(safe-area-inset-top));right:16px;z-index:2;
+  width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hair);border-radius:50%;color:var(--bianco);background:rgba(10,10,11,.5);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;
+  transition:border-color .25s,background .25s,transform .25s cubic-bezier(.22,1,.36,1);
+}
+#lb-close:hover{border-color:var(--oro);color:var(--oro);background:rgba(10,10,11,.75)}
+#lb-close:active{transform:scale(.9)}
+#lb-close i{font-size:22px}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:50px;height:50px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hair);border-radius:50%;color:var(--bianco);background:rgba(10,10,11,.42);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;
+  transition:border-color .25s,background .25s,opacity .25s,transform .25s cubic-bezier(.22,1,.36,1);
+}
+.lb-nav:hover{border-color:var(--oro);color:var(--oro);background:rgba(10,10,11,.7)}
+.lb-nav:active{transform:translateY(-50%) scale(.9)}
+.lb-nav.l{left:14px}.lb-nav.r{right:14px}
+.lb-nav i{font-size:24px}
+@media(max-width:560px){
+  .lb-nav{width:42px;height:42px}.lb-nav.l{left:8px}.lb-nav.r{right:8px}
+  #lightbox img{max-height:calc(100vh - 96px)}
+}
+
 /* ---------------- social ---------------- */
 #social{padding:100px 28px 90px;max-width:640px;margin:0 auto;text-align:center}
 #social .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
@@ -412,7 +453,7 @@ a,button{touch-action:manipulation}
 <body>
 
 <div class="top" id="topbar">
-  <a class="brand" href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/logo.png" alt="Pizzeria Via Roma"></a>
+  <a class="brand" href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/flame.png" alt="Pizzeria Via Roma"></a>
   <div class="lang" role="group" aria-label="Language">
     <button data-lang="it" class="on">IT</button>
     <button data-lang="en">EN</button>
@@ -600,6 +641,14 @@ a,button{touch-action:manipulation}
   <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
   <a href="#dove" data-tab="dove"><i class="ph-thin ph-map-pin"></i><span data-i18n="tab_dove">Dove</span></a>
 </nav>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto">
+  <button id="lb-close" aria-label="Chiudi"><i class="ph-thin ph-x"></i></button>
+  <button class="lb-nav l" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
+  <button class="lb-nav r" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
+  <figure><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption></figure>
+</div>
 
 <script>
 /* =============== UI + narrative i18n =============== */
@@ -1043,6 +1092,7 @@ function applyLang(l){
   renderGallery();
   renderCustomer();
   document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #ggrid .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
+  if(window.__lbTag) window.__lbTag();
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
 
@@ -1299,6 +1349,92 @@ function renderCustomer(){
   const cta = document.getElementById("custcta");
   cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t.wa_msg)}`;
 }
+
+/* =============== lightbox: foto a schermo intero =============== */
+(function(){
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  const lbCap = document.getElementById("lb-cap");
+  const navL = lb.querySelector(".lb-nav.l");
+  const navR = lb.querySelector(".lb-nav.r");
+  // gruppi di immagini apribili: contenitore cliccabile → immagine + caption
+  const GROUPS = [
+    {tap:"#forno figure:not([data-clone])", img:"img", all:"#forno figure:not([data-clone]) img",
+     capFrom:im=>im.closest("figure").querySelector("figcaption span")?.textContent||""},
+    {tap:"#ggrid .g-cell", img:"img", all:"#ggrid .g-cell img",
+     capFrom:im=>im.closest(".g-cell").querySelector(".g-cap")?.textContent||""},
+    {tap:"#custgrid .cust-cell", img:"img", all:"#custgrid .cust-cell img",
+     capFrom:()=>""}
+  ];
+  let group=[], idx=0, scrollY=0;
+  // src piena risoluzione: usa data-src (lazy) se presente, altrimenti src
+  const fullSrc = im => im.getAttribute("data-src") || im.currentSrc || im.src;
+
+  function show(i){
+    idx = (i+group.length)%group.length;
+    const im = group[idx];
+    lbImg.src = fullSrc(im);
+    lbImg.alt = im.alt||"";
+    const cap = im.__cap ? im.__cap() : "";
+    lbCap.textContent = cap;
+    lbCap.style.display = cap ? "" : "none";
+    const multi = group.length>1;
+    navL.style.display = navR.style.display = multi ? "" : "none";
+  }
+  function open(im, list){
+    group = list; scrollY = window.scrollY;
+    // blocca lo scroll di fondo SENZA spostare la pagina (niente position:fixed):
+    // overflow hidden mantiene la posizione corrente intatta.
+    document.documentElement.style.overflow="hidden";
+    document.body.style.overflow="hidden";
+    show(list.indexOf(im));
+    lb.classList.add("on");
+  }
+  function close(){
+    lb.classList.remove("on");
+    document.documentElement.style.overflow="";
+    document.body.style.overflow="";
+    // ripristina la posizione dopo che il layout si è ristabilito
+    const y = scrollY;
+    requestAnimationFrame(()=>window.scrollTo(0, y));
+  }
+
+  // delegazione: un solo listener per tutti (anche immagini caricate dopo)
+  document.addEventListener("click", e=>{
+    if(lb.classList.contains("on")) return;               // già aperto → gestito altrove
+    for(const g of GROUPS){
+      const cell = e.target.closest(g.tap);
+      if(cell){
+        const im = cell.querySelector(g.img);
+        if(!im) return;
+        const list=[...document.querySelectorAll(g.all)];
+        list.forEach(x=>x.__cap = ()=>g.capFrom(x));
+        open(im, list);
+        return;
+      }
+    }
+  });
+  // marca il cursore zoom-in sulle celle apribili (estetica)
+  function tagZoom(){ GROUPS.forEach(g=>document.querySelectorAll(g.tap).forEach(c=>c.setAttribute("data-zoom",""))); }
+  tagZoom(); addEventListener("resize", tagZoom);
+  window.__lbTag = tagZoom;   // richiamabile dopo i re-render
+
+  // chiusura: click fuori (sfull'overlay/vuoto), bottone X, Esc.
+  // Non chiude cliccando sull'immagine, sulle frecce o sulla X.
+  lb.addEventListener("click", e=>{
+    if(e.target.closest("#lb-img, .lb-nav, #lb-close")) return;
+    close();
+  });
+  document.getElementById("lb-close").addEventListener("click", e=>{ e.stopPropagation(); close(); });
+  navL.addEventListener("click", e=>{ e.stopPropagation(); show(idx-1); });
+  navR.addEventListener("click", e=>{ e.stopPropagation(); show(idx+1); });
+  addEventListener("keydown", e=>{
+    if(!lb.classList.contains("on")) return;
+    if(e.key==="Escape") close();
+    else if(e.key==="ArrowLeft" && group.length>1) show(idx-1);
+    else if(e.key==="ArrowRight" && group.length>1) show(idx+1);
+  });
+})();
 
 /* chevron chips + rilevamento scroll (fade laterali) */
 const chipsEl = document.getElementById("chips");
