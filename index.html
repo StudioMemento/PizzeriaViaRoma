@@ -51,28 +51,27 @@ a,button{touch-action:manipulation}
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:center;justify-content:center;
-  padding:calc(16px + env(safe-area-inset-top)) 20px 54px;
+  padding:calc(10px + env(safe-area-inset-top)) 20px 172px;
   -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 42%,rgba(0,0,0,.85) 60%,rgba(0,0,0,.5) 78%,rgba(0,0,0,.18) 90%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 42%,rgba(0,0,0,.85) 60%,rgba(0,0,0,.5) 78%,rgba(0,0,0,.18) 90%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 24%,rgba(0,0,0,.96) 38%,rgba(0,0,0,.88) 50%,rgba(0,0,0,.74) 61%,rgba(0,0,0,.56) 71%,rgba(0,0,0,.38) 80%,rgba(0,0,0,.22) 87%,rgba(0,0,0,.1) 93%,rgba(0,0,0,.03) 97%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 24%,rgba(0,0,0,.96) 38%,rgba(0,0,0,.88) 50%,rgba(0,0,0,.74) 61%,rgba(0,0,0,.56) 71%,rgba(0,0,0,.38) 80%,rgba(0,0,0,.22) 87%,rgba(0,0,0,.1) 93%,rgba(0,0,0,.03) 97%,transparent 100%);
   transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
 .top.solid{
-  padding:calc(9px + env(safe-area-inset-top)) 20px 40px;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 164px;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
-.top .mark{height:78px;width:auto;object-fit:contain;transition:height .45s cubic-bezier(.22,1,.36,1),opacity .45s ease;will-change:height}
-.top.solid .mark{height:50px}
+.top .mark{height:104px;width:auto;object-fit:contain}
 .lang{
-  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  position:absolute;right:20px;top:calc(14px + env(safe-area-inset-top));
   display:flex;gap:2px;border:1px solid var(--hair);border-radius:999px;padding:3px;
-  background:rgba(10,10,11,.35);
+  background:rgba(10,10,11,.35);transition:top .45s cubic-bezier(.22,1,.36,1);
 }
+.top.solid .lang{top:calc(12px + env(safe-area-inset-top))}
 .lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 @media(max-width:560px){
-  .top .mark{height:64px}
-  .top.solid .mark{height:46px}
+  .top .mark{height:88px}
   .lang button{padding:6px 10px;font-size:11px}
 }
 
@@ -222,7 +221,7 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:var(--navh,90px);z-index:40}
+.chipbar{position:sticky;top:var(--navh,90px);z-index:52}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
   display:flex;gap:14px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
@@ -1047,7 +1046,8 @@ function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
     b.addEventListener("click",()=>{
       const el = document.getElementById("cat-"+b.dataset.go);
-      const off = document.getElementById("topbar").offsetHeight + document.querySelector(".chipbar").offsetHeight + 8;
+      const navh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--navh")) || 90;
+      const off = navh + document.querySelector(".chipbar").offsetHeight + 8;
       const y = el.getBoundingClientRect().top + scrollY - off;
       scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
     });
@@ -1346,8 +1346,18 @@ document.getElementById("menu").dataset.zone="menu";
 document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
-/* =============== init =============== */
-function setNavH(){document.documentElement.style.setProperty("--navh", document.getElementById("topbar").offsetHeight + "px");}
+/* navh = quota a cui si ferma la chipbar sticky.
+   Padding-top + altezza logo + piccolo gap: i chip stickano appena
+   SOTTO il logo (senza coprirlo), restando comunque ben dentro la lunga
+   fascia sfocata dell'header, che li mantiene sempre leggibili. */
+function setNavH(){
+  const top = document.getElementById("topbar");
+  const cs = getComputedStyle(top);
+  const pt = parseFloat(cs.paddingTop) || 0;
+  const mark = top.querySelector(".mark");
+  const h = pt + (mark ? mark.offsetHeight : 60) + 6;
+  document.documentElement.style.setProperty("--navh", Math.round(h) + "px");
+}
 setNavH(); addEventListener("resize", setNavH);
 renderShow();
 renderMenu();
