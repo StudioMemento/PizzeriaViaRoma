@@ -50,28 +50,33 @@ a,button{touch-action:manipulation}
 /* ---------------- top bar ---------------- */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;align-items:center;justify-content:center;
-  padding:calc(10px + env(safe-area-inset-top)) 20px 172px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(10px + env(safe-area-inset-top)) 20px 118px;
+  pointer-events:none;
   -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 24%,rgba(0,0,0,.96) 38%,rgba(0,0,0,.88) 50%,rgba(0,0,0,.74) 61%,rgba(0,0,0,.56) 71%,rgba(0,0,0,.38) 80%,rgba(0,0,0,.22) 87%,rgba(0,0,0,.1) 93%,rgba(0,0,0,.03) 97%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 24%,rgba(0,0,0,.96) 38%,rgba(0,0,0,.88) 50%,rgba(0,0,0,.74) 61%,rgba(0,0,0,.56) 71%,rgba(0,0,0,.38) 80%,rgba(0,0,0,.22) 87%,rgba(0,0,0,.1) 93%,rgba(0,0,0,.03) 97%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
   transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
 .top.solid{
-  padding:calc(12px + env(safe-area-inset-top)) 20px 164px;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 110px;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
-.top .mark{height:104px;width:auto;object-fit:contain}
+.top .brand{pointer-events:auto;display:inline-flex;align-items:center;border-radius:20px;padding:4px 12px;
+  background:rgba(10,10,11,.28);-webkit-backdrop-filter:saturate(150%) blur(10px);backdrop-filter:saturate(150%) blur(10px)}
+.top .mark{height:96px;width:auto;object-fit:contain;display:block}
 .lang{
-  position:absolute;right:20px;top:calc(14px + env(safe-area-inset-top));
+  pointer-events:auto;align-self:flex-start;margin-top:6px;
   display:flex;gap:2px;border:1px solid var(--hair);border-radius:999px;padding:3px;
-  background:rgba(10,10,11,.35);transition:top .45s cubic-bezier(.22,1,.36,1);
+  background:rgba(10,10,11,.4);-webkit-backdrop-filter:saturate(160%) blur(12px);backdrop-filter:saturate(160%) blur(12px);
 }
-.top.solid .lang{top:calc(12px + env(safe-area-inset-top))}
 .lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 @media(max-width:560px){
-  .top .mark{height:88px}
+  .top{padding-bottom:104px}
+  .top.solid{padding-bottom:98px}
+  .top .brand{padding:5px 11px}
+  .top .mark{height:78px}
   .lang button{padding:6px 10px;font-size:11px}
 }
 
@@ -221,7 +226,7 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:var(--navh,90px);z-index:52}
+.chipbar{position:sticky;top:var(--navh,90px);z-index:45}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
   display:flex;gap:14px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
@@ -233,6 +238,7 @@ a,button{touch-action:manipulation}
 .chips button{
   flex:0 0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   padding:11px 20px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
+  background:rgba(18,18,20,.55);-webkit-backdrop-filter:saturate(160%) blur(14px);backdrop-filter:saturate(160%) blur(14px);
   transition:color .28s ease,background .28s ease,border-color .28s ease,transform .28s cubic-bezier(.22,1,.36,1);
   white-space:nowrap;
 }
@@ -406,7 +412,7 @@ a,button{touch-action:manipulation}
 <body>
 
 <div class="top" id="topbar">
-  <a href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/logo.png" alt="Pizzeria Via Roma"></a>
+  <a class="brand" href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/logo.png" alt="Pizzeria Via Roma"></a>
   <div class="lang" role="group" aria-label="Language">
     <button data-lang="it" class="on">IT</button>
     <button data-lang="en">EN</button>
@@ -1347,15 +1353,15 @@ document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
 /* navh = quota a cui si ferma la chipbar sticky.
-   Padding-top + altezza logo + piccolo gap: i chip stickano appena
-   SOTTO il logo (senza coprirlo), restando comunque ben dentro la lunga
-   fascia sfocata dell'header, che li mantiene sempre leggibili. */
+   I chip scorrono SOTTO logo e lang (z-index inferiore) e questi hanno un
+   proprio fondo glass, quindi i chip possono stare in alto e passare dietro
+   il logo senza problemi di leggibilità. Li posizioniamo circa a metà logo. */
 function setNavH(){
   const top = document.getElementById("topbar");
   const cs = getComputedStyle(top);
   const pt = parseFloat(cs.paddingTop) || 0;
   const mark = top.querySelector(".mark");
-  const h = pt + (mark ? mark.offsetHeight : 60) + 6;
+  const h = pt + (mark ? mark.offsetHeight*0.5 : 40);
   document.documentElement.style.setProperty("--navh", Math.round(h) + "px");
 }
 setNavH(); addEventListener("resize", setNavH);
