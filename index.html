@@ -51,23 +51,16 @@ a,button{touch-action:manipulation}
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:center;justify-content:center;
-  padding:calc(16px + env(safe-area-inset-top)) 20px 18px;
+  padding:calc(16px + env(safe-area-inset-top)) 20px 26px;
   -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 74%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 74%,transparent 100%);
   transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
-/* gradient veil sits behind, fading top→bottom; masked so there's no hard edge */
-.top::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(10,10,11,.82) 0%,rgba(10,10,11,.5) 55%,transparent 100%);
-  transition:background .45s ease;
-}
 .top.solid{
-  padding:calc(9px + env(safe-area-inset-top)) 20px 12px;
+  padding:calc(9px + env(safe-area-inset-top)) 20px 18px;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
-.top.solid::before{background:linear-gradient(180deg,rgba(10,10,11,.94) 0%,rgba(10,10,11,.72) 60%,rgba(10,10,11,.15) 100%)}
 .top .mark{height:78px;width:auto;object-fit:contain;transition:height .45s cubic-bezier(.22,1,.36,1),opacity .45s ease;will-change:height}
 .top.solid .mark{height:50px}
 .lang{
@@ -229,7 +222,7 @@ a,button{touch-action:manipulation}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:var(--navh,90px);z-index:40;background:rgba(12,12,14,.72);-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);border-bottom:1px solid var(--hair-soft)}
+.chipbar{position:sticky;top:var(--navh,90px);z-index:40;-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 72%,transparent 100%)}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
   display:flex;gap:14px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
@@ -1134,8 +1127,18 @@ const FORNO = [
 ];
 const forno = document.getElementById("forno");
 const N = FORNO.length;
-function fig(d){return `<figure><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"></div><figcaption><span>${d[1]}</span></figcaption></figure>`}
-forno.innerHTML = fig(FORNO[N-1]) + FORNO.map(fig).join("") + fig(FORNO[0]);
+function fig(d,clone){return `<figure${clone?' data-clone="1" aria-hidden="true"':''}><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${clone?'':d[1]}"></div><figcaption><span>${d[1]}</span></figcaption></figure>`}
+/* loop infinito: buffer di cloni su entrambi i lati, ampio abbastanza
+   da coprire il viewport più largo. CLONES = N garantisce copertura totale. */
+const CLONES = N;
+(function buildForno(){
+  let head="", tail="";
+  for(let i=0;i<CLONES;i++){
+    head += fig(FORNO[(N - CLONES + i)%N], true);   // ultimi CLONES elementi
+    tail += fig(FORNO[i%N], true);                    // primi CLONES elementi
+  }
+  forno.innerHTML = head + FORNO.map(d=>fig(d,false)).join("") + tail;
+})();
 document.getElementById("fornodots").innerHTML = FORNO.map((_,i)=>`<i data-d="${i}"></i>`).join("");
 
 const gap = () => parseFloat(getComputedStyle(forno).columnGap || getComputedStyle(forno).gap) || 0;
@@ -1143,20 +1146,22 @@ const figs = () => forno.querySelectorAll("figure");
 const figW = () => forno.querySelector("figure").offsetWidth;
 const step = () => figW() + gap();
 const slideW = step;   // alias retained for existing callers
-/* centra la figure con indice logico i (0..N-1) → clone offset +1 */
-const scrollToFig = (fi,behavior="auto") => {
+/* posiziona la figure con indice DOM assoluto fi, centrata nel viewport */
+const scrollToDom = (fi,behavior="auto") => {
   const f = figs()[fi];
   if(!f) return;
   forno.scrollTo({left: f.offsetLeft - (forno.clientWidth - f.offsetWidth)/2, behavior});
 };
-const center = i => scrollToFig(i+1,"auto");
+/* indice logico i (0..N-1) → prima copia reale (offset = CLONES) */
+const scrollToFig = (i,behavior="auto") => scrollToDom(CLONES + ((i%N)+N)%N, behavior);
+const center = i => scrollToFig(i,"auto");
 let fornoIdx = 0;
 function setDot(i){
   fornoIdx = ((i%N)+N)%N;
   document.querySelectorAll("#fornodots i").forEach((d,k)=>d.classList.toggle("on",k===fornoIdx));
 }
-/* indice della figure (0..figs.length-1) più vicina al centro viewport */
-function nearestFig(){
+/* indice DOM della figure più vicina al centro viewport */
+function nearestDom(){
   const mid = forno.scrollLeft + forno.clientWidth/2;
   let best=0, bd=1e9;
   figs().forEach((f,k)=>{
@@ -1166,27 +1171,45 @@ function nearestFig(){
   });
   return best;
 }
+/* indice logico (0..N-1) della card centrata */
+const nearestLogical = () => (((nearestDom() - CLONES)%N)+N)%N;
 /* evidenzia la figure centrata (scale/shadow/brightness) */
 function markMid(){
-  const b = nearestFig();
+  const b = nearestDom();
   figs().forEach((f,k)=>f.classList.toggle("mid",k===b));
+}
+/* riporta invisibilmente lo scroll nella fascia reale se siamo finiti sui cloni.
+   Avviene mentre l'utente non sta trascinando; salto istantaneo (auto) senza
+   animazione, quindi impercettibile. */
+let looping=false;
+function normalizeLoop(){
+  if(looping || forno.classList.contains("dragging")) return;
+  const dom = nearestDom();
+  const real = CLONES + nearestLogical();
+  if(dom !== real){
+    looping=true;
+    const f = figs()[dom];
+    const target = figs()[real];
+    // preserva l'offset frazionario rispetto al centro della card
+    const delta = forno.scrollLeft - (f.offsetLeft - (forno.clientWidth - f.offsetWidth)/2);
+    forno.scrollLeft = (target.offsetLeft - (forno.clientWidth - target.offsetWidth)/2) + delta;
+    requestAnimationFrame(()=>{ looping=false; });
+  }
 }
 let fornoTick;
 forno.addEventListener("scroll",()=>{
   markMid();
   clearTimeout(fornoTick);
   fornoTick = setTimeout(()=>{
-    const raw = nearestFig() - 1;   // -1 per il clone in testa
-    if(raw < 0){ center(N-1); setDot(N-1); markMid(); }
-    else if(raw >= N){ center(0); setDot(0); markMid(); }
-    else setDot(raw);
-  },90);
+    setDot(nearestLogical());
+    normalizeLoop();
+  },80);
 },{passive:true});
 document.querySelectorAll("[data-forno]").forEach(b=>b.addEventListener("click",()=>{
-  scrollToFig(nearestFig() + Number(b.dataset.forno), "smooth");
+  scrollToDom(nearestDom() + Number(b.dataset.forno), "smooth");
 }));
 document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",()=>{
-  scrollToFig(Number(d.dataset.d)+1, "smooth");
+  scrollToFig(Number(d.dataset.d), "smooth");
 }));
 
 /* drag-to-scroll desktop (mouse) per entrambi.
