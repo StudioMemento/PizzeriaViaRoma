@@ -50,17 +50,38 @@ a,button{touch-action:manipulation}
 /* ---------------- top bar ---------------- */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:calc(10px + env(safe-area-inset-top)) 20px 14px;
-  background:rgba(12,12,14,.72);
-  -webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);
-  border-bottom:1px solid var(--hair-soft);
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(16px + env(safe-area-inset-top)) 20px 18px;
+  -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 100%);
+  transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
-.top.solid{background:rgba(12,12,14,.82)}
-.top .mark{height:62px;width:62px;object-fit:contain}
-.lang{display:flex;gap:3px;border:1px solid var(--hair);border-radius:999px;padding:3px}
-.lang button{font-size:13px;letter-spacing:.14em;padding:9px 16px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
+/* gradient veil sits behind, fading top→bottom; masked so there's no hard edge */
+.top::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,10,11,.82) 0%,rgba(10,10,11,.5) 55%,transparent 100%);
+  transition:background .45s ease;
+}
+.top.solid{
+  padding:calc(9px + env(safe-area-inset-top)) 20px 12px;
+  -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
+}
+.top.solid::before{background:linear-gradient(180deg,rgba(10,10,11,.94) 0%,rgba(10,10,11,.72) 60%,rgba(10,10,11,.15) 100%)}
+.top .mark{height:78px;width:auto;object-fit:contain;transition:height .45s cubic-bezier(.22,1,.36,1),opacity .45s ease;will-change:height}
+.top.solid .mark{height:50px}
+.lang{
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;gap:2px;border:1px solid var(--hair);border-radius:999px;padding:3px;
+  background:rgba(10,10,11,.35);
+}
+.lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
+@media(max-width:560px){
+  .top .mark{height:64px}
+  .top.solid .mark{height:46px}
+  .lang button{padding:6px 10px;font-size:11px}
+}
 
 
 
@@ -139,11 +160,18 @@ a,button{touch-action:manipulation}
 
 /* chevron + dots (condivisi dai caroselli) */
 .chev{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
-  width:42px;height:42px;display:flex;align-items:center;justify-content:center;
-  border:1px solid var(--hair);border-radius:50%;color:var(--oro);background:rgba(10,10,11,.72)}
+  width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--hair);border-radius:50%;color:var(--oro);background:rgba(10,10,11,.55);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  transition:border-color .28s ease,background .28s ease,transform .28s cubic-bezier(.22,1,.36,1)}
 .chev i{font-size:18px}
-.chev.l{left:4vw}.chev.r{right:4vw}
-.chev:active{transform:translateY(-50%) scale(.94)}
+.chev.l{left:3vw}.chev.r{right:3vw}
+@media(hover:hover){.chev:hover{border-color:var(--oro);background:rgba(10,10,11,.8)}}
+.chev:active{transform:translateY(-50%) scale(.92)}
+/* forno arrows live inside the edge fades */
+.strip-wrap .chev{position:relative;top:auto;left:auto;right:auto;transform:none;pointer-events:auto}
+.strip-wrap .chev:active{transform:scale(.92)}
+@media(hover:hover){.strip-wrap .chev:hover{border-color:var(--oro);background:rgba(10,10,11,.8)}}
 .dots{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:22px}
 .dots i{width:8px;height:8px;border-radius:50%;background:var(--hair);transition:all .25s;cursor:pointer}
 .dots i.on{background:var(--oro);transform:scale(1.5)}
@@ -165,16 +193,31 @@ a,button{touch-action:manipulation}
 #catshow .golink{display:inline-block;margin-top:24px;color:var(--oro);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;border-bottom:1px solid var(--hair);padding-bottom:6px}
 
 /* carosello forno: caption + loop */
-.strip{cursor:grab}
+.strip{cursor:grab;gap:28px;padding:14px 12vw}
 .strip.dragging{cursor:grabbing;scroll-snap-type:none}
-.strip figure{flex:0 0 min(70vw,370px);scroll-snap-align:center;margin:0}
+.strip figure{
+  flex:0 0 min(66vw,340px);scroll-snap-align:center;margin:0;
+  transform:scale(.9);filter:brightness(.7) saturate(.92);opacity:.82;
+  transition:transform .5s cubic-bezier(.22,1,.36,1),filter .5s ease,opacity .5s ease;
+}
+.strip figure.mid{transform:scale(1);filter:brightness(1) saturate(1);opacity:1}
+.strip figure .shot{position:relative}
+.strip figure .shot::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  box-shadow:0 26px 60px -18px rgba(0,0,0,.85);opacity:0;transition:opacity .5s ease;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 52%,transparent 71%);
+  mask-image:radial-gradient(circle at 50% 50%,#000 52%,transparent 71%);
+}
+.strip figure.mid .shot::after{opacity:1}
 .strip figure img{width:100%;aspect-ratio:1;object-fit:cover}
-.strip figcaption{text-align:center;margin-top:6px}
-.strip figcaption span{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grigio);border:1px solid var(--hair);border-radius:999px;padding:11px 19px}
+.strip figcaption{text-align:center;margin-top:10px;transition:opacity .5s ease;opacity:.6}
+.strip figure.mid figcaption{opacity:1}
+.strip figcaption span{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grigio);border:1px solid var(--hair);border-radius:999px;padding:11px 19px;transition:color .4s ease,border-color .4s ease}
+.strip figure.mid figcaption span{color:var(--oro-vivo);border-color:var(--oro)}
 .strip-wrap{position:relative;overflow:hidden}
-.strip-wrap .edge{position:absolute;top:0;bottom:70px;width:16vw;max-width:150px;z-index:4;pointer-events:none}
-.strip-wrap .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B,transparent)}
-.strip-wrap .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B,transparent)}
+.strip-wrap .edge{position:absolute;top:0;bottom:70px;width:22vw;max-width:200px;z-index:4;pointer-events:none;display:flex;align-items:center}
+.strip-wrap .edge.l{left:0;background:linear-gradient(90deg,#0A0A0B 18%,rgba(10,10,11,.6) 60%,transparent);justify-content:flex-start;padding-left:14px}
+.strip-wrap .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B 18%,rgba(10,10,11,.6) 60%,transparent);justify-content:flex-end;padding-right:14px}
 
 /* quote screen */
 .quote h2{font-size:clamp(22px,6vw,32px);font-weight:200;letter-spacing:.1em;line-height:1.55;font-style:italic}
@@ -189,18 +232,39 @@ a,button{touch-action:manipulation}
 .chipbar{position:sticky;top:var(--navh,90px);z-index:40;background:rgba(12,12,14,.72);-webkit-backdrop-filter:saturate(150%) blur(20px);backdrop-filter:saturate(150%) blur(20px);border-bottom:1px solid var(--hair-soft)}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
-  display:flex;gap:9px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
+  display:flex;gap:14px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
+  justify-content:center;scroll-behavior:smooth;
 }
 .chips::-webkit-scrollbar{display:none}
+/* when the chips overflow, JS drops .centered so they scroll from the left */
+.chips.scrollable{justify-content:flex-start}
 .chips button{
   flex:0 0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  padding:11px 19px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);transition:all .25s;
+  padding:11px 20px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
+  transition:color .28s ease,background .28s ease,border-color .28s ease,transform .28s cubic-bezier(.22,1,.36,1);
+  white-space:nowrap;
 }
-.chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro)}
-.chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro)}
+@media(hover:hover){
+  .chips button:hover{border-color:var(--oro);color:var(--oro-vivo);transform:translateY(-2px)}
+}
+.chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro);transform:none}
+.chips button.on:hover{color:var(--nero)}
+/* edge fades: signal horizontal scroll. shown only when scrollable (mobile) */
+.chipbar-inner::before,.chipbar-inner::after{
+  content:"";position:absolute;top:0;bottom:0;width:52px;z-index:5;pointer-events:none;
+  opacity:0;transition:opacity .3s ease;
+}
+.chipbar-inner::before{left:0;background:linear-gradient(90deg,rgba(12,12,14,.96),transparent)}
+.chipbar-inner::after{right:0;background:linear-gradient(270deg,rgba(12,12,14,.96),transparent)}
+.chipbar-inner.can-l::before{opacity:1}
+.chipbar-inner.can-r::after{opacity:1}
+.chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro);
+  opacity:0;pointer-events:none;transition:opacity .3s ease}
+.chipbar-inner.can-l .chipchev.l{opacity:1;pointer-events:auto}
+.chipbar-inner.can-r .chipchev.r{opacity:1;pointer-events:auto}
 .chipchev.l{left:4px}.chipchev.r{right:4px}
 .chipchev i{font-size:16px}
-.chipchev{background:rgba(12,12,14,.9);border-radius:50%}
+.chipchev:active{transform:translateY(-50%) scale(.9)}
 
 .mcat{max-width:640px;margin:0 auto;padding:60px 28px 6px}
 .cat-hero{position:relative;width:min(58vw,280px);margin:0 auto 28px}
@@ -229,6 +293,62 @@ a,button{touch-action:manipulation}
 .groupsub{font-size:12.5px;color:var(--grigio);margin:10px 0 0}
 .dolci-note{font-size:14.5px;color:var(--grigio);font-style:italic;padding:20px 0;line-height:1.6}
 
+
+/* ---------------- gallery esperienza ---------------- */
+#gallery{padding:104px 0 96px;border-top:1px solid var(--hair-soft);background:var(--nero-2);overflow:hidden}
+.g-head{text-align:center;padding:0 28px;margin-bottom:44px}
+.g-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+.g-head h2{font-size:clamp(26px,6.4vw,40px);font-weight:200;letter-spacing:.22em;text-transform:uppercase;margin-top:10px}
+.g-head p{color:var(--grigio);font-size:14px;max-width:46ch;margin:16px auto 0;letter-spacing:.04em}
+.g-grid{
+  display:grid;gap:14px;padding:0 20px;max-width:1080px;margin:0 auto;
+  grid-template-columns:repeat(2,1fr);grid-auto-flow:dense;
+}
+.g-cell{position:relative;overflow:hidden;background:#000;aspect-ratio:1}
+.g-cell.wide{grid-column:span 2;aspect-ratio:16/10}
+.g-cell.tall{grid-row:span 2;aspect-ratio:auto}
+.g-cell img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .6s ease;filter:brightness(.9) saturate(.96)}
+.g-cell::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,11,.55));opacity:0;transition:opacity .5s ease}
+.g-cap{position:absolute;left:16px;bottom:14px;z-index:2;font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--bianco);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+@media(hover:hover){
+  .g-cell:hover img{transform:scale(1.06);filter:brightness(1) saturate(1)}
+  .g-cell:hover::after{opacity:1}
+  .g-cell:hover .g-cap{opacity:1;transform:none}
+}
+@media(max-width:560px){
+  .g-cell:not(.wide){aspect-ratio:1}
+  .g-cell.tall{grid-row:span 1;aspect-ratio:1}
+  .g-cap{opacity:1;transform:none}
+  .g-cell::after{opacity:1}
+}
+@media(min-width:860px){
+  .g-grid{grid-template-columns:repeat(4,1fr)}
+  .g-cell.wide{grid-column:span 2}
+}
+
+/* ---------------- customer gallery ---------------- */
+#customer{padding:100px 28px 96px;max-width:1080px;margin:0 auto;text-align:center}
+#customer .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
+#customer h2{font-size:clamp(24px,6vw,36px);font-weight:200;letter-spacing:.2em;text-transform:uppercase;margin-top:10px}
+#customer .lead{color:var(--grigio);font-size:14.5px;max-width:44ch;margin:16px auto 0}
+.cust-grid{
+  display:grid;gap:12px;margin:46px auto 0;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+}
+.cust-cell{position:relative;aspect-ratio:1;overflow:hidden;background:var(--nero);border:1px solid var(--hair-soft)}
+.cust-cell img{width:100%;height:100%;object-fit:cover;filter:brightness(.92) saturate(.95);transition:transform .7s cubic-bezier(.22,1,.36,1),filter .5s ease}
+@media(hover:hover){.cust-cell:hover img{transform:scale(1.07);filter:brightness(1) saturate(1)}}
+.cust-badge{position:absolute;top:9px;left:9px;z-index:2;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--oro);background:rgba(10,10,11,.7);border:1px solid var(--hair-soft);border-radius:999px;padding:5px 10px;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.cust-cta-wrap{margin-top:44px}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--oro);color:var(--oro);
+  font-size:11px;letter-spacing:.26em;text-transform:uppercase;padding:16px 30px;
+  transition:background .28s ease,color .28s ease;
+}
+.btn-wa i{font-size:20px}
+.btn-wa:hover{background:var(--oro);color:var(--nero)}
+.cust-hint{margin-top:16px;font-size:11px;letter-spacing:.05em;color:rgba(241,236,225,.42);max-width:40ch;margin-left:auto;margin-right:auto}
 
 /* ---------------- social ---------------- */
 #social{padding:100px 28px 90px;max-width:640px;margin:0 auto;text-align:center}
@@ -294,7 +414,7 @@ a,button{touch-action:manipulation}
 <body>
 
 <div class="top" id="topbar">
-  <img class="mark" src="assets/logo-oro.png" alt="Pizzeria Via Roma">
+  <a href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/logo-oro.png" alt="Pizzeria Via Roma"></a>
   <div class="lang" role="group" aria-label="Language">
     <button data-lang="it" class="on">IT</button>
     <button data-lang="en">EN</button>
@@ -379,10 +499,9 @@ a,button{touch-action:manipulation}
 
 <!-- 07 · STRIP FORNO -->
 <div class="strip-wrap">
-  <div class="edge l"></div><div class="edge r"></div>
   <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
-  <button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
-  <button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
+  <div class="edge l"><button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button></div>
+  <div class="edge r"><button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button></div>
   <div class="strip" id="forno"></div>
   <div class="dots" id="fornodots"></div>
 </div>
@@ -412,6 +531,30 @@ a,button{touch-action:manipulation}
   </div>
 </section>
 
+
+<!-- GALLERY · L'ESPERIENZA -->
+<section id="gallery">
+  <div class="g-head fx">
+    <p class="k-s" data-i18n="g_eyebrow">L'esperienza</p>
+    <h2 data-i18n="g_title">Dentro Via Roma</h2>
+    <p data-i18n="g_note">Non solo la pizza: l'atmosfera, il forno, le mani e i gesti di ogni sera.</p>
+  </div>
+  <div class="g-grid fx" id="ggrid"></div>
+</section>
+
+<!-- CUSTOMER GALLERY -->
+<section id="customer">
+  <p class="k-s" data-i18n="cu_eyebrow">La community</p>
+  <h2 data-i18n="cu_title">Racconta la tua esperienza</h2>
+  <p class="lead" data-i18n="cu_lead">Le vostre serate da Via Roma. Una selezione di scatti condivisi dai nostri clienti.</p>
+  <div class="cust-grid fx" id="custgrid"></div>
+  <div class="cust-cta-wrap fx">
+    <a class="btn-wa" id="custcta" href="#" target="_blank" rel="noopener">
+      <i class="ph-thin ph-whatsapp-logo"></i><span data-i18n="cu_cta">Condividi il ricordo</span>
+    </a>
+    <p class="cust-hint" data-i18n="cu_hint">Inviaci la tua foto su WhatsApp: la pubblicheremo dopo la tua conferma.</p>
+  </div>
+</section>
 
 <!-- SOCIAL -->
 <section id="social">
@@ -480,6 +623,15 @@ it:{
   q_text:"«La semplicità è l'ultima sofisticazione.»",
   sel_cta:"Scopri la selezione",
   dolci_note:"Chiedi al personale la disponibilità del giorno.",
+  g_eyebrow:"L'esperienza", g_title:"Dentro Via Roma",
+  g_note:"Non solo la pizza: l'atmosfera, il forno, le mani e i gesti di ogni sera.",
+  g_cap_sala:"La sala", g_cap_bancone:"Il bancone", g_cap_forno:"Dal forno",
+  g_cap_angolo:"L'angolo", g_cap_impasto:"L'impasto", g_cap_dettagli:"I dettagli",
+  cu_eyebrow:"La community", cu_title:"Racconta la tua esperienza",
+  cu_lead:"Le vostre serate da Via Roma. Una selezione di scatti condivisi dai nostri clienti.",
+  cu_cta:"Condividi il ricordo", cu_badge:"Cliente",
+  cu_hint:"Inviaci la tua foto su WhatsApp: la pubblicheremo dopo la tua conferma.",
+  wa_msg:"Ciao Via Roma! Vorrei condividere una foto della mia serata da voi 🍕 (in allegato). Potete pubblicarla?",
   so_eyebrow:"Seguici", so_title:"Social & Recensioni",
   r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
   r2:"Locale moderno e curato, personale gentile. Ottime anche le birre artigianali friulane.",
@@ -518,6 +670,15 @@ en:{
   q_text:"“Simplicity is the ultimate sophistication.”",
   sel_cta:"Discover the selection",
   dolci_note:"Ask our staff about today\u2019s selection.",
+  g_eyebrow:"The experience", g_title:"Inside Via Roma",
+  g_note:"Not just the pizza: the atmosphere, the oven, the hands and gestures of every evening.",
+  g_cap_sala:"The room", g_cap_bancone:"The counter", g_cap_forno:"From the oven",
+  g_cap_angolo:"The corner", g_cap_impasto:"The dough", g_cap_dettagli:"The details",
+  cu_eyebrow:"The community", cu_title:"Share your experience",
+  cu_lead:"Your evenings at Via Roma. A selection of shots shared by our guests.",
+  cu_cta:"Share your memory", cu_badge:"Guest",
+  cu_hint:"Send us your photo on WhatsApp: we'll publish it once you confirm.",
+  wa_msg:"Hi Via Roma! I'd love to share a photo from my evening with you 🍕 (attached). May you publish it?",
   so_eyebrow:"Follow us", so_title:"Social & Reviews",
   r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
   r2:"Modern, well-kept place, friendly staff. The Friulian craft beers are excellent too.",
@@ -556,6 +717,15 @@ de:{
   q_text:"„Einfachheit ist die höchste Stufe der Vollendung.“",
   sel_cta:"Zur Auswahl",
   dolci_note:"Fragen Sie unser Personal nach der Auswahl des Tages.",
+  g_eyebrow:"Das Erlebnis", g_title:"Bei Via Roma",
+  g_note:"Nicht nur die Pizza: die Atmosphäre, der Ofen, die Hände und Gesten jedes Abends.",
+  g_cap_sala:"Der Raum", g_cap_bancone:"Die Theke", g_cap_forno:"Aus dem Ofen",
+  g_cap_angolo:"Die Ecke", g_cap_impasto:"Der Teig", g_cap_dettagli:"Die Details",
+  cu_eyebrow:"Die Community", cu_title:"Erzählen Sie Ihr Erlebnis",
+  cu_lead:"Ihre Abende bei Via Roma. Eine Auswahl an Fotos unserer Gäste.",
+  cu_cta:"Erinnerung teilen", cu_badge:"Gast",
+  cu_hint:"Senden Sie uns Ihr Foto per WhatsApp: Wir veröffentlichen es nach Ihrer Bestätigung.",
+  wa_msg:"Hallo Via Roma! Ich möchte gern ein Foto von meinem Abend bei euch teilen 🍕 (im Anhang). Dürft ihr es veröffentlichen?",
   so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
   r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
   r2:"Modernes, gepflegtes Lokal, freundliches Personal. Auch die friaulischen Craft-Biere sind ausgezeichnet.",
@@ -858,6 +1028,7 @@ function renderMenu(){
   });
   $("#carta").innerHTML = html;
   bindChips(); observeAll();
+  if(typeof chipScrollState==="function") requestAnimationFrame(chipScrollState);
 }
 
 /* =============== i18n apply =============== */
@@ -871,7 +1042,9 @@ function applyLang(l){
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
   renderShow();
   renderMenu();
-  document.querySelectorAll("#showrail .bgimg, #forno .bgimg").forEach(im=>imgObs.observe(im));
+  renderGallery();
+  renderCustomer();
+  document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #ggrid .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
 
@@ -961,37 +1134,88 @@ const FORNO = [
 ];
 const forno = document.getElementById("forno");
 const N = FORNO.length;
-function fig(d){return `<figure><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"><figcaption><span>${d[1]}</span></figcaption></figure>`}
+function fig(d){return `<figure><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${d[1]}"></div><figcaption><span>${d[1]}</span></figcaption></figure>`}
 forno.innerHTML = fig(FORNO[N-1]) + FORNO.map(fig).join("") + fig(FORNO[0]);
 document.getElementById("fornodots").innerHTML = FORNO.map((_,i)=>`<i data-d="${i}"></i>`).join("");
 
-const slideW = () => forno.querySelector("figure").getBoundingClientRect().width;
-const center = i => forno.scrollTo({left: (i+1)*slideW() - (forno.clientWidth - slideW())/2, behavior:"auto"});
+const gap = () => parseFloat(getComputedStyle(forno).columnGap || getComputedStyle(forno).gap) || 0;
+const figs = () => forno.querySelectorAll("figure");
+const figW = () => forno.querySelector("figure").offsetWidth;
+const step = () => figW() + gap();
+const slideW = step;   // alias retained for existing callers
+/* centra la figure con indice logico i (0..N-1) → clone offset +1 */
+const scrollToFig = (fi,behavior="auto") => {
+  const f = figs()[fi];
+  if(!f) return;
+  forno.scrollTo({left: f.offsetLeft - (forno.clientWidth - f.offsetWidth)/2, behavior});
+};
+const center = i => scrollToFig(i+1,"auto");
 let fornoIdx = 0;
 function setDot(i){
   fornoIdx = ((i%N)+N)%N;
   document.querySelectorAll("#fornodots i").forEach((d,k)=>d.classList.toggle("on",k===fornoIdx));
 }
+/* indice della figure (0..figs.length-1) più vicina al centro viewport */
+function nearestFig(){
+  const mid = forno.scrollLeft + forno.clientWidth/2;
+  let best=0, bd=1e9;
+  figs().forEach((f,k)=>{
+    const c = f.offsetLeft + f.offsetWidth/2;
+    const d = Math.abs(c - mid);
+    if(d<bd){bd=d;best=k}
+  });
+  return best;
+}
+/* evidenzia la figure centrata (scale/shadow/brightness) */
+function markMid(){
+  const b = nearestFig();
+  figs().forEach((f,k)=>f.classList.toggle("mid",k===b));
+}
 let fornoTick;
 forno.addEventListener("scroll",()=>{
+  markMid();
   clearTimeout(fornoTick);
   fornoTick = setTimeout(()=>{
-    const raw = Math.round((forno.scrollLeft + (forno.clientWidth - slideW())/2) / slideW()) - 1;
-    if(raw < 0){ center(N-1); setDot(N-1); }
-    else if(raw >= N){ center(0); setDot(0); }
+    const raw = nearestFig() - 1;   // -1 per il clone in testa
+    if(raw < 0){ center(N-1); setDot(N-1); markMid(); }
+    else if(raw >= N){ center(0); setDot(0); markMid(); }
     else setDot(raw);
   },90);
 },{passive:true});
 document.querySelectorAll("[data-forno]").forEach(b=>b.addEventListener("click",()=>{
-  forno.scrollBy({left: Number(b.dataset.forno)*slideW(), behavior:"smooth"});
+  scrollToFig(nearestFig() + Number(b.dataset.forno), "smooth");
 }));
 document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",()=>{
-  forno.scrollTo({left:(Number(d.dataset.d)+1)*slideW() - (forno.clientWidth - slideW())/2, behavior:"smooth"});
+  scrollToFig(Number(d.dataset.d)+1, "smooth");
 }));
 
-/* drag-to-scroll desktop (mouse) per entrambi */
+/* drag-to-scroll desktop (mouse) per entrambi.
+   Il drag termina immediatamente al rilascio del mouse: nessuna inerzia,
+   snap fluido alla card più vicina, centrata. */
 function dragScroll(el){
   let down=false, sx=0, sl=0, moved=false;
+  const release = ()=>{
+    if(!down) return;
+    down=false; el.classList.remove("dragging");
+    const first = el.querySelector("figure, .slide");
+    if(!first) return;
+    const full = first.classList.contains("slide");   // rail categorie: slide piena larghezza
+    if(full){
+      const w = first.getBoundingClientRect().width;
+      const i = Math.round(el.scrollLeft / w);
+      el.scrollTo({left: i*w, behavior:"smooth"});
+    } else {
+      // forno: snap immediato alla figure più vicina, centrata.
+      // offsetLeft è indipendente da transform:scale e dal padding del rail.
+      const mid = el.scrollLeft + el.clientWidth/2;
+      let best=first, bd=1e9;
+      el.querySelectorAll("figure").forEach(f=>{
+        const c=f.offsetLeft+f.offsetWidth/2, d=Math.abs(c-mid);
+        if(d<bd){bd=d;best=f}
+      });
+      el.scrollTo({left: best.offsetLeft - (el.clientWidth - best.offsetWidth)/2, behavior:"smooth"});
+    }
+  };
   el.addEventListener("pointerdown",e=>{
     if(e.pointerType!=="mouse") return;
     down=true; moved=false; sx=e.clientX; sl=el.scrollLeft;
@@ -1003,29 +1227,66 @@ function dragScroll(el){
     if(Math.abs(dx)>4) moved=true;
     el.scrollLeft = sl - dx;
   });
-  addEventListener("pointerup",()=>{
-    if(!down) return;
-    down=false; el.classList.remove("dragging");
-    const first = el.querySelector("figure, .slide");
-    const w = first.getBoundingClientRect().width;
-    const full = first.classList.contains("slide");   // rail: slide piena larghezza
-    if(full){
-      const i = Math.round(el.scrollLeft / w);
-      el.scrollTo({left: i*w, behavior:"smooth"});
-    } else {
-      const i = Math.round((el.scrollLeft + (el.clientWidth - w)/2) / w);
-      el.scrollTo({left: i*w - (el.clientWidth - w)/2, behavior:"smooth"});
-    }
-  });
+  addEventListener("pointerup",release);
+  // il mouse esce dalla finestra mentre trascina → termina comunque subito
+  addEventListener("pointercancel",release);
+  window.addEventListener("blur",release);
   el.addEventListener("click",e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
 }
 dragScroll(forno); dragScroll(rail);
 
-/* chevron chips */
+/* =============== gallery esperienza =============== */
+/* Placeholder: usa gli scatti attuali del locale. Sostituire con
+   la nuova fotografia (interni, atmosfera, forno, staff, lifestyle). */
+const GALLERY = [
+  ["assets/intv1.webp","g_cap_sala","wide"],
+  ["assets/ext.webp","g_cap_angolo","tall"],
+  ["assets/int.webp","g_cap_bancone",""],
+  ["assets/pizza2.webp","g_cap_forno",""],
+  ["assets/pizza3.webp","g_cap_impasto",""],
+  ["assets/intv2.webp","g_cap_dettagli","wide"],
+];
+function renderGallery(){
+  const t = T[LANG];
+  document.getElementById("ggrid").innerHTML = GALLERY.map(([src,capKey,mod])=>
+    `<figure class="g-cell ${mod}">
+       <img class="bgimg" data-src="${src}" alt="${t[capKey]||""}">
+       <figcaption class="g-cap">${t[capKey]||""}</figcaption>
+     </figure>`).join("");
+}
+
+/* =============== customer gallery =============== */
+const WA_NUMBER = "390427541232";           // WhatsApp business (da confermare)
+/* Placeholder: al momento riusa scatti pizze. Sostituire con foto clienti approvate,
+   ottimizzate WebP/AVIF + srcset responsive. */
+const CUSTOMER = ["assets/pizza1.webp","assets/pizza4.webp","assets/pizza5.webp","assets/pizza6.webp","assets/pizza7.webp","assets/pizza8.webp"];
+function renderCustomer(){
+  const t = T[LANG];
+  document.getElementById("custgrid").innerHTML = CUSTOMER.map(src=>
+    `<figure class="cust-cell">
+       <span class="cust-badge">${t.cu_badge}</span>
+       <img class="bgimg" data-src="${src}" alt="">
+     </figure>`).join("");
+  const cta = document.getElementById("custcta");
+  cta.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t.wa_msg)}`;
+}
+
+/* chevron chips + rilevamento scroll (fade laterali) */
 const chipsEl = document.getElementById("chips");
+const chipInner = document.querySelector(".chipbar-inner");
 document.querySelectorAll("[data-chip]").forEach(b=>b.addEventListener("click",()=>{
-  chipsEl.scrollBy({left: Number(b.dataset.chip)*160, behavior:"smooth"});
+  chipsEl.scrollBy({left: Number(b.dataset.chip)*180, behavior:"smooth"});
 }));
+function chipScrollState(){
+  const overflow = chipsEl.scrollWidth - chipsEl.clientWidth;
+  const scrollable = overflow > 2;
+  chipsEl.classList.toggle("scrollable", scrollable);
+  if(!scrollable){ chipInner.classList.remove("can-l","can-r"); return; }
+  chipInner.classList.toggle("can-l", chipsEl.scrollLeft > 4);
+  chipInner.classList.toggle("can-r", chipsEl.scrollLeft < overflow - 4);
+}
+chipsEl.addEventListener("scroll", chipScrollState, {passive:true});
+addEventListener("resize", chipScrollState);
 
 /* =============== reveal + lazy =============== */
 let fxObs;
@@ -1067,11 +1328,15 @@ function setNavH(){document.documentElement.style.setProperty("--navh", document
 setNavH(); addEventListener("resize", setNavH);
 renderShow();
 renderMenu();
+renderGallery();
+renderCustomer();
 observeAll();
-document.querySelectorAll("#showrail .bgimg, #forno .bgimg").forEach(im=>imgObs.observe(im));
+document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #ggrid .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
 requestAnimationFrame(()=>{
   showCenter(0); showIdx=0;   // catshow sul primo slide reale (dopo il clone)
   center(0); setDot(0);       // forno sul primo slide reale
+  markMid();
+  chipScrollState();
 });
 requestAnimationFrame(()=>document.getElementById("splash").classList.add("ready"));
 </script>
