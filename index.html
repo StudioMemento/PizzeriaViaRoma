@@ -51,30 +51,33 @@ a,button{touch-action:manipulation}
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:flex-start;justify-content:space-between;
-  padding:calc(12px + env(safe-area-inset-top)) 20px 32px;
+  padding:calc(14px + env(safe-area-inset-top)) 22px 14px;
   pointer-events:none;
-  -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
-  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
-  transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
-.top.solid{
-  padding:calc(12px + env(safe-area-inset-top)) 20px 28px;
+/* la sfocatura + il fade vivono su un layer di sfondo, così fiamma e lang
+   restano a piena opacità (niente gradiente sopra di loro) */
+.top::before{
+  content:"";position:absolute;inset:0 0 -18px 0;z-index:-1;pointer-events:none;
+  -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.9) 48%,rgba(0,0,0,.62) 64%,rgba(0,0,0,.34) 78%,rgba(0,0,0,.12) 90%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,#000 30%,rgba(0,0,0,.9) 48%,rgba(0,0,0,.62) 64%,rgba(0,0,0,.34) 78%,rgba(0,0,0,.12) 90%,transparent 100%);
+  transition:backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease,inset .45s ease;
+}
+.top.solid::before{
+  inset:0 0 -14px 0;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
 .top .brand{pointer-events:auto;display:inline-flex;align-items:center}
-.top .mark{height:48px;width:auto;object-fit:contain;display:block}
+.top .mark{height:42px;width:auto;object-fit:contain;display:block}
 .lang{
   pointer-events:auto;align-self:flex-start;
   display:flex;gap:2px;border:1px solid var(--hair);border-radius:999px;padding:3px;
-  background:rgba(10,10,11,.4);-webkit-backdrop-filter:saturate(160%) blur(12px);backdrop-filter:saturate(160%) blur(12px);
+  background:rgba(10,10,11,.72);-webkit-backdrop-filter:saturate(160%) blur(12px);backdrop-filter:saturate(160%) blur(12px);
 }
 .lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 @media(max-width:560px){
-  .top{padding-bottom:32px}
-  .top.solid{padding-bottom:28px}
-  .top .mark{height:40px}
+  .top .mark{height:36px}
   .lang button{padding:6px 10px;font-size:11px}
 }
 
@@ -219,33 +222,19 @@ a,button{touch-action:manipulation}
 .quote .who{margin-top:22px;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 
 /* ---------------- menu ---------------- */
-#menu{padding:100px 0 96px}
+#menu{padding:100px 0 30px}
 .menu-head{text-align:center;padding:0 28px;margin-bottom:34px}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-/* chipbar fluttuante: fissa in basso, sopra la tab bar.
-   Visibile solo quando si è nella sezione menu (toggle .show via JS). */
+/* chipbar: sticky in alto, subito sotto l'header. Sempre visibile mentre
+   si scorre il menu, comoda e intuitiva da leggere. */
 .chipbar{
-  position:fixed;left:0;right:0;z-index:58;
-  bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));
-  padding-bottom:12px;
-  opacity:0;visibility:hidden;transform:translateY(10px);
-  transition:opacity .35s ease,transform .35s cubic-bezier(.22,1,.36,1),visibility .35s ease;
-  pointer-events:none;
-}
-.chipbar.show{opacity:1;visibility:visible;transform:none;pointer-events:auto}
-/* blur band che sfuma verso l'alto, sopra la tab bar, per staccare e rendere
-   leggibili i chip fluttuanti dal contenuto che scorre sotto */
-.chipbar::before{
-  content:"";position:absolute;left:0;right:0;bottom:0;top:-14px;z-index:-1;pointer-events:none;
-  -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
-  -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 40%,rgba(0,0,0,.7) 66%,rgba(0,0,0,.3) 84%,transparent 100%);
-  mask-image:linear-gradient(0deg,#000 0%,#000 40%,rgba(0,0,0,.7) 66%,rgba(0,0,0,.3) 84%,transparent 100%);
+  position:sticky;top:64px;z-index:52;padding:6px 0;
 }
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
-  display:flex;gap:12px;overflow-x:auto;padding:6px 34px;scrollbar-width:none;
+  display:flex;gap:12px;overflow-x:auto;padding:10px 34px;scrollbar-width:none;
   justify-content:center;scroll-behavior:smooth;
 }
 .chips::-webkit-scrollbar{display:none}
@@ -256,7 +245,7 @@ a,button{touch-action:manipulation}
   padding:11px 20px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
   background:rgba(18,18,20,.62);-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px);
   transition:color .28s ease,background .28s ease,border-color .28s ease,transform .28s cubic-bezier(.22,1,.36,1);
-  white-space:nowrap;box-shadow:0 6px 20px -8px rgba(0,0,0,.7);
+  white-space:nowrap;box-shadow:0 6px 20px -8px rgba(0,0,0,.6);
 }
 @media(hover:hover){
   .chips button:hover{border-color:var(--oro);color:var(--oro-vivo);transform:translateY(-2px)}
@@ -1120,8 +1109,9 @@ function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
     b.addEventListener("click",()=>{
       const el = document.getElementById("cat-"+b.dataset.go);
-      // la chipbar ora è in basso: l'offset in alto è solo l'header + un margine
-      const off = 96;
+      // offset = posizione sticky della chipbar (64) + sua altezza + margine
+      const cb = document.querySelector(".chipbar");
+      const off = 64 + (cb ? cb.offsetHeight : 60) + 12;
       const y = el.getBoundingClientRect().top + scrollY - off;
       scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
     });
@@ -1438,8 +1428,10 @@ function renderCustomer(){
   window.__lbTag = tagZoom;   // richiamabile dopo i re-render
 
   // chiusura: click fuori (sfull'overlay/vuoto), bottone X, Esc.
-  // Non chiude cliccando sull'immagine, sulle frecce o sulla X.
+  // Non chiude cliccando sull'immagine, sulle frecce o sulla X, né dopo un drag.
+  let suppressClick=false;
   lb.addEventListener("click", e=>{
+    if(suppressClick){ suppressClick=false; return; }
     if(e.target.closest("#lb-img, .lb-nav, #lb-close")) return;
     close();
   });
@@ -1452,6 +1444,67 @@ function renderCustomer(){
     else if(e.key==="ArrowLeft" && group.length>1) show(idx-1);
     else if(e.key==="ArrowRight" && group.length>1) show(idx+1);
   });
+
+  /* drag / swipe per cambiare foto (mouse + touch).
+     L'immagine segue il dito; oltre la soglia si passa alla foto prec/succ,
+     altrimenti torna al centro. */
+  let dragging=false, sx=0, sy=0, dx=0, decided=null;
+  const fig = lb.querySelector("figure");
+  function dragStart(e){
+    if(group.length<2) return;
+    if(e.target.closest(".lb-nav, #lb-close")) return;
+    dragging=true; decided=null; dx=0;
+    sx=e.clientX; sy=e.clientY;
+    fig.style.transition="none";
+    try{ lb.setPointerCapture(e.pointerId); }catch(_){}
+  }
+  function dragMove(e){
+    if(!dragging) return;
+    const mx=e.clientX-sx, my=e.clientY-sy;
+    // decide una sola volta se il gesto è orizzontale (swipe) o verticale (ignora)
+    if(decided===null && (Math.abs(mx)>6 || Math.abs(my)>6)){
+      decided = Math.abs(mx) > Math.abs(my) ? "h" : "v";
+    }
+    if(decided!=="h") return;
+    e.preventDefault();
+    dx=mx;
+    fig.style.transform=`translateX(${dx}px)`;
+    fig.style.opacity = String(Math.max(.4, 1 - Math.abs(dx)/600));
+  }
+  function dragEnd(){
+    if(!dragging) return;
+    dragging=false;
+    if(decided==="h" && Math.abs(dx)>4) suppressClick=true;
+    fig.style.transition="";
+    const threshold = Math.min(120, innerWidth*0.18);
+    if(decided==="h" && Math.abs(dx)>threshold){
+      const dir = dx<0 ? 1 : -1;   // trascina a sinistra → foto successiva
+      // esci nella direzione del drag, poi mostra e rientra dal lato opposto
+      fig.style.transition="transform .2s ease, opacity .2s ease";
+      fig.style.transform=`translateX(${dx<0?-innerWidth:innerWidth}px)`;
+      fig.style.opacity="0";
+      setTimeout(()=>{
+        show(idx+dir);
+        fig.style.transition="none";
+        fig.style.transform=`translateX(${dx<0?innerWidth:-innerWidth}px)`;
+        fig.style.opacity="0";
+        requestAnimationFrame(()=>{
+          fig.style.transition="transform .32s cubic-bezier(.22,1,.36,1), opacity .32s ease";
+          fig.style.transform="translateX(0)";
+          fig.style.opacity="1";
+        });
+      },180);
+    } else {
+      // torna al centro
+      fig.style.transform="translateX(0)";
+      fig.style.opacity="1";
+    }
+    dx=0; decided=null;
+  }
+  lb.addEventListener("pointerdown", dragStart);
+  lb.addEventListener("pointermove", dragMove);
+  addEventListener("pointerup", dragEnd);
+  addEventListener("pointercancel", dragEnd);
 })();
 
 /* chevron chips + rilevamento scroll (fade laterali) */
@@ -1506,12 +1559,6 @@ document.getElementById("menu").dataset.zone="menu";
 document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
-/* la chipbar fluttuante è visibile solo mentre si è nella sezione menu */
-const chipbarEl = document.querySelector(".chipbar");
-const menuSpy = new IntersectionObserver(es=>{
-  es.forEach(e=>chipbarEl.classList.toggle("show", e.isIntersecting));
-},{rootMargin:"-8% 0px -30% 0px", threshold:0});
-menuSpy.observe(document.getElementById("menu"));
 renderShow();
 renderMenu();
 renderGallery();
