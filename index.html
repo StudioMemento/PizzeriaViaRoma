@@ -51,7 +51,7 @@ a,button{touch-action:manipulation}
 .top{
   position:fixed;top:0;left:0;right:0;z-index:50;
   display:flex;align-items:flex-start;justify-content:space-between;
-  padding:calc(12px + env(safe-area-inset-top)) 20px 64px;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 32px;
   pointer-events:none;
   -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
   -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 26%,rgba(0,0,0,.94) 42%,rgba(0,0,0,.82) 55%,rgba(0,0,0,.62) 67%,rgba(0,0,0,.4) 78%,rgba(0,0,0,.2) 88%,rgba(0,0,0,.06) 95%,transparent 100%);
@@ -59,7 +59,7 @@ a,button{touch-action:manipulation}
   transition:padding .45s cubic-bezier(.22,1,.36,1),backdrop-filter .45s ease,-webkit-backdrop-filter .45s ease;
 }
 .top.solid{
-  padding:calc(12px + env(safe-area-inset-top)) 20px 58px;
+  padding:calc(12px + env(safe-area-inset-top)) 20px 28px;
   -webkit-backdrop-filter:saturate(160%) blur(24px);backdrop-filter:saturate(160%) blur(24px);
 }
 .top .brand{pointer-events:auto;display:inline-flex;align-items:center}
@@ -72,8 +72,8 @@ a,button{touch-action:manipulation}
 .lang button{font-size:12px;letter-spacing:.12em;padding:7px 12px;border-radius:999px;color:var(--grigio);transition:color .2s,background .2s}
 .lang button.on{color:var(--nero);background:var(--oro)}
 @media(max-width:560px){
-  .top{padding-bottom:64px}
-  .top.solid{padding-bottom:58px}
+  .top{padding-bottom:32px}
+  .top.solid{padding-bottom:28px}
   .top .mark{height:40px}
   .lang button{padding:6px 10px;font-size:11px}
 }
@@ -219,15 +219,33 @@ a,button{touch-action:manipulation}
 .quote .who{margin-top:22px;font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 
 /* ---------------- menu ---------------- */
-#menu{padding:100px 0 30px}
+#menu{padding:100px 0 96px}
 .menu-head{text-align:center;padding:0 28px;margin-bottom:34px}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-.chipbar{position:sticky;top:var(--navh,90px);z-index:52}
+/* chipbar fluttuante: fissa in basso, sopra la tab bar.
+   Visibile solo quando si è nella sezione menu (toggle .show via JS). */
+.chipbar{
+  position:fixed;left:0;right:0;z-index:58;
+  bottom:calc(var(--tab-h) + env(safe-area-inset-bottom));
+  padding-bottom:12px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.22,1,.36,1),visibility .35s ease;
+  pointer-events:none;
+}
+.chipbar.show{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+/* blur band che sfuma verso l'alto, sopra la tab bar, per staccare e rendere
+   leggibili i chip fluttuanti dal contenuto che scorre sotto */
+.chipbar::before{
+  content:"";position:absolute;left:0;right:0;bottom:0;top:-14px;z-index:-1;pointer-events:none;
+  -webkit-backdrop-filter:saturate(150%) blur(14px);backdrop-filter:saturate(150%) blur(14px);
+  -webkit-mask-image:linear-gradient(0deg,#000 0%,#000 40%,rgba(0,0,0,.7) 66%,rgba(0,0,0,.3) 84%,transparent 100%);
+  mask-image:linear-gradient(0deg,#000 0%,#000 40%,rgba(0,0,0,.7) 66%,rgba(0,0,0,.3) 84%,transparent 100%);
+}
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
-  display:flex;gap:14px;overflow-x:auto;padding:16px 34px;scrollbar-width:none;
+  display:flex;gap:12px;overflow-x:auto;padding:6px 34px;scrollbar-width:none;
   justify-content:center;scroll-behavior:smooth;
 }
 .chips::-webkit-scrollbar{display:none}
@@ -236,9 +254,9 @@ a,button{touch-action:manipulation}
 .chips button{
   flex:0 0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   padding:11px 20px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
-  background:rgba(18,18,20,.55);-webkit-backdrop-filter:saturate(160%) blur(14px);backdrop-filter:saturate(160%) blur(14px);
+  background:rgba(18,18,20,.62);-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px);
   transition:color .28s ease,background .28s ease,border-color .28s ease,transform .28s cubic-bezier(.22,1,.36,1);
-  white-space:nowrap;
+  white-space:nowrap;box-shadow:0 6px 20px -8px rgba(0,0,0,.7);
 }
 @media(hover:hover){
   .chips button:hover{border-color:var(--oro);color:var(--oro-vivo);transform:translateY(-2px)}
@@ -1102,8 +1120,8 @@ function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
     b.addEventListener("click",()=>{
       const el = document.getElementById("cat-"+b.dataset.go);
-      const navh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--navh")) || 90;
-      const off = navh + document.querySelector(".chipbar").offsetHeight + 8;
+      // la chipbar ora è in basso: l'offset in alto è solo l'header + un margine
+      const off = 96;
       const y = el.getBoundingClientRect().top + scrollY - off;
       scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
     });
@@ -1488,22 +1506,12 @@ document.getElementById("menu").dataset.zone="menu";
 document.getElementById("dove").dataset.zone="dove";
 ["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
 
-/* navh = quota a cui si ferma la chipbar sticky.
-   I chip ora stanno SOPRA il blur (z-index maggiore), quindi devono fermarsi
-   SOTTO la fiamma e il selettore lingua per non coprirli: usiamo il fondo più
-   basso tra i due, più un piccolo gap. Restano comunque dentro la fascia blur. */
-function setNavH(){
-  const top = document.getElementById("topbar");
-  const flame = top.querySelector(".mark");
-  const lang = top.querySelector(".lang");
-  const tr = top.getBoundingClientRect();
-  const fb = flame ? flame.getBoundingClientRect().bottom - tr.top : 44;
-  const lb = lang  ? lang.getBoundingClientRect().bottom  - tr.top : 44;
-  const h = Math.max(fb, lb) + 8;
-  document.documentElement.style.setProperty("--navh", Math.round(h) + "px");
-}
-setNavH(); addEventListener("resize", setNavH);
-addEventListener("load", setNavH);
+/* la chipbar fluttuante è visibile solo mentre si è nella sezione menu */
+const chipbarEl = document.querySelector(".chipbar");
+const menuSpy = new IntersectionObserver(es=>{
+  es.forEach(e=>chipbarEl.classList.toggle("show", e.isIntersecting));
+},{rootMargin:"-8% 0px -30% 0px", threshold:0});
+menuSpy.observe(document.getElementById("menu"));
 renderShow();
 renderMenu();
 renderGallery();
