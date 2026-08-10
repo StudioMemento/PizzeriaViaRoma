@@ -709,6 +709,14 @@ a,button{touch-action:manipulation}
 </div>
 
 <script>
+/* La landing deve aprirsi sempre dall'hero quando l'URL non contiene un anchor.
+   Manteniamo invece intatti i link diretti come #menu e #dove. */
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if (!location.hash) window.scrollTo(0,0);
+window.addEventListener("pageshow",()=>{
+  if(!location.hash) requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:"auto"}));
+});
+
 /* =============== UI + narrative i18n =============== */
 const T = {
 it:{
@@ -1525,6 +1533,9 @@ function dragScroll(el){
 dragScroll(forno); dragScroll(rail);
 
 /* =============== gallery fotografica: album viewer =============== */
+/* Nota: tutti i centramenti di tab e thumbnail avvengono esclusivamente
+   dentro i rispettivi scroller orizzontali. scrollIntoView qui farebbe
+   scorrere anche la pagina e aprirebbe erroneamente il sito sulla gallery. */
 const GALLERY_ORDER = ["bancone","entrata","esterno","locale","sala_sinistra","sala_destra"];
 const GALLERY = {
   bancone:[
@@ -1587,7 +1598,10 @@ function setGalleryImage(i,animate=true){
     const on = idx===galleryIndex;
     b.classList.toggle("on",on);
     b.setAttribute("aria-current",on?"true":"false");
-    if(on) b.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+    if(on){
+      const left = b.offsetLeft - (galleryThumbs.clientWidth - b.offsetWidth) / 2;
+      galleryThumbs.scrollTo({left:Math.max(0,left),behavior:animate?"smooth":"auto"});
+    }
   });
   setTimeout(()=>galleryStage.classList.remove("changing"),160);
   preloadGalleryNeighbours();
@@ -1613,8 +1627,11 @@ function selectGalleryCategory(id,focus=false){
   renderGallery();
   requestAnimationFrame(()=>{
     const active=document.getElementById(`g-tab-${id}`);
-    active?.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
-    if(focus) active?.focus();
+    if(active){
+      const left = active.offsetLeft - (galleryTabs.clientWidth - active.offsetWidth) / 2;
+      galleryTabs.scrollTo({left:Math.max(0,left),behavior:"smooth"});
+      if(focus) active.focus({preventScroll:true});
+    }
   });
 }
 
