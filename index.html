@@ -218,116 +218,166 @@ a,button{touch-action:manipulation}
 .strip-wrap .edge.r{right:0;background:linear-gradient(270deg,#0A0A0B 18%,rgba(10,10,11,.6) 60%,transparent);justify-content:flex-end;padding-right:14px}
 
 /* ---------------- menu ---------------- */
-#menu{padding:100px 0 30px}
+#menu{
+  position:relative;padding:104px 0 42px;isolation:isolate;
+  background:
+    radial-gradient(900px 420px at 10% 6%,rgba(198,161,91,.045),transparent 66%),
+    radial-gradient(760px 380px at 92% 46%,rgba(198,161,91,.035),transparent 68%),
+    var(--nero);
+}
+#menu::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;
+  background-image:
+    linear-gradient(115deg,transparent 0 49.85%,rgba(241,236,225,.035) 49.9% 50%,transparent 50.05%),
+    radial-gradient(circle at 18% 24%,rgba(255,255,255,.14) 0 .45px,transparent .7px);
+  background-size:680px 680px,7px 7px;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 94%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 8%,#000 94%,transparent);
+}
 .menu-head{text-align:center;padding:0 28px;margin-bottom:34px}
 .menu-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
-.menu-head h2{font-size:clamp(30px,7vw,44px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
+.menu-head h2{font-size:clamp(31px,7vw,46px);font-weight:200;letter-spacing:.24em;text-transform:uppercase;margin-top:8px}
 .menu-head p{color:var(--grigio);font-size:13.5px;max-width:42ch;margin:16px auto 0;letter-spacing:.06em}
-/* chipbar: sticky in alto, subito sotto l'header. Sempre visibile mentre
-   si scorre il menu, comoda e intuitiva da leggere. */
-.chipbar{
-  position:sticky;top:64px;z-index:52;padding:6px 0;
+
+/* sticky printed-menu index */
+.chipbar{position:sticky;top:60px;z-index:52;padding:6px 0;margin-bottom:4px}
+.chipbar::before{
+  content:"";position:absolute;inset:-8px 0 -10px;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,10,11,.97),rgba(10,10,11,.88) 72%,transparent);
+  -webkit-backdrop-filter:saturate(150%) blur(18px);backdrop-filter:saturate(150%) blur(18px);
 }
 .chipbar-inner{position:relative;overflow:hidden}
 .chips{
   display:flex;gap:12px;overflow-x:auto;padding:10px 34px;scrollbar-width:none;
-  justify-content:center;scroll-behavior:smooth;
+  justify-content:center;scroll-behavior:smooth;overscroll-behavior-x:contain
 }
 .chips::-webkit-scrollbar{display:none}
-/* when the chips overflow, JS drops .centered so they scroll from the left */
 .chips.scrollable{justify-content:flex-start}
 .chips button{
-  flex:0 0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
-  padding:11px 20px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
-  background:rgba(18,18,20,.62);-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px);
+  flex:0 0 auto;font-size:10.5px;letter-spacing:.19em;text-transform:uppercase;
+  padding:10px 18px;border:1px solid var(--hair);border-radius:999px;color:var(--grigio);
+  background:rgba(18,18,20,.68);-webkit-backdrop-filter:saturate(160%) blur(16px);backdrop-filter:saturate(160%) blur(16px);
   transition:color .28s ease,background .28s ease,border-color .28s ease,transform .28s cubic-bezier(.22,1,.36,1);
-  white-space:nowrap;box-shadow:0 6px 20px -8px rgba(0,0,0,.6);
+  white-space:nowrap;box-shadow:0 6px 20px -8px rgba(0,0,0,.6)
 }
-@media(hover:hover){
-  .chips button:hover{border-color:var(--oro);color:var(--oro-vivo);transform:translateY(-2px)}
-}
+@media(hover:hover){.chips button:hover{border-color:var(--oro);color:var(--oro-vivo);transform:translateY(-2px)}}
 .chips button.on{border-color:var(--oro);color:var(--nero);background:var(--oro);transform:none}
 .chips button.on:hover{color:var(--nero)}
-/* edge fades: signal horizontal scroll. shown only when scrollable (mobile) */
 .chipbar-inner::before,.chipbar-inner::after{
-  content:"";position:absolute;top:0;bottom:0;width:52px;z-index:5;pointer-events:none;
-  opacity:0;transition:opacity .3s ease;
+  content:"";position:absolute;top:0;bottom:0;width:52px;z-index:5;pointer-events:none;opacity:0;transition:opacity .3s ease
 }
-.chipbar-inner::before{left:0;background:linear-gradient(90deg,rgba(12,12,14,.96),transparent)}
-.chipbar-inner::after{right:0;background:linear-gradient(270deg,rgba(12,12,14,.96),transparent)}
-.chipbar-inner.can-l::before{opacity:1}
-.chipbar-inner.can-r::after{opacity:1}
-.chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro);
-  opacity:0;pointer-events:none;transition:opacity .3s ease}
-.chipbar-inner.can-l .chipchev.l{opacity:1;pointer-events:auto}
-.chipbar-inner.can-r .chipchev.r{opacity:1;pointer-events:auto}
-.chipchev.l{left:4px}.chipchev.r{right:4px}
-.chipchev i{font-size:16px}
-.chipchev:active{transform:translateY(-50%) scale(.9)}
+.chipbar-inner::before{left:0;background:linear-gradient(90deg,rgba(10,10,11,.98),transparent)}
+.chipbar-inner::after{right:0;background:linear-gradient(270deg,rgba(10,10,11,.98),transparent)}
+.chipbar-inner.can-l::before{opacity:1}.chipbar-inner.can-r::after{opacity:1}
+.chipchev{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:30px;height:30px;display:flex;align-items:center;justify-content:center;color:var(--oro);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.chipbar-inner.can-l .chipchev.l{opacity:1;pointer-events:auto}.chipbar-inner.can-r .chipchev.r{opacity:1;pointer-events:auto}
+.chipchev.l{left:4px}.chipchev.r{right:4px}.chipchev i{font-size:16px}.chipchev:active{transform:translateY(-50%) scale(.9)}
 
-.mcat{max-width:640px;margin:0 auto;padding:60px 28px 6px}
-.cat-hero{position:relative;width:min(58vw,280px);margin:0 auto 28px}
-.cat-hero .arc{inset:-6%}
-.cat-hero img.photo{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
-.cat-hero .illu{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:1px solid var(--hair-soft);border-radius:50%}
-.cat-hero .illu svg{width:44%;height:44%;stroke:var(--oro);fill:none;stroke-width:1.1;opacity:.9}
-.mcat header{margin-bottom:6px;display:block;text-align:left}
-.mcat .n{display:block;font-size:12px;letter-spacing:.3em;color:var(--oro);font-weight:400;margin-bottom:10px}
-.mcat h3{font-size:clamp(23px,5.6vw,30px);font-weight:200;letter-spacing:.24em;text-transform:uppercase}
-.mcat .tag{font-size:12.5px;color:var(--oro);letter-spacing:.06em;margin:8px 0 0;text-align:left}
-.mcat .rule{width:44px;height:1px;background:var(--oro);opacity:.75;margin:18px 0 4px}
+/* category pages, rebuilt from the printed menu visual grammar */
+.mcat{max-width:1160px;margin:0 auto;padding:78px 22px 24px;scroll-margin-top:138px}
+.mcat + .mcat{border-top:1px solid var(--hair-soft)}
+.mcat-head{max-width:900px;margin:0 auto;text-align:left;position:relative;padding-right:26px}
+.mcat-head::after{
+  content:"";position:absolute;right:0;top:-20px;width:130px;height:80px;opacity:.42;pointer-events:none;
+  border-top:1px solid rgba(241,236,225,.12);border-right:1px solid rgba(241,236,225,.12);transform:skewX(-24deg)
+}
+.mcat h3{font-size:clamp(34px,7vw,66px);font-weight:200;letter-spacing:.2em;text-transform:uppercase;line-height:1.06;color:#d8c08c}
+.mcat .tag{font-size:clamp(13px,2.2vw,18px);color:rgba(241,236,225,.72);letter-spacing:.08em;margin:12px 0 0;text-align:left}
+.mcat .rule{max-width:900px;height:1px;margin:24px auto 0;background:linear-gradient(90deg,var(--oro),rgba(198,161,91,.22) 70%,transparent)}
+.menu-art{
+  position:relative;width:100%;height:clamp(150px,23vw,265px);margin:22px auto 24px;overflow:hidden;
+  border-top:1px solid rgba(198,161,91,.2);border-bottom:1px solid rgba(198,161,91,.12)
+}
+.menu-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,10,11,.02),transparent 46%,rgba(10,10,11,.35));box-shadow:inset 0 0 0 1px rgba(255,255,255,.018)}
+.menu-art img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.98) contrast(1.02);transform:scale(1.012)}
+.mcat-body{max-width:900px;margin:0 auto}
 
 .item{padding:16px 0;border-bottom:1px solid var(--hair-soft)}
-.item:last-child{border:0}
-.item .row{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
-.item .nome{font-size:13.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--oro-vivo)}
-.item .dots{flex:1;border-bottom:1px dotted var(--hair);transform:translateY(-4px);min-width:18px}
-.item .prezzo{color:var(--bianco);font-variant-numeric:tabular-nums;font-size:15px;font-weight:300;white-space:nowrap}
-.item .desc{color:var(--grigio);font-size:13px;margin-top:5px;line-height:1.55;max-width:54ch}
-.item .sub{display:block;font-size:10px;letter-spacing:.14em;color:var(--grigio);text-transform:uppercase;margin-top:2px}
-.item.multi .pricegrid{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:7px;font-size:12.5px;color:var(--grigio)}
-.item.multi .pricegrid b{color:var(--bianco);font-weight:300;margin-left:6px;font-variant-numeric:tabular-nums}
-.groupline{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);margin:34px 0 2px;display:flex;align-items:center;gap:12px}
+.item:last-child{border-bottom:0}
+.item .row{display:grid;grid-template-columns:auto minmax(18px,1fr) auto;align-items:baseline;gap:12px}
+.item .label{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;min-width:0}
+.item .nome{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;color:#d8c08c;line-height:1.45}
+.item .qualifier{font-size:11px;letter-spacing:.06em;text-transform:none;color:rgba(216,192,140,.8);font-weight:300}
+.item .allergens{font-size:9px;letter-spacing:.17em;color:rgba(241,236,225,.42);white-space:nowrap;text-transform:uppercase}
+.item .dots{border-bottom:1px dotted rgba(198,161,91,.24);transform:translateY(-4px);min-width:18px}
+.item .prezzo{color:var(--bianco);font-variant-numeric:tabular-nums;font-size:15px;font-weight:300;white-space:nowrap;letter-spacing:.04em}
+.item .desc{color:rgba(241,236,225,.62);font-size:13px;margin-top:5px;line-height:1.55;max-width:64ch;letter-spacing:.025em}
+.item .sub{display:block;font-size:10px;letter-spacing:.14em;color:var(--grigio);text-transform:uppercase;margin-top:3px}
+.item.multi .pricegrid{display:flex;flex-wrap:wrap;gap:7px 22px;margin-top:8px;font-size:12.5px;color:var(--grigio)}
+.item.multi .pricegrid b{color:var(--bianco);font-weight:300;margin-left:7px;font-variant-numeric:tabular-nums}
+.groupline{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);margin:36px 0 3px;display:flex;align-items:center;gap:12px}
 .groupline::after{content:"";flex:1;height:1px;background:var(--hair-soft)}
-.groupsub{font-size:12.5px;color:var(--grigio);margin:10px 0 0}
-.dolci-note{font-size:14.5px;color:var(--grigio);font-style:italic;padding:20px 0;line-height:1.6}
+.groupsub{font-size:12.5px;color:var(--grigio);margin:15px 0 2px;letter-spacing:.06em}
+.variant-callout{margin:38px 0 10px;padding:22px 0 4px;border-top:1px solid var(--hair-soft);font-size:clamp(17px,3vw,22px);line-height:1.35;letter-spacing:.08em;color:var(--bianco)}
+.dolci-note{font-size:clamp(17px,3vw,22px);color:#d8c08c;padding:8px 0 18px;line-height:1.45;letter-spacing:.08em}
+.allergen-guide{margin:28px 0 0;padding:26px 0 6px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair-soft)}
+.allergen-guide h4{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--oro);font-weight:400;margin-bottom:22px}
+.allergen-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 34px}
+.allergen-entry{display:grid;grid-template-columns:28px 1fr;gap:8px;color:rgba(241,236,225,.6);font-size:12px;line-height:1.55}
+.allergen-entry b{color:#d8c08c;font-weight:400;font-variant-numeric:tabular-nums}
+.frozen-note{margin-top:20px;padding-top:17px;border-top:1px solid var(--hair-soft);display:grid;grid-template-columns:28px 1fr;gap:8px;color:rgba(241,236,225,.6);font-size:12px;line-height:1.55}
+.frozen-note b{color:#d8c08c;font-weight:400}
 
+@media(max-width:620px){
+  .chipbar{top:55px}.chips{justify-content:flex-start;padding-left:30px;padding-right:30px}
+  .mcat{padding:64px 16px 18px;scroll-margin-top:128px}
+  .mcat-head{padding:0 8px}.mcat-head::after{width:88px;height:54px;top:-14px;right:4px}
+  .mcat h3{letter-spacing:.14em}.mcat .tag{letter-spacing:.055em}
+  .mcat .rule{margin-left:8px;margin-right:8px}
+  .menu-art{height:150px;margin-top:18px}
+  .item{padding:15px 8px}.item .row{grid-template-columns:minmax(0,1fr) auto;gap:12px}.item .dots{display:none}
+  .item .nome{font-size:13px;letter-spacing:.13em}.item .desc{font-size:12.5px}.item .allergens{font-size:8.5px}
+  .groupline,.groupsub,.variant-callout,.dolci-note,.allergen-guide{margin-left:8px;margin-right:8px}
+  .allergen-grid{grid-template-columns:1fr;gap:10px}.allergen-entry,.frozen-note{font-size:11.5px}
+}
 
-/* ---------------- gallery fotografica ---------------- */
-#gallery{padding:104px 0 96px;border-top:1px solid var(--hair-soft);background:var(--nero-2);overflow:hidden}
-.g-head{text-align:center;padding:0 28px;margin-bottom:32px}
+/* ---------------- gallery viewer ---------------- */
+#gallery{padding:104px 0 92px;border-top:1px solid var(--hair-soft);background:var(--nero-2);overflow-x:clip;overflow-y:visible}
+.g-head{text-align:center;padding:0 28px;margin-bottom:24px}
 .g-head .k-s{font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;color:var(--oro)}
 .g-head h2{font-size:clamp(26px,6.4vw,40px);font-weight:200;letter-spacing:.22em;text-transform:uppercase;margin-top:10px}
-.g-tabs-shell{position:relative;max-width:1080px;margin:0 auto 34px;overflow:hidden}
-.g-tabs{display:flex;justify-content:center;gap:24px;overflow-x:auto;scrollbar-width:none;padding:0 22px 12px;overscroll-behavior-x:contain}
+.g-tabs-shell{
+  position:sticky;top:60px;z-index:34;max-width:1180px;margin:0 auto 18px;padding:10px 0 4px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(15,15,17,.98) 0%,rgba(15,15,17,.93) 76%,rgba(15,15,17,0) 100%);
+  -webkit-backdrop-filter:saturate(150%) blur(18px);backdrop-filter:saturate(150%) blur(18px)
+}
+.g-tabs{display:flex;justify-content:center;gap:24px;overflow-x:auto;scrollbar-width:none;padding:0 24px 12px;overscroll-behavior-x:contain}
 .g-tabs::-webkit-scrollbar{display:none}
-.g-tabs button{
-  position:relative;flex:0 0 auto;padding:8px 0 10px;
-  color:var(--grigio);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;
-  transition:color .25s ease,transform .25s cubic-bezier(.22,1,.36,1)
-}
+.g-tabs button{position:relative;flex:0 0 auto;padding:8px 0 10px;color:var(--grigio);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;transition:color .25s ease,transform .25s cubic-bezier(.22,1,.36,1)}
 .g-tabs button::after{content:"";position:absolute;left:0;right:.2em;bottom:0;height:1px;background:var(--oro);transform:scaleX(0);transform-origin:center;transition:transform .28s cubic-bezier(.22,1,.36,1)}
-.g-tabs button.on{color:var(--oro-vivo)}
-.g-tabs button.on::after{transform:scaleX(1)}
+.g-tabs button.on{color:var(--oro-vivo)}.g-tabs button.on::after{transform:scaleX(1)}
 @media(hover:hover){.g-tabs button:hover{color:var(--bianco);transform:translateY(-2px)}}
-.g-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
-  padding:0 20px;max-width:1080px;margin:0 auto
+.g-viewer{max-width:1180px;margin:0 auto;padding:0 20px}
+.g-stage{
+  position:relative;height:min(68svh,680px);min-height:340px;overflow:hidden;background:#050506;border:1px solid var(--hair-soft);
+  display:flex;align-items:center;justify-content:center;isolation:isolate;touch-action:pan-y;cursor:zoom-in
 }
-.g-cell{position:relative;overflow:hidden;background:#050506;border:1px solid var(--hair-soft);min-width:0}
-.g-cell.feature{grid-column:1/-1}
-.g-cell img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1),filter .6s ease;filter:brightness(.94) saturate(.97)}
-.g-cell::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
-@media(hover:hover){.g-cell:hover img{transform:scale(1.035);filter:brightness(1) saturate(1)}}
+.g-backdrop{position:absolute;inset:-8%;z-index:-2;background-position:center;background-size:cover;filter:blur(38px) brightness(.28) saturate(.75);transform:scale(1.08);opacity:.85;transition:background-image .25s ease}
+.g-stage::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,5,6,.48),transparent 24%,transparent 76%,rgba(5,5,6,.48));pointer-events:none}
+.g-main{position:relative;width:100%;height:100%;object-fit:contain;filter:brightness(.98) saturate(.98);transition:opacity .2s ease,transform .45s cubic-bezier(.22,1,.36,1);user-select:none;-webkit-user-drag:none}
+.g-stage.changing .g-main{opacity:.25;transform:scale(.985)}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border:1px solid var(--hair);border-radius:50%;color:var(--bianco);background:rgba(10,10,11,.56);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .25s,color .25s,background .25s,transform .25s cubic-bezier(.22,1,.36,1)}
+.g-nav.l{left:18px}.g-nav.r{right:18px}.g-nav i{font-size:19px}
+.g-nav:hover{border-color:var(--oro);color:var(--oro);background:rgba(10,10,11,.8)}.g-nav:active{transform:translateY(-50%) scale(.9)}
+.g-meta{position:absolute;left:18px;right:18px;bottom:15px;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:18px;pointer-events:none}
+.g-label,.g-count{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(241,236,225,.78);padding:7px 10px;background:rgba(10,10,11,.55);border:1px solid rgba(198,161,91,.2);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.g-count{font-variant-numeric:tabular-nums;color:var(--oro-vivo)}
+.g-thumbs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:12px 0 4px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+.g-thumbs::-webkit-scrollbar{display:none}
+.g-thumb{position:relative;flex:0 0 132px;aspect-ratio:3/2;overflow:hidden;border:1px solid var(--hair-soft);background:#050506;opacity:.55;scroll-snap-align:center;transition:opacity .25s,border-color .25s,transform .25s cubic-bezier(.22,1,.36,1)}
+.g-thumb img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) brightness(.82);transition:filter .25s,transform .5s cubic-bezier(.22,1,.36,1)}
+.g-thumb.on{opacity:1;border-color:var(--oro)}.g-thumb.on img{filter:saturate(1) brightness(1)}
+@media(hover:hover){.g-thumb:hover{opacity:1;transform:translateY(-2px)}.g-thumb:hover img{transform:scale(1.04)}}
 @media(max-width:680px){
-  .g-tabs{justify-content:flex-start;gap:22px;padding-left:28px;padding-right:28px}
+  .g-tabs-shell{top:55px}.g-tabs{justify-content:flex-start;gap:22px;padding-left:28px;padding-right:28px}
   .g-tabs-shell::before,.g-tabs-shell::after{content:"";position:absolute;top:0;bottom:8px;width:34px;z-index:2;pointer-events:none}
   .g-tabs-shell::before{left:0;background:linear-gradient(90deg,var(--nero-2),transparent)}
   .g-tabs-shell::after{right:0;background:linear-gradient(270deg,var(--nero-2),transparent)}
-  .g-grid{grid-template-columns:1fr;gap:12px;padding:0 14px}
-  .g-cell.feature{grid-column:auto}
+  .g-viewer{padding:0 12px}.g-stage{height:auto;min-height:0;aspect-ratio:4/3}.g-nav{width:42px;height:42px}.g-nav.l{left:10px}.g-nav.r{right:10px}
+  .g-meta{left:10px;right:10px;bottom:10px}.g-label{max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .g-thumb{flex-basis:96px}.g-thumbs{padding-top:10px}
 }
-@media(min-width:900px){.g-grid{gap:18px}}
+
 
 /* ---------------- customer gallery ---------------- */
 #customer{padding:100px 28px 96px;max-width:1080px;margin:0 auto;text-align:center}
@@ -577,7 +627,16 @@ a,button{touch-action:manipulation}
   <div class="g-tabs-shell fx">
     <div class="g-tabs" id="gtabs" role="tablist" aria-label="Categorie fotografiche"></div>
   </div>
-  <div class="g-grid fx" id="ggrid" role="tabpanel" aria-live="polite"></div>
+  <div class="g-viewer fx" id="gviewer" role="tabpanel" aria-live="polite" tabindex="0">
+    <div class="g-stage" id="gstage">
+      <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
+      <img class="g-main" id="gmain" src="" alt="" decoding="async">
+      <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
+      <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
+      <div class="g-meta"><span class="g-label" id="glabel"></span><span class="g-count" id="gcount"></span></div>
+    </div>
+    <div class="g-thumbs" id="gthumbs" aria-label="Anteprime dell’album"></div>
+  </div>
 </section>
 
 <!-- CUSTOMER GALLERY -->
@@ -660,7 +719,7 @@ it:{
   s2_body:"Una sala raccolta, tra toni scuri,<br>dettagli in ottone e luce morbida.<br><br>Lo spazio giusto per fermarsi,<br>senza fretta.",
   s3_eyebrow:"Sala destra", s3_title:"Rosso, materia<br>e carattere",
   s3_body:"Una sala più decisa,<br>tra superfici scure e accenti rossi.<br><br>Due atmosfere diverse,<br>lo stesso modo di accogliere.",
-  a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un pò!",
+  a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un po'!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
   t_title:"Hai già provato il nostro cornicione ripieno?", t_body:"Il vero must della nostra pizza.",
   t_cta:"Scopri il menù", gorgo:"Gorgonzola dolce", strip_k:"Dal nostro forno",
@@ -684,17 +743,19 @@ it:{
   tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
   cats:{
     classiche:["Le Classiche","Le nostre radici, intramontabili!"],
-    audaci:["Le Audaci","Per chi vuole farsi tentare un pò!"],
+    audaci:["Le Audaci","Per chi vuole farsi tentare un po'!"],
     bianche:["Le Bianche","L'equilibrio perfetto tra gusto e leggerezza!"],
     calzoni:["I Calzoni","Amore ripieno!"],
-    cucina:["Dalla Cucina","Anche se incredibile… non si ha sempre voglia di pizza?"],
+    varianti:["Varianti","Crea la combinazione perfetta!"],
+    cucina:["Dalla Cucina","Anche se incredibile... non si ha sempre voglia di pizza?"],
     stuzzicherie:["Stuzzicherie","Il miglior antidoto alla fame!"],
-    bevande:["Le Bevande","Alla spina, artigianali e del territorio"],
-    dolci:["Dolci della Casa","La miglior conclusione!"]
+    dolci:["Dolci della Casa","La miglior conclusione!"],
+    bevande:["Bevande",""]
   },
-  varianti:"Varianti", coperto:"Coperto", impasti:"Impasti speciali", cornice:"Cornicione ripieno",
-  spina:"Alla spina", bottiglia:"La selezione di birre in bottiglia", vini:"Vini e bollicine", spritz:"Spritz & Co.",
-  calice:"calice", caraffa:"caraffa", bott:"bottiglia"
+  varianti:"Varianti", coperto:"Coperto", impasti:"Impasto integrale", cornice:"Cornicione ripieno",
+  variant_callout:"Hai già provato il nostro cornicione ripieno?<br>Il vero must della nostra pizza!", allergen_title:"Legenda allergeni",
+  spina:"Birre alla spina", bottiglia:"Birre in bottiglia", vini:"Vini della casa", spritz:"Spritz & Co.",
+  calice:"Calice", caraffa:"Caraffa", bott:"Bottiglia"
 },
 en:{
   sp_kicker:"Maniago · Friuli, Italy", tagline:"The pizza you know, with a little something more.", scroll:"scroll",
@@ -731,14 +792,16 @@ en:{
     audaci:["Le Audaci","For those who like temptation"],
     bianche:["Le Bianche","Taste, balance and lightness"],
     calzoni:["I Calzoni","Filled with love"],
-    cucina:["From the Kitchen","Hard to believe… but sometimes it's not a pizza night"],
+    varianti:["Extras","Create the perfect combination"],
+    cucina:["From the Kitchen","Hard to believe... but sometimes it's not a pizza night"],
     stuzzicherie:["Starters","The best antidote to hunger"],
-    bevande:["Drinks","On tap, craft and local"],
-    dolci:["House Desserts!","The best way to end"]
+    dolci:["House Desserts","The best way to end"],
+    bevande:["Drinks",""]
   },
-  varianti:"Extras", coperto:"Cover charge", impasti:"Special doughs", cornice:"Stuffed crust",
-  spina:"On tap", bottiglia:"Our bottled craft beers", vini:"Wines & bubbles", spritz:"Spritz & Co.",
-  calice:"glass", caraffa:"carafe", bott:"bottle"
+  varianti:"Extras", coperto:"Cover charge", impasti:"Wholemeal dough", cornice:"Stuffed crust",
+  variant_callout:"Have you tried our stuffed crust?<br>The true must of our pizza!", allergen_title:"Allergen guide",
+  spina:"Beers on tap", bottiglia:"Bottled beers", vini:"House wines", spritz:"Spritz & Co.",
+  calice:"Glass", caraffa:"Carafe", bott:"Bottle"
 },
 de:{
   sp_kicker:"Maniago · Friaul, Italien", tagline:"Die Pizza von immer, mit dem gewissen Etwas.", scroll:"scrollen",
@@ -775,13 +838,15 @@ de:{
     audaci:["Le Audaci","Für alle, die sich verführen lassen"],
     bianche:["Le Bianche","Geschmack, Balance und Leichtigkeit"],
     calzoni:["I Calzoni","Mit Liebe gefüllt"],
-    cucina:["Aus der Küche","Kaum zu glauben… aber manchmal ist kein Pizza-Abend"],
+    varianti:["Extras","Die perfekte Kombination zusammenstellen"],
+    cucina:["Aus der Küche","Kaum zu glauben... aber manchmal ist kein Pizza-Abend"],
     stuzzicherie:["Vorspeisen","Das beste Mittel gegen Hunger"],
-    bevande:["Getränke","Vom Fass, handwerklich und regional"],
-    dolci:["Hausgemachte Desserts!","Der beste Abschluss"]
+    dolci:["Hausgemachte Desserts","Der beste Abschluss"],
+    bevande:["Getränke",""]
   },
-  varianti:"Extras", coperto:"Gedeck", impasti:"Spezialteige", cornice:"Gefüllter Rand",
-  spina:"Vom Fass", bottiglia:"Unsere Craft-Biere in der Flasche", vini:"Weine & Prickelndes", spritz:"Spritz & Co.",
+  varianti:"Extras", coperto:"Gedeck", impasti:"Vollkornteig", cornice:"Gefüllter Rand",
+  variant_callout:"Schon unseren gefüllten Rand probiert?<br>Das wahre Muss unserer Pizza!", allergen_title:"Allergenlegende",
+  spina:"Biere vom Fass", bottiglia:"Flaschenbiere", vini:"Hausweine", spritz:"Spritz & Co.",
   calice:"Glas", caraffa:"Karaffe", bott:"Flasche"
 },
 fr:{
@@ -819,19 +884,25 @@ fr:{
     audaci:["Le Audaci","Pour ceux qui aiment se laisser tenter"],
     bianche:["Le Bianche","L'équilibre parfait entre goût et légèreté"],
     calzoni:["I Calzoni","L'amour farci"],
-    cucina:["De la Cuisine","Aussi incroyable que ça paraisse… on n'a pas toujours envie de pizza"],
+    varianti:["Suppléments","Créez la combinaison parfaite"],
+    cucina:["De la Cuisine","Aussi incroyable que ça paraisse... on n'a pas toujours envie de pizza"],
     stuzzicherie:["Amuse-bouche","Le meilleur antidote à la faim"],
-    bevande:["Boissons","À la pression, artisanales et du terroir"],
-    dolci:["Desserts Maison","La meilleure conclusion"]
+    dolci:["Desserts Maison","La meilleure conclusion"],
+    bevande:["Boissons",""]
   },
-  varianti:"Suppléments", coperto:"Couvert", impasti:"Pâtes spéciales", cornice:"Bord farci",
-  spina:"À la pression", bottiglia:"Notre sélection de bières en bouteille", vini:"Vins & bulles", spritz:"Spritz & Co.",
-  calice:"verre", caraffa:"carafe", bott:"bouteille"
+  varianti:"Suppléments", coperto:"Couvert", impasti:"Pâte complète", cornice:"Bord farci",
+  variant_callout:"Avez-vous déjà goûté notre bord farci ?<br>Le vrai must de notre pizza !", allergen_title:"Légende des allergènes",
+  spina:"Bières pression", bottiglia:"Bières en bouteille", vini:"Vins de la maison", spritz:"Spritz & Co.",
+  calice:"Verre", caraffa:"Carafe", bott:"Bouteille"
 }
 };
 
 /* =============== traduzione ingredienti — [it, en, de, fr] (frasi lunghe prima) =============== */
 const TERMS = [
+["tagliere di prosciutto crudo di San Daniele","San Daniele cured-ham board","San-Daniele-Rohschinkenplatte","planche de jambon cru San Daniele"],
+["Artigianale - Non filtrata, non pastorizzata","Craft - unfiltered, unpasteurised","Handwerklich - unfiltriert, nicht pasteurisiert","Artisanale - non filtrée, non pasteurisée"],
+["bevande analcoliche","soft drinks","alkoholfreie Getränke","boissons sans alcool"],
+["mezzaluna","half moon","Halbmond","demi-lune"],
 ["mozzarella di Bufala in cottura","buffalo mozzarella, baked in","Büffelmozzarella, mitgebacken","mozzarella de bufflonne, cuite"],
 ["mozzarella di Bufala fuori cottura","buffalo mozzarella, added fresh","Büffelmozzarella, frisch dazu","mozzarella de bufflonne, ajoutée à froid"],
 ["prosciutto crudo San Daniele","San Daniele cured ham","San-Daniele-Rohschinken","jambon cru San Daniele"],
@@ -841,7 +912,7 @@ const TERMS = [
 ["pizzette fritte con pomodoro, mozzarella e grana","fried mini pizzas with tomato, mozzarella and Grana","frittierte Mini-Pizzen mit Tomate, Mozzarella und Grana","mini-pizzas frites tomate, mozzarella et Grana"],
 ["pane con impasto della pizza","bread from our pizza dough","Brot aus unserem Pizzateig","pain à base de pâte à pizza"],
 ["provola affumicata in cottura","smoked provola, baked in","geräucherte Provola, mitgebacken","provola fumée, cuite"],
-["buffala affumicata fuori cottura","smoked buffalo mozzarella, added fresh","geräucherter Büffelmozzarella, frisch dazu","mozzarella de bufflonne fumée, à froid"],
+["bufala affumicata fuori cottura","smoked buffalo mozzarella, added fresh","geräucherter Büffelmozzarella, frisch dazu","mozzarella de bufflonne fumée, à froid"],
 ["provola affumicata di bufala","smoked buffalo provola","geräucherte Büffel-Provola","provola de bufflonne fumée"],
 ["provola affumicata","smoked provola","geräucherte Provola","provola fumée"],
 ["ricotta affumicata","smoked ricotta","geräucherte Ricotta","ricotta fumée"],
@@ -942,7 +1013,7 @@ function trDesc(s){
 const NAME_TR = {
 "Prosciutto Crudo":["Cured ham","Rohschinken","Jambon cru"],
 "Prosciutto Crudo con Burrata":["Cured ham with burrata","Rohschinken mit Burrata","Jambon cru & burrata"],
-"Prosciutto Crudo con Mozzarella di Bufala":["Cured ham with buffalo mozzarella","Rohschinken mit Büffelmozzarella","Jambon cru & mozzarella de bufflonne"],
+"Prosciutto Crudo con Bufala":["Cured ham with buffalo mozzarella","Rohschinken mit Büffelmozzarella","Jambon cru & mozzarella de bufflonne"],
 "Tagliere di Affettati Misti e Formaggi":["Mixed cured-meat & cheese board","Aufschnitt- & Käseplatte","Planche de charcuterie & fromages"],
 "Caprese con Bufala e Pomodorini":["Caprese with buffalo mozzarella & cherry tomatoes","Caprese mit Büffelmozzarella & Kirschtomaten","Caprese à la bufflonne & tomates cerises"],
 "Cotoletta e Patate Fritte":["Cutlet & fries","Schnitzel & Pommes","Escalope & frites"],
@@ -966,6 +1037,23 @@ const NAME_TR = {
 "Ricotta":["Ricotta","Ricotta","Ricotta"],
 "Brie":["Brie","Brie","Brie"],
 "Gorgonzola dolce":["Sweet gorgonzola","Milder Gorgonzola","Gorgonzola doux"],
+"Aggiunta di Bufala":["Add buffalo mozzarella","Büffelmozzarella extra","Supplément mozzarella de bufflonne"],
+"Aggiunta di Burrata":["Add burrata","Burrata extra","Supplément burrata"],
+"Aggiunta di Crudo":["Add cured ham","Rohschinken extra","Supplément jambon cru"],
+"Aggiunta di Porcini":["Add porcini","Steinpilze extra","Supplément cèpes"],
+"Aggiunta di Pitina":["Add pitina","Pitina extra","Supplément pitina"],
+"Cornicione ripieno di Ricotta":["Ricotta-stuffed crust","Rand mit Ricotta","Bord farci à la ricotta"],
+"Cornicione ripieno di Brie":["Brie-stuffed crust","Rand mit Brie","Bord farci au brie"],
+"Cornicione ripieno di Gorgonzola dolce":["Sweet-gorgonzola stuffed crust","Rand mit mildem Gorgonzola","Bord farci au gorgonzola doux"],
+"Impasto integrale":["Wholemeal dough","Vollkornteig","Pâte complète"],
+"Coperto":["Cover charge","Gedeck","Couvert"],
+"Alette di Pollo 6pz":["Chicken wings 6 pcs","Chicken Wings 6 Stk.","Ailes de poulet 6 pcs"],
+"Anelli di Cipolla 6pz":["Onion rings 6 pcs","Zwiebelringe 6 Stk.","Rondelles d'oignon 6 pcs"],
+"Mini Frico 8pz":["Mini frico 8 pcs","Mini-Frico 8 Stk.","Mini frico 8 pcs"],
+"Pepite di Asiago 8pz":["Asiago nuggets 8 pcs","Asiago-Nuggets 8 Stk.","Nuggets d'Asiago 8 pcs"],
+"Montanare 4pz":["Montanare 4 pcs","Montanare 4 Stk.","Montanare 4 pcs"],
+"Acqua":["Water","Wasser","Eau"],
+"Bibite":["Soft drinks","Softdrinks","Boissons sans alcool"],
 };
 function trName(n){
   if(LANG==="it") return n;
@@ -974,167 +1062,230 @@ function trName(n){
   return t ? (t[i]||n) : n;
 }
 
-/* =============== dati menù (carta cartacea def.) =============== */
+/* =============== dati menù — fedeli alla versione cartacea =============== */
 const MENU = {
 classiche:[
-["Marinara Classica","pomodoro, aglio, olio, origano","6,50"],
-["Marinara d'Oro","passata di pomodorino giallo, aglio, origano","8,00"],
-["Margherita Classica","pomodoro, mozzarella, basilico","7,50"],
-["Margherita Affumicata","pomodoro, provola affumicata in cottura, buffala affumicata fuori cottura, pepe, basilico","10,00"],
-["Bufalina","pomodoro, mozzarella di Bufala in cottura, basilico","9,00"],
-["Primo Amore","pomodoro, mozzarella di Bufala in cottura, pomodorini, basilico","9,50"],
-["Siciliana","pomodoro, mozzarella, capperi, olive, acciughe, origano","9,00"],
-["Diavola","pomodoro, mozzarella, salame piccante","8,50"],
-["Prosciutto e Funghi","pomodoro, mozzarella, prosciutto, funghi","9,00"],
-["Capricciosa","pomodoro, mozzarella, prosciutto, funghi, carciofi","10,00"],
-["Tonno e Cipolla","pomodoro, mozzarella, tonno, cipolla","8,50"],
-["Formaggi","pomodoro, mozzarella, formaggi misti","9,00"],
-["Verdure","pomodoro, mozzarella, verdure miste","9,00"],
-["Rucola, Grana e Pomodorini","pomodoro, mozzarella, rucola, pomodorini, Grana Padano in scaglie","9,50"],
+["Marinara Classica","pomodoro, aglio, olio, origano","6,50","1 - 7"],
+["Marinara d'Oro","passata di pomodorino giallo, aglio, origano","8,00","1 - 7"],
+["Margherita Classica","pomodoro, mozzarella, basilico","7,50","1 - 7"],
+["Margherita Affumicata","pomodoro, provola affumicata in cottura, bufala affumicata fuori cottura, pepe, basilico","10,00","1 - 7"],
+["Bufalina","pomodoro, mozzarella di Bufala in cottura, basilico","9,00","1 - 7"],
+["Primo Amore","pomodoro, mozzarella di Bufala in cottura, pomodorini, basilico","9,50","1 - 7"],
+["Siciliana","pomodoro, mozzarella, capperi, olive, acciughe, origano","9,00","1 - 7"],
+["Diavola","pomodoro, mozzarella, salame piccante","8,50","1 - 7"],
+["Prosciutto e Funghi","pomodoro, mozzarella, prosciutto, funghi","9,00","1 - 7"],
+["Capricciosa","pomodoro, mozzarella, prosciutto, funghi, carciofi","10,00","1 - 7"],
+["Tonno e Cipolla","pomodoro, mozzarella, tonno, cipolla","8,50","1 - 7"],
+["Formaggi","pomodoro, mozzarella, formaggi misti","9,00","1 - 7"],
+["Verdure","pomodoro, mozzarella, verdure miste","9,00","1 - 7"],
+["Rucola, Grana e Pomodorini","pomodoro, mozzarella, rucola, pomodorini, Grana Padano in scaglie","9,50","1 - 7"]
 ],
 audaci:[
-["Burrata e Crudo","pomodoro, prosciutto crudo San Daniele, burrata","13,00"],
-["Alpina","bordo ripieno di Gorgonzola, pomodoro, mozzarella, porcini, speck","13,00"],
-["Parmigiana","pomodoro, mozzarella, provola affumicata, Grana in cottura, melanzane fritte, basilico","11,00"],
-["Deliziosa","bordo ripieno di ricotta, pomodoro, mozzarella di Bufala in cottura, pomodorini, prosciutto crudo San Daniele","13,00"],
-["Grassa","pomodoro, mozzarella, würstel, pancetta, salamino, salsiccia","11,00"],
-["Maglio","pomodoro, mozzarella, cipolla rossa, salsiccia, patate al forno","10,00"],
-["San Daniele","pomodoro, mozzarella, prosciutto crudo San Daniele","10,00"],
-["Primavera","pomodoro, mozzarella di Bufala in cottura, rucola, pomodorini, Grana a scaglie, prosciutto crudo San Daniele","13,00"],
-["Brie, Speck e Ricotta","pomodoro, mozzarella, ricotta affumicata, brie, speck","11,00"],
-["Raf","pomodoro, mozzarella, salsiccia, gorgonzola, porcini, mozzarella di Bufala fuori cottura, rucola","13,00"],
-["Valtellina","pomodoro, mozzarella, bresaola, rucola, Grana Padano in scaglie","12,00"],
-["Greca","pomodoro, olive, cipolla rossa, pomodorini, feta, rucola","11,00"],
-["Saporita","pomodoro, mozzarella, porro, guanciale, formaggio salato, miele piccante","13,00"],
-["Estiva","pomodoro, mozzarella, prosciutto crudo, pomodorini, pesto, burrata","13,00"],
-["Tramontina","pomodoro, mozzarella, formaggio salato, polenta, pitina","13,00"],
+["Burrata e Crudo","pomodoro, prosciutto crudo San Daniele, burrata","13,00","1 - 7"],
+["Alpina","bordo ripieno di Gorgonzola, pomodoro, mozzarella, porcini, speck","13,00","1 - 7"],
+["Parmigiana","pomodoro, mozzarella, provola affumicata, Grana in cottura, melanzane fritte, basilico","11,00","1 - 7"],
+["Deliziosa","bordo ripieno di ricotta, pomodoro, mozzarella di Bufala in cottura, pomodorini, prosciutto crudo San Daniele","13,00","1 - 7"],
+["Grassa","pomodoro, mozzarella, würstel, pancetta, salamino, salsiccia","11,00","1 - 7"],
+["Maglio","pomodoro, mozzarella, cipolla rossa, salsiccia, patate al forno","10,00","1 - 7"],
+["San Daniele","pomodoro, mozzarella, prosciutto crudo San Daniele","10,00","1 - 7"],
+["Primavera","pomodoro, mozzarella di Bufala in cottura, rucola, pomodorini, Grana a scaglie, prosciutto crudo San Daniele","13,00","1 - 7"],
+["Brie, Speck e Ricotta","pomodoro, mozzarella, ricotta affumicata, brie, speck","11,00","1 - 7"],
+["Raf","pomodoro, mozzarella, salsiccia, Gorgonzola, porcini, mozzarella di Bufala fuori cottura, rucola","13,00","1 - 7"],
+["Valtellina","pomodoro, mozzarella, bresaola, rucola, Grana Padano in scaglie","12,00","1 - 5 - 7"],
+["Greca","pomodoro, olive, cipolla rossa, pomodorini, feta, rucola","11,00","1 - 5 - 7"],
+["Saporita","pomodoro, mozzarella, porro, guanciale, formaggio salato, miele piccante","13,00","1 - 5 - 7"],
+["Estiva","pomodoro, mozzarella, prosciutto crudo, pomodorini, pesto, burrata","13,00","1 - 7"],
+["Tramontina","pomodoro, mozzarella, formaggio salato, polenta, pitina","13,00","1 - 7"],
+["Friuli","pomodoro, mozzarella, salame, radicchio, montasio","12,00","1 - 7"],
+["Genovese","passata di pomodorino giallo, bufala in cottura, pesto genovese, pomodorini semi dry","12,00","1 - 7 - 8"],
+["Caprina","mozzarella, crema di olive nere, formaggio di capra, mandorle, pomodorini semi dry","12,00","1 - 7 - 8"],
+["Sarah","pomodoro, mozzarella, patate al forno, brie, salamino","10,00","1 - 5 - 7"]
 ],
 bianche:[
-["Via Roma","mozzarella di Bufala in cottura, pomodorini semi dry, olive nere, ricotta affumicata","11,00"],
-["Golosa","passata di peperoni, mozzarella, 'nduja, salsiccia, patate al forno","12,00"],
-["Povera","mozzarella, mortadella, burrata, granella di pistacchio","12,00"],
-["Carbonara","mozzarella, guanciale, tuorlo d'uovo, pecorino, pepe nero","12,00"],
-["Frico","mozzarella, fonduta di montasio, cipolla, patate","12,00"],
-["Friarielli e Salsiccia","mozzarella, friarielli, salsiccia, provola affumicata","11,00"],
-["Delicata","mozzarella, lardo alle erbe, noci, miele, gorgonzola","12,00"],
-["Monte Jouf (mezza luna)","ripieno: mozzarella, zucchine, pepe, ricotta · base: pomodoro, mozzarella, pancetta, patate","12,00"],
-["Friuli","pomodoro, mozzarella, salame, radicchio, montasio","12,00"],
-["Genovese","passata di pomodorino giallo, bufala in cottura, pesto genovese, pomodorini semi dry","12,00"],
-["Caprina","mozzarella, crema di olive nere, formaggio di capra, mandorle, pomodorini semi dry","12,00"],
-["Sarah","pomodoro, mozzarella, patate al forno, brie, salamino","10,00"],
+["Via Roma","mozzarella di Bufala in cottura, pomodorini semi dry, olive nere, ricotta affumicata","11,00","1 - 7"],
+["Golosa","passata di peperoni, mozzarella, 'nduja, salsiccia, patate al forno","12,00","1 - 5 - 7"],
+["Povera","mozzarella, mortadella, burrata, granella di pistacchio","12,00","1 - 7 - 8"],
+["Carbonara","mozzarella, guanciale, tuorlo d'uovo, pecorino, pepe nero","12,00","1 - 3 - 7"],
+["Frico","mozzarella, fonduta di montasio, cipolla, patate","12,00","1 - 7"],
+["Friarielli e Salsiccia","mozzarella, friarielli, salsiccia, provola affumicata","11,00","1 - 7"],
+["Delicata","mozzarella, lardo alle erbe, noci, miele, Gorgonzola","12,00","1 - 7 - 8"]
 ],
 calzoni:[
-["Classico","pomodoro, mozzarella, prosciutto, funghi","9,00"],
-["Piccante","mozzarella, ricotta fresca, salame piccante, 'nduja, peperoncino","11,00"],
+["Classico","pomodoro, mozzarella, prosciutto, funghi","9,00","1 - 7"],
+["Piccante","mozzarella, ricotta fresca, salame piccante, 'nduja, peperoncino","11,00","1 - 7"],
+["Monte Jouf","ripieno: mozzarella, zucchine, pepe, ricotta · base: pomodoro, mozzarella, pancetta, patate","12,00","1 - 7","mezzaluna"]
 ],
 cucina:[
-["Prosciutto Crudo","","10,00"],
-["Prosciutto Crudo con Burrata","","14,00"],
-["Prosciutto Crudo con Mozzarella di Bufala","","14,00"],
-["Tagliere di Affettati Misti e Formaggi","","15,00"],
-["Caprese con Bufala e Pomodorini","","10,00"],
-["Cotoletta e Patate Fritte","","12,00"],
-["Caesar Salad","misticanza, pollo fritto, grana a scaglie, pomodorini, salsa caesar","12,00"],
-["Insalata Mista","rucola, radicchio, pomodorini","6,00"],
-["Insalata Bufalina","misticanza, pomodorini, olive, tonno, bufala","10,00"],
-["Panino Vegetariano e Patate Fritte","pane con impasto della pizza, verdure miste e bufala","10,00"],
-["Hot Dog e Patate Fritte","pane con impasto della pizza e wurstel","8,00"],
+["Prosciutto Crudo","tagliere di prosciutto crudo di San Daniele","10,00",""],
+["Prosciutto Crudo con Burrata","","14,00","7"],
+["Prosciutto Crudo con Bufala","","14,00","7"],
+["Tagliere di Affettati Misti e Formaggi","","15,00","7 - 8"],
+["Caprese con Bufala e Pomodorini","","10,00","7"],
+["Cotoletta e Patate Fritte","","12,00","1 - 3 - 5 - 7 - 10 - *"],
+["Caesar Salad","misticanza, pollo fritto, grana a scaglie, pomodorini, salsa caesar","12,00","1 - 3 - 5 - 7 - *"],
+["Insalata Mista","rucola, radicchio, pomodorini","6,00",""],
+["Insalata Bufalina","misticanza, pomodorini, olive, tonno, bufala","10,00","4 - 7"],
+["Panino Vegetariano e Patate Fritte","pane con impasto della pizza, verdure miste e bufala","10,00","1 - 3 - 5 - 7 - 10"],
+["Hot Dog e Patate Fritte","pane con impasto della pizza e wurstel","8,00","1 - 5 - 7 - 10"]
 ],
 stuzzicherie:[
-["Stuzzica Mix","","12,00"],
-["Patatine Fritte","","5,00"],
-["Alette di Pollo (6 pz)","","6,00"],
-["Anelli di Cipolla (6 pz)","","6,00"],
-["Mini Frico (8 pz)","","7,00"],
-["Pepite di Asiago (8 pz)","","7,00"],
-["Montanare (4 pz)","pizzette fritte con pomodoro, mozzarella e grana","12,00"],
-],
-dolci:[]
+["Stuzzica Mix","","12,00","1 - 3 - 5 - 6 - 7 - 8 - 10 - *"],
+["Patatine Fritte","","5,00","1 - 3 - 4 - 5 - 6 - 7 - 10 - *"],
+["Alette di Pollo 6pz","","6,00","1 - 3 - 4 - 5 - 6 - 7 - 8 - 10 - *"],
+["Anelli di Cipolla 6pz","","6,00","1 - 3 - 4 - 5 - 6 - 7 - 8 - 10 - *"],
+["Mini Frico 8pz","","7,00","1 - 3 - 4 - 5 - 6 - 7 - 8 - 10 - *"],
+["Pepite di Asiago 8pz","","7,00","1 - 3 - 4 - 5 - 6 - 7 - 8 - 10 - *"],
+["Montanare 4pz","pizzette fritte con pomodoro, mozzarella e grana","12,00","1 - 3 - 4 - 5 - 7"]
+]
 };
 
-/* immagine o illustrazione per ogni categoria */
-const CAT_IMG = {
-  classiche:"assets/pizza3.webp",
-  audaci:"assets/pizza1.webp",
-  bianche:"assets/pizza8.webp",
-  calzoni:"assets/pizza7.webp",
-  cucina:"assets/int.webp",
-  stuzzicherie:"assets/pizza5.webp",
-  bevande:"assets/intv1.webp",
-  dolci:"assets/intv2.webp"
+const MENU_ART = {
+  classiche:"assets/menu/classiche.webp",
+  audaci:"assets/menu/audaci.webp",
+  bianche:"assets/menu/bianche.webp",
+  calzoni:"assets/menu/calzoni.webp",
+  varianti:"assets/menu/varianti.webp",
+  cucina:"assets/menu/cucina.webp",
+  stuzzicherie:"assets/menu/stuzzicherie.webp",
+  dolci:"assets/menu/dolci.webp",
+  bevande:"assets/menu/bevande.webp"
 };
 
-const VARIANTI = [["Di Bufala","3,00"],["Burrata","4,00"],["Crudo","3,00"],["Porcini","2,00"],["Pitina","4,00"]];
-const CORNICE  = [["Ricotta","3,00"],["Brie","3,00"],["Gorgonzola dolce","3,00"]];
+const VARIANTI = [
+["Aggiunta di Bufala","","3,00",""],
+["Aggiunta di Burrata","","4,00","1 - 7"],
+["Aggiunta di Crudo","","3,00",""],
+["Aggiunta di Porcini","","2,00","*"],
+["Aggiunta di Pitina","","4,00",""]
+];
+const CORNICE = [
+["Cornicione ripieno di Ricotta","","3,00","7"],
+["Cornicione ripieno di Brie","","3,00","7"],
+["Cornicione ripieno di Gorgonzola dolce","","3,00","7"],
+["Impasto integrale","","3,00",""],
+["Coperto","","1,50",""]
+];
+const ACQUA_BIBITE = [
+["Acqua","naturale / frizzante · 0,5 l","2,00",""],
+["Bibite","bevande analcoliche · 0,3 l","3,00",""]
+];
+const BOTTIGLIA = [
+["Garlatti Costa","Artigianale Friulana - Non filtrata, non pastorizzata",[
+  ["Rush More","American pale ale · 0,3 l","5,00",""],
+  ["Flag","Keller Pils - Senza glutine · 0,3 l","5,00",""],
+  ["Iron Bridge","Ambrata · 0,3 l","5,00",""],
+  ["Liquidambra","Scura · 0,3 l","5,00",""]]],
+["Theresianer","Artigianale - Non filtrata, non pastorizzata",[
+  ["Guglielmo","Lager · 0,5 l","6,50",""],
+  ["Amleto","Bock · 0,5 l","6,50",""],
+  ["Cordelia","IPA · 0,5 l","6,50",""]]]
+];
 const SPINA = [
 ["Hirter Marzen","Bionda","3,50","5,50","16,50"],
-["Hirter Ambrata","Ambrata","4,00","6,50","18,50"],
-["Blanche","Wieze","4,00","6,50","18,50"]];
-const BOTTIGLIA = [
-["Garlatti Costa · Artigianale Friulana","Non filtrata, non pastorizzata",[
-  ["Rush More","American pale ale · 0,3 l","5,00"],
-  ["Flag","Keller Pils, senza glutine · 0,3 l","5,00"],
-  ["Iron Bridge","Ambrata · 0,3 l","5,00"],
-  ["Liquidambra","Scura · 0,3 l","5,00"]]],
-["Theresianer · Artigianale Friulana","",[
-  ["Guglielmo","Lagher · 0,5 l","6,50"],
-  ["Amleto","Bock · 0,5 l","6,50"],
-  ["Cordelia","Ipa · 0,5 l","6,50"]]]];
+["Hirter Morchl","Ambrata","4,00","6,50","18,50"],
+["Wieze Blanche","","4,00","6,50","18,50"]
+];
 const VINI = [
 ["Cabernet Franc","2,00","7,00","12,00"],
 ["Friulano","2,00","7,00","12,00"],
-["Prosecco DOC Treviso","3,00","8,00","15,00"]];
-const SPRITZ = [["Spritz Bianco","0,00"],["Spritz Rosso","0,00"],["Spritz Aperol","0,00"],["Spritz Campari","0,00"],["Americano","0,00"],["Negroni","0,00"],["Montenegro","0,00"],["Amaro del Capo","0,00"],["Vecchia Romagna","0,00"],["Martini","0,00"]];
-const ALTRO = [["Acqua 0,5 l · naturale / frizzante","2,00"],["Bibite · bevande analcoliche 0,3 l","3,00"]];
+["Prosecco DOC Treviso","3,00","8,00","15,00"]
+];
+
+const ALLERGENS = {
+it:[
+["1","Cereali contenenti glutine cioè: grano, segale, orzo, avena, farro, kamut o i loro ceppi ibridati e prodotti derivati."],
+["2","Crostacei e prodotti a base di crostacei."],
+["3","Uova e prodotti a base di uova."],
+["4","Pesce e prodotti a base di pesce."],
+["5","Arachidi e prodotti a base di arachidi."],
+["6","Soia e prodotti a base di soia."],
+["7","Latte e prodotti a base di latte (incluso lattosio)."],
+["8","Frutta a guscio cioè: mandorle, nocciole, pistacchi, noci e i loro prodotti."],
+["9","Sedano e prodotti a base di sedano."],
+["10","Senape e prodotti a base di senape."],
+["11","Semi di sesamo e prodotti a base di semi di sesamo."],
+["12","Anidride solforosa e solfiti in concentrazioni superiori a 10 mg/kg o 10 ml/litro in termini di SO2 totale da calcolarsi per i prodotti così come proposti pronti al consumo o ricostituiti conformemente alle istruzioni dei fabbricanti."],
+["13","Lupini e prodotti a base di lupini."],
+["14","Molluschi e prodotti a base di molluschi."]
+],
+en:[
+["1","Cereals containing gluten: wheat, rye, barley, oats, spelt, kamut, their hybridised strains and derived products."],
+["2","Crustaceans and products thereof."],["3","Eggs and products thereof."],["4","Fish and products thereof."],["5","Peanuts and products thereof."],["6","Soybeans and products thereof."],["7","Milk and products thereof (including lactose)."],["8","Nuts: almonds, hazelnuts, pistachios, walnuts and products thereof."],["9","Celery and products thereof."],["10","Mustard and products thereof."],["11","Sesame seeds and products thereof."],["12","Sulphur dioxide and sulphites at concentrations above 10 mg/kg or 10 ml/litre expressed as total SO2."],["13","Lupin and products thereof."],["14","Molluscs and products thereof."]
+],
+de:[
+["1","Glutenhaltiges Getreide: Weizen, Roggen, Gerste, Hafer, Dinkel, Kamut, Hybridstämme und daraus hergestellte Erzeugnisse."],["2","Krebstiere und daraus hergestellte Erzeugnisse."],["3","Eier und daraus hergestellte Erzeugnisse."],["4","Fisch und daraus hergestellte Erzeugnisse."],["5","Erdnüsse und daraus hergestellte Erzeugnisse."],["6","Sojabohnen und daraus hergestellte Erzeugnisse."],["7","Milch und daraus hergestellte Erzeugnisse (einschließlich Laktose)."],["8","Schalenfrüchte: Mandeln, Haselnüsse, Pistazien, Walnüsse und daraus hergestellte Erzeugnisse."],["9","Sellerie und daraus hergestellte Erzeugnisse."],["10","Senf und daraus hergestellte Erzeugnisse."],["11","Sesamsamen und daraus hergestellte Erzeugnisse."],["12","Schwefeldioxid und Sulfite in Konzentrationen von mehr als 10 mg/kg oder 10 ml/Liter, ausgedrückt als SO2."],["13","Lupinen und daraus hergestellte Erzeugnisse."],["14","Weichtiere und daraus hergestellte Erzeugnisse."]
+],
+fr:[
+["1","Céréales contenant du gluten : blé, seigle, orge, avoine, épeautre, kamut, leurs souches hybridées et produits dérivés."],["2","Crustacés et produits à base de crustacés."],["3","Œufs et produits à base d'œufs."],["4","Poissons et produits à base de poissons."],["5","Arachides et produits à base d'arachides."],["6","Soja et produits à base de soja."],["7","Lait et produits à base de lait (y compris le lactose)."],["8","Fruits à coque : amandes, noisettes, pistaches, noix et produits dérivés."],["9","Céleri et produits à base de céleri."],["10","Moutarde et produits à base de moutarde."],["11","Graines de sésame et produits à base de graines de sésame."],["12","Anhydride sulfureux et sulfites à des concentrations supérieures à 10 mg/kg ou 10 ml/litre, exprimés en SO2 total."],["13","Lupin et produits à base de lupin."],["14","Mollusques et produits à base de mollusques."]
+]
+};
+const FROZEN_NOTE = {
+  it:"Prodotto surgelato all'origine. In mancanza di prodotti freschi, utilizziamo prodotti surgelati.",
+  en:"Product frozen at origin. When fresh products are unavailable, frozen products are used.",
+  de:"Am Ursprung tiefgefrorenes Produkt. Wenn keine frischen Produkte verfügbar sind, verwenden wir Tiefkühlprodukte.",
+  fr:"Produit surgelé à l'origine. En l'absence de produits frais, nous utilisons des produits surgelés."
+};
 
 /* =============== render =============== */
 let LANG = "it";
 const $ = s => document.querySelector(s);
 
-function item(n,d,p){
-  return `<div class="item"><div class="row"><span class="nome">${trName(n)}</span><span class="dots"></span><span class="prezzo">${p}</span></div>${d?`<p class="desc">${trDesc(d)}</p>`:""}</div>`;
+function formatDesc(s){
+  if(!s) return "";
+  return trDesc(s).split(" · ").map(part=>part ? part.charAt(0).toUpperCase()+part.slice(1) : part).join("<br>");
 }
-const simple = rows => rows.map(r=>item(r[0],"",r[1])).join("");
+function item(n,d,p,a="",q=""){
+  const allergens = a ? `<span class="allergens" title="Allergeni: ${a}">${a}</span>` : "";
+  const qualifier = q ? `<span class="qualifier">${trDesc(q)}</span>` : "";
+  return `<div class="item"><div class="row"><span class="label"><span class="nome">${trName(n)}</span>${qualifier}${allergens}</span><span class="dots"></span><span class="prezzo">${p}</span></div>${d?`<p class="desc">${formatDesc(d)}</p>`:""}</div>`;
+}
+const renderRows = rows => rows.map(r=>item(...r)).join("");
+function renderAllergenGuide(t){
+  const rows = ALLERGENS[LANG] || ALLERGENS.it;
+  return `<div class="allergen-guide"><h4>${t.allergen_title}</h4><div class="allergen-grid">${rows.map(([n,d])=>`<div class="allergen-entry"><b>${n}</b><span>${d}</span></div>`).join("")}</div><div class="frozen-note"><b>*</b><span>${FROZEN_NOTE[LANG]||FROZEN_NOTE.it}</span></div></div>`;
+}
 
 function renderMenu(){
   const t = T[LANG];
-  const order = ["classiche","audaci","bianche","calzoni","cucina","stuzzicherie","bevande","dolci"];
+  const order = ["classiche","audaci","bianche","calzoni","varianti","cucina","stuzzicherie","dolci","bevande"];
   $("#chips").innerHTML = order.map((id,i)=>`<button data-go="${id}" class="${i===0?"on":""}">${t.cats[id][0]}</button>`).join("");
 
   let html = "";
-  order.forEach((id,idx)=>{
+  order.forEach(id=>{
     const [titolo,tag] = t.cats[id];
-    const n = String(idx+1).padStart(2,"0");
-    html += `<section class="mcat fx" id="cat-${id}">`;
-    if(CAT_IMG[id]){
-      const isPhoto = ["cucina","bevande","dolci"].includes(id);
-      html += `<div class="cat-hero"><span class="arc"></span><img class="${isPhoto?'photo':'pizza'}" src="${CAT_IMG[id]}" alt="" loading="lazy"></div>`;
-    }
-    html += `<header><span class="n">${n}</span><h3>${titolo}</h3></header><p class="tag">${tag}</p><div class="rule"></div>`;
-    if(id==="dolci") html += `<p class="dolci-note">${t.dolci_note}</p>`;
-    else if(MENU[id]) html += MENU[id].map(v=>item(v[0],v[1],v[2])).join("");
+    html += `<section class="mcat fx" id="cat-${id}"><header class="mcat-head"><h3>${titolo}</h3>${tag?`<p class="tag">${tag}</p>`:""}</header><div class="rule"></div>`;
+    if(MENU_ART[id]) html += `<figure class="menu-art"><img src="${MENU_ART[id]}" alt="" loading="lazy" decoding="async"></figure>`;
+    html += `<div class="mcat-body">`;
 
-    if(id==="calzoni") html += `<p class="groupline">${t.varianti}</p>` + simple(VARIANTI);
-    if(id==="audaci")  html += `<p class="groupline">${t.cornice}</p>` + simple(CORNICE)
-                             + simple([[t.impasti,"3,00"],[t.coperto,"1,50"]]);
+    if(MENU[id]) html += renderRows(MENU[id]);
+    if(id==="varianti"){
+      html += renderRows(VARIANTI);
+      html += `<p class="variant-callout">${t.variant_callout}</p>`;
+      html += renderRows(CORNICE);
+    }
+    if(id==="dolci"){
+      html += `<p class="dolci-note">${t.dolci_note}</p>`;
+      html += renderAllergenGuide(t);
+    }
     if(id==="bevande"){
-      html += `<p class="groupline">${t.spina}</p>`;
-      html += SPINA.map(b=>`<div class="item multi"><div class="row"><span class="nome">${b[0]}</span><span class="dots"></span></div><span class="sub">${trDesc(b[1])}</span><div class="pricegrid"><span>0,3 l<b>${b[2]}</b></span><span>0,5 l<b>${b[3]}</b></span><span>1,5 l<b>${b[4]}</b></span></div></div>`).join("");
+      html += renderRows(ACQUA_BIBITE);
       html += `<p class="groupline">${t.bottiglia}</p>`;
       for(const g of BOTTIGLIA){
-        html += `<p class="groupsub">${trDesc(g[0])}${g[1]?`, ${trDesc(g[1])}`:""}</p>`;
-        html += g[2].map(b=>item(b[0],b[1],b[2])).join("");
+        html += `<p class="groupsub"><strong>${g[0]}</strong> · ${trDesc(g[1])}</p>`;
+        html += renderRows(g[2]);
       }
+      html += `<p class="groupline">${t.spina}</p>`;
+      html += SPINA.map(b=>`<div class="item multi"><div class="row"><span class="label"><span class="nome">${b[0]}</span>${b[1]?`<span class="qualifier">${trDesc(b[1])}</span>`:""}</span><span class="dots"></span><span class="prezzo"></span></div><div class="pricegrid"><span>0,3 l<b>${b[2]}</b></span><span>0,5 l<b>${b[3]}</b></span><span>${t.caraffa} 1,5 l<b>${b[4]}</b></span></div></div>`).join("");
       html += `<p class="groupline">${t.vini}</p>`;
-      html += VINI.map(v=>`<div class="item multi"><div class="row"><span class="nome">${v[0]}</span><span class="dots"></span></div><div class="pricegrid"><span>${t.calice}<b>${v[1]}</b></span><span>${t.caraffa} 0,5<b>${v[2]}</b></span><span>${t.bott} 0,75<b>${v[3]}</b></span></div></div>`).join("");
-      html += `<p class="groupline">${t.spritz}</p>` + simple(SPRITZ) + simple(ALTRO);
+      html += VINI.map(v=>`<div class="item multi"><div class="row"><span class="label"><span class="nome">${v[0]}</span></span><span class="dots"></span><span class="prezzo"></span></div><div class="pricegrid"><span>${t.calice}<b>${v[1]}</b></span><span>${t.caraffa} 0,5 l<b>${v[2]}</b></span><span>${t.bott} 0,75 l<b>${v[3]}</b></span></div></div>`).join("");
     }
-    html += `</section>`;
+    html += `</div></section>`;
   });
   $("#carta").innerHTML = html;
   bindChips(); observeAll();
   if(typeof chipScrollState==="function") requestAnimationFrame(chipScrollState);
 }
+
 
 /* =============== i18n apply =============== */
 function applyLang(l){
@@ -1149,7 +1300,7 @@ function applyLang(l){
   renderMenu();
   renderGallery();
   renderCustomer();
-  document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #ggrid .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
+  document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
   if(window.__lbTag) window.__lbTag();
 }
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
@@ -1373,62 +1524,92 @@ function dragScroll(el){
 }
 dragScroll(forno); dragScroll(rail);
 
-/* =============== gallery fotografica =============== */
+/* =============== gallery fotografica: album viewer =============== */
 const GALLERY_ORDER = ["bancone","entrata","esterno","locale","sala_sinistra","sala_destra"];
 const GALLERY = {
   bancone:[
-    ["assets/gallery/bancone-01.webp","4 / 3"],["assets/gallery/bancone-02.webp","4 / 3"],
-    ["assets/gallery/bancone-03.webp","4 / 3"],["assets/gallery/bancone-04.webp","4 / 3"],
-    ["assets/gallery/bancone-05.webp","4 / 3"]
+    "assets/gallery/bancone-01.webp","assets/gallery/bancone-02.webp","assets/gallery/bancone-03.webp",
+    "assets/gallery/bancone-04.webp","assets/gallery/bancone-05.webp"
   ],
   entrata:[
-    ["assets/gallery/entrata-01.webp","3 / 2"],["assets/gallery/entrata-02.webp","3 / 2"],
-    ["assets/gallery/entrata-03.webp","3 / 2"],["assets/gallery/entrata-04.webp","3 / 2"],
-    ["assets/gallery/entrata-05.webp","3 / 2"]
+    "assets/gallery/entrata-01.webp","assets/gallery/entrata-02.webp","assets/gallery/entrata-03.webp",
+    "assets/gallery/entrata-04.webp","assets/gallery/entrata-05.webp"
   ],
   esterno:[
-    ["assets/gallery/esterno-01.webp","3 / 2"],["assets/gallery/esterno-02.webp","3 / 2"],
-    ["assets/gallery/esterno-03.webp","3 / 2"],["assets/gallery/esterno-04.webp","3 / 2"],
-    ["assets/gallery/esterno-05.webp","3 / 2"]
+    "assets/gallery/esterno-01.webp","assets/gallery/esterno-02.webp","assets/gallery/esterno-03.webp",
+    "assets/gallery/esterno-04.webp","assets/gallery/esterno-05.webp"
   ],
   locale:[
-    ["assets/gallery/locale-01.webp","4 / 3"],["assets/gallery/locale-02.webp","4 / 3"],
-    ["assets/gallery/locale-03.webp","4 / 3"],["assets/gallery/locale-04.webp","4 / 3"],
-    ["assets/gallery/locale-05.webp","3 / 2"]
+    "assets/gallery/locale-01.webp","assets/gallery/locale-02.webp","assets/gallery/locale-03.webp",
+    "assets/gallery/locale-04.webp","assets/gallery/locale-05.webp"
   ],
   sala_sinistra:[
-    ["assets/gallery/sala-sinistra-01.webp","4 / 3"],["assets/gallery/sala-sinistra-02.webp","3 / 2"],
-    ["assets/gallery/sala-sinistra-03.webp","3 / 2"],["assets/gallery/sala-sinistra-04.webp","3 / 2"],
-    ["assets/gallery/sala-sinistra-05.webp","3 / 2"]
+    "assets/gallery/sala-sinistra-01.webp","assets/gallery/sala-sinistra-02.webp","assets/gallery/sala-sinistra-03.webp",
+    "assets/gallery/sala-sinistra-04.webp","assets/gallery/sala-sinistra-05.webp"
   ],
   sala_destra:[
-    ["assets/gallery/sala-destra-01.webp","4 / 3"],["assets/gallery/sala-destra-02.webp","3 / 2"],
-    ["assets/gallery/sala-destra-03.webp","3 / 2"],["assets/gallery/sala-destra-04.webp","3 / 2"],
-    ["assets/gallery/sala-destra-05.webp","3 / 2"]
+    "assets/gallery/sala-destra-01.webp","assets/gallery/sala-destra-02.webp","assets/gallery/sala-destra-03.webp",
+    "assets/gallery/sala-destra-04.webp","assets/gallery/sala-destra-05.webp"
   ]
 };
 let galleryCategory = GALLERY_ORDER[0];
+let galleryIndex = 0;
+let gallerySuppressOpen = false;
 
+const galleryTabs = document.getElementById("gtabs");
+const galleryViewer = document.getElementById("gviewer");
+const galleryStage = document.getElementById("gstage");
+const galleryMain = document.getElementById("gmain");
+const galleryBackdrop = document.getElementById("gbackdrop");
+const galleryThumbs = document.getElementById("gthumbs");
+const galleryLabel = document.getElementById("glabel");
+const galleryCount = document.getElementById("gcount");
+
+function galleryAlt(i){
+  return `${T[LANG].g_categories[galleryCategory]} · ${String(i+1).padStart(2,"0")}`;
+}
+function preloadGalleryNeighbours(){
+  const items = GALLERY[galleryCategory];
+  if(items.length<2) return;
+  [items[(galleryIndex+1)%items.length],items[(galleryIndex-1+items.length)%items.length]].forEach(src=>{ const im=new Image(); im.src=src; });
+}
+function setGalleryImage(i,animate=true){
+  const items = GALLERY[galleryCategory];
+  galleryIndex = (i+items.length)%items.length;
+  const src = items[galleryIndex];
+  if(animate) galleryStage.classList.add("changing");
+  galleryMain.src = src;
+  galleryMain.alt = galleryAlt(galleryIndex);
+  galleryBackdrop.style.backgroundImage = `url("${src}")`;
+  galleryLabel.textContent = T[LANG].g_categories[galleryCategory];
+  galleryCount.textContent = `${String(galleryIndex+1).padStart(2,"0")} / ${String(items.length).padStart(2,"0")}`;
+  galleryThumbs.querySelectorAll(".g-thumb").forEach((b,idx)=>{
+    const on = idx===galleryIndex;
+    b.classList.toggle("on",on);
+    b.setAttribute("aria-current",on?"true":"false");
+    if(on) b.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+  });
+  setTimeout(()=>galleryStage.classList.remove("changing"),160);
+  preloadGalleryNeighbours();
+}
 function renderGallery(){
   const t = T[LANG];
-  const tabs = document.getElementById("gtabs");
-  const grid = document.getElementById("ggrid");
-  tabs.innerHTML = GALLERY_ORDER.map(id=>{
+  galleryTabs.innerHTML = GALLERY_ORDER.map(id=>{
     const on = id===galleryCategory;
-    return `<button id="g-tab-${id}" role="tab" data-gallery="${id}" aria-selected="${on}" tabindex="${on?0:-1}" class="${on?"on":""}">${t.g_categories[id]}</button>`;
+    return `<button id="g-tab-${id}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-selected="${on}" tabindex="${on?0:-1}" class="${on?"on":""}">${t.g_categories[id]}</button>`;
   }).join("");
-  grid.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
-  grid.innerHTML = GALLERY[galleryCategory].map(([src,ratio],i)=>
-    `<figure class="g-cell ${i===0?"feature":""}" style="aspect-ratio:${ratio}">
-       <img class="bgimg" data-src="${src}" alt="${t.g_categories[galleryCategory]} · ${String(i+1).padStart(2,"0")}" decoding="async">
-     </figure>`).join("");
-  document.querySelectorAll("#ggrid .bgimg").forEach(im=>imgObs.observe(im));
-  if(window.__lbTag) window.__lbTag();
+  galleryViewer.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
+  galleryThumbs.innerHTML = GALLERY[galleryCategory].map((src,i)=>
+    `<button class="g-thumb ${i===galleryIndex?"on":""}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?"true":"false"}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`
+  ).join("");
+  if(galleryIndex>=GALLERY[galleryCategory].length) galleryIndex=0;
+  setGalleryImage(galleryIndex,false);
 }
-
 function selectGalleryCategory(id,focus=false){
-  if(!GALLERY[id] || id===galleryCategory) return;
+  if(!GALLERY[id]) return;
+  const changed = id!==galleryCategory;
   galleryCategory=id;
+  if(changed) galleryIndex=0;
   renderGallery();
   requestAnimationFrame(()=>{
     const active=document.getElementById(`g-tab-${id}`);
@@ -1436,7 +1617,7 @@ function selectGalleryCategory(id,focus=false){
     if(focus) active?.focus();
   });
 }
-const galleryTabs = document.getElementById("gtabs");
+
 galleryTabs.addEventListener("click",e=>{
   const b=e.target.closest("[data-gallery]");
   if(b) selectGalleryCategory(b.dataset.gallery);
@@ -1454,6 +1635,50 @@ galleryTabs.addEventListener("keydown",e=>{
   e.preventDefault();
   selectGalleryCategory(GALLERY_ORDER[next],true);
 });
+galleryThumbs.addEventListener("click",e=>{
+  const b=e.target.closest("[data-gindex]");
+  if(b) setGalleryImage(Number(b.dataset.gindex));
+});
+document.getElementById("gprev").addEventListener("click",e=>{e.stopPropagation();setGalleryImage(galleryIndex-1)});
+document.getElementById("gnext").addEventListener("click",e=>{e.stopPropagation();setGalleryImage(galleryIndex+1)});
+galleryViewer.addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft"){e.preventDefault();setGalleryImage(galleryIndex-1)}
+  else if(e.key==="ArrowRight"){e.preventDefault();setGalleryImage(galleryIndex+1)}
+});
+
+/* swipe horizontally inside the fixed viewer; vertical page scrolling remains native */
+let gDown=false,gX=0,gY=0,gDx=0,gMode=null;
+galleryStage.addEventListener("pointerdown",e=>{
+  if(e.target.closest("button")) return;
+  gDown=true;gX=e.clientX;gY=e.clientY;gDx=0;gMode=null;
+  try{galleryStage.setPointerCapture(e.pointerId)}catch(_){}
+});
+galleryStage.addEventListener("pointermove",e=>{
+  if(!gDown) return;
+  const dx=e.clientX-gX,dy=e.clientY-gY;
+  if(gMode===null && (Math.abs(dx)>7||Math.abs(dy)>7)) gMode=Math.abs(dx)>Math.abs(dy)?"h":"v";
+  if(gMode!=="h") return;
+  e.preventDefault();gDx=dx;
+  galleryMain.style.transform=`translateX(${dx*.18}px) scale(.995)`;
+});
+function endGallerySwipe(){
+  if(!gDown) return;
+  gDown=false;
+  galleryMain.style.transform="";
+  if(gMode==="h" && Math.abs(gDx)>44){
+    gallerySuppressOpen=true;
+    setGalleryImage(galleryIndex+(gDx<0?1:-1));
+    setTimeout(()=>gallerySuppressOpen=false,80);
+  }
+  gDx=0;gMode=null;
+}
+galleryStage.addEventListener("pointerup",endGallerySwipe);
+galleryStage.addEventListener("pointercancel",endGallerySwipe);
+galleryStage.addEventListener("click",e=>{
+  if(e.target.closest("button")||gallerySuppressOpen) return;
+  window.__openGalleryLightbox?.(GALLERY[galleryCategory],galleryIndex,T[LANG].g_categories[galleryCategory]);
+});
+
 
 /* =============== customer gallery =============== */
 const WA_NUMBER = "390427541232";           // WhatsApp business (da confermare)
@@ -1482,8 +1707,6 @@ function renderCustomer(){
   const GROUPS = [
     {tap:"#forno figure:not([data-clone])", img:"img", all:"#forno figure:not([data-clone]) img",
      capFrom:im=>im.closest("figure").querySelector("figcaption span")?.textContent||""},
-    {tap:"#ggrid .g-cell", img:"img", all:"#ggrid .g-cell img",
-     capFrom:()=>""},
     {tap:"#custgrid .cust-cell", img:"img", all:"#custgrid .cust-cell img",
      capFrom:()=>""}
   ];
@@ -1519,6 +1742,18 @@ function renderCustomer(){
     const y = scrollY;
     requestAnimationFrame(()=>window.scrollTo(0, y));
   }
+
+  window.__openGalleryLightbox = (sources,start=0,label="")=>{
+    if(!Array.isArray(sources)||!sources.length) return;
+    const list=sources.map((src,i)=>{
+      const im=new Image();
+      im.src=src;
+      im.alt=`${label} · ${String(i+1).padStart(2,"0")}`;
+      im.__cap=()=>im.alt;
+      return im;
+    });
+    open(list[Math.max(0,Math.min(start,list.length-1))],list);
+  };
 
   // delegazione: un solo listener per tutti (anche immagini caricate dopo)
   document.addEventListener("click", e=>{
@@ -1681,7 +1916,7 @@ renderMenu();
 renderGallery();
 renderCustomer();
 observeAll();
-document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #ggrid .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
+document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
 requestAnimationFrame(()=>{
   showCenter(0); showIdx=0;   // catshow sul primo slide reale (dopo il clone)
   center(0); setDot(0);       // forno sul primo slide reale
