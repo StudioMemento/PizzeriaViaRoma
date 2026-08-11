@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V6 premium-gallery-community-social-footer">
+<meta name="build" content="Via Roma V7 depth-reel-reviews-footer">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -939,6 +939,166 @@ a,button{touch-action:manipulation}
 @media(max-width:520px){.cust-grid{columns:1}.cust-cell{margin-bottom:10px}}
 @media(prefers-reduced-motion:reduce){.social-glow,.closing-orbit{animation:none}}
 
+
+/* ========================================================================
+   VIA ROMA V7 · depth, gallery reel, review ticker and instant footer
+   ======================================================================== */
+
+/* The first four scenes now have clearly separated image, veil and copy depth. */
+.parallax-screen{
+  --parallax-x:0px;--parallax-y:0px;--parallax-copy-x:0px;--parallax-copy-y:0px;
+  --parallax-veil-x:0px;--parallax-veil-y:0px;perspective:1400px;transform-style:preserve-3d
+}
+.parallax-screen>.bgimg{
+  inset:-6%;width:112%;height:112%;max-width:none;
+  transform:translate3d(var(--parallax-x),var(--parallax-y),0) scale(1.08);
+  transition:opacity 1.2s ease,transform .72s cubic-bezier(.22,1,.36,1)
+}
+.parallax-screen.parallax-live>.bgimg{transition:opacity 1.2s ease,transform .11s linear}
+.parallax-screen>.veil{inset:-2%;transform:translate3d(var(--parallax-veil-x),var(--parallax-veil-y),18px) scale(1.025);transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.parallax-screen>.inner{transform:translate3d(var(--parallax-copy-x),var(--parallax-copy-y),34px);transition:opacity .9s ease,transform .62s cubic-bezier(.22,1,.36,1)}
+.parallax-screen>.inner.fx:not(.vis){transform:translate3d(var(--parallax-copy-x),calc(var(--parallax-copy-y) + 22px),34px)}
+.parallax-screen>.num{transform:translate3d(var(--parallax-copy-x),var(--parallax-copy-y),26px) translateY(-50%) rotate(180deg);transition:transform .62s cubic-bezier(.22,1,.36,1)}
+.parallax-screen.parallax-live>.veil,.parallax-screen.parallax-live>.inner,.parallax-screen.parallax-live>.num{transition-duration:.16s}
+
+/* The category art keeps its transparent cut-out, framed only by two paths. */
+#catshow .preview-trace{display:block;left:2.5%;right:2.5%;opacity:.92;background:linear-gradient(90deg,transparent,rgba(198,161,91,.32) 7%,var(--oro) 24%,rgba(198,161,91,.34) 76%,transparent)}
+#catshow .preview-trace.t1{top:-1px}
+#catshow .preview-trace.t2{bottom:-1px}
+
+/* Menu category art: never crop the transparent image on phones. */
+@media(max-width:620px){
+  .menu-art{height:clamp(104px,30vw,126px);margin:18px 0 26px}
+  .menu-art::before,.menu-art::after{left:8px;right:8px}
+  .menu-art-window{inset:10px 8px;display:flex;align-items:center;justify-content:center;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .menu-art img{position:relative;inset:auto;left:auto;right:auto;width:100%;height:100%;max-width:100%;transform:none;object-fit:contain;object-position:center}
+}
+
+/* Completed sentences receive their own line wherever the available width allows. */
+.sentence-flow .sentence-unit{display:block}
+.sentence-flow .sentence-unit+.sentence-unit{margin-top:.5em}
+.sentence-flow .sentence-unit+.sentence-unit::before{content:none}
+.cust-hint br{display:block}
+
+/* Full-viewport media and visit actions remain geometrically stable while entering view. */
+#gallery .g-viewer.fx,#gallery .g-tabs-shell.fx,.closing-map-card.fx,.visit-grid.fx{opacity:1;transform:none;transition:none}
+
+/* Gallery: padded player on desktop, edge-to-edge player on mobile, albums below. */
+#gallery{
+  height:calc(100svh - var(--tab-h));min-height:680px;padding:0;display:grid;
+  grid-template-rows:minmax(0,1fr) auto;overflow:hidden;
+  background:radial-gradient(900px 420px at 50% -8%,rgba(198,161,91,.09),transparent 72%),#0d0d0f
+}
+#gallery .g-head{display:none!important}
+#gallery .g-viewer{grid-row:1;min-height:0;height:100%;width:min(100%,1380px);margin:0 auto;padding:clamp(18px,2.4vw,34px) var(--page-gutter) 12px}
+#gallery .g-stage{height:100%;min-height:0;border:1px solid rgba(198,161,91,.14);background:#050506;box-shadow:0 38px 100px -72px rgba(0,0,0,.95)}
+#gallery .g-backdrop{z-index:0;filter:blur(52px) brightness(.46) saturate(.92);opacity:.88}
+#gallery .g-main{z-index:1;padding:48px clamp(18px,4vw,64px) 64px;object-fit:contain;filter:brightness(1.035) saturate(1)}
+#gallery .g-stage::after{z-index:2;background:linear-gradient(90deg,rgba(5,5,6,.4),transparent 18%,transparent 82%,rgba(5,5,6,.4)),linear-gradient(180deg,rgba(5,5,6,.12),transparent 38%,transparent 72%,rgba(5,5,6,.48))}
+#gallery .g-progress{display:none}
+#gallery .g-player-head{top:70px;right:20px}
+#gallery .g-play{width:42px;height:42px;background:rgba(8,8,9,.34)}
+#gallery .g-nav{width:46px;height:46px}.g-nav.l{left:18px}.g-nav.r{right:18px}
+#gallery .g-thumbs{
+  position:absolute;z-index:7;left:50%;bottom:20px;transform:translateX(-50%);
+  width:min(340px,calc(100% - 148px));display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:7px;
+  padding:0;border:0;background:none;overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none
+}
+#gallery .g-thumb{
+  position:relative;display:block;width:100%;height:18px;min-width:0;aspect-ratio:auto;border:0;background:none;opacity:1;transform:none;overflow:visible
+}
+#gallery .g-thumb::before,#gallery .g-thumb::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;transform:translateY(-50%);transform-origin:left}
+#gallery .g-thumb::before{background:rgba(241,236,225,.2)}
+#gallery .g-thumb::after{background:var(--bianco);transform:translateY(-50%) scaleX(0)}
+#gallery .g-thumb.done::after{transform:translateY(-50%) scaleX(1)}
+#gallery .g-thumb.on::before{background:rgba(198,161,91,.42)}
+#gallery .g-thumb.on::after{background:var(--oro)}
+#gallery .g-thumb.on.run::after{animation:g-reel-fill 5s linear forwards}
+@keyframes g-reel-fill{to{transform:translateY(-50%) scaleX(1)}}
+#gallery .g-tabs-shell{grid-row:2;position:relative;min-width:0;margin:0;padding:0 var(--page-gutter) 14px;overflow:hidden}
+#gallery .g-tabs{width:min(100%,1220px);max-width:none;margin:0 auto;padding:0;gap:10px;justify-content:center;overflow-x:auto;scroll-padding-inline:16px}
+#gallery .g-album{flex:1 1 118px;min-width:102px;max-width:164px;color:var(--grigio);text-align:left}
+#gallery .g-album-cover{aspect-ratio:16/9;border:1px solid rgba(198,161,91,.13);background:#080809}
+#gallery .g-album-cover img{filter:brightness(.58) saturate(.76)}
+#gallery .g-album-label{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:center;margin-top:7px;font-size:9px;letter-spacing:.15em}
+#gallery .g-album-label small{display:block;color:rgba(198,161,91,.52);font-size:8px;font-variant-numeric:tabular-nums}
+#gallery .g-album.on .g-album-cover{border-color:rgba(198,161,91,.72);box-shadow:0 16px 42px -32px rgba(198,161,91,.75)}
+
+@media(max-width:680px){
+  #gallery{height:calc(100svh - var(--tab-h));min-height:590px}
+  #gallery .g-viewer{width:100%;padding:0 0 8px}
+  #gallery .g-stage{border-left:0;border-right:0;border-top:0}
+  #gallery .g-backdrop{filter:blur(46px) brightness(.54) saturate(.96);opacity:.9}
+  #gallery .g-main{padding:38px 0 58px}
+  #gallery .g-player-head{top:66px;right:10px}
+  #gallery .g-nav{width:38px;height:38px}.g-nav.l{left:8px}.g-nav.r{right:8px}
+  #gallery .g-thumbs{bottom:14px;width:min(250px,calc(100% - 108px));gap:5px}
+  #gallery .g-tabs-shell{padding:0 0 10px}
+  #gallery .g-tabs{width:100%;justify-content:flex-start;gap:8px;padding:0 12px}
+  #gallery .g-album{flex:0 0 92px;min-width:92px;max-width:92px}
+  #gallery .g-album-label{font-size:8px;gap:6px;margin-top:6px}
+}
+
+/* Reviews: a continuous reel that stops on hover/focus and remains swipeable. */
+.review-summary{isolation:isolate}
+.review-map-embed{opacity:.76;filter:grayscale(1) invert(.89) hue-rotate(175deg) brightness(.5) contrast(1.04);transform:scale(1.05)}
+.review-map-shade{background:linear-gradient(180deg,rgba(13,13,15,.05),rgba(13,13,15,.56) 48%,#0d0d0f 100%),linear-gradient(120deg,rgba(198,161,91,.08),transparent 58%)}
+.review-track{gap:12px;scroll-snap-type:none;touch-action:pan-x pan-y;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+#social .rev{flex:0 0 clamp(320px,38vw,480px);min-height:320px}
+#social .rev p{font-size:clamp(17px,1.8vw,23px)}
+@media(hover:hover){#social .rev:hover{border-color:rgba(198,161,91,.38);background:linear-gradient(145deg,rgba(25,23,19,.88),rgba(9,9,10,.96))}}
+@media(max-width:680px){.review-track{-webkit-mask-image:none;mask-image:none}#social .rev{flex-basis:min(86vw,420px);min-height:292px}}
+
+/* Footer: large editorial heading + map and instantly readable action cards. */
+#dove{position:relative;min-height:auto;padding:116px 0 36px;text-align:left;background:radial-gradient(900px 620px at var(--close-x,76%) var(--close-y,18%),rgba(198,161,91,.12),transparent 68%),linear-gradient(155deg,#101012,#070708 70%);border-top:1px solid var(--hair-soft);overflow:hidden;isolation:isolate}
+.closing-shell{width:min(calc(100% - 40px),1220px);margin:0 auto}
+.closing-head{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);align-items:end;gap:clamp(32px,6vw,82px);margin-bottom:48px}
+.closing-heading{min-width:0}
+#dove .logo-s{width:104px;margin:0 0 28px}
+.closing-heading>.k-s{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--oro)}
+#dove h2{font-size:clamp(54px,6.8vw,92px);font-weight:200;letter-spacing:-.012em;line-height:.96;max-width:10ch;margin-top:12px;text-transform:uppercase}
+.closing-intro{padding-bottom:5px}
+.closing-lead{max-width:36ch;margin:0;color:var(--grigio);font-size:clamp(18px,1.65vw,21px);line-height:1.62}
+.open-state{margin-top:24px;width:100%;justify-content:flex-start;background:rgba(8,8,9,.24);border-color:rgba(198,161,91,.2)}
+.closing-dashboard{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(340px,.72fr);gap:12px;align-items:stretch}
+.closing-map-card{position:relative;min-height:570px;aspect-ratio:auto;overflow:hidden;border:1px solid rgba(198,161,91,.2);background:#080809;transform:perspective(1200px) rotateX(var(--map-rx,0deg)) rotateY(var(--map-ry,0deg));transform-style:preserve-3d;transition:transform .14s linear,border-color .3s,box-shadow .4s;box-shadow:0 46px 96px -62px rgba(0,0,0,.96)}
+.closing-map-card iframe{position:absolute;inset:-2px;width:calc(100% + 4px);height:calc(100% + 4px);border:0;pointer-events:none;filter:invert(90%) hue-rotate(178deg) grayscale(46%) contrast(.92) brightness(.7);transform:scale(1.015);transform-origin:center}
+.map-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,9,.06),transparent 54%,rgba(8,8,9,.78));pointer-events:none}
+.map-hit{position:absolute;inset:0;z-index:3;display:block}
+.map-address{position:absolute;left:18px;right:18px;bottom:18px;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:end;padding:17px 18px;border:1px solid rgba(198,161,91,.22);background:rgba(9,9,10,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transform:translateZ(26px)}
+.map-address small{grid-column:1/-1;color:var(--oro);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase}.map-address strong{font-size:clamp(22px,2.3vw,32px);font-weight:200}.map-address i{font-size:22px;color:var(--oro)}
+.visit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.visit-card{position:relative;min-width:0;min-height:168px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:22px;border:1px solid rgba(198,161,91,.15);background:linear-gradient(145deg,rgba(18,18,20,.76),rgba(9,9,10,.9));overflow:hidden;transition:transform .42s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s,box-shadow .3s}
+.visit-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 10%,rgba(198,161,91,.12),transparent 36%);opacity:.36;transition:opacity .3s}
+.visit-card-wide{grid-column:1/-1;min-height:174px}
+.visit-card-primary{border-color:rgba(198,161,91,.34);background:linear-gradient(145deg,rgba(31,27,20,.86),rgba(10,10,11,.92))}
+.visit-card-wa{background:linear-gradient(145deg,rgba(18,20,17,.82),rgba(9,10,9,.92))}
+.visit-card-call,.visit-card-wa{grid-template-columns:1fr auto;grid-template-rows:auto auto;align-content:center;gap:13px 14px}
+.visit-card-call .visit-icon,.visit-card-wa .visit-icon{grid-column:1;grid-row:1}
+.visit-card-call .visit-arrow,.visit-card-wa .visit-arrow{grid-column:2;grid-row:1;align-self:center;justify-self:end}
+.visit-card-call .visit-copy,.visit-card-wa .visit-copy{grid-column:1/-1;grid-row:2}
+.visit-card-call .visit-copy strong,.visit-card-wa .visit-copy strong{font-size:clamp(17px,1.45vw,21px);white-space:nowrap;overflow-wrap:normal;letter-spacing:-.01em}
+.visit-icon{position:relative;z-index:1;width:50px;height:50px;display:grid;place-items:center;border:1px solid rgba(198,161,91,.4);border-radius:50%;color:var(--oro)}
+.visit-icon i{font-size:25px}.visit-copy{position:relative;z-index:1;min-width:0;display:flex;flex-direction:column;gap:5px}.visit-copy small{font-size:8.5px;letter-spacing:.23em;text-transform:uppercase;color:rgba(241,236,225,.46)}.visit-copy strong{font-size:clamp(18px,1.8vw,25px);font-weight:300;line-height:1.18;overflow-wrap:anywhere}.visit-copy em{font-style:normal;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(241,236,225,.42)}.visit-arrow{position:relative;z-index:1;font-size:20px;color:var(--oro)}
+@media(hover:hover){.visit-card[href]:hover{transform:translateY(-4px);border-color:rgba(198,161,91,.52);background:linear-gradient(145deg,rgba(31,27,20,.82),rgba(10,10,11,.94));box-shadow:0 28px 64px -46px rgba(198,161,91,.72)}.visit-card[href]:hover::before{opacity:.8}}
+.footer-bottom{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;margin-top:28px;padding-top:24px;border-top:1px solid var(--hair-soft)}
+#dove .footer-bottom .foot{width:auto;margin:0;text-align:left;font-size:9.5px;letter-spacing:.14em}.footer-place{font-size:9px;letter-spacing:.2em;text-align:center}#dove .footer-bottom .foot:last-child{text-align:right}
+@media(max-width:980px){
+  .closing-head{grid-template-columns:1fr;gap:24px}.closing-intro{max-width:660px}
+  .closing-dashboard{grid-template-columns:1fr}.closing-map-card{min-height:480px;aspect-ratio:16/9}.visit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  #dove{padding:94px 0 30px}.closing-shell{width:100%}.closing-head{padding:0 18px;margin-bottom:32px}
+  #dove .logo-s{width:92px}.closing-heading>.k-s{font-size:9px}#dove h2{font-size:clamp(45px,13vw,62px);max-width:9ch}
+  .closing-map-card{min-height:410px;aspect-ratio:1;border-left:0;border-right:0;transform:none!important}.map-address{left:12px;right:12px;bottom:12px}
+  .visit-grid{grid-template-columns:1fr;padding:12px 18px 0}.visit-card,.visit-card-wide{grid-column:auto;min-height:142px;padding:19px}.visit-icon{width:46px;height:46px}.visit-icon i{font-size:23px}
+  .visit-card-call,.visit-card-wa{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto;align-content:normal;gap:14px}
+  .visit-card-call .visit-icon,.visit-card-wa .visit-icon,.visit-card-call .visit-copy,.visit-card-wa .visit-copy,.visit-card-call .visit-arrow,.visit-card-wa .visit-arrow{grid-column:auto;grid-row:auto}
+  .visit-card-call .visit-copy strong,.visit-card-wa .visit-copy strong{font-size:clamp(18px,5.4vw,23px)}
+  .footer-bottom{grid-template-columns:1fr;gap:9px;margin:22px 18px 0;padding-top:20px}.footer-place{text-align:left;order:-1}#dove .footer-bottom .foot:last-child{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){#gallery .g-thumb.on.run::after{animation:none;transform:translateY(-50%) scaleX(1)}}
+
 </style>
 </head>
 <body>
@@ -1058,13 +1218,6 @@ a,button{touch-action:manipulation}
 
 <!-- GALLERY · SPAZI DI VIA ROMA -->
 <section id="gallery">
-  <div class="g-head fx">
-    <p class="k-s" data-i18n="g_eyebrow">Gallery</p>
-    <h2 data-i18n="g_title">Dentro Via Roma</h2>
-  </div>
-  <div class="g-tabs-shell fx">
-    <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
-  </div>
   <div class="g-viewer fx" id="gviewer" role="tabpanel" aria-live="polite" tabindex="0">
     <div class="g-stage" id="gstage">
       <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
@@ -1077,8 +1230,11 @@ a,button{touch-action:manipulation}
       <img class="g-main" id="gmain" src="" alt="" decoding="async">
       <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
       <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
-      <div class="g-thumbs" id="gthumbs" aria-label="Anteprime dell’album"></div>
+      <div class="g-thumbs" id="gthumbs" aria-label="Sequenza dell’album"></div>
     </div>
+  </div>
+  <div class="g-tabs-shell fx">
+    <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
   </div>
 </section>
 
@@ -1086,13 +1242,13 @@ a,button{touch-action:manipulation}
 <section id="customer">
   <p class="k-s" data-i18n="cu_eyebrow">La community</p>
   <h2 data-i18n="cu_title">Racconta la tua esperienza</h2>
-  <p class="lead sentence-flow" data-i18n="cu_lead">Le vostre serate, viste da chi le vive. Una raccolta aperta di scatti condivisi dalla community.</p>
+  <p class="lead sentence-flow" data-i18n="cu_lead">Le vostre serate, viste da chi le vive.<br>Una raccolta aperta di scatti condivisi dalla community.</p>
   <div class="cust-grid fx" id="custgrid"></div>
   <div class="cust-cta-wrap fx">
     <a class="btn-wa" id="custcta" href="#" target="_blank" rel="noopener">
       <i class="ph-thin ph-whatsapp-logo"></i><span data-i18n="cu_cta">Condividi il ricordo</span>
     </a>
-    <p class="cust-hint" data-i18n="cu_hint">Inviaci la tua foto su WhatsApp: la pubblicheremo dopo la tua conferma.</p>
+    <p class="cust-hint" data-i18n="cu_hint">Inviaci la tua foto su WhatsApp:<br>la pubblicheremo dopo la tua conferma.</p>
   </div>
 </section>
 
@@ -1151,32 +1307,50 @@ a,button{touch-action:manipulation}
 <section id="dove">
   <div class="closing-orbit" aria-hidden="true"></div>
   <div class="closing-shell">
-    <div class="closing-grid">
-      <div class="closing-copy fx">
+    <header class="closing-head fx">
+      <div class="closing-heading">
         <img class="logo-s" src="assets/logo.png" alt="Pizzeria Via Roma">
         <p class="k-s" data-i18n="d_dove">Dove</p>
         <h2 data-ui="d_title">Ci vediamo all'angolo di sempre</h2>
+      </div>
+      <div class="closing-intro">
         <p class="closing-lead sentence-flow" data-ui="d_lead">Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.</p>
         <div class="open-state" id="openState"><i></i><span>—</span></div>
-        <div class="closing-actions">
-          <a class="closing-btn primary" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener"><i class="ph-thin ph-navigation-arrow"></i><span data-ui="directions">Indicazioni</span></a>
-          <a class="closing-btn" href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-ui="call">Chiama</span></a>
-          <a class="closing-btn" href="https://wa.me/393802453757" target="_blank" rel="noopener"><i class="ph-thin ph-whatsapp-logo"></i><span>WhatsApp</span></a>
-        </div>
       </div>
+    </header>
+
+    <div class="closing-dashboard">
       <div class="closing-map-card fx" id="closingMapCard">
         <iframe title="Mappa Pizzeria Via Roma" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
-        <span class="map-shade"></span>
+        <span class="map-shade" aria-hidden="true"></span>
         <a class="map-hit" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener" aria-label="Apri Pizzeria Via Roma in Google Maps">
-          <span class="map-address"><small>MANIAGO · PN</small><strong>Via Roma 43</strong><i class="ph-thin ph-arrow-up-right"></i></span>
+          <span class="map-address"><small data-i18n="d_maps">Apri in Google Maps</small><strong>Via Roma 43</strong><i class="ph-thin ph-arrow-up-right"></i></span>
+        </a>
+      </div>
+
+      <div class="visit-grid fx">
+        <a class="visit-card visit-card-wide visit-card-primary" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener">
+          <span class="visit-icon"><i class="ph-thin ph-map-pin"></i></span>
+          <span class="visit-copy"><small data-i18n="d_dove">Dove</small><strong>Via Roma 43</strong><em>Maniago · PN</em></span>
+          <i class="ph-thin ph-arrow-up-right visit-arrow"></i>
+        </a>
+        <div class="visit-card visit-card-wide">
+          <span class="visit-icon"><i class="ph-thin ph-clock"></i></span>
+          <span class="visit-copy"><small data-i18n="d_orari">Orari</small><strong>18:00 — 23:00</strong><em data-i18n="d_orari_v">18:00 - 23:00 · Lunedì chiuso</em></span>
+        </div>
+        <a class="visit-card visit-card-call" href="tel:+390427541232">
+          <span class="visit-icon"><i class="ph-thin ph-phone"></i></span>
+          <span class="visit-copy"><small data-ui="call">Chiama</small><strong>0427 541232</strong><em data-i18n="d_contatti">Contatti</em></span>
+          <i class="ph-thin ph-arrow-up-right visit-arrow"></i>
+        </a>
+        <a class="visit-card visit-card-wa" href="https://wa.me/393802453757" target="_blank" rel="noopener">
+          <span class="visit-icon"><i class="ph-thin ph-whatsapp-logo"></i></span>
+          <span class="visit-copy"><small>WhatsApp</small><strong>380 2453 757</strong><em data-ui="so_whatsapp">Mandaci il tuo scatto</em></span>
+          <i class="ph-thin ph-arrow-up-right visit-arrow"></i>
         </a>
       </div>
     </div>
-    <div class="closing-meta fx">
-      <div><h4 data-i18n="d_dove">Dove</h4><p><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener">Via Roma 43 · Maniago (PN)</a></p></div>
-      <div><h4 data-i18n="d_orari">Orari</h4><p data-i18n="d_orari_v">18:00 - 23:00 · Lunedì chiuso</p></div>
-      <div><h4 data-i18n="d_contatti">Contatti</h4><p><a href="tel:+390427541232">0427 541232</a><br><a href="https://wa.me/393802453757" target="_blank" rel="noopener">380 2453 757 · WhatsApp</a></p></div>
-    </div>
+
     <div class="footer-bottom">
       <p class="foot">© 2026 Pizzeria Via Roma</p>
       <p class="footer-place">Maniago · Friuli Venezia Giulia</p>
@@ -1230,9 +1404,9 @@ it:{
   g_eyebrow:"Gallery", g_title:"Dentro Via Roma",
   g_categories:{bancone:"Bancone",entrata:"Entrata",esterno:"Esterno",locale:"Locale",sala_sinistra:"Sala sinistra",sala_destra:"Sala destra"},
   cu_eyebrow:"La community", cu_title:"Racconta la tua esperienza",
-  cu_lead:"Le vostre serate, viste da chi le vive. Una raccolta aperta di scatti condivisi dalla community.",
+  cu_lead:"Le vostre serate, viste da chi le vive.<br>Una raccolta aperta di scatti condivisi dalla community.",
   cu_cta:"Condividi il ricordo", cu_badge:"Cliente",
-  cu_hint:"Inviaci la tua foto su WhatsApp: la pubblicheremo dopo la tua conferma.",
+  cu_hint:"Inviaci la tua foto su WhatsApp:<br>la pubblicheremo dopo la tua conferma.",
   wa_msg:"Ciao Via Roma! Vorrei condividere una foto della mia serata da voi 🍕 (in allegato). Potete pubblicarla?",
   so_eyebrow:"Seguici", so_title:"Social & Recensioni",
   r1:"Impasto leggero e digeribile, cornicione perfetto. La Burrata e Crudo è imperdibile.",
@@ -1276,9 +1450,9 @@ en:{
   g_eyebrow:"Gallery", g_title:"Inside Via Roma",
   g_categories:{bancone:"Counter",entrata:"Entrance",esterno:"Exterior",locale:"Interior",sala_sinistra:"Left room",sala_destra:"Right room"},
   cu_eyebrow:"The community", cu_title:"Share your experience",
-  cu_lead:"Your evenings, seen by the people who live them. An open collection of shots shared by our community.",
+  cu_lead:"Your evenings, seen by the people who live them.<br>An open collection of shots shared by our community.",
   cu_cta:"Share your memory", cu_badge:"Guest",
-  cu_hint:"Send us your photo on WhatsApp: we'll publish it once you confirm.",
+  cu_hint:"Send us your photo on WhatsApp:<br>we'll publish it once you confirm.",
   wa_msg:"Hi Via Roma! I'd love to share a photo from my evening with you 🍕 (attached). May you publish it?",
   so_eyebrow:"Follow us", so_title:"Social & Reviews",
   r1:"Light, digestible dough and a perfect crust. The Burrata e Crudo is unmissable.",
@@ -1322,9 +1496,9 @@ de:{
   g_eyebrow:"Galerie", g_title:"Bei Via Roma",
   g_categories:{bancone:"Theke",entrata:"Eingang",esterno:"Außenbereich",locale:"Lokal",sala_sinistra:"Linker Saal",sala_destra:"Rechter Saal"},
   cu_eyebrow:"Die Community", cu_title:"Erzählen Sie Ihr Erlebnis",
-  cu_lead:"Ihre Abende, gesehen von denen, die sie erleben. Eine offene Sammlung von Fotos aus unserer Community.",
+  cu_lead:"Ihre Abende, gesehen von denen, die sie erleben.<br>Eine offene Sammlung von Fotos aus unserer Community.",
   cu_cta:"Erinnerung teilen", cu_badge:"Gast",
-  cu_hint:"Senden Sie uns Ihr Foto per WhatsApp: Wir veröffentlichen es nach Ihrer Bestätigung.",
+  cu_hint:"Senden Sie uns Ihr Foto per WhatsApp:<br>Wir veröffentlichen es nach Ihrer Bestätigung.",
   wa_msg:"Hallo Via Roma! Ich möchte gern ein Foto von meinem Abend bei euch teilen 🍕 (im Anhang). Dürft ihr es veröffentlichen?",
   so_eyebrow:"Folgen Sie uns", so_title:"Social & Bewertungen",
   r1:"Leichter, bekömmlicher Teig und ein perfekter Rand. Die Burrata e Crudo ist ein Muss.",
@@ -1368,9 +1542,9 @@ fr:{
   g_eyebrow:"Galerie", g_title:"À l'intérieur de Via Roma",
   g_categories:{bancone:"Comptoir",entrata:"Entrée",esterno:"Extérieur",locale:"Intérieur",sala_sinistra:"Salle gauche",sala_destra:"Salle droite"},
   cu_eyebrow:"La communauté", cu_title:"Racontez votre expérience",
-  cu_lead:"Vos soirées, vues par celles et ceux qui les vivent. Une collection ouverte de photos partagées par notre communauté.",
+  cu_lead:"Vos soirées, vues par celles et ceux qui les vivent.<br>Une collection ouverte de photos partagées par notre communauté.",
   cu_cta:"Partager le souvenir", cu_badge:"Client",
-  cu_hint:"Envoyez-nous votre photo sur WhatsApp : nous la publierons après votre confirmation.",
+  cu_hint:"Envoyez-nous votre photo sur WhatsApp :<br>nous la publierons après votre confirmation.",
   wa_msg:"Bonjour Via Roma ! J'aimerais partager une photo de ma soirée chez vous 🍕 (en pièce jointe). Pouvez-vous la publier ?",
   so_eyebrow:"Suivez-nous", so_title:"Réseaux & Avis",
   r1:"Pâte légère et digeste, bord parfait. La Burrata e Crudo est incontournable.",
@@ -2105,9 +2279,15 @@ function updateGalleryPlayButton(){
   document.querySelector(".g-auto-label")?.classList.toggle("paused",!galleryPlaying);
 }
 function renderGalleryProgress(){
-  const items=GALLERY[galleryCategory];
-  galleryProgress.innerHTML=items.map((_,i)=>`<span class="${i<galleryIndex?'done ':''}${i===galleryIndex?'active':''}"><i></i></span>`).join("");
-  if(galleryPlaying&&galleryInView&&!document.hidden){requestAnimationFrame(()=>galleryProgress.querySelector(".active")?.classList.add("run"))}
+  const steps=[...galleryThumbs.querySelectorAll(".g-thumb")];
+  steps.forEach((step,i)=>{
+    step.classList.toggle("done",i<galleryIndex);
+    step.classList.toggle("on",i===galleryIndex);
+    step.classList.remove("run");
+    step.setAttribute("aria-current",i===galleryIndex?"true":"false");
+  });
+  galleryProgress.innerHTML="";
+  if(galleryPlaying&&galleryInView&&!document.hidden){requestAnimationFrame(()=>galleryThumbs.querySelector(".g-thumb.on")?.classList.add("run"))}
 }
 function scheduleGalleryAutoplay(){
   clearTimeout(galleryTimer);renderGalleryProgress();updateGalleryPlayButton();
@@ -2123,16 +2303,15 @@ function setGalleryImage(i,animate=true,restart=true){
   if(animate)galleryStage.classList.add("changing");
   galleryMain.src=src;galleryMain.alt=galleryAlt(galleryIndex);galleryBackdrop.style.backgroundImage=`url("${src}")`;
   if(galleryLabel)galleryLabel.textContent=T[LANG].g_categories[galleryCategory];if(galleryCount)galleryCount.textContent=`${String(galleryIndex+1).padStart(2,"0")} / ${String(items.length).padStart(2,"0")}`;
-  galleryThumbs.querySelectorAll(".g-thumb").forEach((b,idx)=>{const on=idx===galleryIndex;b.classList.toggle("on",on);b.setAttribute("aria-current",on?"true":"false");if(on){const left=b.offsetLeft-(galleryThumbs.clientWidth-b.offsetWidth)/2;galleryThumbs.scrollTo({left:Math.max(0,left),behavior:animate?"smooth":"auto"})}});
   setTimeout(()=>galleryStage.classList.remove("changing"),170);preloadGalleryNeighbours();
   if(restart)scheduleGalleryAutoplay();else renderGalleryProgress();
 }
 function renderGallery(){
   const t=T[LANG];
-  galleryTabs.innerHTML=GALLERY_ORDER.map(id=>{const on=id===galleryCategory;const cover=GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" decoding="async"></span><span class="g-album-label"><span>${t.g_categories[id]}</span></span></button>`}).join("");
+  galleryTabs.innerHTML=GALLERY_ORDER.map((id,albumIndex)=>{const on=id===galleryCategory;const cover=GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" decoding="async"></span><span class="g-album-label"><small>${String(albumIndex+1).padStart(2,"0")}</small><span>${t.g_categories[id]}</span></span></button>`}).join("");
   galleryViewer.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
   if(galleryIndex>=GALLERY[galleryCategory].length)galleryIndex=0;
-  galleryThumbs.innerHTML=GALLERY[galleryCategory].map((src,i)=>`<button class="g-thumb ${i===galleryIndex?'on':''}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?'true':'false'}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`).join("");
+  galleryThumbs.innerHTML=GALLERY[galleryCategory].map((_,i)=>`<button class="g-thumb ${i<galleryIndex?'done ':''}${i===galleryIndex?'on':''}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?'true':'false'}"><span></span></button>`).join("");
   setGalleryImage(galleryIndex,false,false);scheduleGalleryAutoplay();
 }
 function selectGalleryCategory(id,focus=false,fromAuto=false){
@@ -2374,29 +2553,104 @@ function applySentenceFlow(){
   });
 }
 
-/* Keyless review treatment: curated cards plus an embedded Google Maps place card. */
+/* Keyless review treatment: short, paraphrased public review excerpts plus the embedded place card. */
+const REVIEW_LIBRARY=[
+  {rating:5,author:"Consuelo B.",source:"Tripadvisor",text:{
+    it:"Crosta perfetta, farcitura equilibrata e staff cordiale. Anche da asporto la pizza resta ottima.",
+    en:"Perfect crust, balanced toppings and friendly staff. The pizza stays excellent even as takeaway.",
+    de:"Perfekter Rand, ausgewogener Belag und ein freundliches Team. Auch zum Mitnehmen bleibt die Pizza hervorragend.",
+    fr:"Bord parfait, garniture équilibrée et équipe chaleureuse. Même à emporter, la pizza reste excellente."
+  }},
+  {rating:5,author:"Sonia S.",source:"Tripadvisor",text:{
+    it:"Cornicione saporito e alveolato, centro sottile e croccante. Crudo e burrata sono da provare.",
+    en:"Flavourful, airy crust with a thin, crisp centre. The cured ham and burrata are worth trying.",
+    de:"Aromatischer, luftiger Rand und eine dünne, knusprige Mitte. Rohschinken und Burrata sollte man probieren.",
+    fr:"Bord savoureux et alvéolé, centre fin et croustillant. Le jambon cru et la burrata sont à goûter."
+  }},
+  {rating:5,author:"Gianf",source:"Tripadvisor",text:{
+    it:"Pizza, servizio e cortesia ottimi. Un locale accogliente per una serata con famiglia o amici.",
+    en:"Excellent pizza, service and hospitality. A welcoming place for an evening with family or friends.",
+    de:"Pizza, Service und Freundlichkeit sind ausgezeichnet. Ein einladender Ort für Familie oder Freunde.",
+    fr:"Pizza, service et accueil excellents. Une adresse chaleureuse pour une soirée en famille ou entre amis."
+  }},
+  {rating:4,author:"Massimo F.",source:"Tripadvisor",text:{
+    it:"Pizza molto buona, camerieri top e birra ben scelta. Una pizzeria che consiglio.",
+    en:"Very good pizza, great staff and well-chosen beer. A pizzeria I would recommend.",
+    de:"Sehr gute Pizza, tolles Team und gut ausgewähltes Bier. Eine klare Empfehlung.",
+    fr:"Très bonne pizza, équipe au top et bière bien choisie. Une pizzeria que je recommande."
+  }},
+  {rating:5,author:"Daniel G.",source:"Google",text:{
+    it:"Cibo delizioso e personale molto gentile. Quando torniamo a Maniago, torniamo anche qui.",
+    en:"Delicious food and very kind staff. Whenever we return to Maniago, we come back here too.",
+    de:"Köstliches Essen und sehr freundliches Personal. Wenn wir in Maniago sind, kommen wir wieder hierher.",
+    fr:"Cuisine délicieuse et personnel très gentil. Chaque retour à Maniago nous ramène aussi ici."
+  }},
+  {rating:5,author:"Edoardo E.",source:"Google",text:{
+    it:"Pizza spettacolare, leggera e digeribile, con ingredienti di qualità. Personale gentilissimo.",
+    en:"Outstanding pizza: light, easy to digest and made with quality ingredients. Exceptionally kind staff.",
+    de:"Großartige, leichte und bekömmliche Pizza mit hochwertigen Zutaten. Außergewöhnlich freundliches Personal.",
+    fr:"Pizza remarquable, légère et digeste, avec des ingrédients de qualité. Personnel extrêmement gentil."
+  }},
+  {rating:5,author:"Elena",source:"Sluurpy",text:{
+    it:"Ingredienti freschi, tante varianti e un ambiente confortevole. Servizio cordiale e attento.",
+    en:"Fresh ingredients, plenty of choices and a comfortable setting. Friendly, attentive service.",
+    de:"Frische Zutaten, viele Varianten und ein angenehmes Ambiente. Freundlicher, aufmerksamer Service.",
+    fr:"Ingrédients frais, beaucoup de choix et un cadre confortable. Service chaleureux et attentif."
+  }},
+  {rating:5,author:"Carlo",source:"Sluurpy",text:{
+    it:"Locale curato nei dettagli, servizio attento e pizze innovative. Ingredienti di qualità.",
+    en:"A carefully detailed setting, attentive service and inventive pizzas. Quality ingredients throughout.",
+    de:"Ein bis ins Detail gepflegtes Lokal, aufmerksamer Service und kreative Pizzen. Hochwertige Zutaten.",
+    fr:"Un lieu soigné dans les détails, un service attentif et des pizzas créatives. Des ingrédients de qualité."
+  }},
+  {rating:5,author:"Veronica",source:"Sluurpy",text:{
+    it:"Leggera, croccante e dal gusto speciale. È sempre un piacere tornare.",
+    en:"Light, crisp and full of distinctive flavour. It is always a pleasure to return.",
+    de:"Leicht, knusprig und mit besonderem Geschmack. Wir kommen immer gern zurück.",
+    fr:"Légère, croustillante et pleine de caractère. C'est toujours un plaisir de revenir."
+  }},
+  {rating:5,author:"Gino",source:"Sluurpy",text:{
+    it:"Ambiente piacevole, pizza di prima qualità e servizio puntuale. Da consigliare.",
+    en:"A pleasant setting, first-rate pizza and punctual service. Easy to recommend.",
+    de:"Angenehmes Ambiente, erstklassige Pizza und pünktlicher Service. Sehr empfehlenswert.",
+    fr:"Cadre agréable, pizza de première qualité et service ponctuel. Une adresse à recommander."
+  }}
+];
 function renderReviewCards(reviews){
   const track=document.getElementById("reviewTrack");if(!track)return;
-  track.innerHTML=reviews.map(r=>`<article class="rev"><div class="stars">${"★ ".repeat(Math.max(1,Math.round(r.rating||5))).trim()}</div><p class="sentence-flow">${sentenceMarkup(r.text||"")}</p><div class="src"><span class="review-author"><b>${escapeHTML(r.author||r.source||"Google")}</b></span><span>${escapeHTML(r.source||"Google")}</span></div></article>`).join("");
+  const card=(r,clone=false)=>`<article class="rev"${clone?' aria-hidden="true"':''}><div class="stars" aria-label="${r.rating||5} su 5">${"★ ".repeat(Math.max(1,Math.round(r.rating||5))).trim()}</div><p class="sentence-flow">${sentenceMarkup(r.text||"")}</p><div class="src"><span class="review-author"><b>${escapeHTML(r.author||r.source||"Google")}</b></span><span>${escapeHTML(r.source||"Google")}</span></div></article>`;
+  track.innerHTML=reviews.map(r=>card(r)).join("")+reviews.map(r=>card(r,true)).join("");
+  window.__refreshReviewTicker?.();
 }
 function renderSocialFallback(){
-  const fallback=[
-    {rating:5,text:T[LANG].r1,author:"Marta V.",source:"Google"},
-    {rating:5,text:T[LANG].r2,author:"Giulio B.",source:"Tripadvisor"},
-    {rating:5,text:T[LANG].r3,author:"Sara T.",source:"Google"}
-  ];
-  renderReviewCards(fallback);
+  const reviews=REVIEW_LIBRARY.map(r=>({...r,text:r.text[LANG]||r.text.it}));
+  renderReviewCards(reviews);
   document.getElementById("googleRating").textContent="4.4";
   document.getElementById("googleCount").textContent=`234 ${ui("reviews_count")}`;
   const mode=document.getElementById("reviewMode");if(mode){mode.textContent=ui("review_selection");mode.classList.remove("live")}
 }
-(function enableReviewDrag(){
-  const el=document.getElementById("reviewTrack");if(!el)return;let down=false,sx=0,sl=0,moved=false;
-  const stop=()=>{if(!down)return;down=false;el.classList.remove("dragging")};
-  el.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;down=true;moved=false;sx=e.clientX;sl=el.scrollLeft;el.classList.add("dragging")});
-  addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;el.scrollLeft=sl-dx});
-  addEventListener("pointerup",stop);addEventListener("pointercancel",stop);addEventListener("blur",stop);
+(function enableReviewTicker(){
+  const el=document.getElementById("reviewTrack");if(!el)return;
+  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let down=false,sx=0,sl=0,moved=false,paused=false,half=0,last=0,raf=0,resumeTimer=0;
+  const refresh=()=>{requestAnimationFrame(()=>{half=el.scrollWidth/2;if(half>0&&el.scrollLeft>=half)el.scrollLeft%=half})};
+  window.__refreshReviewTicker=()=>{el.scrollLeft=0;refresh()};
+  const pause=()=>{paused=true;clearTimeout(resumeTimer)};
+  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>paused=false,delay)};
+  const normalize=()=>{if(!half)refresh();if(half&&el.scrollLeft>=half)el.scrollLeft-=half;else if(half&&el.scrollLeft<0)el.scrollLeft+=half};
+  const tick=ts=>{if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;if(!reduced&&!paused&&!down&&!document.hidden&&half){el.scrollLeft+=dt*.026;normalize()}raf=requestAnimationFrame(tick)};
+  const stopDrag=e=>{if(!down)return;down=false;el.classList.remove("dragging");try{if(e&&el.hasPointerCapture(e.pointerId))el.releasePointerCapture(e.pointerId)}catch(_){}normalize();resume(650)};
+  el.addEventListener("mouseenter",pause);el.addEventListener("mouseleave",()=>resume(160));
+  el.addEventListener("focusin",pause);el.addEventListener("focusout",()=>resume(400));
+  el.addEventListener("pointerdown",e=>{pause();moved=false;if(e.pointerType!=="mouse")return;down=true;sx=e.clientX;sl=el.scrollLeft;el.classList.add("dragging");try{el.setPointerCapture(e.pointerId)}catch(_){}});
+  el.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;e.preventDefault();el.scrollLeft=sl-dx});
+  el.addEventListener("pointerup",stopDrag);el.addEventListener("pointercancel",stopDrag);el.addEventListener("lostpointercapture",stopDrag);
+  el.addEventListener("touchend",()=>resume(900),{passive:true});
+  el.addEventListener("scroll",()=>{if(!down)normalize()},{passive:true});
   el.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
+  document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden)pause();else resume(300)});
+  window.addEventListener("resize",refresh,{passive:true});
+  refresh();raf=requestAnimationFrame(tick);
 })();
 
 /* Open / closed state in the restaurant's local time. */
@@ -2418,30 +2672,49 @@ setInterval(updateOpenState,60000);
   card.addEventListener("pointerleave",()=>{card.style.setProperty("--map-rx","0deg");card.style.setProperty("--map-ry","0deg")});
 })();
 
-/* Image depth: cursor on desktop, inclination sensor on mobile. */
+/* Image depth: robust cursor tracking on desktop / hybrid devices, inclination on mobile. */
 (function initParallaxDepth(){
-  const sections=[...document.querySelectorAll(".parallax-screen")],button=document.getElementById("motionEnable");if(!sections.length||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const sections=[...document.querySelectorAll(".parallax-screen")],button=document.getElementById("motionEnable");
+  if(!sections.length||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const visible=new Set();let permissionNeeded=false,orientationEnabled=false,baseGamma=null,baseBeta=null;
   const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
-  function apply(section,nx,ny,live=true){section.style.setProperty("--parallax-x",`${(-nx*22).toFixed(2)}px`);section.style.setProperty("--parallax-y",`${(-ny*16).toFixed(2)}px`);section.classList.toggle("parallax-live",live)}
-  function reset(section){section.style.setProperty("--parallax-x","0px");section.style.setProperty("--parallax-y","0px");section.classList.remove("parallax-live")}
-  /* Track only the scenes near the viewport, so off-screen images remain still. */
-  const visObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)visible.add(entry.target);else{visible.delete(entry.target);reset(entry.target)}});if(button&&permissionNeeded&&!orientationEnabled)button.classList.toggle("show",visible.size>0)},{rootMargin:"18% 0px 18%",threshold:.01});sections.forEach(section=>visObserver.observe(section));
-  if(matchMedia("(pointer:fine)").matches){
-    sections.forEach(section=>{section.addEventListener("pointermove",e=>{const r=section.getBoundingClientRect(),nx=clamp((e.clientX-r.left)/r.width*2-1,-1,1),ny=clamp((e.clientY-r.top)/r.height*2-1,-1,1);apply(section,nx,ny)});section.addEventListener("pointerleave",()=>reset(section))});return;
+  function apply(section,nx,ny,live=true){
+    section.style.setProperty("--parallax-x",`${(-nx*36).toFixed(2)}px`);
+    section.style.setProperty("--parallax-y",`${(-ny*24).toFixed(2)}px`);
+    section.style.setProperty("--parallax-copy-x",`${(nx*8).toFixed(2)}px`);
+    section.style.setProperty("--parallax-copy-y",`${(ny*6).toFixed(2)}px`);
+    section.style.setProperty("--parallax-veil-x",`${(-nx*3).toFixed(2)}px`);
+    section.style.setProperty("--parallax-veil-y",`${(-ny*2).toFixed(2)}px`);
+    section.classList.toggle("parallax-live",live);
+  }
+  function reset(section){
+    ["--parallax-x","--parallax-y","--parallax-copy-x","--parallax-copy-y","--parallax-veil-x","--parallax-veil-y"].forEach(v=>section.style.setProperty(v,"0px"));
+    section.classList.remove("parallax-live");
+  }
+  const visObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)visible.add(entry.target);else{visible.delete(entry.target);reset(entry.target)}});if(button&&permissionNeeded&&!orientationEnabled)button.classList.toggle("show",visible.size>0)},{rootMargin:"18% 0px 18%",threshold:.01});
+  sections.forEach(section=>visObserver.observe(section));
+  const desktopPointer=matchMedia("(any-pointer: fine)").matches;
+  if(desktopPointer){
+    sections.forEach(section=>{
+      let raf=0,lastX=0,lastY=0;
+      const move=e=>{if(e.pointerType&&e.pointerType!=="mouse"&&e.pointerType!=="pen")return;const r=section.getBoundingClientRect();lastX=clamp((e.clientX-r.left)/r.width*2-1,-1,1);lastY=clamp((e.clientY-r.top)/r.height*2-1,-1,1);if(raf)return;raf=requestAnimationFrame(()=>{raf=0;apply(section,lastX,lastY,true)})};
+      section.addEventListener("pointermove",move,{passive:true});
+      section.addEventListener("mousemove",move,{passive:true});
+      section.addEventListener("pointerleave",()=>reset(section));
+      section.addEventListener("mouseleave",()=>reset(section));
+    });
+    return;
   }
   function onOrientation(e){
     if(e.gamma==null||e.beta==null)return;if(baseGamma===null){baseGamma=e.gamma;baseBeta=e.beta}
-    const nx=clamp((e.gamma-baseGamma)/18,-1,1),ny=clamp((e.beta-baseBeta)/18,-1,1);visible.forEach(section=>apply(section,nx,ny));
+    const nx=clamp((e.gamma-baseGamma)/18,-1,1),ny=clamp((e.beta-baseBeta)/18,-1,1);visible.forEach(section=>apply(section,nx,ny,true));
   }
   function enableOrientation(){if(orientationEnabled)return;orientationEnabled=true;button?.classList.add("enabled");window.addEventListener("deviceorientation",onOrientation,{passive:true})}
   if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){
     permissionNeeded=true;button?.classList.toggle("show",visible.size>0);
     button?.addEventListener("click",async()=>{try{if(await DeviceOrientationEvent.requestPermission()==="granted")enableOrientation()}catch(_){button?.classList.remove("show")}});
   }else if("DeviceOrientationEvent" in window){enableOrientation()}
-  else{
-    addEventListener("scroll",()=>{visible.forEach(section=>{const r=section.getBoundingClientRect(),ny=clamp((r.top+r.height/2-innerHeight/2)/innerHeight,-1,1);apply(section,0,ny*.45,false)})},{passive:true});
-  }
+  else addEventListener("scroll",()=>{visible.forEach(section=>{const r=section.getBoundingClientRect(),ny=clamp((r.top+r.height/2-innerHeight/2)/innerHeight,-1,1);apply(section,0,ny*.45,false)})},{passive:true});
 })();
 
 
