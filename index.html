@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V5 experiential-parallax-gallery-social">
+<meta name="build" content="Via Roma V6 premium-gallery-community-social-footer">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -745,6 +745,200 @@ a,button{touch-action:manipulation}
 
 @media(prefers-reduced-motion:reduce){.social-glow,.social-marquee div,.closing-orbit{animation:none}.g-progress span.active.run i{animation:none;transform:scaleX(1)}}
 
+
+
+/* ========================================================================
+   VIA ROMA V6 · premium polish, clean gallery, scalable community
+   ======================================================================== */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Hero line rhythm and stronger editorial copy. */
+#splash h1{line-height:1.62;max-width:36ch;margin-inline:auto}
+#splash h1 .tagline-line{display:block}
+.story .inner{max-width:760px}
+.story p{max-width:38ch;line-height:1.72}
+
+/* Transparent category artwork: the food floats in the page, not in a box. */
+#catshow{background:radial-gradient(760px 340px at 50% 44%,rgba(198,161,91,.07),transparent 72%),var(--nero)}
+#catshow .rail{user-select:none;-webkit-user-select:none;cursor:grab}
+#catshow .rail.dragging{cursor:grabbing;scroll-snap-type:none!important}
+#catshow .rail.dragging a{pointer-events:none}
+#catshow .preview-window{overflow:visible;background:transparent;box-shadow:none}
+#catshow .preview-window::after{display:none}
+#catshow .preview-cutout{object-fit:contain;filter:drop-shadow(0 26px 34px rgba(0,0,0,.44));pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+#catshow .preview-trace{display:none}
+#catshow .preview-card{will-change:transform}
+.menu-art-window{background:transparent}
+.menu-art-window::after{display:none}
+.menu-art img{object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,0,0,.32));-webkit-user-drag:none}
+
+/* Sticky menu navigation: no painted black gradient, only a masked blur band. */
+.chipbar{isolation:isolate;padding:10px 0 20px}
+.chipbar::before{
+  inset:-26px 0 -34px;background:rgba(10,10,11,.012);
+  -webkit-backdrop-filter:saturate(155%) blur(24px);backdrop-filter:saturate(155%) blur(24px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.34) 17%,#000 43%,#000 61%,rgba(0,0,0,.36) 83%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.34) 17%,#000 43%,#000 61%,rgba(0,0,0,.36) 83%,transparent 100%)
+}
+.chips button{background:rgba(12,12,14,.36);box-shadow:none}
+.chipbar-inner::before{background:linear-gradient(90deg,rgba(10,10,11,.36),transparent)}
+.chipbar-inner::after{background:linear-gradient(270deg,rgba(10,10,11,.36),transparent)}
+
+/* Gallery: title, album categories and player share a single viewport. */
+#gallery{
+  height:calc(100svh - var(--tab-h));min-height:720px;padding:0;
+  display:grid;grid-template-rows:auto auto minmax(0,1fr);overflow:hidden;
+  background:radial-gradient(800px 380px at 50% 0%,rgba(198,161,91,.08),transparent 72%),#0d0d0f
+}
+#gallery .g-head{margin:0;padding:clamp(82px,10vh,108px) var(--page-gutter) 16px;text-align:center}
+#gallery .g-head h2{font-size:clamp(32px,4.7vw,54px);line-height:1.08;margin-top:8px}
+#gallery .g-intro{display:none}
+#gallery .g-tabs-shell{position:relative;min-width:0;margin:0;padding:0 0 14px;overflow:hidden}
+#gallery .g-tabs{width:min(calc(100% - 40px),1180px);max-width:none;margin:0 auto;padding:0;gap:10px;justify-content:center;scroll-padding-inline:20px}
+#gallery .g-album{flex:1 1 128px;min-width:108px;max-width:178px;color:var(--grigio);text-align:left}
+#gallery .g-album-cover{aspect-ratio:16/9;border:1px solid rgba(198,161,91,.14);background:#080809;box-shadow:none}
+#gallery .g-album-cover::after{background:linear-gradient(180deg,transparent 36%,rgba(5,5,6,.58))}
+#gallery .g-album-cover img{filter:brightness(.62) saturate(.78);transform:scale(1.02)}
+#gallery .g-album-label{margin-top:8px;font-size:9.5px;letter-spacing:.16em;justify-content:flex-start}
+#gallery .g-album-label small{display:none}
+#gallery .g-album.on .g-album-cover{transform:none;border-color:rgba(198,161,91,.72);box-shadow:0 16px 42px -30px rgba(198,161,91,.72)}
+#gallery .g-album.on .g-album-cover img{filter:brightness(.98) saturate(.96);transform:scale(1.045)}
+#gallery .g-viewer{min-height:0;height:100%;max-width:none;margin:0;padding:0}
+#gallery .g-stage{height:100%;min-height:0;max-height:none;border:0;border-top:1px solid var(--hair-soft);background:#050506;overflow:hidden}
+#gallery .g-backdrop{inset:-10%;filter:blur(48px) brightness(.27) saturate(.82);opacity:.92}
+#gallery .g-stage::after{background:linear-gradient(90deg,rgba(5,5,6,.52),transparent 20%,transparent 80%,rgba(5,5,6,.52)),linear-gradient(180deg,rgba(5,5,6,.18),transparent 34%,transparent 68%,rgba(5,5,6,.72))}
+#gallery .g-main{width:100%;height:100%;padding:24px clamp(30px,5.5vw,88px) 92px;object-fit:contain;filter:brightness(1) saturate(.98)}
+#gallery .g-progress{top:16px;left:clamp(16px,4vw,64px);right:clamp(68px,7vw,110px);gap:5px}
+#gallery .g-progress span{height:1px;background:rgba(241,236,225,.19)}
+#gallery .g-player-head{top:24px;left:auto;right:clamp(16px,3vw,48px);display:block}
+#gallery .g-auto-label{display:none}
+#gallery .g-play{width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:50%;background:rgba(10,10,11,.32);border:1px solid rgba(198,161,91,.28);color:var(--oro);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+#gallery .g-play i{font-size:16px}
+#gallery .g-meta{display:none}
+#gallery .g-nav{width:46px;height:46px;background:rgba(10,10,11,.28);border-color:rgba(198,161,91,.24)}
+#gallery .g-thumbs{position:absolute;z-index:7;left:50%;bottom:18px;transform:translateX(-50%);width:min(calc(100% - 32px),720px);display:flex;justify-content:center;gap:7px;overflow-x:auto;padding:0;border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+#gallery .g-thumb{flex:0 0 clamp(56px,6vw,74px);aspect-ratio:4/3;border:1px solid rgba(198,161,91,.17);opacity:.42;background:#080809;transform:none}
+#gallery .g-thumb img{filter:brightness(.62) saturate(.78)}
+#gallery .g-thumb.on{opacity:1;border-color:var(--oro);transform:translateY(-2px)}
+
+/* Community: intrinsic-ratio masonry. Add another object to CUSTOMER and the layout adapts. */
+#customer{max-width:1320px;padding:112px 28px 112px}
+#customer .lead{max-width:52ch}
+.cust-grid{display:block;columns:4 250px;column-gap:12px;margin-top:50px}
+.cust-cell,.cust-cell.landscape,.cust-cell.portrait{display:inline-block;width:100%;aspect-ratio:var(--ratio,4 / 3);margin:0 0 12px;min-height:0;break-inside:avoid;grid-column:auto;grid-row:auto;border-color:rgba(198,161,91,.12)}
+.cust-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cust-badge{top:10px;left:10px;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--bianco);background:rgba(8,8,9,.58);border-color:rgba(198,161,91,.28);padding:6px 11px;letter-spacing:.16em;text-transform:none;font-size:9px}
+.cust-cell figcaption{display:none}
+
+/* Social: keep the energy in motion and hierarchy, not in a foreign colour palette. */
+#social{position:relative;max-width:none;margin:0;padding:118px 0 112px;overflow:hidden;text-align:left;background:radial-gradient(900px 540px at 78% 12%,rgba(198,161,91,.10),transparent 70%),linear-gradient(180deg,#0b0b0d,#09090a);border-top:1px solid var(--hair-soft);isolation:isolate}
+.social-glow{inset:-12%;background:radial-gradient(circle at 72% 24%,rgba(198,161,91,.12),transparent 28%),radial-gradient(circle at 18% 78%,rgba(198,161,91,.06),transparent 30%);filter:blur(42px);animation:social-breathe 12s ease-in-out infinite alternate}
+.social-marquee{display:none}
+.social-shell{width:min(calc(100% - 40px),1220px);margin:0 auto}
+.social-head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);align-items:end;gap:clamp(28px,5vw,72px);margin-bottom:48px}
+#social .social-head .k-s{grid-column:1/-1;color:var(--oro);font-size:11px;letter-spacing:.34em}
+#social h2{font-size:clamp(44px,6.2vw,80px);font-weight:200;line-height:.98;letter-spacing:.02em;max-width:11ch;margin:0}
+.social-lead{max-width:38ch;padding:0 0 5px;color:var(--grigio);font-size:clamp(17px,1.65vw,21px);line-height:1.62}
+.social-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.social-card,.social-card-primary,.social-card-wa{position:relative;grid-row:auto;grid-column:auto;min-height:170px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px;padding:24px;border:1px solid rgba(198,161,91,.16);background:linear-gradient(145deg,rgba(18,18,20,.78),rgba(9,9,10,.88));color:var(--bianco);clip-path:none;overflow:hidden;transition:transform .45s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s,box-shadow .3s}
+.social-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 10%,rgba(198,161,91,.13),transparent 35%);transform:none;opacity:.35;transition:opacity .35s}
+.social-card-primary{border-color:rgba(198,161,91,.34);background:linear-gradient(145deg,rgba(31,27,20,.86),rgba(10,10,11,.92))}
+.social-card-wa{background:linear-gradient(145deg,rgba(18,20,17,.82),rgba(9,10,9,.92))}
+.social-icon,.social-card-primary .social-icon{width:52px;height:52px;display:grid;place-items:center;border:1px solid rgba(198,161,91,.42);border-radius:50%;color:var(--oro);position:relative;z-index:1}
+.social-icon i,.social-card-primary .social-icon i{font-size:27px}
+.social-copy{gap:6px}
+.social-copy small{font-size:9px;letter-spacing:.24em;color:rgba(241,236,225,.48);opacity:1}
+.social-copy strong,.social-card-primary .social-copy strong{font-size:clamp(19px,2vw,27px);font-weight:300;line-height:1.18;color:var(--bianco)}
+.social-copy em{font-size:9.5px;letter-spacing:.16em;color:rgba(241,236,225,.46);opacity:1}
+.social-arrow{font-size:21px;color:var(--oro)}
+@media(hover:hover){.social-card:hover{transform:translateY(-4px);border-color:rgba(198,161,91,.58);background:linear-gradient(145deg,rgba(31,27,20,.82),rgba(10,10,11,.94));box-shadow:0 26px 60px -42px rgba(198,161,91,.7)}.social-card:hover::before{opacity:.8}}
+.reviews-zone{display:grid;grid-template-columns:290px minmax(0,1fr);gap:12px;margin-top:56px}
+.review-summary{min-height:320px;border:1px solid rgba(198,161,91,.22);background:#0d0d0f;clip-path:none}
+.review-map-embed{filter:grayscale(1) invert(.9) hue-rotate(175deg) brightness(.32) contrast(1.08);opacity:.58}
+.review-map-shade{background:linear-gradient(180deg,rgba(13,13,15,.18),rgba(13,13,15,.9) 58%,#0d0d0f 100%),linear-gradient(120deg,rgba(198,161,91,.08),transparent 54%)}
+.review-summary-content{min-height:320px;padding:24px}
+.review-mode{display:none}
+.review-platform{color:rgba(241,236,225,.42)}
+.review-summary strong{font-size:78px}
+.review-stars{color:var(--oro)}
+.review-count{color:rgba(241,236,225,.43)}
+.review-summary a{color:var(--oro)}
+.review-track{gap:12px}
+#social .rev{flex:0 0 min(66vw,500px);min-height:320px;border:1px solid rgba(198,161,91,.14);padding:28px;background:linear-gradient(145deg,rgba(17,17,19,.84),rgba(9,9,10,.94));clip-path:none}
+#social .rev .stars{color:var(--oro)}
+#social .rev p{color:rgba(241,236,225,.72)}
+#social .rev .src{border-top-color:rgba(198,161,91,.12);color:rgba(241,236,225,.38)}
+.review-author b{color:var(--bianco)}
+
+/* Footer: clear hierarchy, horizontal practical-information rail, calmer map. */
+#dove{position:relative;min-height:auto;padding:118px max(24px,4vw) 38px;text-align:left;background:radial-gradient(760px 520px at var(--close-x,76%) var(--close-y,22%),rgba(198,161,91,.11),transparent 66%),linear-gradient(145deg,#0e0e10,#070708 68%);border-top:1px solid var(--hair-soft);overflow:hidden;isolation:isolate}
+.closing-orbit{opacity:.34;animation-duration:28s}
+.closing-shell{width:min(100%,1240px);margin:0 auto}
+.closing-grid{width:100%;margin:0;display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:clamp(40px,6vw,88px);align-items:stretch}
+.closing-copy{display:flex;flex-direction:column;justify-content:center;padding:14px 0}
+#dove .logo-s{width:112px;margin:0 0 30px}
+#dove h2{font-size:clamp(48px,6.2vw,82px);font-weight:200;letter-spacing:0;line-height:1.01;max-width:10ch;margin-top:12px}
+.closing-lead{max-width:36ch;margin-top:24px;font-size:clamp(17px,1.55vw,20px);line-height:1.65}
+.open-state{margin-top:26px;background:rgba(10,10,11,.22)}
+.open-state.closed i{background:#b65d50;box-shadow:0 0 14px rgba(182,93,80,.5)}
+.closing-actions{margin-top:30px}
+.closing-btn{min-height:48px;padding:13px 17px;background:rgba(10,10,11,.18)}
+.closing-map-card{aspect-ratio:16/10;min-height:440px;border-color:rgba(198,161,91,.22);box-shadow:0 44px 90px -62px rgba(0,0,0,.96)}
+.closing-map-card iframe{filter:invert(90%) hue-rotate(178deg) grayscale(48%) contrast(.9) brightness(.66)}
+.map-shade{background:linear-gradient(180deg,rgba(8,8,9,.08),transparent 50%,rgba(8,8,9,.88))}
+.map-address{left:20px;right:20px;bottom:20px;padding:18px;background:rgba(9,9,10,.66)}
+.closing-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:34px;border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft)}
+.closing-meta>div{min-width:0;padding:22px 24px}
+.closing-meta>div+div{border-left:1px solid var(--hair-soft)}
+.closing-meta h4{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--oro);font-weight:400;margin-bottom:8px}
+.closing-meta p,.closing-meta a{font-size:14.5px;line-height:1.65;color:var(--grigio)}
+.closing-meta a{border-bottom:1px solid rgba(198,161,91,.22)}
+.footer-bottom{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding-top:28px}
+#dove .footer-bottom .foot{width:auto;margin:0;text-align:left;font-size:10px;letter-spacing:.15em}
+#dove .footer-bottom .foot:last-child{text-align:right}
+.footer-place{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(241,236,225,.28);text-align:center}
+
+@media(max-width:980px){
+  #gallery .g-tabs{justify-content:flex-start;overflow-x:auto}
+  .cust-grid{columns:3 220px}
+  .closing-grid{grid-template-columns:1fr;gap:34px}.closing-copy{max-width:700px}.closing-map-card{min-height:440px;aspect-ratio:16/9}
+}
+@media(max-width:820px){
+  #social{padding:96px 0}.social-head{grid-template-columns:1fr;gap:20px}.social-head .k-s{grid-column:auto}.social-lead{max-width:36ch}
+  .social-actions{grid-template-columns:1fr}.social-card,.social-card-primary,.social-card-wa{min-height:148px;padding:21px}
+  .reviews-zone{grid-template-columns:1fr}.review-summary-content{min-height:250px}.review-summary{min-height:250px}
+  #social .rev{flex-basis:min(84vw,480px)}
+  .closing-meta{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:680px){
+  #splash h1{font-size:clamp(16px,4.5vw,19px);letter-spacing:.1em;line-height:1.7}
+  #catshow .preview-window{overflow:visible}
+  #gallery{height:calc(100svh - var(--tab-h));min-height:620px;grid-template-rows:auto auto minmax(0,1fr)}
+  #gallery .g-head{padding:72px 16px 10px}
+  #gallery .g-head h2{font-size:clamp(27px,7vw,34px);letter-spacing:.17em}
+  #gallery .g-tabs-shell{padding-bottom:10px}
+  #gallery .g-tabs{width:100%;gap:8px;padding:0 14px;scroll-padding-inline:14px}
+  #gallery .g-album{flex:0 0 96px;min-width:96px;max-width:96px}
+  #gallery .g-album-label{font-size:8.5px;margin-top:6px}
+  #gallery .g-stage{height:100%;min-height:0;aspect-ratio:auto}
+  #gallery .g-main{padding:12px 4px 72px}
+  #gallery .g-progress{top:12px;left:12px;right:58px}
+  #gallery .g-player-head{top:18px;right:10px}
+  #gallery .g-play{width:36px;height:36px}
+  #gallery .g-nav{width:38px;height:38px}.g-nav.l{left:8px}.g-nav.r{right:8px}
+  #gallery .g-thumbs{bottom:10px;width:calc(100% - 16px);justify-content:flex-start;gap:6px}
+  #gallery .g-thumb{flex-basis:50px}
+  #customer{padding:92px 18px 96px}.cust-grid{columns:2 180px;column-gap:8px;margin-top:38px}.cust-cell{margin-bottom:8px}
+  .social-shell{width:calc(100% - 32px)}#social h2{font-size:clamp(38px,11vw,54px)}
+  .social-card{grid-template-columns:auto minmax(0,1fr) auto;gap:14px}.social-icon,.social-card-primary .social-icon{width:46px;height:46px}.social-icon i,.social-card-primary .social-icon i{font-size:24px}
+  #dove{padding:96px 18px 34px}.closing-map-card{min-height:390px;aspect-ratio:4/3;transform:none!important}.map-address{left:12px;right:12px;bottom:12px}
+  .closing-meta{grid-template-columns:1fr;margin-top:26px}.closing-meta>div{padding:18px 4px}.closing-meta>div+div{border-left:0;border-top:1px solid var(--hair-soft)}
+  .closing-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.closing-btn.primary{grid-column:1/-1}.closing-btn{justify-content:center}
+  .footer-bottom{grid-template-columns:1fr;gap:10px;padding-top:24px}.footer-place{text-align:left;order:-1}#dove .footer-bottom .foot:last-child{text-align:left}
+}
+@media(max-width:520px){.cust-grid{columns:1}.cust-cell{margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.social-glow,.closing-orbit{animation:none}}
+
 </style>
 </head>
 <body>
@@ -770,7 +964,7 @@ a,button{touch-action:manipulation}
   <div class="inner" id="splash">
     <p class="split"><span data-i18n="sp_kicker">Maniago · Friuli</span></p>
     <img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma, Maniago">
-    <h1 data-i18n="tagline">La pizza di sempre, con un tocco in più.</h1>
+    <h1 data-i18n="tagline"><span class="tagline-line">La pizza di sempre,</span><span class="tagline-line">con un tocco in più.</span></h1>
     <div class="diamond"></div>
   </div>
 </section>
@@ -781,9 +975,9 @@ a,button{touch-action:manipulation}
   <img class="bgimg" data-src="assets/hero-entrata.webp" alt="">
   <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
-    <h2 data-i18n="s1_title">In centro,<br>all'angolo di sempre</h2>
+    <h2 data-i18n="s1_title">Nel cuore di Maniago,<br>all'angolo di sempre</h2>
     <hr class="hairline">
-    <p data-i18n="s1_body">A due passi da Piazza Italia, nella città delle coltellerie, la Pizzeria Via Roma è il punto fermo delle sere di Maniago. La pietra, l'insegna, la porta aperta dalle 18:00, tutti i giorni.</p>
+    <p data-i18n="s1_body">A due passi da Piazza Italia, nel cuore della città delle coltellerie.<br><br>La porta si apre alle 18:00:<br>da qui cominciano le sere di Maniago.</p>
   </div>
 </section>
 
@@ -793,9 +987,9 @@ a,button{touch-action:manipulation}
   <img class="bgimg" data-src="assets/hero-sala-sinistra.webp" alt="">
   <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
-    <h2 data-i18n="s2_title">Nero, ottone<br>e luce calda</h2>
+    <h2 data-i18n="s2_title">Luce calda,<br>tempo lento</h2>
     <hr class="hairline">
-    <p data-i18n="s2_body">Una sala raccolta, tra toni scuri,<br>dettagli in ottone e luce morbida.<br><br>Lo spazio giusto per fermarsi,<br>senza fretta.</p>
+    <p data-i18n="s2_body">Toni profondi, dettagli in ottone<br>e una luce che invita a restare.<br><br>Una sala raccolta, pensata<br>per conversazioni senza fretta.</p>
   </div>
 </section>
 
@@ -805,9 +999,9 @@ a,button{touch-action:manipulation}
   <img class="bgimg" data-src="assets/hero-sala-destra.webp" alt="">
   <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
-    <h2 data-i18n="s3_title">Rosso, materia<br>e carattere</h2>
+    <h2 data-i18n="s3_title">Materia, colore,<br>carattere</h2>
     <hr class="hairline">
-    <p data-i18n="s3_body">Una sala più decisa,<br>tra superfici scure e accenti rossi.<br><br>Due atmosfere diverse,<br>lo stesso modo di accogliere.</p>
+    <p data-i18n="s3_body">Accenti rossi, superfici scure<br>e un'atmosfera più decisa.<br><br>Un'altra anima di Via Roma,<br>con lo stesso modo di accogliere.</p>
   </div>
 </section>
 
@@ -827,8 +1021,8 @@ a,button{touch-action:manipulation}
       <span class="arc"></span>
       <img class="pizza bgimg" style="position:static" data-src="assets/pizze/cornice-ripieno.webp" alt="Cornicione ripieno">
     </div>
-    <h2 data-i18n="t_title">Hai già provato il nostro cornicione ripieno?</h2>
-    <p data-i18n="t_body">Il vero must della nostra pizza.</p>
+    <h2 data-i18n="t_title">Il cornicione,<br>con qualcosa in più</h2>
+    <p data-i18n="t_body">Ricotta, Brie o Gorgonzola dolce. Scegli il ripieno e rendi la tua pizza ancora più Via Roma.</p>
     <div class="mini-list">
       <div><span>Ricotta</span><b>3,00</b></div>
       <div><span>Brie</span><b>3,00</b></div>
@@ -852,7 +1046,7 @@ a,button{touch-action:manipulation}
   <div class="menu-head fx">
     <p class="k-s" data-i18n="m_eyebrow">La carta</p>
     <h2 data-i18n="m_title">Il Menù</h2>
-    <p data-i18n="m_note">Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno</p>
+    <p data-i18n="m_note">Lunga lievitazione, ingredienti selezionati e cottura al forno. Ogni pizza nasce qui, una alla volta.</p>
   </div>
   <div class="chipbar"><div class="chipbar-inner">
     <button class="chipchev l" data-chip="-1" aria-label="Indietro"><i class="ph-thin ph-caret-left"></i></button>
@@ -867,7 +1061,6 @@ a,button{touch-action:manipulation}
   <div class="g-head fx">
     <p class="k-s" data-i18n="g_eyebrow">Gallery</p>
     <h2 data-i18n="g_title">Dentro Via Roma</h2>
-    <p class="g-intro sentence-flow" data-ui="g_intro">Ogni spazio è un album. Aprilo e lascialo scorrere.</p>
   </div>
   <div class="g-tabs-shell fx">
     <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
@@ -877,15 +1070,13 @@ a,button{touch-action:manipulation}
       <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
       <div class="g-progress" id="gprogress" aria-hidden="true"></div>
       <div class="g-player-head">
-        <span class="g-auto-label"><i></i><span data-ui="g_autoplay">Autoplay · 5 secondi</span></span>
         <button class="g-play" id="gplay" type="button" aria-label="Metti in pausa">
-          <i class="ph-thin ph-pause"></i><span data-ui="g_pause">Pausa</span>
+          <i class="ph-thin ph-pause"></i><span class="sr-only" data-ui="g_pause">Pausa</span>
         </button>
       </div>
       <img class="g-main" id="gmain" src="" alt="" decoding="async">
       <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
       <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
-      <div class="g-meta"><span class="g-label" id="glabel"></span><span class="g-count" id="gcount"></span></div>
       <div class="g-thumbs" id="gthumbs" aria-label="Anteprime dell’album"></div>
     </div>
   </div>
@@ -895,7 +1086,7 @@ a,button{touch-action:manipulation}
 <section id="customer">
   <p class="k-s" data-i18n="cu_eyebrow">La community</p>
   <h2 data-i18n="cu_title">Racconta la tua esperienza</h2>
-  <p class="lead sentence-flow" data-i18n="cu_lead">Le vostre serate da Via Roma. Una selezione di scatti condivisi dai nostri clienti.</p>
+  <p class="lead sentence-flow" data-i18n="cu_lead">Le vostre serate, viste da chi le vive. Una raccolta aperta di scatti condivisi dalla community.</p>
   <div class="cust-grid fx" id="custgrid"></div>
   <div class="cust-cta-wrap fx">
     <a class="btn-wa" id="custcta" href="#" target="_blank" rel="noopener">
@@ -908,7 +1099,6 @@ a,button{touch-action:manipulation}
 <!-- SOCIAL -->
 <section id="social">
   <div class="social-glow" aria-hidden="true"></div>
-  <div class="social-marquee" aria-hidden="true"><div id="socialMarqueeText"></div></div>
   <div class="social-shell">
     <header class="social-head fx">
       <p class="k-s" data-i18n="so_eyebrow">Seguici</p>
@@ -960,33 +1150,39 @@ a,button{touch-action:manipulation}
 <!-- DOVE / FOOTER -->
 <section id="dove">
   <div class="closing-orbit" aria-hidden="true"></div>
-  <div class="closing-grid">
-    <div class="closing-copy fx">
-      <img class="logo-s" src="assets/logo.png" alt="Pizzeria Via Roma">
-      <p class="k-s" data-i18n="d_dove">Dove</p>
-      <h2 data-ui="d_title">Ci vediamo all'angolo di sempre</h2>
-      <p class="closing-lead sentence-flow" data-ui="d_lead">Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.</p>
-      <div class="open-state" id="openState"><i></i><span>—</span></div>
-      <div class="closing-actions">
-        <a class="closing-btn primary" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener"><i class="ph-thin ph-navigation-arrow"></i><span data-ui="directions">Indicazioni</span></a>
-        <a class="closing-btn" href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-ui="call">Chiama</span></a>
-        <a class="closing-btn" href="https://wa.me/393802453757" target="_blank" rel="noopener"><i class="ph-thin ph-whatsapp-logo"></i><span>WhatsApp</span></a>
+  <div class="closing-shell">
+    <div class="closing-grid">
+      <div class="closing-copy fx">
+        <img class="logo-s" src="assets/logo.png" alt="Pizzeria Via Roma">
+        <p class="k-s" data-i18n="d_dove">Dove</p>
+        <h2 data-ui="d_title">Ci vediamo all'angolo di sempre</h2>
+        <p class="closing-lead sentence-flow" data-ui="d_lead">Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.</p>
+        <div class="open-state" id="openState"><i></i><span>—</span></div>
+        <div class="closing-actions">
+          <a class="closing-btn primary" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener"><i class="ph-thin ph-navigation-arrow"></i><span data-ui="directions">Indicazioni</span></a>
+          <a class="closing-btn" href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-ui="call">Chiama</span></a>
+          <a class="closing-btn" href="https://wa.me/393802453757" target="_blank" rel="noopener"><i class="ph-thin ph-whatsapp-logo"></i><span>WhatsApp</span></a>
+        </div>
       </div>
-      <div class="info closing-info">
-        <div><h4 data-i18n="d_dove">Dove</h4><p><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener">Via Roma 43 · Maniago (PN)</a></p></div>
-        <div><h4 data-i18n="d_orari">Orari</h4><p data-i18n="d_orari_v">18:00 - 23:00 · Lunedì chiuso</p></div>
-        <div><h4 data-i18n="d_contatti">Contatti</h4><p><a href="tel:+390427541232">0427 541232</a></p></div>
+      <div class="closing-map-card fx" id="closingMapCard">
+        <iframe title="Mappa Pizzeria Via Roma" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
+        <span class="map-shade"></span>
+        <a class="map-hit" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener" aria-label="Apri Pizzeria Via Roma in Google Maps">
+          <span class="map-address"><small>MANIAGO · PN</small><strong>Via Roma 43</strong><i class="ph-thin ph-arrow-up-right"></i></span>
+        </a>
       </div>
     </div>
-    <div class="closing-map-card fx" id="closingMapCard">
-      <iframe title="Mappa Pizzeria Via Roma" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
-      <span class="map-shade"></span>
-      <a class="map-hit" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener" aria-label="Apri Pizzeria Via Roma in Google Maps">
-        <span class="map-address"><small>MANIAGO · PN</small><strong>Via Roma 43</strong><i class="ph-thin ph-arrow-up-right"></i></span>
-      </a>
+    <div class="closing-meta fx">
+      <div><h4 data-i18n="d_dove">Dove</h4><p><a href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener">Via Roma 43 · Maniago (PN)</a></p></div>
+      <div><h4 data-i18n="d_orari">Orari</h4><p data-i18n="d_orari_v">18:00 - 23:00 · Lunedì chiuso</p></div>
+      <div><h4 data-i18n="d_contatti">Contatti</h4><p><a href="tel:+390427541232">0427 541232</a><br><a href="https://wa.me/393802453757" target="_blank" rel="noopener">380 2453 757 · WhatsApp</a></p></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="foot">© 2026 Pizzeria Via Roma</p>
+      <p class="footer-place">Maniago · Friuli Venezia Giulia</p>
+      <p class="foot">Design &amp; development · <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
     </div>
   </div>
-  <p class="foot">© 2026 Pizzeria Via Roma · <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
 </section>
 
 <nav class="tabbar" aria-label="Navigazione">
@@ -1016,25 +1212,25 @@ window.addEventListener("pageshow",()=>{
 /* =============== UI + narrative i18n =============== */
 const T = {
 it:{
-  sp_kicker:"Maniago · Friuli", tagline:"La pizza di sempre, con un tocco in più.", scroll:"scorri",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"In centro,<br>all'angolo di sempre",
-  s1_body:"A due passi da Piazza Italia,<br>nella città delle coltellerie.<br><br>Il punto fermo delle sere di Maniago,<br>con la porta aperta dalle 18:00.",
-  s2_eyebrow:"Sala sinistra", s2_title:"Nero, ottone<br>e luce calda",
-  s2_body:"Una sala raccolta, tra toni scuri,<br>dettagli in ottone e luce morbida.<br><br>Lo spazio giusto per fermarsi,<br>senza fretta.",
-  s3_eyebrow:"Sala destra", s3_title:"Rosso, materia<br>e carattere",
-  s3_body:"Una sala più decisa,<br>tra superfici scure e accenti rossi.<br><br>Due atmosfere diverse,<br>lo stesso modo di accogliere.",
+  sp_kicker:"Maniago · Friuli", tagline:"<span class=\"tagline-line\">La pizza di sempre,</span><span class=\"tagline-line\">con un tocco in più.</span>", scroll:"scorri",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"Nel cuore di Maniago,<br>all'angolo di sempre",
+  s1_body:"A due passi da Piazza Italia, nel cuore della città delle coltellerie.<br><br>La porta si apre alle 18:00:<br>da qui cominciano le sere di Maniago.",
+  s2_eyebrow:"Sala sinistra", s2_title:"Luce calda,<br>tempo lento",
+  s2_body:"Toni profondi, dettagli in ottone<br>e una luce che invita a restare.<br><br>Una sala raccolta, pensata<br>per conversazioni senza fretta.",
+  s3_eyebrow:"Sala destra", s3_title:"Materia, colore,<br>carattere",
+  s3_body:"Accenti rossi, superfici scure<br>e un'atmosfera più decisa.<br><br>Un'altra anima di Via Roma,<br>con lo stesso modo di accogliere.",
   a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un po'!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
-  t_title:"Hai già provato il nostro cornicione ripieno?", t_body:"Il vero must della nostra pizza.",
+  t_title:"Il cornicione,<br>con qualcosa in più", t_body:"Ricotta, Brie o Gorgonzola dolce. Scegli il ripieno e rendi la tua pizza ancora più Via Roma.",
   t_cta:"Scopri il menù", gorgo:"Gorgonzola dolce", strip_k:"Dal nostro forno",
   m_eyebrow:"La carta", m_title:"Il Menù",
-  m_note:"Impasto a lunga lievitazione, prodotti selezionati, cottura nel forno",
+  m_note:"Lunga lievitazione, ingredienti selezionati e cottura al forno. Ogni pizza nasce qui, una alla volta.",
   sel_cta:"Scopri la selezione",
   dolci_note:"Chiedi al personale la disponibilità del giorno!",
   g_eyebrow:"Gallery", g_title:"Dentro Via Roma",
   g_categories:{bancone:"Bancone",entrata:"Entrata",esterno:"Esterno",locale:"Locale",sala_sinistra:"Sala sinistra",sala_destra:"Sala destra"},
   cu_eyebrow:"La community", cu_title:"Racconta la tua esperienza",
-  cu_lead:"Le vostre serate da Via Roma. Una selezione di scatti condivisi dai nostri clienti.",
+  cu_lead:"Le vostre serate, viste da chi le vive. Una raccolta aperta di scatti condivisi dalla community.",
   cu_cta:"Condividi il ricordo", cu_badge:"Cliente",
   cu_hint:"Inviaci la tua foto su WhatsApp: la pubblicheremo dopo la tua conferma.",
   wa_msg:"Ciao Via Roma! Vorrei condividere una foto della mia serata da voi 🍕 (in allegato). Potete pubblicarla?",
@@ -1046,15 +1242,15 @@ it:{
   d_orari:"Orari", d_orari_v:"18:00 - 23:00 · Lunedì chiuso", d_contatti:"Contatti",
   tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
   cats:{
-    classiche:["Le Classiche","Le nostre radici, intramontabili!"],
-    audaci:["Le Audaci","Per chi vuole farsi tentare un po'!"],
-    bianche:["Le Bianche","L'equilibrio perfetto tra gusto e leggerezza!"],
-    calzoni:["I Calzoni","Amore ripieno!"],
+    classiche:["Le Classiche","Le radici della nostra pizza."],
+    audaci:["Le Audaci","Abbinamenti decisi, senza mezze misure."],
+    bianche:["Le Bianche","Equilibrio, profumo e leggerezza."],
+    calzoni:["I Calzoni","Tutto il gusto, custodito nell'impasto."],
     varianti:["Varianti","Crea la combinazione perfetta!"],
-    cucina:["Dalla Cucina","Anche se incredibile... non si ha sempre voglia di pizza?"],
-    stuzzicherie:["Stuzzicherie","Il miglior antidoto alla fame!"],
-    dolci:["Dolci della Casa","La miglior conclusione!"],
-    bevande:["Bevande",""]
+    cucina:["Dalla Cucina","Quando la serata chiede qualcosa di diverso."],
+    stuzzicherie:["Stuzzicherie","Da condividere, oppure no."],
+    dolci:["Dolci della Casa","L'ultimo gesto della serata."],
+    bevande:["Bevande","Birre, vini e calici scelti per accompagnare."]
   },
   varianti:"Aggiunte", coperto:"Coperto", impasti:"Impasto integrale", cornice:"Cornicione ripieno",
   variant_callout:"Hai già provato il nostro cornicione ripieno?<br>Il vero must della nostra pizza!", allergen_title:"Legenda allergeni",
@@ -1062,25 +1258,25 @@ it:{
   calice:"Calice", caraffa:"Caraffa", bott:"Bottiglia"
 },
 en:{
-  sp_kicker:"Maniago · Friuli, Italy", tagline:"The pizza you know, with a little something more.", scroll:"scroll",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"Downtown,<br>on the usual corner",
-  s1_body:"Steps from Piazza Italia,<br>in the town of master knife-makers.<br><br>Where Maniago's evenings begin,<br>the door open from 6 pm.",
-  s2_eyebrow:"Left room", s2_title:"Black, brass<br>and warm light",
-  s2_body:"An intimate room of dark tones,<br>brass details and soft light.<br><br>A space made for slowing down<br>and staying a little longer.",
-  s3_eyebrow:"Right room", s3_title:"Red accents,<br>texture and character",
-  s3_body:"A bolder room,<br>with dark surfaces and red accents.<br><br>Two different atmospheres,<br>the same warm welcome.",
+  sp_kicker:"Maniago · Friuli, Italy", tagline:"<span class=\"tagline-line\">The pizza you know,</span><span class=\"tagline-line\">with a little something more.</span>", scroll:"scroll",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"In the heart of Maniago,<br>on the usual corner",
+  s1_body:"Steps from Piazza Italia, in the town of master knife-makers.<br><br>The door opens at 6 pm:<br>this is where Maniago evenings begin.",
+  s2_eyebrow:"Left room", s2_title:"Warm light,<br>unhurried time",
+  s2_body:"Deep tones, brass details<br>and light that invites you to stay.<br><br>An intimate room made<br>for conversations without hurry.",
+  s3_eyebrow:"Right room", s3_title:"Texture, colour,<br>character",
+  s3_body:"Red accents, dark surfaces<br>and a more decisive atmosphere.<br><br>Another side of Via Roma,<br>with the same warm welcome.",
   a_title:"Le Audaci", a_sub:"For those who like temptation!",
   a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
-  t_title:"Have you tried our stuffed crust?", t_body:"The true must of our pizza.",
+  t_title:"The crust,<br>with something more", t_body:"Ricotta, Brie or sweet Gorgonzola. Choose your filling and make your pizza unmistakably Via Roma.",
   t_cta:"Discover the menu", gorgo:"Sweet gorgonzola", strip_k:"From our oven",
   m_eyebrow:"The menu", m_title:"The Menu",
-  m_note:"Slow-leavened dough, selected ingredients, oven baked",
+  m_note:"Slow-leavened dough, selected ingredients and oven baking. Every pizza is made here, one at a time.",
   sel_cta:"Discover the selection",
   dolci_note:"Ask our staff about today\u2019s selection.",
   g_eyebrow:"Gallery", g_title:"Inside Via Roma",
   g_categories:{bancone:"Counter",entrata:"Entrance",esterno:"Exterior",locale:"Interior",sala_sinistra:"Left room",sala_destra:"Right room"},
   cu_eyebrow:"The community", cu_title:"Share your experience",
-  cu_lead:"Your evenings at Via Roma. A selection of shots shared by our guests.",
+  cu_lead:"Your evenings, seen by the people who live them. An open collection of shots shared by our community.",
   cu_cta:"Share your memory", cu_badge:"Guest",
   cu_hint:"Send us your photo on WhatsApp: we'll publish it once you confirm.",
   wa_msg:"Hi Via Roma! I'd love to share a photo from my evening with you 🍕 (attached). May you publish it?",
@@ -1092,15 +1288,15 @@ en:{
   d_orari:"Hours", d_orari_v:"6 pm - 11 pm · Monday closed", d_contatti:"Contact",
   tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
   cats:{
-    classiche:["Le Classiche","Our roots, timeless"],
-    audaci:["Le Audaci","For those who like temptation"],
-    bianche:["Le Bianche","Taste, balance and lightness"],
-    calzoni:["I Calzoni","Filled with love"],
+    classiche:["Le Classiche","The roots of our pizza."],
+    audaci:["Le Audaci","Bold pairings, without half measures."],
+    bianche:["Le Bianche","Balance, fragrance and lightness."],
+    calzoni:["I Calzoni","All the flavour, held inside the dough."],
     varianti:["Extras","Create the perfect combination"],
-    cucina:["From the Kitchen","Hard to believe... but sometimes it's not a pizza night"],
-    stuzzicherie:["Starters","The best antidote to hunger"],
-    dolci:["House Desserts","The best way to end"],
-    bevande:["Drinks",""]
+    cucina:["From the Kitchen","When the evening calls for something different."],
+    stuzzicherie:["Starters","Made to share — or not."],
+    dolci:["House Desserts","The final gesture of the evening."],
+    bevande:["Drinks","Beers, wines and glasses chosen to pair."]
   },
   varianti:"Extras", coperto:"Cover charge", impasti:"Wholemeal dough", cornice:"Stuffed crust",
   variant_callout:"Have you tried our stuffed crust?<br>The true must of our pizza!", allergen_title:"Allergen guide",
@@ -1108,25 +1304,25 @@ en:{
   calice:"Glass", caraffa:"Carafe", bott:"Bottle"
 },
 de:{
-  sp_kicker:"Maniago · Friaul, Italien", tagline:"Die Pizza von immer, mit dem gewissen Etwas.", scroll:"scrollen",
-  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Im Zentrum,<br>an der vertrauten Ecke",
-  s1_body:"Wenige Schritte von der Piazza Italia,<br>in der Stadt der Messerschmiede.<br><br>Der Fixpunkt der Abende von Maniago,<br>die Tür ab 18 Uhr geöffnet.",
-  s2_eyebrow:"Linker Saal", s2_title:"Schwarz, Messing<br>und warmes Licht",
-  s2_body:"Ein ruhiger Raum mit dunklen Tönen,<br>Messingdetails und weichem Licht.<br><br>Ein Ort zum Ankommen<br>und länger Bleiben.",
-  s3_eyebrow:"Rechter Saal", s3_title:"Rot, Material<br>und Charakter",
-  s3_body:"Ein ausdrucksstärkerer Raum,<br>mit dunklen Flächen und roten Akzenten.<br><br>Zwei verschiedene Atmosphären,<br>dieselbe herzliche Gastlichkeit.",
+  sp_kicker:"Maniago · Friaul, Italien", tagline:"<span class=\"tagline-line\">Die Pizza von immer,</span><span class=\"tagline-line\">mit dem gewissen Etwas.</span>", scroll:"scrollen",
+  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Im Herzen von Maniago,<br>an der vertrauten Ecke",
+  s1_body:"Wenige Schritte von der Piazza Italia, in der Stadt der Messerschmiede.<br><br>Um 18 Uhr öffnet sich die Tür:<br>Hier beginnen die Abende von Maniago.",
+  s2_eyebrow:"Linker Saal", s2_title:"Warmes Licht,<br>Zeit ohne Eile",
+  s2_body:"Tiefe Töne, Messingdetails<br>und Licht, das zum Bleiben einlädt.<br><br>Ein intimer Raum für Gespräche<br>ganz ohne Eile.",
+  s3_eyebrow:"Rechter Saal", s3_title:"Material, Farbe,<br>Charakter",
+  s3_body:"Rote Akzente, dunkle Flächen<br>und eine markantere Atmosphäre.<br><br>Eine andere Seite von Via Roma,<br>mit derselben herzlichen Gastlichkeit.",
   a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
   a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
-  t_title:"Schon unseren gefüllten Rand probiert?", t_body:"Das wahre Muss unserer Pizza.",
+  t_title:"Der Rand,<br>mit dem gewissen Etwas", t_body:"Ricotta, Brie oder milder Gorgonzola. Wählen Sie die Füllung und machen Sie Ihre Pizza unverkennbar Via Roma.",
   t_cta:"Zur Speisekarte", gorgo:"Milder Gorgonzola", strip_k:"Aus unserem Ofen",
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
-  m_note:"Lang gereifter Teig, ausgewählte Zutaten, im Ofen gebacken",
+  m_note:"Lang gereifter Teig, ausgewählte Zutaten und Ofenhitze. Jede Pizza entsteht hier, eine nach der anderen.",
   sel_cta:"Zur Auswahl",
   dolci_note:"Fragen Sie unser Personal nach der Auswahl des Tages.",
   g_eyebrow:"Galerie", g_title:"Bei Via Roma",
   g_categories:{bancone:"Theke",entrata:"Eingang",esterno:"Außenbereich",locale:"Lokal",sala_sinistra:"Linker Saal",sala_destra:"Rechter Saal"},
   cu_eyebrow:"Die Community", cu_title:"Erzählen Sie Ihr Erlebnis",
-  cu_lead:"Ihre Abende bei Via Roma. Eine Auswahl an Fotos unserer Gäste.",
+  cu_lead:"Ihre Abende, gesehen von denen, die sie erleben. Eine offene Sammlung von Fotos aus unserer Community.",
   cu_cta:"Erinnerung teilen", cu_badge:"Gast",
   cu_hint:"Senden Sie uns Ihr Foto per WhatsApp: Wir veröffentlichen es nach Ihrer Bestätigung.",
   wa_msg:"Hallo Via Roma! Ich möchte gern ein Foto von meinem Abend bei euch teilen 🍕 (im Anhang). Dürft ihr es veröffentlichen?",
@@ -1138,15 +1334,15 @@ de:{
   d_orari:"Öffnungszeiten", d_orari_v:"18:00 - 23:00 · Montag Ruhetag", d_contatti:"Kontakt",
   tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
   cats:{
-    classiche:["Le Classiche","Unsere Wurzeln, zeitlos"],
-    audaci:["Le Audaci","Für alle, die sich verführen lassen"],
-    bianche:["Le Bianche","Geschmack, Balance und Leichtigkeit"],
-    calzoni:["I Calzoni","Mit Liebe gefüllt"],
+    classiche:["Le Classiche","Die Wurzeln unserer Pizza."],
+    audaci:["Le Audaci","Mutige Kombinationen, ohne halbe Sachen."],
+    bianche:["Le Bianche","Balance, Duft und Leichtigkeit."],
+    calzoni:["I Calzoni","Der ganze Geschmack, im Teig geborgen."],
     varianti:["Extras","Die perfekte Kombination zusammenstellen"],
-    cucina:["Aus der Küche","Kaum zu glauben... aber manchmal ist kein Pizza-Abend"],
-    stuzzicherie:["Vorspeisen","Das beste Mittel gegen Hunger"],
-    dolci:["Hausgemachte Desserts","Der beste Abschluss"],
-    bevande:["Getränke",""]
+    cucina:["Aus der Küche","Wenn der Abend nach etwas anderem verlangt."],
+    stuzzicherie:["Vorspeisen","Zum Teilen — oder auch nicht."],
+    dolci:["Hausgemachte Desserts","Der letzte Akzent des Abends."],
+    bevande:["Getränke","Biere, Weine und Gläser, passend ausgewählt."]
   },
   varianti:"Extras", coperto:"Gedeck", impasti:"Vollkornteig", cornice:"Gefüllter Rand",
   variant_callout:"Schon unseren gefüllten Rand probiert?<br>Das wahre Muss unserer Pizza!", allergen_title:"Allergenlegende",
@@ -1154,25 +1350,25 @@ de:{
   calice:"Glas", caraffa:"Karaffe", bott:"Flasche"
 },
 fr:{
-  sp_kicker:"Maniago · Frioul, Italie", tagline:"La pizza de toujours, avec un petit plus.", scroll:"défiler",
-  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Au centre,<br>au coin habituel",
-  s1_body:"À deux pas de la Piazza Italia,<br>dans la ville des couteliers.<br><br>Le point de repère des soirées de Maniago,<br>la porte ouverte dès 18h00.",
-  s2_eyebrow:"Salle gauche", s2_title:"Noir, laiton<br>et lumière chaude",
-  s2_body:"Une salle intime aux tons sombres,<br>avec des détails en laiton et une lumière douce.<br><br>Un espace où prendre le temps<br>et rester un peu plus longtemps.",
-  s3_eyebrow:"Salle droite", s3_title:"Rouge, matière<br>et caractère",
-  s3_body:"Une salle plus affirmée,<br>entre surfaces sombres et accents rouges.<br><br>Deux ambiances différentes,<br>le même accueil chaleureux.",
+  sp_kicker:"Maniago · Frioul, Italie", tagline:"<span class=\"tagline-line\">La pizza de toujours,</span><span class=\"tagline-line\">avec un petit plus.</span>", scroll:"défiler",
+  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Au cœur de Maniago,<br>au coin de toujours",
+  s1_body:"À quelques pas de la Piazza Italia, dans la ville des couteliers.<br><br>La porte s'ouvre à 18 h :<br>c'est ici que commencent les soirées de Maniago.",
+  s2_eyebrow:"Salle gauche", s2_title:"Lumière chaude,<br>temps suspendu",
+  s2_body:"Des tons profonds, des détails en laiton<br>et une lumière qui invite à rester.<br><br>Une salle intime pensée<br>pour les conversations sans hâte.",
+  s3_eyebrow:"Salle droite", s3_title:"Matière, couleur,<br>caractère",
+  s3_body:"Des accents rouges, des surfaces sombres<br>et une atmosphère plus affirmée.<br><br>Une autre facette de Via Roma,<br>avec le même accueil chaleureux.",
   a_title:"Le Audaci", a_sub:"Pour ceux qui aiment se laisser tenter !",
   a_body:"Des pizzas au caractère affirmé, des ingrédients de qualité, des accords qui surprennent. Pour ceux qui ne se contentent pas.",
-  t_title:"Avez-vous déjà goûté notre bord farci ?", t_body:"Le vrai must de notre pizza.",
+  t_title:"Le bord,<br>avec un petit plus", t_body:"Ricotta, Brie ou Gorgonzola doux. Choisissez la garniture et rendez votre pizza résolument Via Roma.",
   t_cta:"Découvrir le menu", gorgo:"Gorgonzola doux", strip_k:"De notre four",
   m_eyebrow:"La carte", m_title:"Le Menu",
-  m_note:"Pâte à longue levée, ingrédients sélectionnés, cuisson au four",
+  m_note:"Pâte à longue levée, ingrédients sélectionnés et cuisson au four. Chaque pizza est préparée ici, une à la fois.",
   sel_cta:"Découvrir la sélection",
   dolci_note:"Demandez au personnel la disponibilité du jour !",
   g_eyebrow:"Galerie", g_title:"À l'intérieur de Via Roma",
   g_categories:{bancone:"Comptoir",entrata:"Entrée",esterno:"Extérieur",locale:"Intérieur",sala_sinistra:"Salle gauche",sala_destra:"Salle droite"},
   cu_eyebrow:"La communauté", cu_title:"Racontez votre expérience",
-  cu_lead:"Vos soirées chez Via Roma. Une sélection de photos partagées par nos clients.",
+  cu_lead:"Vos soirées, vues par celles et ceux qui les vivent. Une collection ouverte de photos partagées par notre communauté.",
   cu_cta:"Partager le souvenir", cu_badge:"Client",
   cu_hint:"Envoyez-nous votre photo sur WhatsApp : nous la publierons après votre confirmation.",
   wa_msg:"Bonjour Via Roma ! J'aimerais partager une photo de ma soirée chez vous 🍕 (en pièce jointe). Pouvez-vous la publier ?",
@@ -1184,15 +1380,15 @@ fr:{
   d_orari:"Horaires", d_orari_v:"18h00 - 23h00 · Lundi fermé", d_contatti:"Contact",
   tab_storia:"Histoire", tab_menu:"Menu", tab_chiama:"Appeler", tab_dove:"Accès",
   cats:{
-    classiche:["Le Classiche","Nos racines, intemporelles"],
-    audaci:["Le Audaci","Pour ceux qui aiment se laisser tenter"],
-    bianche:["Le Bianche","L'équilibre parfait entre goût et légèreté"],
-    calzoni:["I Calzoni","L'amour farci"],
+    classiche:["Le Classiche","Les racines de notre pizza."],
+    audaci:["Le Audaci","Des accords affirmés, sans demi-mesure."],
+    bianche:["Le Bianche","Équilibre, parfum et légèreté."],
+    calzoni:["I Calzoni","Toute la saveur, enveloppée dans la pâte."],
     varianti:["Suppléments","Créez la combinaison parfaite"],
-    cucina:["De la Cuisine","Aussi incroyable que ça paraisse... on n'a pas toujours envie de pizza"],
-    stuzzicherie:["Amuse-bouche","Le meilleur antidote à la faim"],
-    dolci:["Desserts Maison","La meilleure conclusion"],
-    bevande:["Boissons",""]
+    cucina:["De la Cuisine","Quand la soirée appelle autre chose."],
+    stuzzicherie:["Amuse-bouche","À partager — ou pas."],
+    dolci:["Desserts Maison","Le dernier geste de la soirée."],
+    bevande:["Boissons","Bières, vins et verres choisis pour accompagner."]
   },
   varianti:"Suppléments", coperto:"Couvert", impasti:"Pâte complète", cornice:"Bord farci",
   variant_callout:"Avez-vous déjà goûté notre bord farci ?<br>Le vrai must de notre pizza !", allergen_title:"Légende des allergènes",
@@ -1204,25 +1400,25 @@ fr:{
 const UI = {
   it:{
     depth:"Profondità",g_intro:"Ogni spazio è un album. Aprilo e lascialo scorrere.",g_autoplay:"Autoplay · 5 secondi",g_pause:"Pausa",g_play:"Riprendi",gallery_open:"Apri l'album",
-    so_title:"Posta. Tagga. Torna.",so_lead:"La serata non finisce al tavolo. Taggaci, condividi il tuo scatto e fai entrare Via Roma nel tuo feed.",so_instagram:"Apri il profilo",so_facebook:"Entra nella community",so_tripadvisor:"Scopri le recensioni",so_whatsapp:"Mandaci il tuo scatto",
+    so_title:"La serata continua.",so_lead:"Seguici, taggaci e condividi il tuo momento. Le storie di Via Roma continuano anche fuori dal tavolo.",so_instagram:"Apri il profilo",so_facebook:"Entra nella community",so_tripadvisor:"Scopri le recensioni",so_whatsapp:"Mandaci il tuo scatto",
     review_selection:"Selezione",review_live:"Feed live",all_reviews:"Tutte le recensioni",reviews_count:"recensioni",marquee:"TAGGACI · CONDIVIDI · TORNA · #VIAROMAMANIAGO · ",
     d_title:"Ci vediamo all'angolo di sempre",d_lead:"Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.",directions:"Indicazioni",call:"Chiama",open_now:"Aperto ora",closed_now:"Chiuso ora",opens_at:"Apre alle 18:00",closed_monday:"Chiuso il lunedì"
   },
   en:{
     depth:"Depth",g_intro:"Every room is an album. Open it and let it play.",g_autoplay:"Autoplay · 5 seconds",g_pause:"Pause",g_play:"Play",gallery_open:"Open album",
-    so_title:"Post. Tag. Come back.",so_lead:"The evening does not end at the table. Tag us, share your shot and bring Via Roma into your feed.",so_instagram:"Open profile",so_facebook:"Join the community",so_tripadvisor:"Read the reviews",so_whatsapp:"Send us your shot",
+    so_title:"The evening continues.",so_lead:"Follow us, tag us and share your moment. Via Roma stories continue beyond the table.",so_instagram:"Open profile",so_facebook:"Join the community",so_tripadvisor:"Read the reviews",so_whatsapp:"Send us your shot",
     review_selection:"Selection",review_live:"Live feed",all_reviews:"All reviews",reviews_count:"reviews",marquee:"TAG US · SHARE · COME BACK · #VIAROMAMANIAGO · ",
     d_title:"Meet us on the usual corner",d_lead:"A pizza, a beer, an evening worth remembering. We are here from 6 pm.",directions:"Directions",call:"Call",open_now:"Open now",closed_now:"Closed now",opens_at:"Opens at 6 pm",closed_monday:"Closed on Monday"
   },
   de:{
     depth:"Tiefe",g_intro:"Jeder Raum ist ein Album. Öffnen und abspielen lassen.",g_autoplay:"Autoplay · 5 Sekunden",g_pause:"Pause",g_play:"Abspielen",gallery_open:"Album öffnen",
-    so_title:"Posten. Markieren. Wiederkommen.",so_lead:"Der Abend endet nicht am Tisch. Markiert uns, teilt euer Foto und bringt Via Roma in euren Feed.",so_instagram:"Profil öffnen",so_facebook:"Community beitreten",so_tripadvisor:"Bewertungen lesen",so_whatsapp:"Foto senden",
+    so_title:"Der Abend geht weiter.",so_lead:"Folgt uns, markiert uns und teilt euren Moment. Die Geschichten von Via Roma gehen über den Tisch hinaus weiter.",so_instagram:"Profil öffnen",so_facebook:"Community beitreten",so_tripadvisor:"Bewertungen lesen",so_whatsapp:"Foto senden",
     review_selection:"Auswahl",review_live:"Live-Feed",all_reviews:"Alle Bewertungen",reviews_count:"Bewertungen",marquee:"MARKIERT UNS · TEILEN · WIEDERKOMMEN · #VIAROMAMANIAGO · ",
     d_title:"Wir sehen uns an der vertrauten Ecke",d_lead:"Eine Pizza, ein Bier, ein Abend zum Erinnern. Wir sind ab 18 Uhr da.",directions:"Route",call:"Anrufen",open_now:"Jetzt geöffnet",closed_now:"Jetzt geschlossen",opens_at:"Öffnet um 18 Uhr",closed_monday:"Montags geschlossen"
   },
   fr:{
     depth:"Profondeur",g_intro:"Chaque espace est un album. Ouvrez-le et laissez-le défiler.",g_autoplay:"Lecture auto · 5 secondes",g_pause:"Pause",g_play:"Lecture",gallery_open:"Ouvrir l'album",
-    so_title:"Postez. Identifiez. Revenez.",so_lead:"La soirée ne s'arrête pas à table. Identifiez-nous, partagez votre photo et faites entrer Via Roma dans votre fil.",so_instagram:"Ouvrir le profil",so_facebook:"Rejoindre la communauté",so_tripadvisor:"Lire les avis",so_whatsapp:"Envoyer votre photo",
+    so_title:"La soirée continue.",so_lead:"Suivez-nous, identifiez-nous et partagez votre moment. Les histoires de Via Roma continuent au-delà de la table.",so_instagram:"Ouvrir le profil",so_facebook:"Rejoindre la communauté",so_tripadvisor:"Lire les avis",so_whatsapp:"Envoyer votre photo",
     review_selection:"Sélection",review_live:"Flux en direct",all_reviews:"Tous les avis",reviews_count:"avis",marquee:"IDENTIFIEZ-NOUS · PARTAGEZ · REVENEZ · #VIAROMAMANIAGO · ",
     d_title:"Rendez-vous au coin de toujours",d_lead:"Une pizza, une bière, une soirée à retenir. Nous sommes là dès 18 h.",directions:"Itinéraire",call:"Appeler",open_now:"Ouvert maintenant",closed_now:"Fermé maintenant",opens_at:"Ouvre à 18 h",closed_monday:"Fermé le lundi"
   }
@@ -1849,39 +2045,40 @@ document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",
    Il drag termina immediatamente al rilascio del mouse: nessuna inerzia,
    snap fluido alla card più vicina, centrata. */
 function dragScroll(el){
-  let down=false, sx=0, sl=0, moved=false;
-  const release = ()=>{
-    if(!down) return;
-    down=false; el.classList.remove("dragging");
-    const first = el.querySelector("figure, .slide");
-    if(!first) return;
-    const full = first.classList.contains("slide");
-    // Both rails snap the nearest card to the viewport centre. This supports
-    // the desktop category peek layout as well as the circular pizza strip.
-    const mid = el.scrollLeft + el.clientWidth/2;
-    let best=first, bd=1e9;
-    el.querySelectorAll(full ? ".slide" : "figure").forEach(card=>{
-      const c=card.offsetLeft+card.offsetWidth/2, d=Math.abs(c-mid);
-      if(d<bd){bd=d;best=card}
-    });
-    el.scrollTo({left: best.offsetLeft - (el.clientWidth - best.offsetWidth)/2, behavior:"smooth"});
+  let state=null,suppressClick=false;
+  const cards=()=>[...el.querySelectorAll(".slide, figure")];
+  const snapNearest=()=>{
+    const list=cards();if(!list.length)return;
+    const mid=el.scrollLeft+el.clientWidth/2;let best=list[0],distance=Infinity;
+    list.forEach(card=>{const d=Math.abs(card.offsetLeft+card.offsetWidth/2-mid);if(d<distance){distance=d;best=card}});
+    el.scrollTo({left:best.offsetLeft-(el.clientWidth-best.offsetWidth)/2,behavior:"smooth"});
   };
+  const release=e=>{
+    if(!state||e&&e.pointerId!==state.id)return;
+    const moved=state.moved;state=null;el.classList.remove("dragging");
+    if(moved){suppressClick=true;requestAnimationFrame(snapNearest);setTimeout(()=>suppressClick=false,120)}
+    else snapNearest();
+  };
+  el.querySelectorAll("img").forEach(img=>img.draggable=false);
+  el.addEventListener("dragstart",e=>e.preventDefault());
   el.addEventListener("pointerdown",e=>{
-    if(e.pointerType!=="mouse") return;
-    down=true; moved=false; sx=e.clientX; sl=el.scrollLeft;
+    if(e.pointerType!=="mouse"||e.button!==0)return;
+    state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false};
     el.classList.add("dragging");
+    try{el.setPointerCapture(e.pointerId)}catch(_){}
   });
-  addEventListener("pointermove",e=>{
-    if(!down) return;
-    const dx = e.clientX - sx;
-    if(Math.abs(dx)>4) moved=true;
-    el.scrollLeft = sl - dx;
+  el.addEventListener("pointermove",e=>{
+    if(!state||e.pointerId!==state.id)return;
+    const dx=e.clientX-state.x,dy=e.clientY-state.y;
+    if(!state.moved&&Math.hypot(dx,dy)>5)state.moved=true;
+    if(!state.moved)return;
+    e.preventDefault();el.scrollLeft=state.left-dx;
   });
-  addEventListener("pointerup",release);
-  // il mouse esce dalla finestra mentre trascina → termina comunque subito
-  addEventListener("pointercancel",release);
-  window.addEventListener("blur",release);
-  el.addEventListener("click",e=>{ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
+  el.addEventListener("pointerup",release);
+  el.addEventListener("pointercancel",release);
+  el.addEventListener("lostpointercapture",()=>release());
+  window.addEventListener("blur",()=>release());
+  el.addEventListener("click",e=>{if(suppressClick){e.preventDefault();e.stopPropagation()}},true);
 }
 dragScroll(forno); dragScroll(rail);
 
@@ -1903,7 +2100,7 @@ function galleryAlt(i){return `${T[LANG].g_categories[galleryCategory]} · ${Str
 function preloadGalleryNeighbours(){const items=GALLERY[galleryCategory];if(items.length<2)return;[items[(galleryIndex+1)%items.length],items[(galleryIndex-1+items.length)%items.length]].forEach(src=>{const im=new Image();im.src=src})}
 function updateGalleryPlayButton(){
   if(!galleryPlay)return;
-  galleryPlay.innerHTML=`<i class="ph-thin ${galleryPlaying?'ph-pause':'ph-play'}"></i><span>${galleryPlaying?ui('g_pause'):ui('g_play')}</span>`;
+  galleryPlay.innerHTML=`<i class="ph-thin ${galleryPlaying?'ph-pause':'ph-play'}"></i><span class="sr-only">${galleryPlaying?ui('g_pause'):ui('g_play')}</span>`;
   galleryPlay.setAttribute("aria-label",galleryPlaying?ui("g_pause"):ui("g_play"));
   document.querySelector(".g-auto-label")?.classList.toggle("paused",!galleryPlaying);
 }
@@ -1925,14 +2122,14 @@ function setGalleryImage(i,animate=true,restart=true){
   const items=GALLERY[galleryCategory];galleryIndex=(i+items.length)%items.length;const src=items[galleryIndex];
   if(animate)galleryStage.classList.add("changing");
   galleryMain.src=src;galleryMain.alt=galleryAlt(galleryIndex);galleryBackdrop.style.backgroundImage=`url("${src}")`;
-  galleryLabel.textContent=T[LANG].g_categories[galleryCategory];galleryCount.textContent=`${String(galleryIndex+1).padStart(2,"0")} / ${String(items.length).padStart(2,"0")}`;
+  if(galleryLabel)galleryLabel.textContent=T[LANG].g_categories[galleryCategory];if(galleryCount)galleryCount.textContent=`${String(galleryIndex+1).padStart(2,"0")} / ${String(items.length).padStart(2,"0")}`;
   galleryThumbs.querySelectorAll(".g-thumb").forEach((b,idx)=>{const on=idx===galleryIndex;b.classList.toggle("on",on);b.setAttribute("aria-current",on?"true":"false");if(on){const left=b.offsetLeft-(galleryThumbs.clientWidth-b.offsetWidth)/2;galleryThumbs.scrollTo({left:Math.max(0,left),behavior:animate?"smooth":"auto"})}});
   setTimeout(()=>galleryStage.classList.remove("changing"),170);preloadGalleryNeighbours();
   if(restart)scheduleGalleryAutoplay();else renderGalleryProgress();
 }
 function renderGallery(){
   const t=T[LANG];
-  galleryTabs.innerHTML=GALLERY_ORDER.map(id=>{const on=id===galleryCategory;const cover=GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" decoding="async"></span><span class="g-album-label"><span>${t.g_categories[id]}</span><small>${String(GALLERY[id].length).padStart(2,'0')}</small></span></button>`}).join("");
+  galleryTabs.innerHTML=GALLERY_ORDER.map(id=>{const on=id===galleryCategory;const cover=GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" decoding="async"></span><span class="g-album-label"><span>${t.g_categories[id]}</span></span></button>`}).join("");
   galleryViewer.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
   if(galleryIndex>=GALLERY[galleryCategory].length)galleryIndex=0;
   galleryThumbs.innerHTML=GALLERY[galleryCategory].map((src,i)=>`<button class="g-thumb ${i===galleryIndex?'on':''}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?'true':'false'}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`).join("");
@@ -1963,18 +2160,18 @@ window.addEventListener("lightbox:opened",()=>{clearTimeout(galleryTimer)});wind
 /* =============== customer gallery =============== */
 const WA_NUMBER = "393802453757";
 const CUSTOMER = [
-  {src:"assets/community/desmoman.webp",name:"DesmoMan",shape:"portrait"},
-  {src:"assets/community/greta-01.webp",name:"Greta",shape:"landscape"},
-  {src:"assets/community/greta-02.webp",name:"Greta",shape:"landscape"},
-  {src:"assets/community/greta-03.webp",name:"Greta",shape:"landscape"},
-  {src:"assets/community/massimo-f.webp",name:"Massimo F.",shape:"portrait"},
-  {src:"assets/community/michael-m-01.webp",name:"Michael M.",shape:"landscape"},
-  {src:"assets/community/michael-m-02.webp",name:"Michael M.",shape:"landscape"},
-  {src:"assets/community/michael-m-03.webp",name:"Michael M.",shape:"landscape"}
+  {src:"assets/community/desmoman.webp",name:"DesmoMan",ratio:"1000 / 1333"},
+  {src:"assets/community/greta-01.webp",name:"Greta",ratio:"1000 / 451"},
+  {src:"assets/community/greta-02.webp",name:"Greta",ratio:"1000 / 451"},
+  {src:"assets/community/greta-03.webp",name:"Greta",ratio:"1000 / 451"},
+  {src:"assets/community/massimo-f.webp",name:"Massimo F.",ratio:"1000 / 1333"},
+  {src:"assets/community/michael-m-01.webp",name:"Michael M.",ratio:"4 / 3"},
+  {src:"assets/community/michael-m-02.webp",name:"Michael M.",ratio:"4 / 3"},
+  {src:"assets/community/michael-m-03.webp",name:"Michael M.",ratio:"4 / 3"}
 ];
 function renderCustomer(){
   const t=T[LANG];
-  document.getElementById("custgrid").innerHTML=CUSTOMER.map(c=>`<figure class="cust-cell ${c.shape}"><span class="cust-badge">${t.cu_badge}</span><img class="bgimg" data-src="${c.src}" alt="${t.cu_eyebrow} · ${c.name}"><figcaption><span>${c.name}</span><i>@pizzeriaviaromamaniago</i></figcaption></figure>`).join("");
+  document.getElementById("custgrid").innerHTML=CUSTOMER.map(c=>`<figure class="cust-cell" style="--ratio:${c.ratio||'4 / 3'}"><span class="cust-badge">${escapeHTML(c.name)}</span><img class="bgimg" data-src="${c.src}" alt="${t.cu_eyebrow} · ${escapeHTML(c.name)}"><figcaption><span>${escapeHTML(c.name)}</span><i>@pizzeriaviaromamaniago</i></figcaption></figure>`).join("");
   const cta=document.getElementById("custcta");cta.href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t.wa_msg)}`;
 }
 
