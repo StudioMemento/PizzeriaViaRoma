@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V8.2 copy and menu polish">
+<meta name="build" content="Via Roma V8.3 final polish">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1240,9 +1240,120 @@ a,button{touch-action:manipulation}
   .allergen-frozen{margin-top:5px;padding-top:12px}
 }
 
+
+/* ========================================================================
+   VIA ROMA V8.3 · final hierarchy, gallery dock and ambient motion polish
+   ======================================================================== */
+
+/* Draft beer + house wine: one typographic system, three equal variants. */
+.drink-item .row{grid-template-columns:auto minmax(22px,1fr) minmax(420px,52%);gap:14px;align-items:baseline}
+.drink-item .pricegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0;gap:clamp(16px,2.4vw,34px);align-items:baseline;justify-content:stretch;margin:0;font-size:15px}
+.drink-item .pricegrid span{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:baseline;min-width:0;color:rgba(241,236,225,.52)}
+.drink-item .pricegrid em{font-size:14px;line-height:1.3;letter-spacing:.025em;white-space:normal}
+.drink-item .pricegrid b{font-size:17px;font-weight:300;line-height:1.2;letter-spacing:.04em;font-variant-numeric:tabular-nums;color:var(--bianco)}
+@media(max-width:980px){
+  .drink-item .row{grid-template-columns:minmax(0,1fr)}
+  .drink-item .dots{display:none}
+  .drink-item .pricegrid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:11px;gap:12px 20px}
+}
+@media(max-width:520px){
+  .drink-item .pricegrid{grid-template-columns:1fr;gap:7px;margin-top:12px}
+  .drink-item .pricegrid span{grid-template-columns:minmax(0,1fr) auto;padding:5px 0;border-bottom:1px solid rgba(198,161,91,.08)}
+  .drink-item .pricegrid span:last-child{border-bottom:0}
+  .drink-item .pricegrid em{font-size:13px}.drink-item .pricegrid b{font-size:17px}
+}
+
+/* Gallery: one player, one dock, one reel cue, albums below the viewport. */
+#gallery{height:calc(100svh - var(--tab-h));min-height:700px;display:block;padding:0;background:radial-gradient(900px 420px at 50% 0%,rgba(198,161,91,.055),transparent 72%),#0a0a0b;overflow:hidden}
+#gallery .g-viewer{height:100%;width:min(100%,1380px);margin:0 auto;padding:clamp(16px,2.2vw,30px) var(--page-gutter) 12px;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:10px}
+#gallery .g-stage{height:auto;min-height:0;position:relative;overflow:hidden;border:1px solid rgba(198,161,91,.14);background:#050506;box-shadow:0 38px 100px -72px rgba(0,0,0,.95)}
+#gallery .g-main{z-index:1;width:100%;height:100%;padding:48px clamp(20px,4vw,64px) 104px;object-fit:contain;filter:brightness(1.035) saturate(1)}
+#gallery .g-stage::after{z-index:2;background:linear-gradient(90deg,rgba(5,5,6,.38),transparent 18%,transparent 82%,rgba(5,5,6,.38)),linear-gradient(180deg,rgba(5,5,6,.08),transparent 36%,transparent 68%,rgba(5,5,6,.58))}
+#gallery .g-progress{display:none}
+#gallery .g-thumbs{position:absolute;z-index:10;top:14px;right:14px;bottom:auto;left:14px;transform:none;width:auto;height:18px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:5px;padding:0;border:0;background:none;overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none}
+#gallery .g-thumb{position:relative;display:block;width:100%;height:18px;min-width:0;aspect-ratio:auto;border:0;background:none;opacity:1;transform:none;overflow:visible;cursor:pointer}
+#gallery .g-thumb::before,#gallery .g-thumb::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;transform-origin:left;border-radius:999px}
+#gallery .g-thumb::before{background:rgba(241,236,225,.18)}
+#gallery .g-thumb::after{background:var(--bianco);transform:scaleX(0)}
+#gallery .g-thumb.done::after{transform:scaleX(1)}
+#gallery .g-thumb.on::before{background:rgba(198,161,91,.38)}
+#gallery .g-thumb.on::after{background:var(--oro);box-shadow:0 0 10px rgba(198,161,91,.32);will-change:transform}
+#gallery .g-thumb.on.run::after{animation:g-reel-fill-v83 var(--gallery-progress-ms,5000ms) linear forwards}
+@keyframes g-reel-fill-v83{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#gallery .g-dock{position:absolute;z-index:11;left:50%;bottom:18px;transform:translateX(-50%);width:min(calc(100% - 36px),620px);min-height:58px;display:grid;grid-template-columns:46px 46px 46px minmax(0,1fr);align-items:center;gap:7px;padding:6px;border:1px solid rgba(198,161,91,.18);background:rgba(7,7,8,.68);-webkit-backdrop-filter:saturate(145%) blur(18px);backdrop-filter:saturate(145%) blur(18px);box-shadow:0 18px 54px -34px rgba(0,0,0,.95)}
+#gallery .g-dock .g-nav,#gallery .g-dock .g-play{position:relative;inset:auto;top:auto;right:auto;bottom:auto;left:auto;transform:none;width:46px;height:46px;border:1px solid rgba(198,161,91,.18);border-radius:0;background:rgba(255,255,255,.025);color:var(--oro);display:grid;place-items:center;transition:background .25s,border-color .25s,transform .2s}
+#gallery .g-dock .g-nav:active,#gallery .g-dock .g-play:active{transform:scale(.94)}
+#gallery .g-dock .g-nav i,#gallery .g-dock .g-play i{font-size:17px}
+#gallery .g-dock-status{min-width:0;height:46px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;padding:0 12px;border-left:1px solid rgba(198,161,91,.13);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(241,236,225,.52)}
+#gallery .g-dock-status span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--bianco)}
+#gallery .g-dock-status span:last-child{font-variant-numeric:tabular-nums;color:var(--oro)}
+#gallery .g-tabs-shell{position:relative;z-index:4;inset:auto;min-width:0;margin:0;padding:0;overflow:hidden;background:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+#gallery .g-tabs{width:100%;max-width:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;overflow:visible}
+#gallery .g-album{min-width:0;max-width:none;width:auto;color:var(--grigio);text-align:left}
+#gallery .g-album-cover{aspect-ratio:16/9;border:1px solid rgba(198,161,91,.12);background:#080809;overflow:hidden}
+#gallery .g-album-cover img{width:100%;height:100%;object-fit:cover;filter:brightness(.56) saturate(.76);transition:filter .35s,transform .45s cubic-bezier(.22,1,.36,1)}
+#gallery .g-album-label{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px;align-items:center;margin-top:5px;font-size:8.5px;letter-spacing:.13em;text-transform:uppercase}
+#gallery .g-album-label small{display:block;color:rgba(198,161,91,.48);font-size:7.5px;font-variant-numeric:tabular-nums}
+#gallery .g-album.on .g-album-cover{border-color:rgba(198,161,91,.7);box-shadow:none}
+#gallery .g-album.on .g-album-cover img{filter:brightness(.94) saturate(.95);transform:scale(1.025)}
+@media(hover:hover){#gallery .g-dock .g-nav:hover,#gallery .g-dock .g-play:hover{border-color:rgba(198,161,91,.52);background:rgba(198,161,91,.07)}}
+@media(max-width:760px){
+  #gallery{height:calc(100svh - var(--tab-h));min-height:620px}
+  #gallery .g-viewer{width:100%;padding:0;grid-template-rows:minmax(0,1fr) 96px;gap:0}
+  #gallery .g-stage{border:0;border-bottom:1px solid rgba(198,161,91,.12)}
+  #gallery .g-main{padding:42px 0 92px}
+  #gallery .g-thumbs{top:10px;right:10px;left:10px;height:16px;gap:4px}.g-thumb{height:16px}
+  #gallery .g-dock{bottom:10px;width:calc(100% - 20px);grid-template-columns:42px 42px 42px minmax(0,1fr);min-height:52px;padding:5px;gap:5px}
+  #gallery .g-dock .g-nav,#gallery .g-dock .g-play{width:42px;height:42px}
+  #gallery .g-dock-status{height:42px;padding:0 9px;font-size:8.5px;letter-spacing:.14em;gap:9px}
+  #gallery .g-tabs-shell{padding:8px 0 7px;overflow:hidden;background:#080809}
+  #gallery .g-tabs{display:flex;gap:7px;overflow-x:auto;padding:0 10px;scroll-snap-type:x proximity;scrollbar-width:none}.g-tabs::-webkit-scrollbar{display:none}
+  #gallery .g-album{flex:0 0 88px;min-width:88px;max-width:88px;scroll-snap-align:center}
+  #gallery .g-album-label{font-size:7.5px;gap:5px;margin-top:4px}.g-album-label small{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){#gallery .g-thumb.on.run::after{animation:none;transform:scaleX(1)}}
+
+/* Social copy breathes more; the review reel is visibly alive on desktop. */
+#social h2{max-width:12ch}
+.social-lead{max-width:34ch}
+.review-track{scroll-behavior:auto;will-change:scroll-position}
+
+/* Info: brand + live utility, no redundant descriptive paragraph. */
+#dove .closing-head{grid-template-columns:minmax(0,.95fr) minmax(360px,1.05fr);align-items:stretch;margin-bottom:52px}
+#dove .closing-heading{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;min-height:320px}
+#dove .closing-heading>.k-s{margin-bottom:12px}
+#dove .open-state{margin-top:26px;width:auto;min-width:190px}
+#dove .closing-brand{min-height:320px;display:grid;place-items:center;padding:clamp(22px,4vw,56px);border:1px solid rgba(198,161,91,.12);background:radial-gradient(circle at 50% 48%,rgba(198,161,91,.08),transparent 58%),rgba(8,8,9,.24);overflow:hidden}
+#dove .closing-logo{width:min(100%,520px);height:min(230px,28vw);object-fit:contain;filter:drop-shadow(0 24px 54px rgba(0,0,0,.42))}
+@media(max-width:980px){
+  #dove .closing-head{grid-template-columns:1fr}.closing-heading{min-height:0!important}
+  #dove .closing-brand{min-height:240px}.closing-logo{height:min(210px,36vw)!important}
+}
+@media(max-width:680px){
+  #dove .closing-head{padding:0 18px}.closing-brand{min-height:200px;padding:22px;margin-top:4px}.closing-logo{width:100%;height:150px!important}
+  #dove .open-state{min-width:0}
+}
+
+/* Five-stop navbar: active section + continuous scroll cue on the bottom edge. */
+.tabbar{--scroll-progress:0;isolation:isolate}
+.tabbar::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(12,12,14,.86),rgba(8,8,9,.98));-webkit-backdrop-filter:blur(18px) saturate(145%);backdrop-filter:blur(18px) saturate(145%)}
+.tabbar-progress{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom));height:1px;z-index:4;overflow:hidden;background:rgba(198,161,91,.12);pointer-events:none}
+.tabbar-progress i{display:block;width:100%;height:100%;background:linear-gradient(90deg,rgba(198,161,91,.38),var(--oro));transform-origin:left center;transform:scaleX(var(--scroll-progress));box-shadow:0 0 10px rgba(198,161,91,.3);transition:transform .08s linear}
+.tabbar a{position:relative;min-width:0;transition:color .25s,background .25s}
+.tabbar a::after{content:"";position:absolute;top:0;left:50%;width:26px;height:1px;background:var(--oro);opacity:0;transform:translateX(-50%) scaleX(.35);transition:opacity .25s,transform .35s cubic-bezier(.22,1,.36,1)}
+.tabbar a.on{color:var(--oro);background:linear-gradient(180deg,rgba(198,161,91,.055),transparent 70%)}
+.tabbar a.on::after{opacity:.9;transform:translateX(-50%) scaleX(1)}
+@media(max-width:560px){.tabbar a{font-size:8.5px;letter-spacing:.13em;gap:4px}.tabbar a i{font-size:19px}}
+
+/* Ambient particle field: desktop-only, edge-weighted and intentionally faint. */
+#ambientField{position:fixed;inset:0;z-index:45;width:100vw;height:100vh;pointer-events:none;opacity:.42;mix-blend-mode:screen}
+@media(max-width:899px),(prefers-reduced-motion:reduce){#ambientField{display:none}}
+
 </style>
 </head>
 <body>
+
+<canvas id="ambientField" aria-hidden="true"></canvas>
 
 <div class="top" id="topbar">
   <a class="brand" href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/flame.png" alt="Pizzeria Via Roma"></a>
@@ -1363,17 +1474,18 @@ a,button{touch-action:manipulation}
       <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
       <div class="g-progress" id="gprogress" aria-hidden="true"></div>
       <div class="g-thumbs" id="gthumbs" aria-label="Sequenza dell’album"></div>
-      <div class="g-player-head">
+      <img class="g-main" id="gmain" src="" alt="" decoding="async">
+      <div class="g-dock" aria-label="Controlli gallery">
+        <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
         <button class="g-play" id="gplay" type="button" aria-label="Metti in pausa">
           <i class="ph-thin ph-pause"></i><span class="sr-only" data-ui="g_pause">Pausa</span>
         </button>
+        <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
+        <div class="g-dock-status" aria-live="polite"><span id="glabel">Bancone</span><span id="gcount">01 / 05</span></div>
       </div>
-      <img class="g-main" id="gmain" src="" alt="" decoding="async">
-      <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
-      <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
-      <div class="g-tabs-shell fx">
-        <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
-      </div>
+    </div>
+    <div class="g-tabs-shell fx">
+      <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
     </div>
   </div>
 </section>
@@ -1398,8 +1510,8 @@ a,button{touch-action:manipulation}
   <div class="social-shell">
     <header class="social-head fx">
       <p class="k-s" data-i18n="so_eyebrow">Seguici</p>
-      <h2 data-ui="so_title">Posta. Tagga. Torna.</h2>
-      <p class="social-lead sentence-flow" data-ui="so_lead">La serata non finisce al tavolo. Taggaci, condividi il tuo scatto e fai entrare Via Roma nel tuo feed.</p>
+      <h2 data-ui="so_title">La serata continua.</h2>
+      <p class="social-lead sentence-flow" data-ui="so_lead">Seguici, taggaci e condividi il tuo momento.</p>
     </header>
 
     <div class="social-actions fx">
@@ -1447,13 +1559,12 @@ a,button{touch-action:manipulation}
   <div class="closing-shell">
     <header class="closing-head fx">
       <div class="closing-heading">
-        <img class="logo-s" src="assets/logo.png" alt="Pizzeria Via Roma">
-        <p class="k-s" data-i18n="d_dove">Dove</p>
+        <p class="k-s" data-ui="info_label">Info</p>
         <h2 data-ui="d_title">Ci vediamo all'angolo di sempre</h2>
-      </div>
-      <div class="closing-intro">
-        <p class="closing-lead sentence-flow" data-ui="d_lead">Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.</p>
         <div class="open-state" id="openState"><i></i><span>—</span></div>
+      </div>
+      <div class="closing-brand" aria-label="Pizzeria Via Roma">
+        <img class="closing-logo" src="assets/logo.png" alt="Pizzeria Via Roma">
       </div>
     </header>
 
@@ -1498,9 +1609,11 @@ a,button{touch-action:manipulation}
 </section>
 
 <nav class="tabbar" aria-label="Navigazione">
-  <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Storia</span></a>
+  <span class="tabbar-progress" aria-hidden="true"><i></i></span>
+  <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Via Roma</span></a>
   <a href="#menu" data-tab="menu"><i class="ph-thin ph-fork-knife"></i><span data-i18n="tab_menu">Menù</span></a>
-  <a href="#dove" data-tab="dove"><i class="ph-thin ph-map-pin"></i><span data-i18n="tab_dove">Dove</span></a>
+  <a href="#gallery" data-tab="gallery"><i class="ph-thin ph-images-square"></i><span data-i18n="tab_gallery">Gallery</span></a>
+  <a href="#dove" data-tab="dove"><i class="ph-thin ph-info"></i><span data-i18n="tab_dove">Info</span></a>
   <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
 </nav>
 
@@ -1551,7 +1664,7 @@ it:{
   r3:"La pizza di sempre, con un tocco in più, davvero. Torneremo di sicuro.",
   d_title:"Vi aspettiamo", d_dove:"Dove", d_maps:"Apri in Google Maps",
   d_orari:"Orari", d_orari_v:"18:00 - 23:00 · Lunedì chiuso", d_contatti:"Contatti",
-  tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
+  tab_storia:"Via Roma", tab_menu:"Menù", tab_gallery:"Gallery", tab_chiama:"Chiama", tab_dove:"Info",
   cats:{
     classiche:["Le Classiche","Le nostre radici, intramontabili!"],
     audaci:["Le Audaci","Per chi vuole farsi tentare un po’!"],
@@ -1596,7 +1709,7 @@ en:{
   r3:"The pizza you know, with a little something more, truly. We'll be back for sure.",
   d_title:"We're waiting for you", d_dove:"Where", d_maps:"Open in Google Maps",
   d_orari:"Hours", d_orari_v:"6 pm - 11 pm · Monday closed", d_contatti:"Contact",
-  tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
+  tab_storia:"Via Roma", tab_menu:"Menu", tab_gallery:"Gallery", tab_chiama:"Call", tab_dove:"Info",
   cats:{
     classiche:["Le Classiche","Our roots, timeless!"],
     audaci:["Le Audaci","For those who want to give in to temptation!"],
@@ -1641,7 +1754,7 @@ de:{
   r3:"Die Pizza von immer, mit dem gewissen Etwas, wirklich. Wir kommen sicher wieder.",
   d_title:"Wir erwarten Sie", d_dove:"Wo", d_maps:"In Google Maps öffnen",
   d_orari:"Öffnungszeiten", d_orari_v:"18:00 - 23:00 · Montag Ruhetag", d_contatti:"Kontakt",
-  tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
+  tab_storia:"Via Roma", tab_menu:"Karte", tab_gallery:"Galerie", tab_chiama:"Anrufen", tab_dove:"Info",
   cats:{
     classiche:["Le Classiche","Unsere Wurzeln, zeitlos!"],
     audaci:["Le Audaci","Für alle, die sich ein wenig verführen lassen wollen!"],
@@ -1686,7 +1799,7 @@ fr:{
   r3:"La pizza de toujours, avec un petit plus, vraiment. Nous reviendrons sans faute.",
   d_title:"Nous vous attendons", d_dove:"Où", d_maps:"Ouvrir dans Google Maps",
   d_orari:"Horaires", d_orari_v:"18h00 - 23h00 · Lundi fermé", d_contatti:"Contact",
-  tab_storia:"Histoire", tab_menu:"Menu", tab_chiama:"Appeler", tab_dove:"Accès",
+  tab_storia:"Via Roma", tab_menu:"Menu", tab_gallery:"Galerie", tab_chiama:"Appeler", tab_dove:"Info",
   cats:{
     classiche:["Le Classiche","Nos racines, intemporelles !"],
     audaci:["Le Audaci","Pour celles et ceux qui veulent se laisser tenter !"],
@@ -1708,27 +1821,27 @@ fr:{
 const UI = {
   it:{
     depth:"Profondità",g_intro:"Ogni spazio è un album. Aprilo e lascialo scorrere.",g_autoplay:"Autoplay · 5 secondi",g_pause:"Pausa",g_play:"Riprendi",gallery_open:"Apri l'album",
-    so_title:"La serata continua.",so_lead:"Seguici, taggaci e condividi il tuo momento. Le storie di Via Roma continuano anche fuori dal tavolo.",so_instagram:"Apri il profilo",so_facebook:"Entra nella community",so_tripadvisor:"Scopri le recensioni",so_whatsapp:"Mandaci il tuo scatto",
+    so_title:"La serata continua.",so_lead:"Seguici, taggaci e condividi il tuo momento.",so_instagram:"Apri il profilo",so_facebook:"Entra nella community",so_tripadvisor:"Scopri le recensioni",so_whatsapp:"Mandaci il tuo scatto",
     review_selection:"Selezione",review_live:"Feed live",all_reviews:"Tutte le recensioni",reviews_count:"recensioni",marquee:"TAGGACI · CONDIVIDI · TORNA · #VIAROMAMANIAGO · ",
-    d_title:"Ci vediamo all'angolo di sempre",d_lead:"Una pizza, una birra, una sera da ricordare. Noi siamo qui dalle 18:00.",directions:"Indicazioni",call:"Chiama",open_now:"Aperto ora",closed_now:"Chiuso ora",opens_at:"Apre alle 18:00",closed_monday:"Chiuso il lunedì"
+    info_label:"Info",d_title:"Ci vediamo all'angolo di sempre",directions:"Indicazioni",call:"Chiama",open_now:"Aperto ora",closed_now:"Chiuso ora",opens_at:"Apre alle 18:00",closed_monday:"Chiuso il lunedì"
   },
   en:{
     depth:"Depth",g_intro:"Every room is an album. Open it and let it play.",g_autoplay:"Autoplay · 5 seconds",g_pause:"Pause",g_play:"Play",gallery_open:"Open album",
-    so_title:"The evening continues.",so_lead:"Follow us, tag us and share your moment. Via Roma stories continue beyond the table.",so_instagram:"Open profile",so_facebook:"Join the community",so_tripadvisor:"Read the reviews",so_whatsapp:"Send us your shot",
+    so_title:"The evening continues.",so_lead:"Follow us, tag us and share your moment.",so_instagram:"Open profile",so_facebook:"Join the community",so_tripadvisor:"Read the reviews",so_whatsapp:"Send us your shot",
     review_selection:"Selection",review_live:"Live feed",all_reviews:"All reviews",reviews_count:"reviews",marquee:"TAG US · SHARE · COME BACK · #VIAROMAMANIAGO · ",
-    d_title:"Meet us on the usual corner",d_lead:"A pizza, a beer, an evening worth remembering. We are here from 6 pm.",directions:"Directions",call:"Call",open_now:"Open now",closed_now:"Closed now",opens_at:"Opens at 6 pm",closed_monday:"Closed on Monday"
+    info_label:"Info",d_title:"Meet us on the usual corner",directions:"Directions",call:"Call",open_now:"Open now",closed_now:"Closed now",opens_at:"Opens at 6 pm",closed_monday:"Closed on Monday"
   },
   de:{
     depth:"Tiefe",g_intro:"Jeder Raum ist ein Album. Öffnen und abspielen lassen.",g_autoplay:"Autoplay · 5 Sekunden",g_pause:"Pause",g_play:"Abspielen",gallery_open:"Album öffnen",
-    so_title:"Der Abend geht weiter.",so_lead:"Folgt uns, markiert uns und teilt euren Moment. Die Geschichten von Via Roma gehen über den Tisch hinaus weiter.",so_instagram:"Profil öffnen",so_facebook:"Community beitreten",so_tripadvisor:"Bewertungen lesen",so_whatsapp:"Foto senden",
+    so_title:"Der Abend geht weiter.",so_lead:"Folgt uns, markiert uns und teilt euren Moment.",so_instagram:"Profil öffnen",so_facebook:"Community beitreten",so_tripadvisor:"Bewertungen lesen",so_whatsapp:"Foto senden",
     review_selection:"Auswahl",review_live:"Live-Feed",all_reviews:"Alle Bewertungen",reviews_count:"Bewertungen",marquee:"MARKIERT UNS · TEILEN · WIEDERKOMMEN · #VIAROMAMANIAGO · ",
-    d_title:"Wir sehen uns an der vertrauten Ecke",d_lead:"Eine Pizza, ein Bier, ein Abend zum Erinnern. Wir sind ab 18 Uhr da.",directions:"Route",call:"Anrufen",open_now:"Jetzt geöffnet",closed_now:"Jetzt geschlossen",opens_at:"Öffnet um 18 Uhr",closed_monday:"Montags geschlossen"
+    info_label:"Info",d_title:"Wir sehen uns an der vertrauten Ecke",directions:"Route",call:"Anrufen",open_now:"Jetzt geöffnet",closed_now:"Jetzt geschlossen",opens_at:"Öffnet um 18 Uhr",closed_monday:"Montags geschlossen"
   },
   fr:{
     depth:"Profondeur",g_intro:"Chaque espace est un album. Ouvrez-le et laissez-le défiler.",g_autoplay:"Lecture auto · 5 secondes",g_pause:"Pause",g_play:"Lecture",gallery_open:"Ouvrir l'album",
-    so_title:"La soirée continue.",so_lead:"Suivez-nous, identifiez-nous et partagez votre moment. Les histoires de Via Roma continuent au-delà de la table.",so_instagram:"Ouvrir le profil",so_facebook:"Rejoindre la communauté",so_tripadvisor:"Lire les avis",so_whatsapp:"Envoyer votre photo",
+    so_title:"La soirée continue.",so_lead:"Suivez-nous, identifiez-nous et partagez votre moment.",so_instagram:"Ouvrir le profil",so_facebook:"Rejoindre la communauté",so_tripadvisor:"Lire les avis",so_whatsapp:"Envoyer votre photo",
     review_selection:"Sélection",review_live:"Flux en direct",all_reviews:"Tous les avis",reviews_count:"avis",marquee:"IDENTIFIEZ-NOUS · PARTAGEZ · REVENEZ · #VIAROMAMANIAGO · ",
-    d_title:"Rendez-vous au coin de toujours",d_lead:"Une pizza, une bière, une soirée à retenir. Nous sommes là dès 18 h.",directions:"Itinéraire",call:"Appeler",open_now:"Ouvert maintenant",closed_now:"Fermé maintenant",opens_at:"Ouvre à 18 h",closed_monday:"Fermé le lundi"
+    info_label:"Info",d_title:"Rendez-vous au coin de toujours",directions:"Itinéraire",call:"Appeler",open_now:"Ouvert maintenant",closed_now:"Fermé maintenant",opens_at:"Ouvre à 18 h",closed_monday:"Fermé le lundi"
   }
 };
 function ui(key){return (UI[LANG]&&UI[LANG][key])||UI.it[key]||key}
@@ -2152,6 +2265,7 @@ function applyLang(l){
   renderSocialFallback();
   updateOpenState();
   applySentenceFlow();
+  requestAnimationFrame(updatePrimaryNav);
   document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
   if(window.__lbTag) window.__lbTag();
 }
@@ -2820,7 +2934,7 @@ function renderSocialFallback(){
   const pause=()=>{paused=true;clearTimeout(resumeTimer)};
   const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>paused=false,delay)};
   const normalize=()=>{if(!half)refresh();if(half&&el.scrollLeft>=half)el.scrollLeft-=half;else if(half&&el.scrollLeft<0)el.scrollLeft+=half};
-  const tick=ts=>{if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;if(!reduced&&!paused&&!down&&!document.hidden&&half){el.scrollLeft+=dt*.026;normalize()}raf=requestAnimationFrame(tick)};
+  const tick=ts=>{if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;if(!reduced&&!paused&&!down&&!document.hidden&&half){el.scrollLeft+=dt*.052;normalize()}raf=requestAnimationFrame(tick)};
   const stopDrag=e=>{if(!down)return;down=false;el.classList.remove("dragging");try{if(e&&el.hasPointerCapture(e.pointerId))el.releasePointerCapture(e.pointerId)}catch(_){}normalize();resume(650)};
   el.addEventListener("mouseenter",pause);el.addEventListener("mouseleave",()=>resume(160));
   el.addEventListener("focusin",pause);el.addEventListener("focusout",()=>resume(400));
@@ -2832,6 +2946,7 @@ function renderSocialFallback(){
   el.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
   document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden)pause();else resume(300)});
   window.addEventListener("resize",refresh,{passive:true});
+  if("ResizeObserver" in window)new ResizeObserver(refresh).observe(el);
   refresh();raf=requestAnimationFrame(tick);
 })();
 
@@ -2840,8 +2955,8 @@ function updateOpenState(){
   const el=document.getElementById("openState");if(!el)return;
   const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
   const get=t=>parts.find(p=>p.type===t)?.value||"";const day=get("weekday"),hour=Number(get("hour")),minute=Number(get("minute"));
-  const monday=day==="Mon",open=!monday&&(hour>18||hour===18)&&(hour<23);let label;
-  if(open)label=ui("open_now");else if(monday)label=ui("closed_monday");else if(hour<18)label=ui("opens_at");else label=ui("closed_now");
+  const monday=day==="Mon",open=!monday&&hour>=18&&hour<23;
+  const label=open?ui("open_now"):ui("closed_now");
   el.classList.toggle("open",open);el.classList.toggle("closed",!open);el.querySelector("span").textContent=label;
 }
 setInterval(updateOpenState,60000);
@@ -2900,6 +3015,52 @@ setInterval(updateOpenState,60000);
 })();
 
 
+/* Ambient background field: slow curl-like drift + restrained cursor vortex on dark sections. */
+(function initAmbientField(){
+  const canvas=document.getElementById("ambientField");
+  if(!canvas||innerWidth<900||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const ctx=canvas.getContext("2d",{alpha:true});
+  const allowedSelectors=["#catshow",".strip-wrap","#menu","#customer","#social","#dove"];
+  let dpr=Math.min(devicePixelRatio||1,1.5),w=0,h=0,t=0,last=performance.now(),particles=[],allowed=[];
+  const pointer={x:innerWidth*.76,y:innerHeight*.34,tx:innerWidth*.76,ty:innerHeight*.34,active:false};
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  function resize(){
+    w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);
+    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";ctx.setTransform(dpr,0,0,dpr,0,0);
+    const count=Math.max(42,Math.min(86,Math.round(w/19)));
+    particles=Array.from({length:count},(_,i)=>({x:rnd(0,w),y:rnd(0,h),phase:rnd(0,Math.PI*2),speed:rnd(.18,.42),size:rnd(.55,1.25),alpha:rnd(.08,.22)}));
+    refreshAllowed();
+  }
+  function refreshAllowed(){allowed=allowedSelectors.flatMap(sel=>[...document.querySelectorAll(sel)]).map(el=>el.getBoundingClientRect()).filter(r=>r.bottom>0&&r.top<h)}
+  function inAmbientZone(y){return allowed.some(r=>y>=r.top&&y<=r.bottom)}
+  function edgeFade(x){const nx=Math.abs(x-w*.5)/(w*.5);return Math.max(0,Math.min(1,(nx-.22)/.58))}
+  function frame(now){
+    const dt=Math.min(34,now-last);last=now;t+=dt*.00018;pointer.x+=(pointer.tx-pointer.x)*.025;pointer.y+=(pointer.ty-pointer.y)*.025;
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      const a=t*1.9+p.phase;
+      const fieldX=Math.cos(p.y*.0065+a)*.16+Math.sin(p.x*.004-a*.7)*.08;
+      const fieldY=Math.sin(p.x*.006-a)*.13-Math.cos(p.y*.0045+a*.55)*.07;
+      const dx=p.x-pointer.x,dy=p.y-pointer.y,dist2=dx*dx+dy*dy+12000;
+      const vortex=pointer.active?Math.min(.16,22000/dist2)*dt*.035:0;
+      p.x+=fieldX*dt*p.speed-dy*vortex*.014;
+      p.y+=fieldY*dt*p.speed+dx*vortex*.014;
+      if(p.x<-8)p.x=w+8;if(p.x>w+8)p.x=-8;if(p.y<-8)p.y=h+8;if(p.y>h+8)p.y=-8;
+      if(!inAmbientZone(p.y))continue;
+      const fade=edgeFade(p.x);if(fade<=.02)continue;
+      const alpha=p.alpha*fade*(.72+.28*Math.sin(a*1.3));
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=`rgba(217,179,106,${alpha.toFixed(4)})`;ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  addEventListener("pointermove",e=>{if(e.pointerType&&e.pointerType!=="mouse"&&e.pointerType!=="pen")return;pointer.tx=e.clientX;pointer.ty=e.clientY;pointer.active=true},{passive:true});
+  addEventListener("pointerleave",()=>pointer.active=false,{passive:true});
+  addEventListener("resize",resize,{passive:true});
+  addEventListener("scroll",refreshAllowed,{passive:true});
+  resize();requestAnimationFrame(frame);
+})();
+
+
 /* =============== reveal + lazy =============== */
 let fxObs;
 function observeAll(){
@@ -2927,17 +3088,26 @@ const sent = document.createElement("div");
 sent.style.cssText = "position:absolute;top:60px;height:1px;width:1px;pointer-events:none";
 document.body.prepend(sent);
 new IntersectionObserver(([e])=>{$("#topbar").classList.toggle("solid",!e.isIntersecting)},{rootMargin:"0px"}).observe(sent);
-const tabSpy = new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting){
-      document.querySelectorAll(".tabbar a[data-tab]").forEach(a=>a.classList.toggle("on",a.dataset.tab===e.target.dataset.zone));
-    }
-  });
-},{rootMargin:"-40% 0px -55% 0px"});
-document.getElementById("storia").dataset.zone="storia";
-document.getElementById("menu").dataset.zone="menu";
-document.getElementById("dove").dataset.zone="dove";
-["storia","menu","dove"].forEach(id=>tabSpy.observe(document.getElementById(id)));
+const primaryNavStops=[
+  {id:"storia",tab:"storia"},
+  {id:"menu",tab:"menu"},
+  {id:"gallery",tab:"gallery"},
+  {id:"dove",tab:"dove"}
+];
+let navTick=0;
+function updatePrimaryNav(){
+  navTick=0;
+  const probe=scrollY+innerHeight*.5;
+  let active=primaryNavStops[0].tab;
+  primaryNavStops.forEach(stop=>{const el=document.getElementById(stop.id);if(el&&probe>=el.offsetTop)active=stop.tab});
+  document.querySelectorAll(".tabbar a[data-tab]").forEach(a=>a.classList.toggle("on",a.dataset.tab===active));
+  const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+  document.querySelector(".tabbar")?.style.setProperty("--scroll-progress",Math.max(0,Math.min(1,scrollY/max)).toFixed(4));
+}
+function queuePrimaryNav(){if(navTick)return;navTick=requestAnimationFrame(updatePrimaryNav)}
+addEventListener("scroll",queuePrimaryNav,{passive:true});
+addEventListener("resize",queuePrimaryNav,{passive:true});
+updatePrimaryNav();
 
 applyUiText();
 renderShow();
@@ -2947,6 +3117,7 @@ renderCustomer();
 renderSocialFallback();
 updateOpenState();
 applySentenceFlow();
+updatePrimaryNav();
 observeAll();
 document.querySelectorAll("#showrail .bgimg, #forno .bgimg, #custgrid .bgimg").forEach(im=>imgObs.observe(im));
 requestAnimationFrame(()=>{

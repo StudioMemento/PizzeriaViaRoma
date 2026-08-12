@@ -1,4 +1,4 @@
-# Pizzeria Via Roma · V8.2 Vercel Deploy
+# Pizzeria Via Roma · V8.3 Vercel Deploy
 
 This package is ready for a static Vercel deployment. The archive contains `index.html`, `README_DEPLOY.md`, and the complete `assets/` directory directly at its root.
 
@@ -12,14 +12,19 @@ This package is ready for a static Vercel deployment. The archive contains `inde
 
 No API keys, package installation, or build process are required. The location section uses a simple embedded Google Maps place map.
 
-## V8.2 update
+## V8.3 final polish
 
-- Replaced the three opening-room copy blocks with the shorter approved Italian copy and concise equivalents in the other supported languages.
-- Matched the pizza reel section to the pure-black source artwork, making the radial mask edges effectively disappear.
-- Removed the introductory subcopy below **Il Menù**.
-- Rebalanced the allergen legend to **1–8** on the left and **9–14 plus the \*** note on the right, with the complete numbering preserved.
-- Aligned draft-beer and house-wine item names with their full price groups on one dotted-leader row on desktop, with clean responsive wrapping on smaller screens.
-- Preserved the V8.1 category interactions, pizza hierarchy, gallery reel, parallax, social/review system, footer and static Vercel deployment structure.
+- Restored full menu consistency for **Birre alla spina** and **Vini della casa**: price numerals now match the rest of the menu and the three size variants distribute evenly on desktop/tablet, with clean mobile stacking.
+- Consolidated the gallery into one intentional control dock containing **previous / play-pause / next / current album / current image count**.
+- Kept the gallery autoplay cue visible as a thin advancing segmented reel across the top edge of the player.
+- Moved the album selector directly below the gallery player and made it scale to the player width, with horizontal scrolling only where smaller screens need it.
+- Simplified Social copy to **“La serata continua. Seguici, taggaci e condividi il tuo momento.”**
+- Strengthened the review ticker autoplay on desktop while preserving hover/focus pause and manual swipe/drag behavior.
+- Reworked the Info header into a **brand + utility** composition: large Via Roma logo, live **Aperto ora / Chiuso ora** status, and no redundant descriptive paragraph.
+- Updated the bottom navigation to **Via Roma / Menù / Gallery / Info / Chiama**.
+- Added a subtle continuous scroll-progress line to the bottom edge of the navbar plus clearer active-section feedback.
+- Added a desktop-only ambient particle field with slow curl-like drift and restrained cursor response, weighted toward screen edges so content remains dominant.
+- Preserved the existing parallax, menu category interactions, pizza reel, community gallery, review cards, Google Maps embed, multi-language support, and static Vercel deployment structure.
 
 ## Project structure
 
