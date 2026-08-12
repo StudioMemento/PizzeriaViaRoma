@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V8.1 micro-polish">
+<meta name="build" content="Via Roma V8.2 copy and menu polish">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1202,6 +1202,44 @@ a,button{touch-action:manipulation}
 .review-summary-content{position:relative;z-index:2}
 .review-map-embed,.review-map-shade{display:none!important}
 
+
+/* ========================================================================
+   VIA ROMA V8.2 · concise copy, true-black pizza reel and menu alignment
+   ======================================================================== */
+
+/* Match the source artwork's #000 canvas so the radial pizza masks disappear. */
+.strip-wrap,.strip{background:#000}
+.strip figure .shot,.strip figure img{background:#000}
+.strip-wrap .edge.l{background:linear-gradient(90deg,#000 18%,rgba(0,0,0,.66) 60%,transparent)}
+.strip-wrap .edge.r{background:linear-gradient(270deg,#000 18%,rgba(0,0,0,.66) 60%,transparent)}
+
+/* The menu heading now ends at the title: keep the next navigation close. */
+.menu-head{margin-bottom:22px}
+
+/* Allergen composition: left 1–8, right 9–14 and the frozen-product note. */
+.allergen-frozen{margin-top:8px;padding-top:15px;border-top:1px solid var(--hair-soft)}
+
+/* Draft-beer and house-wine rows use the same item ··· price grammar as the menu. */
+.drink-item .row{grid-template-columns:auto minmax(28px,1fr) auto;align-items:center}
+.drink-item .label{flex-wrap:nowrap;white-space:nowrap}
+.drink-item .pricegrid{display:flex;flex-wrap:nowrap;justify-content:flex-end;align-items:baseline;gap:clamp(15px,2vw,28px);margin:0;font-size:13px}
+.drink-item .pricegrid span{display:inline-flex;align-items:baseline;gap:7px;white-space:nowrap;color:rgba(241,236,225,.5)}
+.drink-item .pricegrid em{font-style:normal;letter-spacing:.035em}
+.drink-item .pricegrid b{margin-left:0;color:var(--bianco);font-size:15px;letter-spacing:.025em}
+
+@media(max-width:880px){
+  .drink-item .row{grid-template-columns:minmax(0,1fr)}
+  .drink-item .dots{display:none}
+  .drink-item .label{white-space:normal}
+  .drink-item .pricegrid{justify-content:flex-start;flex-wrap:wrap;gap:8px 22px;margin-top:9px}
+}
+@media(max-width:620px){
+  .drink-item .row{grid-template-columns:minmax(0,1fr)!important}
+  .drink-item .pricegrid{grid-column:1;gap:7px 16px;font-size:12.5px}
+  .drink-item .pricegrid b{font-size:14.5px}
+  .allergen-frozen{margin-top:5px;padding-top:12px}
+}
+
 </style>
 </head>
 <body>
@@ -1238,9 +1276,9 @@ a,button{touch-action:manipulation}
   <img class="bgimg" data-src="assets/hero-entrata.webp" alt="">
   <div class="veil"></div><div class="blurband"></div>
   <div class="inner fx">
-    <h2 data-i18n="s1_title">Nel cuore di Maniago,<br>all'angolo di sempre</h2>
+    <h2 data-i18n="s1_title">A Via Roma,<br>all'angolo di sempre</h2>
     <hr class="hairline">
-    <p data-i18n="s1_body">A due passi da Piazza Italia, nel cuore della città delle coltellerie.<br><br>La porta si apre alle 18:00:<br>da qui cominciano le sere di Maniago.</p>
+    <p data-i18n="s1_body">A due passi da Piazza Italia,<br>nel cuore della città delle coltellerie.</p>
   </div>
 </section>
 
@@ -1252,7 +1290,7 @@ a,button{touch-action:manipulation}
   <div class="inner fx">
     <h2 data-i18n="s2_title">Luce calda,<br>tempo lento</h2>
     <hr class="hairline">
-    <p data-i18n="s2_body">Toni profondi, dettagli in ottone<br>e una luce che invita a restare.<br><br>Una sala raccolta, pensata<br>per conversazioni senza fretta.</p>
+    <p data-i18n="s2_body">Toni profondi, dettagli in ottone<br>ed un mood rilassante.</p>
   </div>
 </section>
 
@@ -1264,7 +1302,7 @@ a,button{touch-action:manipulation}
   <div class="inner fx">
     <h2 data-i18n="s3_title">Materia, colore,<br>carattere</h2>
     <hr class="hairline">
-    <p data-i18n="s3_body">Accenti rossi, superfici scure<br>e un'atmosfera più decisa.<br><br>Un'altra anima di Via Roma,<br>con lo stesso modo di accogliere.</p>
+    <p data-i18n="s3_body">Accenti rossi, superfici scure<br>e un'atmosfera più decisa.</p>
   </div>
 </section>
 
@@ -1309,7 +1347,6 @@ a,button{touch-action:manipulation}
   <div class="menu-head fx">
     <p class="k-s" data-i18n="m_eyebrow">La carta</p>
     <h2 data-i18n="m_title">Il Menù</h2>
-    <p data-i18n="m_note">Lunga lievitazione, ingredienti selezionati e cottura al forno. Ogni pizza nasce qui, una alla volta.</p>
   </div>
   <div class="chipbar"><div class="chipbar-inner">
     <button class="chipchev l" data-chip="-1" aria-label="Indietro"><i class="ph-thin ph-caret-left"></i></button>
@@ -1488,18 +1525,17 @@ window.addEventListener("pageshow",()=>{
 const T = {
 it:{
   sp_kicker:"Maniago · Friuli", tagline:"<span class=\"tagline-line\">La pizza di sempre,</span><span class=\"tagline-line\">con un tocco in più.</span>", scroll:"scorri",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"Nel cuore di Maniago,<br>all'angolo di sempre",
-  s1_body:"A due passi da Piazza Italia, nel cuore della città delle coltellerie.<br><br>La porta si apre alle 18:00:<br>da qui cominciano le sere di Maniago.",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"A Via Roma,<br>all'angolo di sempre",
+  s1_body:"A due passi da Piazza Italia,<br>nel cuore della città delle coltellerie.",
   s2_eyebrow:"Sala sinistra", s2_title:"Luce calda,<br>tempo lento",
-  s2_body:"Toni profondi, dettagli in ottone<br>e una luce che invita a restare.<br><br>Una sala raccolta, pensata<br>per conversazioni senza fretta.",
+  s2_body:"Toni profondi, dettagli in ottone<br>ed un mood rilassante.",
   s3_eyebrow:"Sala destra", s3_title:"Materia, colore,<br>carattere",
-  s3_body:"Accenti rossi, superfici scure<br>e un'atmosfera più decisa.<br><br>Un'altra anima di Via Roma,<br>con lo stesso modo di accogliere.",
+  s3_body:"Accenti rossi, superfici scure<br>e un'atmosfera più decisa.",
   a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un po'!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
   t_title:"Il cornicione,<br>con qualcosa in più", t_body:"Ricotta, Brie o Gorgonzola dolce. Scegli il ripieno e rendi la tua pizza ancora più Via Roma.",
   t_cta:"Scopri il menù", gorgo:"Gorgonzola dolce", strip_k:"Dal nostro forno",
   m_eyebrow:"La carta", m_title:"Il Menù",
-  m_note:"Lunga lievitazione, ingredienti selezionati e cottura al forno. Ogni pizza nasce qui, una alla volta.",
   sel_cta:"Scopri la selezione",
   dolci_note:"Chiedi al personale la disponibilità del giorno!",
   g_eyebrow:"Gallery", g_title:"Dentro Via Roma",
@@ -1534,18 +1570,17 @@ it:{
 },
 en:{
   sp_kicker:"Maniago · Friuli, Italy", tagline:"<span class=\"tagline-line\">The pizza you know,</span><span class=\"tagline-line\">with a little something more.</span>", scroll:"scroll",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"In the heart of Maniago,<br>on the usual corner",
-  s1_body:"Steps from Piazza Italia, in the town of master knife-makers.<br><br>The door opens at 6 pm:<br>this is where Maniago evenings begin.",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"At Via Roma,<br>on the usual corner",
+  s1_body:"Just steps from Piazza Italia,<br>in the heart of the town of knife-makers.",
   s2_eyebrow:"Left room", s2_title:"Warm light,<br>unhurried time",
-  s2_body:"Deep tones, brass details<br>and light that invites you to stay.<br><br>An intimate room made<br>for conversations without hurry.",
+  s2_body:"Deep tones, brass details<br>and a relaxed mood.",
   s3_eyebrow:"Right room", s3_title:"Texture, colour,<br>character",
-  s3_body:"Red accents, dark surfaces<br>and a more decisive atmosphere.<br><br>Another side of Via Roma,<br>with the same warm welcome.",
+  s3_body:"Red accents, dark surfaces<br>and a bolder atmosphere.",
   a_title:"Le Audaci", a_sub:"For those who like temptation!",
   a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
   t_title:"The crust,<br>with something more", t_body:"Ricotta, Brie or sweet Gorgonzola. Choose your filling and make your pizza unmistakably Via Roma.",
   t_cta:"Discover the menu", gorgo:"Sweet gorgonzola", strip_k:"From our oven",
   m_eyebrow:"The menu", m_title:"The Menu",
-  m_note:"Slow-leavened dough, selected ingredients and oven baking. Every pizza is made here, one at a time.",
   sel_cta:"Discover the selection",
   dolci_note:"Ask our staff about today\u2019s selection.",
   g_eyebrow:"Gallery", g_title:"Inside Via Roma",
@@ -1580,18 +1615,17 @@ en:{
 },
 de:{
   sp_kicker:"Maniago · Friaul, Italien", tagline:"<span class=\"tagline-line\">Die Pizza von immer,</span><span class=\"tagline-line\">mit dem gewissen Etwas.</span>", scroll:"scrollen",
-  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Im Herzen von Maniago,<br>an der vertrauten Ecke",
-  s1_body:"Wenige Schritte von der Piazza Italia, in der Stadt der Messerschmiede.<br><br>Um 18 Uhr öffnet sich die Tür:<br>Hier beginnen die Abende von Maniago.",
+  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Bei Via Roma,<br>an der vertrauten Ecke",
+  s1_body:"Wenige Schritte von der Piazza Italia,<br>im Herzen der Stadt der Messerschmiede.",
   s2_eyebrow:"Linker Saal", s2_title:"Warmes Licht,<br>Zeit ohne Eile",
-  s2_body:"Tiefe Töne, Messingdetails<br>und Licht, das zum Bleiben einlädt.<br><br>Ein intimer Raum für Gespräche<br>ganz ohne Eile.",
+  s2_body:"Tiefe Töne, Messingdetails<br>und eine entspannte Stimmung.",
   s3_eyebrow:"Rechter Saal", s3_title:"Material, Farbe,<br>Charakter",
-  s3_body:"Rote Akzente, dunkle Flächen<br>und eine markantere Atmosphäre.<br><br>Eine andere Seite von Via Roma,<br>mit derselben herzlichen Gastlichkeit.",
+  s3_body:"Rote Akzente, dunkle Flächen<br>und eine markantere Atmosphäre.",
   a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
   a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
   t_title:"Der Rand,<br>mit dem gewissen Etwas", t_body:"Ricotta, Brie oder milder Gorgonzola. Wählen Sie die Füllung und machen Sie Ihre Pizza unverkennbar Via Roma.",
   t_cta:"Zur Speisekarte", gorgo:"Milder Gorgonzola", strip_k:"Aus unserem Ofen",
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
-  m_note:"Lang gereifter Teig, ausgewählte Zutaten und Ofenhitze. Jede Pizza entsteht hier, eine nach der anderen.",
   sel_cta:"Zur Auswahl",
   dolci_note:"Fragen Sie unser Personal nach der Auswahl des Tages.",
   g_eyebrow:"Galerie", g_title:"Bei Via Roma",
@@ -1626,18 +1660,17 @@ de:{
 },
 fr:{
   sp_kicker:"Maniago · Frioul, Italie", tagline:"<span class=\"tagline-line\">La pizza de toujours,</span><span class=\"tagline-line\">avec un petit plus.</span>", scroll:"défiler",
-  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Au cœur de Maniago,<br>au coin de toujours",
-  s1_body:"À quelques pas de la Piazza Italia, dans la ville des couteliers.<br><br>La porte s'ouvre à 18 h :<br>c'est ici que commencent les soirées de Maniago.",
+  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Chez Via Roma,<br>au coin de toujours",
+  s1_body:"À quelques pas de la Piazza Italia,<br>au cœur de la ville des couteliers.",
   s2_eyebrow:"Salle gauche", s2_title:"Lumière chaude,<br>temps suspendu",
-  s2_body:"Des tons profonds, des détails en laiton<br>et une lumière qui invite à rester.<br><br>Une salle intime pensée<br>pour les conversations sans hâte.",
+  s2_body:"Des tons profonds, des détails en laiton<br>et une ambiance détendue.",
   s3_eyebrow:"Salle droite", s3_title:"Matière, couleur,<br>caractère",
-  s3_body:"Des accents rouges, des surfaces sombres<br>et une atmosphère plus affirmée.<br><br>Une autre facette de Via Roma,<br>avec le même accueil chaleureux.",
+  s3_body:"Des accents rouges, des surfaces sombres<br>et une atmosphère plus affirmée.",
   a_title:"Le Audaci", a_sub:"Pour ceux qui aiment se laisser tenter !",
   a_body:"Des pizzas au caractère affirmé, des ingrédients de qualité, des accords qui surprennent. Pour ceux qui ne se contentent pas.",
   t_title:"Le bord,<br>avec un petit plus", t_body:"Ricotta, Brie ou Gorgonzola doux. Choisissez la garniture et rendez votre pizza résolument Via Roma.",
   t_cta:"Découvrir le menu", gorgo:"Gorgonzola doux", strip_k:"De notre four",
   m_eyebrow:"La carte", m_title:"Le Menu",
-  m_note:"Pâte à longue levée, ingrédients sélectionnés et cuisson au four. Chaque pizza est préparée ici, une à la fois.",
   sel_cta:"Découvrir la sélection",
   dolci_note:"Demandez au personnel la disponibilité du jour !",
   g_eyebrow:"Galerie", g_title:"À l'intérieur de Via Roma",
@@ -2051,8 +2084,9 @@ function item(n,d,p,a="",q=""){
 const renderRows = rows => rows.map(r=>item(...r)).join("");
 function renderAllergenGuide(t){
   const rows = ALLERGENS[LANG] || ALLERGENS.it;
-  const column = part => `<div class="allergen-col">${part.map(([n,d])=>`<div class="allergen-entry"><b>${n}</b><span>${d}</span></div>`).join("")}</div>`;
-  return `<div class="allergen-guide"><h4>${t.allergen_title}</h4><div class="allergen-grid">${column(rows.slice(0,7))}${column(rows.slice(7,14))}</div><div class="frozen-note"><b>*</b><span>${FROZEN_NOTE[LANG]||FROZEN_NOTE.it}</span></div></div>`;
+  const entries = part => part.map(([n,d])=>`<div class="allergen-entry"><b>${n}</b><span>${d}</span></div>`).join("");
+  const frozen = `<div class="allergen-entry allergen-frozen"><b>*</b><span>${FROZEN_NOTE[LANG]||FROZEN_NOTE.it}</span></div>`;
+  return `<div class="allergen-guide"><h4>${t.allergen_title}</h4><div class="allergen-grid"><div class="allergen-col">${entries(rows.slice(0,8))}</div><div class="allergen-col">${entries(rows.slice(8))}${frozen}</div></div></div>`;
 }
 
 function renderMenu(){
@@ -2087,9 +2121,9 @@ function renderMenu(){
         html += renderRows(g[2]);
       }
       html += `<p class="groupline">${t.spina}</p>`;
-      html += SPINA.map(b=>`<div class="item multi"><div class="row"><span class="label"><span class="nome">${b[0]}</span>${b[1]?`<span class="qualifier">${trDesc(b[1])}</span>`:""}</span><span class="dots"></span><span class="prezzo"></span></div><div class="pricegrid"><span>0,3 l<b>${b[2]}</b></span><span>0,5 l<b>${b[3]}</b></span><span>${t.caraffa} 1,5 l<b>${b[4]}</b></span></div></div>`).join("");
+      html += SPINA.map(b=>`<div class="item multi drink-item"><div class="row"><span class="label"><span class="nome">${b[0]}</span>${b[1]?`<span class="qualifier">${trDesc(b[1])}</span>`:""}</span><span class="dots"></span><div class="pricegrid"><span><em>0,3 l</em><b>${b[2]}</b></span><span><em>0,5 l</em><b>${b[3]}</b></span><span><em>${t.caraffa} 1,5 l</em><b>${b[4]}</b></span></div></div></div>`).join("");
       html += `<p class="groupline">${t.vini}</p>`;
-      html += VINI.map(v=>`<div class="item multi"><div class="row"><span class="label"><span class="nome">${v[0]}</span></span><span class="dots"></span><span class="prezzo"></span></div><div class="pricegrid"><span>${t.calice}<b>${v[1]}</b></span><span>${t.caraffa} 0,5 l<b>${v[2]}</b></span><span>${t.bott} 0,75 l<b>${v[3]}</b></span></div></div>`).join("");
+      html += VINI.map(v=>`<div class="item multi drink-item"><div class="row"><span class="label"><span class="nome">${v[0]}</span></span><span class="dots"></span><div class="pricegrid"><span><em>${t.calice}</em><b>${v[1]}</b></span><span><em>${t.caraffa} 0,5 l</em><b>${v[2]}</b></span><span><em>${t.bott} 0,75 l</em><b>${v[3]}</b></span></div></div></div>`).join("");
     }
     html += `</div></section>`;
   });
