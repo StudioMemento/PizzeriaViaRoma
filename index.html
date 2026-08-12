@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V7 depth-reel-reviews-footer">
+<meta name="build" content="Via Roma V8 printed-copy-integrated-gallery">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1099,6 +1099,100 @@ a,button{touch-action:manipulation}
 }
 @media(prefers-reduced-motion:reduce){#gallery .g-thumb.on.run::after{animation:none;transform:translateY(-50%) scaleX(1)}}
 
+
+
+/* ========================================================================
+   VIA ROMA V8 · final printed-copy and integrated-player polish
+   ======================================================================== */
+
+/* Menu-category order: title, printed subcopy, clickable artwork, reel dots. */
+#catshow .preview-head{display:flex;flex-direction:column;align-items:center;width:min(100%,var(--menu-max));margin:0 auto}
+#catshow .sub{max-width:58ch;min-height:1.7em;margin:14px auto 0;color:var(--grigio);font-size:15.5px;line-height:1.55;letter-spacing:.075em}
+#catshow .preview-window{display:block;margin:24px auto 0;cursor:pointer;outline-offset:8px}
+#catshow .preview-window:focus-visible{outline:1px solid var(--oro)}
+#catshow .preview-cutout{transition:opacity 1.2s ease,filter .45s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+@media(hover:hover){
+  #catshow .slide.is-active .preview-window:hover .preview-cutout{filter:drop-shadow(0 30px 40px rgba(0,0,0,.52)) brightness(1.035)}
+}
+#catshow .golink{display:none!important}
+#showdots{margin-top:26px}
+@media(max-width:700px){
+  #catshow .sub{min-height:0;margin-top:12px;padding:0 12px;font-size:14px;letter-spacing:.055em}
+  #catshow .preview-window{margin-top:20px}
+  #showdots{margin-top:22px}
+}
+
+/* Pizza reel: name above, image, printed ingredients, then shared navigation dots. */
+.strip-wrap{padding-top:78px;padding-bottom:58px}
+.strip-head{margin-bottom:18px}
+.strip{align-items:flex-start;padding-top:8px;padding-bottom:8px}
+.strip figure{flex-basis:min(72vw,372px)}
+.strip figcaption{min-height:36px;margin:0 0 12px;text-align:center;opacity:.48;transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+.strip figure.mid figcaption{opacity:1;transform:translateY(-2px)}
+.strip figcaption span{display:inline-block;padding:0;border:0;border-radius:0;color:rgba(241,236,225,.62);font-size:13px;line-height:1.45;letter-spacing:.23em;text-transform:uppercase;transition:color .4s ease}
+.strip figure.mid figcaption span{color:var(--oro-vivo);border-color:transparent}
+.strip .forno-ingredients{max-width:34ch;min-height:5.1em;margin:14px auto 0;text-align:center;color:rgba(241,236,225,.46);font-size:13px;line-height:1.55;letter-spacing:.035em;opacity:.52;transition:opacity .45s ease,color .45s ease}
+.strip figure.mid .forno-ingredients{color:rgba(241,236,225,.74);opacity:1}
+.strip-wrap .edge{top:74px;bottom:116px}
+#fornodots{margin-top:22px}
+@media(max-width:680px){
+  .strip-wrap{padding-top:70px;padding-bottom:50px}
+  .strip{gap:18px;padding-left:14vw;padding-right:14vw}
+  .strip figure{flex-basis:min(78vw,330px)}
+  .strip figcaption{min-height:32px;margin-bottom:8px}
+  .strip figcaption span{font-size:11.5px;letter-spacing:.18em}
+  .strip .forno-ingredients{min-height:5.8em;margin-top:10px;padding:0 5px;font-size:12px;line-height:1.5}
+  .strip-wrap .edge{top:68px;bottom:126px}
+  #fornodots{margin-top:16px}
+}
+
+/* Gallery: albums live inside the player; the reel spans the full top edge. */
+#gallery{height:calc(100svh - var(--tab-h));min-height:680px;display:block;overflow:hidden}
+#gallery .g-viewer{height:100%;min-height:0;width:min(100%,1380px);margin:0 auto;padding:clamp(18px,2.4vw,34px) var(--page-gutter)}
+#gallery .g-stage{height:100%;min-height:0;position:relative;overflow:hidden;border:1px solid rgba(198,161,91,.14);background:#050506;box-shadow:0 38px 100px -72px rgba(0,0,0,.95)}
+#gallery .g-main{z-index:1;width:100%;height:100%;padding:46px clamp(22px,4vw,66px) 150px;object-fit:contain;filter:brightness(1.035) saturate(1)}
+#gallery .g-stage::after{z-index:2;background:linear-gradient(90deg,rgba(5,5,6,.4),transparent 18%,transparent 82%,rgba(5,5,6,.4)),linear-gradient(180deg,rgba(5,5,6,.1),transparent 36%,transparent 66%,rgba(5,5,6,.72))}
+#gallery .g-thumbs{position:absolute;z-index:9;top:0;right:0;bottom:auto;left:0;transform:none;width:100%;height:26px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:0;border:0;background:none;overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none}
+#gallery .g-thumb{position:relative;display:block;width:100%;height:26px;min-width:0;aspect-ratio:auto;border:0;background:none;opacity:1;transform:none;overflow:visible;cursor:pointer}
+#gallery .g-thumb::before,#gallery .g-thumb::after{left:0;right:0;top:0;height:2px;transform:none;transform-origin:left}
+#gallery .g-thumb::before{background:rgba(241,236,225,.18)}
+#gallery .g-thumb::after{background:var(--bianco);transform:scaleX(0)}
+#gallery .g-thumb.done::after{transform:scaleX(1)}
+#gallery .g-thumb.on::before{background:rgba(198,161,91,.42)}
+#gallery .g-thumb.on::after{background:var(--oro)}
+#gallery .g-thumb.on.run::after{animation:g-reel-fill-v8 5s linear forwards}
+@keyframes g-reel-fill-v8{to{transform:scaleX(1)}}
+#gallery .g-player-head{z-index:10;top:34px;right:18px;left:auto}
+#gallery .g-nav{z-index:8;top:44%;width:46px;height:46px}
+#gallery .g-nav.l{left:18px}#gallery .g-nav.r{right:18px}
+#gallery .g-tabs-shell{position:absolute;z-index:8;right:0;bottom:0;left:0;min-width:0;margin:0;padding:22px 16px 16px;overflow:hidden;background:linear-gradient(180deg,transparent 0%,rgba(5,5,6,.64) 24%,rgba(5,5,6,.94) 72%,rgba(5,5,6,.98) 100%);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+#gallery .g-tabs{width:min(100%,1220px);max-width:none;margin:0 auto;padding:0;gap:10px;justify-content:center;overflow-x:auto;scroll-padding-inline:14px}
+#gallery .g-album{flex:1 1 118px;min-width:102px;max-width:170px;color:var(--grigio);text-align:left}
+#gallery .g-album-cover{aspect-ratio:16/9;border:1px solid rgba(198,161,91,.13);background:#080809}
+#gallery .g-album-label{display:grid;grid-template-columns:auto 1fr;gap:9px;align-items:center;margin-top:7px;font-size:9px;letter-spacing:.15em}
+#gallery .g-album-label small{display:block;color:rgba(198,161,91,.52);font-size:8px;font-variant-numeric:tabular-nums}
+@media(max-width:680px){
+  #gallery{height:calc(100svh - var(--tab-h));min-height:590px}
+  #gallery .g-viewer{width:100%;padding:0}
+  #gallery .g-stage{border:0}
+  #gallery .g-main{padding:34px 0 100px}
+  #gallery .g-player-head{top:28px;right:10px}
+  #gallery .g-nav{top:43%;width:38px;height:38px}#gallery .g-nav.l{left:8px}#gallery .g-nav.r{right:8px}
+  #gallery .g-thumbs{height:22px;gap:3px}
+  #gallery .g-thumb{height:22px}
+  #gallery .g-tabs-shell{padding:17px 0 10px}
+  #gallery .g-tabs{width:100%;justify-content:flex-start;gap:8px;padding:0 10px}
+  #gallery .g-album{flex:0 0 92px;min-width:92px;max-width:92px}
+  #gallery .g-album-label{font-size:8px;gap:6px;margin-top:6px}
+}
+
+/* Google rating card: clean editorial surface, no embedded map or map shade. */
+.review-summary{background:radial-gradient(260px 220px at 84% 10%,rgba(198,161,91,.12),transparent 64%),linear-gradient(145deg,rgba(21,20,18,.96),rgba(9,9,10,.99));isolation:isolate}
+.review-summary::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,transparent 0 9%,rgba(198,161,91,.045) 9% 9.4%,transparent 9.4% 100%),linear-gradient(180deg,transparent 0 76%,rgba(198,161,91,.06) 76% 76.4%,transparent 76.4% 100%)}
+.review-summary::after{content:"";position:absolute;z-index:0;width:170px;aspect-ratio:1;right:-82px;top:-86px;border:1px solid rgba(198,161,91,.1);border-radius:50%;box-shadow:0 0 0 28px rgba(198,161,91,.018),0 0 0 58px rgba(198,161,91,.012);pointer-events:none}
+.review-summary-content{position:relative;z-index:2}
+.review-map-embed,.review-map-shade{display:none!important}
+
 </style>
 </head>
 <body>
@@ -1222,6 +1316,7 @@ a,button{touch-action:manipulation}
     <div class="g-stage" id="gstage">
       <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
       <div class="g-progress" id="gprogress" aria-hidden="true"></div>
+      <div class="g-thumbs" id="gthumbs" aria-label="Sequenza dell’album"></div>
       <div class="g-player-head">
         <button class="g-play" id="gplay" type="button" aria-label="Metti in pausa">
           <i class="ph-thin ph-pause"></i><span class="sr-only" data-ui="g_pause">Pausa</span>
@@ -1230,11 +1325,10 @@ a,button{touch-action:manipulation}
       <img class="g-main" id="gmain" src="" alt="" decoding="async">
       <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
       <button class="g-nav r" id="gnext" type="button" aria-label="Foto successiva"><i class="ph-thin ph-caret-right"></i></button>
-      <div class="g-thumbs" id="gthumbs" aria-label="Sequenza dell’album"></div>
+      <div class="g-tabs-shell fx">
+        <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
+      </div>
     </div>
-  </div>
-  <div class="g-tabs-shell fx">
-    <div class="g-tabs" id="gtabs" role="tablist" aria-label="Album fotografici"></div>
   </div>
 </section>
 
@@ -1287,8 +1381,6 @@ a,button{touch-action:manipulation}
 
     <div class="reviews-zone fx">
       <aside class="review-summary">
-        <iframe class="review-map-embed" title="Google Maps · Pizzeria Via Roma" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=15&output=embed"></iframe>
-        <span class="review-map-shade" aria-hidden="true"></span>
         <div class="review-summary-content">
           <span class="review-mode" id="reviewMode" data-ui="review_selection">Selezione</span>
           <span class="review-platform">Google Reviews</span>
@@ -1416,15 +1508,15 @@ it:{
   d_orari:"Orari", d_orari_v:"18:00 - 23:00 · Lunedì chiuso", d_contatti:"Contatti",
   tab_storia:"Storia", tab_menu:"Menù", tab_chiama:"Chiama", tab_dove:"Dove",
   cats:{
-    classiche:["Le Classiche","Le radici della nostra pizza."],
-    audaci:["Le Audaci","Abbinamenti decisi, senza mezze misure."],
-    bianche:["Le Bianche","Equilibrio, profumo e leggerezza."],
-    calzoni:["I Calzoni","Tutto il gusto, custodito nell'impasto."],
+    classiche:["Le Classiche","Le nostre radici, intramontabili!"],
+    audaci:["Le Audaci","Per chi vuole farsi tentare un po’!"],
+    bianche:["Le Bianche","L’equilibrio perfetto tra gusto e leggerezza!"],
+    calzoni:["I Calzoni","Amore ripieno!"],
     varianti:["Varianti","Crea la combinazione perfetta!"],
-    cucina:["Dalla Cucina","Quando la serata chiede qualcosa di diverso."],
-    stuzzicherie:["Stuzzicherie","Da condividere, oppure no."],
-    dolci:["Dolci della Casa","L'ultimo gesto della serata."],
-    bevande:["Bevande","Birre, vini e calici scelti per accompagnare."]
+    cucina:["Dalla Cucina","Anche se incredibile... non si ha sempre voglia di pizza?"],
+    stuzzicherie:["Stuzzicherie","Il miglior antidoto alla fame!"],
+    dolci:["Dolci della Casa","La miglior conclusione!"],
+    bevande:["Bevande",""]
   },
   varianti:"Aggiunte", coperto:"Coperto", impasti:"Impasto integrale", cornice:"Cornicione ripieno",
   variant_callout:"Hai già provato il nostro cornicione ripieno?<br>Il vero must della nostra pizza!", allergen_title:"Legenda allergeni",
@@ -1462,15 +1554,15 @@ en:{
   d_orari:"Hours", d_orari_v:"6 pm - 11 pm · Monday closed", d_contatti:"Contact",
   tab_storia:"Story", tab_menu:"Menu", tab_chiama:"Call", tab_dove:"Find us",
   cats:{
-    classiche:["Le Classiche","The roots of our pizza."],
-    audaci:["Le Audaci","Bold pairings, without half measures."],
-    bianche:["Le Bianche","Balance, fragrance and lightness."],
-    calzoni:["I Calzoni","All the flavour, held inside the dough."],
+    classiche:["Le Classiche","Our roots, timeless!"],
+    audaci:["Le Audaci","For those who want to give in to temptation!"],
+    bianche:["Le Bianche","The perfect balance of flavour and lightness!"],
+    calzoni:["I Calzoni","Love, filled!"],
     varianti:["Extras","Create the perfect combination"],
-    cucina:["From the Kitchen","When the evening calls for something different."],
-    stuzzicherie:["Starters","Made to share — or not."],
-    dolci:["House Desserts","The final gesture of the evening."],
-    bevande:["Drinks","Beers, wines and glasses chosen to pair."]
+    cucina:["From the Kitchen","Hard to believe... but you do not always feel like pizza, do you?"],
+    stuzzicherie:["Starters","The best antidote to hunger!"],
+    dolci:["House Desserts","The best ending!"],
+    bevande:["Drinks",""]
   },
   varianti:"Extras", coperto:"Cover charge", impasti:"Wholemeal dough", cornice:"Stuffed crust",
   variant_callout:"Have you tried our stuffed crust?<br>The true must of our pizza!", allergen_title:"Allergen guide",
@@ -1508,15 +1600,15 @@ de:{
   d_orari:"Öffnungszeiten", d_orari_v:"18:00 - 23:00 · Montag Ruhetag", d_contatti:"Kontakt",
   tab_storia:"Story", tab_menu:"Karte", tab_chiama:"Anrufen", tab_dove:"Anfahrt",
   cats:{
-    classiche:["Le Classiche","Die Wurzeln unserer Pizza."],
-    audaci:["Le Audaci","Mutige Kombinationen, ohne halbe Sachen."],
-    bianche:["Le Bianche","Balance, Duft und Leichtigkeit."],
-    calzoni:["I Calzoni","Der ganze Geschmack, im Teig geborgen."],
+    classiche:["Le Classiche","Unsere Wurzeln, zeitlos!"],
+    audaci:["Le Audaci","Für alle, die sich ein wenig verführen lassen wollen!"],
+    bianche:["Le Bianche","Das perfekte Gleichgewicht zwischen Geschmack und Leichtigkeit!"],
+    calzoni:["I Calzoni","Liebe, gefüllt!"],
     varianti:["Extras","Die perfekte Kombination zusammenstellen"],
-    cucina:["Aus der Küche","Wenn der Abend nach etwas anderem verlangt."],
-    stuzzicherie:["Vorspeisen","Zum Teilen — oder auch nicht."],
-    dolci:["Hausgemachte Desserts","Der letzte Akzent des Abends."],
-    bevande:["Getränke","Biere, Weine und Gläser, passend ausgewählt."]
+    cucina:["Aus der Küche","So unglaublich es klingt... man hat nicht immer Lust auf Pizza, oder?"],
+    stuzzicherie:["Vorspeisen","Das beste Mittel gegen Hunger!"],
+    dolci:["Hausgemachte Desserts","Der beste Abschluss!"],
+    bevande:["Getränke",""]
   },
   varianti:"Extras", coperto:"Gedeck", impasti:"Vollkornteig", cornice:"Gefüllter Rand",
   variant_callout:"Schon unseren gefüllten Rand probiert?<br>Das wahre Muss unserer Pizza!", allergen_title:"Allergenlegende",
@@ -1554,15 +1646,15 @@ fr:{
   d_orari:"Horaires", d_orari_v:"18h00 - 23h00 · Lundi fermé", d_contatti:"Contact",
   tab_storia:"Histoire", tab_menu:"Menu", tab_chiama:"Appeler", tab_dove:"Accès",
   cats:{
-    classiche:["Le Classiche","Les racines de notre pizza."],
-    audaci:["Le Audaci","Des accords affirmés, sans demi-mesure."],
-    bianche:["Le Bianche","Équilibre, parfum et légèreté."],
-    calzoni:["I Calzoni","Toute la saveur, enveloppée dans la pâte."],
+    classiche:["Le Classiche","Nos racines, intemporelles !"],
+    audaci:["Le Audaci","Pour celles et ceux qui veulent se laisser tenter !"],
+    bianche:["Le Bianche","L’équilibre parfait entre goût et légèreté !"],
+    calzoni:["I Calzoni","L’amour en version farcie !"],
     varianti:["Suppléments","Créez la combinaison parfaite"],
-    cucina:["De la Cuisine","Quand la soirée appelle autre chose."],
-    stuzzicherie:["Amuse-bouche","À partager — ou pas."],
-    dolci:["Desserts Maison","Le dernier geste de la soirée."],
-    bevande:["Boissons","Bières, vins et verres choisis pour accompagner."]
+    cucina:["De la Cuisine","Même si cela paraît incroyable... on n’a pas toujours envie de pizza !"],
+    stuzzicherie:["Amuse-bouche","Le meilleur antidote à la faim !"],
+    dolci:["Desserts Maison","La meilleure conclusion !"],
+    bevande:["Boissons",""]
   },
   varianti:"Suppléments", coperto:"Couvert", impasti:"Pâte complète", cornice:"Bord farci",
   variant_callout:"Avez-vous déjà goûté notre bord farci ?<br>Le vrai must de notre pizza !", allergen_title:"Légende des allergènes",
@@ -2009,6 +2101,7 @@ function applyLang(l){
   document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on", b.dataset.lang===l));
   applyUiText();
   renderShow();
+  updateFornoCopy();
   requestAnimationFrame(()=>showCenter(showIdx));
   renderMenu();
   renderGallery();
@@ -2059,13 +2152,11 @@ function renderShow(){
   const t = T[LANG];
   const slide = ([id,img],clone=false) => `<div class="slide" data-cat="${id}"${clone?' data-clone="1" aria-hidden="true"':''}>
     <article class="preview-card">
-      <header class="preview-head"><h2>${t.cats[id][0]}</h2></header>
-      <div class="preview-window ${img?"":"is-abstract"}">
+      <header class="preview-head"><h2>${t.cats[id][0]}</h2>${t.cats[id][1]?`<p class="sub">${t.cats[id][1]}</p>`:""}</header>
+      <a class="preview-window ${img?"":"is-abstract"}" href="#cat-${id}" aria-label="${escapeHTML(t.cats[id][0])}"${clone?' tabindex="-1"':''}>
         <span class="preview-trace t1"></span><span class="preview-trace t2"></span>
-        ${img?`<img class="preview-cutout bgimg" data-src="${img}" alt="${clone?'':t.cats[id][0]}">`:`<span class="preview-dust" aria-hidden="true"></span>`}
-      </div>
-      <p class="sub">${t.cats[id][1]}</p>
-      <a class="golink" href="#cat-${id}">${t.sel_cta}</a>
+        ${img?`<img class="preview-cutout bgimg" data-src="${img}" alt="${clone?'':escapeHTML(t.cats[id][0])}">`:`<span class="preview-dust" aria-hidden="true"></span>`}
+      </a>
     </article>
   </div>`;
   const head=SHOW.map(d=>slide(d,true)).join("");
@@ -2117,20 +2208,34 @@ document.getElementById("showdots").addEventListener("click",e=>{const d=e.targe
 
 /* =============== carosello forno: nomi, loop, dots, drag =============== */
 const FORNO = [
-["assets/pizze/margherita.webp","Margherita"],
-["assets/pizze/bufalina.webp","Bufalina"],
-["assets/pizze/burrata-e-crudo.webp","Burrata e Crudo"],
-["assets/pizze/alpina.webp","Alpina"],
-["assets/pizze/deliziosa.webp","Deliziosa"],
-["assets/pizze/saporita.webp","Saporita"],
-["assets/pizze/via-roma.webp","Via Roma"],
-["assets/pizze/friarielli-e-salsiccia.webp","Friarielli e Salsiccia"],
-["assets/pizze/povera.webp","Povera"],
-["assets/pizze/monte-jouf.webp","Monte Jouf"],
+["assets/pizze/margherita.webp","Margherita Classica","pomodoro, mozzarella, basilico"],
+["assets/pizze/bufalina.webp","Bufalina","pomodoro, mozzarella di Bufala in cottura, basilico"],
+["assets/pizze/burrata-e-crudo.webp","Burrata e Crudo","pomodoro, prosciutto crudo San Daniele, burrata"],
+["assets/pizze/alpina.webp","Alpina","bordo ripieno di Gorgonzola, pomodoro, mozzarella, porcini, speck"],
+["assets/pizze/deliziosa.webp","Deliziosa","bordo ripieno di ricotta, pomodoro, mozzarella di Bufala in cottura, pomodorini, prosciutto crudo San Daniele"],
+["assets/pizze/saporita.webp","Saporita","pomodoro, mozzarella, porro, guanciale, formaggio salato, miele piccante"],
+["assets/pizze/via-roma.webp","Via Roma","mozzarella di Bufala in cottura, pomodorini semi dry, olive nere, ricotta affumicata"],
+["assets/pizze/friarielli-e-salsiccia.webp","Friarielli e Salsiccia","mozzarella, friarielli, salsiccia, provola affumicata"],
+["assets/pizze/povera.webp","Povera","mozzarella, mortadella, burrata, granella di pistacchio"],
+["assets/pizze/monte-jouf.webp","Monte Jouf","ripieno: mozzarella, zucchine, pepe, ricotta · base: pomodoro, mozzarella, pancetta, patate"],
 ];
 const forno = document.getElementById("forno");
 const N = FORNO.length;
-function fig(d,clone){return `<figure${clone?' data-clone="1" aria-hidden="true"':''}><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${clone?'':d[1]}"></div><figcaption><span>${d[1]}</span></figcaption></figure>`}
+function formatFornoIngredients(value){
+  const translated=trDesc(value||"");
+  return translated ? translated.charAt(0).toUpperCase()+translated.slice(1) : "";
+}
+function fig(d,clone){
+  const logicalIndex=FORNO.indexOf(d);
+  return `<figure data-forno-index="${logicalIndex}"${clone?' data-clone="1" aria-hidden="true"':''}><figcaption><span>${d[1]}</span></figcaption><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${clone?'':d[1]}"></div><p class="forno-ingredients">${escapeHTML(formatFornoIngredients(d[2]))}</p></figure>`
+}
+function updateFornoCopy(){
+  document.querySelectorAll("#forno figure[data-forno-index]").forEach(figure=>{
+    const data=FORNO[Number(figure.dataset.fornoIndex)];
+    const copy=figure.querySelector(".forno-ingredients");
+    if(data&&copy) copy.textContent=formatFornoIngredients(data[2]);
+  });
+}
 /* loop infinito: buffer di cloni su entrambi i lati, ampio abbastanza
    da coprire il viewport più largo. CLONES = N garantisce copertura totale. */
 const CLONES = N;
@@ -2257,7 +2362,15 @@ function dragScroll(el){
 dragScroll(forno); dragScroll(rail);
 
 /* =============== gallery fotografica: album / reel player =============== */
-const GALLERY_ORDER=["bancone","entrata","esterno","locale","sala_sinistra","sala_destra"];
+const GALLERY_ORDER=["bancone","sala_sinistra","sala_destra","esterno","entrata","locale"];
+const GALLERY_COVERS={
+  bancone:"assets/gallery/covers/bancone.webp",
+  sala_sinistra:"assets/gallery/covers/sala-sinistra.webp",
+  sala_destra:"assets/gallery/covers/sala-destra.webp",
+  esterno:"assets/gallery/covers/esterno.webp",
+  entrata:"assets/gallery/covers/entrata.webp",
+  locale:"assets/gallery/covers/locale.webp"
+};
 const GALLERY={
   bancone:["assets/gallery/bancone-01.webp","assets/gallery/bancone-02.webp","assets/gallery/bancone-03.webp","assets/gallery/bancone-04.webp","assets/gallery/bancone-05.webp"],
   entrata:["assets/gallery/entrata-01.webp","assets/gallery/entrata-02.webp","assets/gallery/entrata-03.webp","assets/gallery/entrata-04.webp","assets/gallery/entrata-05.webp"],
@@ -2308,7 +2421,7 @@ function setGalleryImage(i,animate=true,restart=true){
 }
 function renderGallery(){
   const t=T[LANG];
-  galleryTabs.innerHTML=GALLERY_ORDER.map((id,albumIndex)=>{const on=id===galleryCategory;const cover=GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" decoding="async"></span><span class="g-album-label"><small>${String(albumIndex+1).padStart(2,"0")}</small><span>${t.g_categories[id]}</span></span></button>`}).join("");
+  galleryTabs.innerHTML=GALLERY_ORDER.map((id,albumIndex)=>{const on=id===galleryCategory;const cover=GALLERY_COVERS[id]||GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="eager" decoding="async"></span><span class="g-album-label"><small>${String(albumIndex+1).padStart(2,"0")}</small><span>${t.g_categories[id]}</span></span></button>`}).join("");
   galleryViewer.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
   if(galleryIndex>=GALLERY[galleryCategory].length)galleryIndex=0;
   galleryThumbs.innerHTML=GALLERY[galleryCategory].map((_,i)=>`<button class="g-thumb ${i<galleryIndex?'done ':''}${i===galleryIndex?'on':''}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?'true':'false'}"><span></span></button>`).join("");
