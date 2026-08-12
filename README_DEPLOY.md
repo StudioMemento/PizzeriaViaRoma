@@ -1,4 +1,4 @@
-# Pizzeria Via Roma · V8 Vercel Deploy
+# Pizzeria Via Roma · V8.1 Vercel Deploy
 
 This package is ready for a static Vercel deployment. The archive contains `index.html`, `README_DEPLOY.md`, and the complete `assets/` directory directly at its root.
 
@@ -12,17 +12,14 @@ This package is ready for a static Vercel deployment. The archive contains `inde
 
 No API keys, package installation, or build process are required. The location section uses a simple embedded Google Maps place map.
 
-## V8 update
+## V8.1 update
 
-- Replaced the menu-category descriptions with the final wording from the printed menu.
-- Reordered the category slider as title, printed subcopy, clickable artwork, and navigation dots.
-- Removed “Scopri la selezione”; clicking the category artwork now opens the matching menu section.
-- Rebuilt the pizza reel hierarchy with the pizza name above the image and the exact printed ingredients below it.
-- Integrated the gallery albums directly into the gallery player.
-- Moved the reel sequence to the full-width top edge of the gallery player.
-- Reordered gallery albums to: Bancone, Sala sinistra, Sala destra, Esterno, Entrata, Locale.
-- Removed the Google Maps image overlay from the Google Reviews rating card.
-- Preserved the existing parallax, menu, community, review ticker, footer, multilingual controls, and Vercel-ready static structure.
+- Made every menu-category artwork a reliable direct link to its matching menu section, with the sticky navigation offset accounted for.
+- Moved the printed category subcopy below the artwork and reserved consistent title/copy rows, so **Bevande** and wrapped headings remain aligned.
+- Reordered the pizza reel to: artwork, pizza name, printed ingredients, navigation dots.
+- Added a slight top inset to the gallery reel and restored a visibly animated 5-second progress fill for the active frame.
+- Reordered the bottom navigation to: **Storia · Menù · Dove · Chiama**, keeping the external phone action last.
+- Preserved the V8 printed-menu copy, integrated gallery albums, parallax, social/review system, footer and static Vercel deployment structure.
 
 ## Project structure
 

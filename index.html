@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V8 printed-copy-integrated-gallery">
+<meta name="build" content="Via Roma V8.1 micro-polish">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1012,7 +1012,7 @@ a,button{touch-action:manipulation}
 #gallery .g-thumb::after{background:var(--bianco);transform:translateY(-50%) scaleX(0)}
 #gallery .g-thumb.done::after{transform:translateY(-50%) scaleX(1)}
 #gallery .g-thumb.on::before{background:rgba(198,161,91,.42)}
-#gallery .g-thumb.on::after{background:var(--oro)}
+#gallery .g-thumb.on::after{background:var(--oro);box-shadow:0 0 10px rgba(198,161,91,.34);will-change:transform}
 #gallery .g-thumb.on.run::after{animation:g-reel-fill 5s linear forwards}
 @keyframes g-reel-fill{to{transform:translateY(-50%) scaleX(1)}}
 #gallery .g-tabs-shell{grid-row:2;position:relative;min-width:0;margin:0;padding:0 var(--page-gutter) 14px;overflow:hidden}
@@ -1102,67 +1102,75 @@ a,button{touch-action:manipulation}
 
 
 /* ========================================================================
-   VIA ROMA V8 · final printed-copy and integrated-player polish
+   VIA ROMA V8.1 · interaction, hierarchy and reel-progress micro polish
    ======================================================================== */
 
-/* Menu-category order: title, printed subcopy, clickable artwork, reel dots. */
-#catshow .preview-head{display:flex;flex-direction:column;align-items:center;width:min(100%,var(--menu-max));margin:0 auto}
-#catshow .sub{max-width:58ch;min-height:1.7em;margin:14px auto 0;color:var(--grigio);font-size:15.5px;line-height:1.55;letter-spacing:.075em}
+/* Menu-category order: title, clickable artwork, printed subcopy, reel dots.
+   The reserved title/copy rows keep every artwork aligned, including Bevande. */
+#catshow .preview-head{display:flex;align-items:flex-end;justify-content:center;width:min(100%,var(--menu-max));margin:0 auto}
 #catshow .preview-window{display:block;margin:24px auto 0;cursor:pointer;outline-offset:8px}
 #catshow .preview-window:focus-visible{outline:1px solid var(--oro)}
 #catshow .preview-cutout{transition:opacity 1.2s ease,filter .45s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+#catshow .sub{display:flex;align-items:flex-start;justify-content:center;max-width:58ch;min-height:1.55em;margin:17px auto 0;color:var(--grigio);font-size:15.5px;line-height:1.55;letter-spacing:.075em}
+#catshow .sub.is-empty{visibility:hidden}
 @media(hover:hover){
-  #catshow .slide.is-active .preview-window:hover .preview-cutout{filter:drop-shadow(0 30px 40px rgba(0,0,0,.52)) brightness(1.035)}
+  #catshow .slide.is-active .preview-window:hover .preview-cutout{filter:drop-shadow(0 30px 40px rgba(0,0,0,.52)) brightness(1.035);transform:scale(1.008)}
 }
 #catshow .golink{display:none!important}
-#showdots{margin-top:26px}
+#showdots{margin-top:22px}
+@media(max-width:1100px){
+  #catshow .preview-head{min-height:2.25em}
+  #catshow h2{white-space:normal}
+  #catshow .sub{min-height:3.1em;max-width:46ch;padding:0 12px}
+}
 @media(max-width:700px){
-  #catshow .sub{min-height:0;margin-top:12px;padding:0 12px;font-size:14px;letter-spacing:.055em}
+  #catshow .preview-head{min-height:2.35em}
   #catshow .preview-window{margin-top:20px}
-  #showdots{margin-top:22px}
+  #catshow .sub{min-height:3.1em;margin-top:13px;padding:0 14px;font-size:14px;letter-spacing:.055em}
+  #showdots{margin-top:18px}
 }
 
-/* Pizza reel: name above, image, printed ingredients, then shared navigation dots. */
+/* Pizza reel: artwork first, then pizza name, printed ingredients and dots. */
 .strip-wrap{padding-top:78px;padding-bottom:58px}
 .strip-head{margin-bottom:18px}
 .strip{align-items:flex-start;padding-top:8px;padding-bottom:8px}
 .strip figure{flex-basis:min(72vw,372px)}
-.strip figcaption{min-height:36px;margin:0 0 12px;text-align:center;opacity:.48;transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1)}
-.strip figure.mid figcaption{opacity:1;transform:translateY(-2px)}
+.strip figcaption{min-height:36px;margin:14px 0 0;text-align:center;opacity:.48;transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+.strip figure.mid figcaption{opacity:1;transform:translateY(-1px)}
 .strip figcaption span{display:inline-block;padding:0;border:0;border-radius:0;color:rgba(241,236,225,.62);font-size:13px;line-height:1.45;letter-spacing:.23em;text-transform:uppercase;transition:color .4s ease}
 .strip figure.mid figcaption span{color:var(--oro-vivo);border-color:transparent}
-.strip .forno-ingredients{max-width:34ch;min-height:5.1em;margin:14px auto 0;text-align:center;color:rgba(241,236,225,.46);font-size:13px;line-height:1.55;letter-spacing:.035em;opacity:.52;transition:opacity .45s ease,color .45s ease}
+.strip .forno-ingredients{max-width:34ch;min-height:5.1em;margin:5px auto 0;text-align:center;color:rgba(241,236,225,.46);font-size:13px;line-height:1.55;letter-spacing:.035em;opacity:.52;transition:opacity .45s ease,color .45s ease}
 .strip figure.mid .forno-ingredients{color:rgba(241,236,225,.74);opacity:1}
-.strip-wrap .edge{top:74px;bottom:116px}
-#fornodots{margin-top:22px}
+.strip-wrap .edge{top:66px;bottom:122px}
+#fornodots{margin-top:18px}
 @media(max-width:680px){
   .strip-wrap{padding-top:70px;padding-bottom:50px}
   .strip{gap:18px;padding-left:14vw;padding-right:14vw}
   .strip figure{flex-basis:min(78vw,330px)}
-  .strip figcaption{min-height:32px;margin-bottom:8px}
+  .strip figcaption{min-height:32px;margin-top:11px}
   .strip figcaption span{font-size:11.5px;letter-spacing:.18em}
-  .strip .forno-ingredients{min-height:5.8em;margin-top:10px;padding:0 5px;font-size:12px;line-height:1.5}
-  .strip-wrap .edge{top:68px;bottom:126px}
-  #fornodots{margin-top:16px}
+  .strip .forno-ingredients{min-height:5.8em;margin-top:4px;padding:0 5px;font-size:12px;line-height:1.5}
+  .strip-wrap .edge{top:60px;bottom:132px}
+  #fornodots{margin-top:14px}
 }
 
 /* Gallery: albums live inside the player; the reel spans the full top edge. */
 #gallery{height:calc(100svh - var(--tab-h));min-height:680px;display:block;overflow:hidden}
 #gallery .g-viewer{height:100%;min-height:0;width:min(100%,1380px);margin:0 auto;padding:clamp(18px,2.4vw,34px) var(--page-gutter)}
 #gallery .g-stage{height:100%;min-height:0;position:relative;overflow:hidden;border:1px solid rgba(198,161,91,.14);background:#050506;box-shadow:0 38px 100px -72px rgba(0,0,0,.95)}
-#gallery .g-main{z-index:1;width:100%;height:100%;padding:46px clamp(22px,4vw,66px) 150px;object-fit:contain;filter:brightness(1.035) saturate(1)}
+#gallery .g-main{z-index:1;width:100%;height:100%;padding:54px clamp(22px,4vw,66px) 150px;object-fit:contain;filter:brightness(1.035) saturate(1)}
 #gallery .g-stage::after{z-index:2;background:linear-gradient(90deg,rgba(5,5,6,.4),transparent 18%,transparent 82%,rgba(5,5,6,.4)),linear-gradient(180deg,rgba(5,5,6,.1),transparent 36%,transparent 66%,rgba(5,5,6,.72))}
-#gallery .g-thumbs{position:absolute;z-index:9;top:0;right:0;bottom:auto;left:0;transform:none;width:100%;height:26px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:0;border:0;background:none;overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none}
-#gallery .g-thumb{position:relative;display:block;width:100%;height:26px;min-width:0;aspect-ratio:auto;border:0;background:none;opacity:1;transform:none;overflow:visible;cursor:pointer}
-#gallery .g-thumb::before,#gallery .g-thumb::after{left:0;right:0;top:0;height:2px;transform:none;transform-origin:left}
+#gallery .g-thumbs{position:absolute;z-index:9;top:12px;right:12px;bottom:auto;left:12px;transform:none;width:auto;height:22px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:5px;padding:0;border:0;background:none;overflow:visible;-webkit-backdrop-filter:none;backdrop-filter:none}
+#gallery .g-thumb{position:relative;display:block;width:100%;height:22px;min-width:0;aspect-ratio:auto;border:0;background:none;opacity:1;transform:none;overflow:visible;cursor:pointer}
+#gallery .g-thumb::before,#gallery .g-thumb::after{left:0;right:0;top:0;height:2px;transform:none;transform-origin:left;border-radius:999px}
 #gallery .g-thumb::before{background:rgba(241,236,225,.18)}
 #gallery .g-thumb::after{background:var(--bianco);transform:scaleX(0)}
 #gallery .g-thumb.done::after{transform:scaleX(1)}
 #gallery .g-thumb.on::before{background:rgba(198,161,91,.42)}
-#gallery .g-thumb.on::after{background:var(--oro)}
-#gallery .g-thumb.on.run::after{animation:g-reel-fill-v8 5s linear forwards}
-@keyframes g-reel-fill-v8{to{transform:scaleX(1)}}
-#gallery .g-player-head{z-index:10;top:34px;right:18px;left:auto}
+#gallery .g-thumb.on::after{background:var(--oro);box-shadow:0 0 10px rgba(198,161,91,.34);will-change:transform}
+#gallery .g-thumb.on.run::after{animation:g-reel-fill-v81 var(--gallery-progress-ms,5000ms) linear forwards}
+@keyframes g-reel-fill-v81{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#gallery .g-player-head{z-index:10;top:38px;right:18px;left:auto}
 #gallery .g-nav{z-index:8;top:44%;width:46px;height:46px}
 #gallery .g-nav.l{left:18px}#gallery .g-nav.r{right:18px}
 #gallery .g-tabs-shell{position:absolute;z-index:8;right:0;bottom:0;left:0;min-width:0;margin:0;padding:22px 16px 16px;overflow:hidden;background:linear-gradient(180deg,transparent 0%,rgba(5,5,6,.64) 24%,rgba(5,5,6,.94) 72%,rgba(5,5,6,.98) 100%);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
@@ -1175,16 +1183,17 @@ a,button{touch-action:manipulation}
   #gallery{height:calc(100svh - var(--tab-h));min-height:590px}
   #gallery .g-viewer{width:100%;padding:0}
   #gallery .g-stage{border:0}
-  #gallery .g-main{padding:34px 0 100px}
-  #gallery .g-player-head{top:28px;right:10px}
+  #gallery .g-main{padding:48px 0 100px}
+  #gallery .g-thumbs{top:10px;right:10px;left:10px;height:20px;gap:4px}
+  #gallery .g-thumb{height:20px}
+  #gallery .g-player-head{top:32px;right:10px}
   #gallery .g-nav{top:43%;width:38px;height:38px}#gallery .g-nav.l{left:8px}#gallery .g-nav.r{right:8px}
-  #gallery .g-thumbs{height:22px;gap:3px}
-  #gallery .g-thumb{height:22px}
   #gallery .g-tabs-shell{padding:17px 0 10px}
   #gallery .g-tabs{width:100%;justify-content:flex-start;gap:8px;padding:0 10px}
   #gallery .g-album{flex:0 0 92px;min-width:92px;max-width:92px}
   #gallery .g-album-label{font-size:8px;gap:6px;margin-top:6px}
 }
+@media(prefers-reduced-motion:reduce){#gallery .g-thumb.on.run::after{animation:none;transform:scaleX(1)}}
 
 /* Google rating card: clean editorial surface, no embedded map or map shade. */
 .review-summary{background:radial-gradient(260px 220px at 84% 10%,rgba(198,161,91,.12),transparent 64%),linear-gradient(145deg,rgba(21,20,18,.96),rgba(9,9,10,.99));isolation:isolate}
@@ -1454,8 +1463,8 @@ a,button{touch-action:manipulation}
 <nav class="tabbar" aria-label="Navigazione">
   <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Storia</span></a>
   <a href="#menu" data-tab="menu"><i class="ph-thin ph-fork-knife"></i><span data-i18n="tab_menu">Menù</span></a>
-  <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
   <a href="#dove" data-tab="dove"><i class="ph-thin ph-map-pin"></i><span data-i18n="tab_dove">Dove</span></a>
+  <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
 </nav>
 
 <!-- LIGHTBOX -->
@@ -2115,17 +2124,22 @@ function applyLang(l){
 document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>applyLang(b.dataset.lang)));
 
 /* =============== chips + spy =============== */
+function scrollToMenuCategory(id,{updateHash=true}={}){
+  const el=document.getElementById("cat-"+id);
+  if(!el)return false;
+  // Sticky top UI + chip index: keep the printed category heading fully visible.
+  const cb=document.querySelector(".chipbar");
+  const off=64+(cb?cb.offsetHeight:60)+12;
+  const y=Math.max(0,el.getBoundingClientRect().top+scrollY-off);
+  document.querySelectorAll("#chips button").forEach(button=>button.classList.toggle("on",button.dataset.go===id));
+  if(updateHash&&history.pushState){try{history.pushState(null,"",`#cat-${id}`)}catch(_){}}
+  scrollTo({top:y,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+  return true;
+}
 let spyCat;
 function bindChips(){
   document.querySelectorAll("#chips button").forEach(b=>{
-    b.addEventListener("click",()=>{
-      const el = document.getElementById("cat-"+b.dataset.go);
-      // offset = posizione sticky della chipbar (64) + sua altezza + margine
-      const cb = document.querySelector(".chipbar");
-      const off = 64 + (cb ? cb.offsetHeight : 60) + 12;
-      const y = el.getBoundingClientRect().top + scrollY - off;
-      scrollTo({top:y, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto":"smooth"});
-    });
+    b.addEventListener("click",()=>scrollToMenuCategory(b.dataset.go));
   });
   if(spyCat) spyCat.disconnect();
   spyCat = new IntersectionObserver(es=>{
@@ -2150,15 +2164,19 @@ const SHOW = SHOW_ORDER.map(id=>[id,MENU_ART[id]||null]);
 const SHOW_CLONES = SHOW.length;
 function renderShow(){
   const t = T[LANG];
-  const slide = ([id,img],clone=false) => `<div class="slide" data-cat="${id}"${clone?' data-clone="1" aria-hidden="true"':''}>
+  const slide = ([id,img],clone=false) => {
+    const description=t.cats[id][1]||"";
+    return `<div class="slide" data-cat="${id}"${clone?' data-clone="1" aria-hidden="true"':''}>
     <article class="preview-card">
-      <header class="preview-head"><h2>${t.cats[id][0]}</h2>${t.cats[id][1]?`<p class="sub">${t.cats[id][1]}</p>`:""}</header>
-      <a class="preview-window ${img?"":"is-abstract"}" href="#cat-${id}" aria-label="${escapeHTML(t.cats[id][0])}"${clone?' tabindex="-1"':''}>
+      <header class="preview-head"><h2>${t.cats[id][0]}</h2></header>
+      <a class="preview-window ${img?"":"is-abstract"}" href="#cat-${id}" data-cat-go="${id}" aria-label="${escapeHTML(t.cats[id][0])}"${clone?' tabindex="-1"':''}>
         <span class="preview-trace t1"></span><span class="preview-trace t2"></span>
         ${img?`<img class="preview-cutout bgimg" data-src="${img}" alt="${clone?'':escapeHTML(t.cats[id][0])}">`:`<span class="preview-dust" aria-hidden="true"></span>`}
       </a>
+      <p class="sub${description?'':' is-empty'}"${description?'':' aria-hidden="true"'}>${description||'&nbsp;'}</p>
     </article>
   </div>`;
+  };
   const head=SHOW.map(d=>slide(d,true)).join("");
   const real=SHOW.map(d=>slide(d,false)).join("");
   const tail=SHOW.map(d=>slide(d,true)).join("");
@@ -2205,6 +2223,12 @@ rail.addEventListener("scroll",()=>{
 },{passive:true});
 document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>showRailCenter(nearestShowDom()+Number(b.dataset.show),"smooth")));
 document.getElementById("showdots").addEventListener("click",e=>{const d=e.target.closest("[data-showdot]");if(d)showCenter(Number(d.dataset.showdot),"smooth")});
+rail.addEventListener("click",e=>{
+  const target=e.target.closest("[data-cat-go]");
+  if(!target)return;
+  e.preventDefault();
+  scrollToMenuCategory(target.dataset.catGo);
+});
 
 /* =============== carosello forno: nomi, loop, dots, drag =============== */
 const FORNO = [
@@ -2227,7 +2251,7 @@ function formatFornoIngredients(value){
 }
 function fig(d,clone){
   const logicalIndex=FORNO.indexOf(d);
-  return `<figure data-forno-index="${logicalIndex}"${clone?' data-clone="1" aria-hidden="true"':''}><figcaption><span>${d[1]}</span></figcaption><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${clone?'':d[1]}"></div><p class="forno-ingredients">${escapeHTML(formatFornoIngredients(d[2]))}</p></figure>`
+  return `<figure data-forno-index="${logicalIndex}"${clone?' data-clone="1" aria-hidden="true"':''}><div class="shot"><img class="pizza bgimg" style="position:static" data-src="${d[0]}" alt="${clone?'':d[1]}"></div><figcaption><span>${d[1]}</span></figcaption><p class="forno-ingredients">${escapeHTML(formatFornoIngredients(d[2]))}</p></figure>`
 }
 function updateFornoCopy(){
   document.querySelectorAll("#forno figure[data-forno-index]").forEach(figure=>{
@@ -2343,13 +2367,15 @@ function dragScroll(el){
   el.addEventListener("pointerdown",e=>{
     if(e.pointerType!=="mouse"||e.button!==0)return;
     state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false};
-    el.classList.add("dragging");
-    try{el.setPointerCapture(e.pointerId)}catch(_){}
+    // Do not capture yet: pointer capture would retarget a simple link click to the rail.
   });
   el.addEventListener("pointermove",e=>{
     if(!state||e.pointerId!==state.id)return;
     const dx=e.clientX-state.x,dy=e.clientY-state.y;
-    if(!state.moved&&Math.hypot(dx,dy)>5)state.moved=true;
+    if(!state.moved&&Math.hypot(dx,dy)>5){
+      state.moved=true;el.classList.add("dragging");
+      try{el.setPointerCapture(e.pointerId)}catch(_){}
+    }
     if(!state.moved)return;
     e.preventDefault();el.scrollLeft=state.left-dx;
   });
@@ -2393,6 +2419,7 @@ function updateGalleryPlayButton(){
 }
 function renderGalleryProgress(){
   const steps=[...galleryThumbs.querySelectorAll(".g-thumb")];
+  galleryThumbs.style.setProperty("--gallery-progress-ms",`${GALLERY_MS}ms`);
   steps.forEach((step,i)=>{
     step.classList.toggle("done",i<galleryIndex);
     step.classList.toggle("on",i===galleryIndex);
@@ -2400,7 +2427,15 @@ function renderGalleryProgress(){
     step.setAttribute("aria-current",i===galleryIndex?"true":"false");
   });
   galleryProgress.innerHTML="";
-  if(galleryPlaying&&galleryInView&&!document.hidden){requestAnimationFrame(()=>galleryThumbs.querySelector(".g-thumb.on")?.classList.add("run"))}
+  if(galleryPlaying&&galleryInView&&!document.hidden){
+    requestAnimationFrame(()=>{
+      const active=galleryThumbs.querySelector(".g-thumb.on");
+      if(!active)return;
+      // Force a fresh animation timeline after every photo/category change.
+      void active.offsetWidth;
+      active.classList.add("run");
+    });
+  }
 }
 function scheduleGalleryAutoplay(){
   clearTimeout(galleryTimer);renderGalleryProgress();updateGalleryPlayButton();
