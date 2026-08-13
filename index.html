@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V8.4 place experience micro polish">
+<meta name="build" content="Via Roma V8.5 motion and layout micro polish">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1476,6 +1476,95 @@ a,button{touch-action:manipulation}
   #dove .open-state{min-height:44px;padding:0 13px}
 }
 
+
+
+/* ========================================================================
+   VIA ROMA V8.5 · slower spatial rhythm, kinetic reels, exact edge alignment
+   ======================================================================== */
+
+/* Place experience: longer dwell, softer crossfades, shared shell alignment. */
+#storia.place-experience{height:460svh;min-height:2780px}
+.place-scene{transition:none;transform:translate3d(var(--scene-shift,0px),0,0) scale(var(--scene-scale,1.018))}
+.place-copy-step{transition:opacity .72s cubic-bezier(.22,.61,.36,1),transform .92s cubic-bezier(.22,1,.36,1)}
+.place-copy-story .inner{
+  width:min(calc(100% - 40px),1220px);max-width:none;margin:0 auto;
+  padding:0 0 calc(var(--tab-h) + clamp(82px,9vh,118px));
+  text-align:left;
+}
+.place-copy-story .inner>h2,.place-copy-story .inner>p,.place-copy-story .inner>.hairline{max-width:680px}
+.place-stepper{right:max(20px,calc((100vw - 1220px)/2));width:min(210px,18vw)}
+.place-progress{right:max(0px,calc((100vw - 1220px)/2))}
+@media(max-width:820px){
+  #storia.place-experience{height:440svh;min-height:2420px}
+  .place-copy-story .inner{width:calc(100% - 36px);padding:0 0 calc(var(--tab-h) + 118px)}
+  .place-stepper{right:18px;left:18px}
+}
+
+/* Menu-category preview: free glide, never hard snap. */
+#catshow .rail{scroll-snap-type:none!important;scroll-behavior:auto}
+#catshow .slide{scroll-snap-align:none!important}
+#catshow .rail.dragging{scroll-snap-type:none!important}
+#forno{scroll-snap-type:none!important}
+
+/* Pizza reel: larger scan-friendly type. */
+.strip figcaption{min-height:40px;margin-top:16px}
+.strip figcaption span{font-size:16px;line-height:1.4;letter-spacing:.17em}
+.strip .forno-ingredients{max-width:38ch;min-height:4.9em;margin-top:7px;font-size:15px;line-height:1.58;letter-spacing:.025em}
+@media(max-width:680px){
+  .strip figcaption span{font-size:14.5px;letter-spacing:.15em}
+  .strip .forno-ingredients{font-size:13.5px;line-height:1.55;min-height:5.2em}
+}
+
+/* Pizza lightbox: the product image and its ingredients belong together. */
+#lightbox figure{gap:8px}
+#lightbox img{max-height:calc(100vh - 176px)}
+#lightbox figcaption{font-size:14px;letter-spacing:.2em;color:var(--oro-vivo)}
+#lightbox .lb-desc{display:none;max-width:min(720px,82vw);margin:0 auto;text-align:center;color:rgba(241,236,225,.64);font-size:14.5px;line-height:1.55;letter-spacing:.035em}
+#lightbox .lb-desc.on{display:block}
+@media(max-width:620px){
+  #lightbox img{max-height:calc(100vh - 196px)}
+  #lightbox figcaption{font-size:12.5px}
+  #lightbox .lb-desc{max-width:84vw;font-size:13px;line-height:1.5}
+}
+
+/* Draft beers + house wines: three equal value columns whose last edge is the menu edge. */
+@media(min-width:881px){
+  .drink-item .row{grid-template-columns:auto minmax(28px,1fr) minmax(510px,55%)}
+  .drink-item .pricegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0;gap:clamp(12px,1.6vw,24px);justify-content:stretch}
+  .drink-item .pricegrid span{width:100%;justify-content:flex-end;text-align:right}
+  .drink-item .pricegrid span:last-child{justify-self:end}
+}
+
+/* Review ticker: translate the runner on the compositor instead of mutating scrollLeft every frame. */
+.review-track{overflow:hidden!important;scroll-snap-type:none!important;cursor:grab;touch-action:pan-y;will-change:auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.review-track.dragging{cursor:grabbing}
+.review-runner{display:flex;flex:0 0 auto;gap:12px;width:max-content;will-change:transform;transform:translate3d(0,0,0)}
+#social .review-runner .rev{flex:0 0 min(66vw,510px)}
+@media(max-width:680px){
+  .review-track{-webkit-mask-image:none;mask-image:none}
+  #social .review-runner .rev{flex-basis:min(86vw,420px)}
+}
+
+/* Info header: live status ends exactly at the logo column; logo spans the full header height. */
+#dove .closing-head{
+  grid-template-columns:minmax(0,1.28fr) minmax(340px,.72fr);
+  grid-template-rows:minmax(0,1fr) auto;
+  gap:12px;align-items:stretch;margin-bottom:12px;
+}
+#dove .closing-heading{grid-column:1;grid-row:1;min-height:274px}
+#dove .closing-brand{grid-column:2;grid-row:1 / span 2;min-height:332px;height:100%}
+#dove .open-state{grid-column:1!important;grid-row:2;width:100%;margin:0;min-height:46px}
+@media(max-width:980px){
+  #dove .closing-head{grid-template-columns:1fr;grid-template-rows:auto auto auto}
+  #dove .closing-heading{grid-column:1;grid-row:1;min-height:0}
+  #dove .open-state{grid-column:1!important;grid-row:2}
+  #dove .closing-brand{grid-column:1;grid-row:3;min-height:240px}
+}
+
+/* Maniago replaces the utilitarian map preview while the Via Roma 43 action remains live. */
+.closing-map-card .closing-map-image{position:absolute;inset:-1%;width:102%;height:102%;max-width:none;object-fit:cover;object-position:center;filter:brightness(.78) contrast(1.04) saturate(.9);transform:scale(1.012);transition:transform 1.2s cubic-bezier(.22,1,.36,1),filter .6s ease}
+.closing-map-card .map-shade{background:linear-gradient(180deg,rgba(8,8,9,.05),transparent 48%,rgba(8,8,9,.76)),linear-gradient(90deg,rgba(198,161,91,.04),transparent 40%)}
+@media(hover:hover){.closing-map-card:hover .closing-map-image{transform:scale(1.03);filter:brightness(.84) contrast(1.04) saturate(.94)}}
 </style>
 </head>
 <body>
@@ -1721,7 +1810,7 @@ a,button{touch-action:manipulation}
 
     <div class="closing-dashboard">
       <div class="closing-map-card fx" id="closingMapCard">
-        <iframe title="Mappa Pizzeria Via Roma" loading="lazy" tabindex="-1" aria-hidden="true" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?cid=7212905066552907909&hl=it&z=16&output=embed"></iframe>
+        <img class="closing-map-image" src="assets/maniago.webp" alt="Vista aerea artistica di Maniago" loading="lazy" decoding="async">
         <span class="map-shade" aria-hidden="true"></span>
         <a class="map-hit" href="https://maps.google.com/?cid=7212905066552907909" target="_blank" rel="noopener" aria-label="Apri Pizzeria Via Roma in Google Maps">
           <span class="map-address"><small data-i18n="d_maps">Apri in Google Maps</small><strong>Via Roma 43</strong><i class="ph-thin ph-arrow-up-right"></i></span>
@@ -1773,7 +1862,7 @@ a,button{touch-action:manipulation}
   <button id="lb-close" aria-label="Chiudi"><i class="ph-thin ph-x"></i></button>
   <button class="lb-nav l" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
   <button class="lb-nav r" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
-  <figure><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption></figure>
+  <figure><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption><p id="lb-desc" class="lb-desc"></p></figure>
 </div>
 
 <script>
@@ -2646,45 +2735,88 @@ document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",
 /* drag-to-scroll desktop (mouse) per entrambi.
    Il drag termina immediatamente al rilascio del mouse: nessuna inerzia,
    snap fluido alla card più vicina, centrata. */
-function dragScroll(el){
-  let state=null,suppressClick=false;
+function dragScroll(el,{snap=true,inertia=false}={}){
+  let state=null,suppressClick=false,anim=0;
   const cards=()=>[...el.querySelectorAll(".slide, figure")];
+  const ease=t=>1-Math.pow(1-t,4);
+  const animateTo=(target,duration=520)=>{
+    cancelAnimationFrame(anim);const from=el.scrollLeft,delta=target-from,start=performance.now();
+    const frame=now=>{const t=Math.min(1,(now-start)/duration);el.scrollLeft=from+delta*ease(t);if(t<1)anim=requestAnimationFrame(frame)};
+    anim=requestAnimationFrame(frame);
+  };
   const snapNearest=()=>{
     const list=cards();if(!list.length)return;
     const mid=el.scrollLeft+el.clientWidth/2;let best=list[0],distance=Infinity;
     list.forEach(card=>{const d=Math.abs(card.offsetLeft+card.offsetWidth/2-mid);if(d<distance){distance=d;best=card}});
-    el.scrollTo({left:best.offsetLeft-(el.clientWidth-best.offsetWidth)/2,behavior:"smooth"});
+    animateTo(best.offsetLeft-(el.clientWidth-best.offsetWidth)/2,500);
   };
   const release=e=>{
     if(!state||e&&e.pointerId!==state.id)return;
-    const moved=state.moved;state=null;el.classList.remove("dragging");
-    if(moved){suppressClick=true;requestAnimationFrame(snapNearest);setTimeout(()=>suppressClick=false,120)}
-    else snapNearest();
+    const moved=state.moved,velocity=state.velocity||0;state=null;el.classList.remove("dragging");
+    if(moved){
+      suppressClick=true;
+      if(inertia){const travel=Math.max(-360,Math.min(360,velocity*280));animateTo(el.scrollLeft+travel,560)}
+      else if(snap)requestAnimationFrame(snapNearest);
+      setTimeout(()=>suppressClick=false,160);
+    }else if(snap)snapNearest();
   };
   el.querySelectorAll("img").forEach(img=>img.draggable=false);
   el.addEventListener("dragstart",e=>e.preventDefault());
   el.addEventListener("pointerdown",e=>{
     if(e.pointerType!=="mouse"||e.button!==0)return;
-    state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false};
-    // Do not capture yet: pointer capture would retarget a simple link click to the rail.
+    cancelAnimationFrame(anim);
+    state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false,lastX:e.clientX,lastT:performance.now(),velocity:0};
   });
   el.addEventListener("pointermove",e=>{
     if(!state||e.pointerId!==state.id)return;
     const dx=e.clientX-state.x,dy=e.clientY-state.y;
-    if(!state.moved&&Math.hypot(dx,dy)>5){
-      state.moved=true;el.classList.add("dragging");
-      try{el.setPointerCapture(e.pointerId)}catch(_){}
-    }
+    if(!state.moved&&Math.hypot(dx,dy)>5){state.moved=true;el.classList.add("dragging");try{el.setPointerCapture(e.pointerId)}catch(_){}}
     if(!state.moved)return;
-    e.preventDefault();el.scrollLeft=state.left-dx;
+    e.preventDefault();
+    const now=performance.now(),dt=Math.max(8,now-state.lastT),vx=(state.lastX-e.clientX)/dt;
+    state.velocity=state.velocity*.72+vx*.28;state.lastX=e.clientX;state.lastT=now;el.scrollLeft=state.left-dx;
   });
-  el.addEventListener("pointerup",release);
-  el.addEventListener("pointercancel",release);
-  el.addEventListener("lostpointercapture",()=>release());
+  el.addEventListener("pointerup",release);el.addEventListener("pointercancel",release);el.addEventListener("lostpointercapture",()=>release());
   window.addEventListener("blur",()=>release());
   el.addEventListener("click",e=>{if(suppressClick){e.preventDefault();e.stopPropagation()}},true);
 }
-dragScroll(forno); dragScroll(rail); dragScroll(document.getElementById("custgrid"));
+dragScroll(forno); dragScroll(rail,{snap:false,inertia:true}); dragScroll(document.getElementById("custgrid"));
+
+/* Category rail gives one restrained leftward cue, then gets out of the way. */
+(function categoryInteractionCue(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  let hinted=false,interacted=false,anim=0;
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const cue=()=>{
+    if(hinted||interacted)return;hinted=true;
+    const from=rail.scrollLeft,target=from+Math.min(58,innerWidth*.045),start=performance.now(),duration=1500;
+    const step=now=>{if(interacted)return;const t=Math.min(1,(now-start)/duration);rail.scrollLeft=from+(target-from)*ease(t);if(t<1)anim=requestAnimationFrame(step)};
+    anim=requestAnimationFrame(step);
+  };
+  ["pointerdown","touchstart","wheel","keydown"].forEach(type=>rail.addEventListener(type,()=>{interacted=true;cancelAnimationFrame(anim)},{passive:true,once:true}));
+  if("IntersectionObserver" in window)new IntersectionObserver(([entry],obs)=>{if(entry.isIntersecting){setTimeout(cue,420);obs.disconnect()}},{threshold:.42}).observe(document.getElementById("catshow"));
+})();
+
+/* Pizza reel drifts left very slowly; interaction pauses it and it resumes gently. */
+(function pizzaIdleGlide(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  let paused=false,dragging=false,last=0,half=0,resumeTimer=0,visible=false;
+  const refresh=()=>requestAnimationFrame(()=>{const all=figs();half=all[CLONES+N]?.offsetLeft-all[CLONES]?.offsetLeft||step()*N});
+  const pause=()=>{paused=true;clearTimeout(resumeTimer)};
+  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{paused=false;last=0},delay)};
+  forno.addEventListener("pointerdown",()=>{dragging=true;pause()},{passive:true});
+  ["pointerup","pointercancel","lostpointercapture"].forEach(type=>forno.addEventListener(type,()=>{dragging=false;resume(1500)},{passive:true}));
+  forno.addEventListener("mouseenter",pause);forno.addEventListener("mouseleave",()=>resume(700));
+  forno.addEventListener("touchstart",pause,{passive:true});forno.addEventListener("touchend",()=>resume(1500),{passive:true});
+  if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;last=0},{rootMargin:"18% 0px 18%",threshold:.08}).observe(forno);
+  addEventListener("resize",refresh,{passive:true});refresh();
+  const tick=ts=>{
+    if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;
+    if(visible&&!paused&&!dragging&&!forno.classList.contains("dragging")&&!document.hidden){forno.scrollLeft+=dt*.009;if(half&&forno.scrollLeft>figs()[CLONES+N]?.offsetLeft)normalizeLoop()}
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+})();
 
 /* =============== gallery fotografica: album / reel player =============== */
 const GALLERY_ORDER=["bancone","sala_sinistra","sala_destra","esterno","entrata","locale"];
@@ -2811,12 +2943,14 @@ function renderCustomer(){
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lb-img");
   const lbCap = document.getElementById("lb-cap");
+  const lbDesc = document.getElementById("lb-desc");
   const navL = lb.querySelector(".lb-nav.l");
   const navR = lb.querySelector(".lb-nav.r");
   // gruppi di immagini apribili: contenitore cliccabile → immagine + caption
   const GROUPS = [
     {tap:"#forno figure:not([data-clone])", img:"img", all:"#forno figure:not([data-clone]) img",
-     capFrom:im=>im.closest("figure").querySelector("figcaption span")?.textContent||""},
+     capFrom:im=>im.closest("figure").querySelector("figcaption span")?.textContent||"",
+     descFrom:im=>im.closest("figure").querySelector(".forno-ingredients")?.textContent||""},
     {tap:"#custgrid .cust-cell", img:"img", all:"#custgrid .cust-cell img",
      capFrom:im=>im.closest("figure").querySelector("figcaption span")?.textContent||""}
   ];
@@ -2830,8 +2964,11 @@ function renderCustomer(){
     lbImg.src = fullSrc(im);
     lbImg.alt = im.alt||"";
     const cap = im.__cap ? im.__cap() : "";
+    const desc = im.__desc ? im.__desc() : "";
     lbCap.textContent = cap;
     lbCap.style.display = cap ? "" : "none";
+    lbDesc.textContent = desc;
+    lbDesc.classList.toggle("on",!!desc);
     const multi = group.length>1;
     navL.style.display = navR.style.display = multi ? "" : "none";
   }
@@ -2876,7 +3013,7 @@ function renderCustomer(){
         const im = cell.querySelector(g.img);
         if(!im) return;
         const list=[...document.querySelectorAll(g.all)];
-        list.forEach(x=>x.__cap = ()=>g.capFrom(x));
+        list.forEach(x=>{x.__cap=()=>g.capFrom(x);x.__desc=()=>g.descFrom?g.descFrom(x):""});
         open(im, list);
         return;
       }
@@ -3071,7 +3208,8 @@ const REVIEW_LIBRARY=[
 function renderReviewCards(reviews){
   const track=document.getElementById("reviewTrack");if(!track)return;
   const card=(r,clone=false)=>`<article class="rev"${clone?' aria-hidden="true"':''}><div class="stars" aria-label="${r.rating||5} su 5">${"★ ".repeat(Math.max(1,Math.round(r.rating||5))).trim()}</div><p class="sentence-flow">${sentenceMarkup(r.text||"")}</p><div class="src"><span class="review-author"><b>${escapeHTML(r.author||r.source||"Google")}</b></span><span>${escapeHTML(r.source||"Google")}</span></div></article>`;
-  track.innerHTML=reviews.map(r=>card(r)).join("")+reviews.map(r=>card(r,true)).join("");
+  track.innerHTML=`<div class="review-runner" id="reviewRunner">${reviews.map(r=>card(r)).join("")}${reviews.map(r=>card(r,true)).join("")}</div>`;
+  track.dataset.reviewCount=String(reviews.length);
   window.__refreshReviewTicker?.();
 }
 function renderSocialFallback(){
@@ -3082,27 +3220,45 @@ function renderSocialFallback(){
   const mode=document.getElementById("reviewMode");if(mode){mode.textContent=ui("review_selection");mode.classList.remove("live")}
 }
 (function enableReviewTicker(){
-  const el=document.getElementById("reviewTrack");if(!el)return;
+  const viewport=document.getElementById("reviewTrack");if(!viewport)return;
   const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let down=false,sx=0,sl=0,moved=false,paused=false,half=0,last=0,raf=0,resumeTimer=0;
-  const refresh=()=>{requestAnimationFrame(()=>{half=el.scrollWidth/2;if(half>0&&el.scrollLeft>=half)el.scrollLeft%=half})};
-  window.__refreshReviewTicker=()=>{el.scrollLeft=0;refresh()};
+  let pos=0,half=0,last=0,paused=false,drag=null,raf=0,resumeTimer=0,visible=true;
+  const runner=()=>viewport.querySelector(".review-runner");
+  const normalize=()=>{if(half>0){pos%=half;if(pos<0)pos+=half}};
+  const paint=()=>{const r=runner();if(r)r.style.transform=`translate3d(${-pos.toFixed(3)}px,0,0)`};
+  const refresh=()=>requestAnimationFrame(()=>{
+    const r=runner();if(!r)return;
+    const n=Math.max(1,Number(viewport.dataset.reviewCount)||Math.floor(r.children.length/2));
+    half=r.children[n]?.offsetLeft||r.scrollWidth/2;
+    normalize();paint();
+  });
+  window.__refreshReviewTicker=()=>{pos=0;last=0;refresh()};
   const pause=()=>{paused=true;clearTimeout(resumeTimer)};
-  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>paused=false,delay)};
-  const normalize=()=>{if(!half)refresh();if(half&&el.scrollLeft>=half)el.scrollLeft-=half;else if(half&&el.scrollLeft<0)el.scrollLeft+=half};
-  const tick=ts=>{if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;if(!reduced&&!paused&&!down&&!document.hidden&&half){el.scrollLeft+=dt*.052;normalize()}raf=requestAnimationFrame(tick)};
-  const stopDrag=e=>{if(!down)return;down=false;el.classList.remove("dragging");try{if(e&&el.hasPointerCapture(e.pointerId))el.releasePointerCapture(e.pointerId)}catch(_){}normalize();resume(650)};
-  el.addEventListener("mouseenter",pause);el.addEventListener("mouseleave",()=>resume(160));
-  el.addEventListener("focusin",pause);el.addEventListener("focusout",()=>resume(400));
-  el.addEventListener("pointerdown",e=>{pause();moved=false;if(e.pointerType!=="mouse")return;down=true;sx=e.clientX;sl=el.scrollLeft;el.classList.add("dragging");try{el.setPointerCapture(e.pointerId)}catch(_){}});
-  el.addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;if(Math.abs(dx)>4)moved=true;e.preventDefault();el.scrollLeft=sl-dx});
-  el.addEventListener("pointerup",stopDrag);el.addEventListener("pointercancel",stopDrag);el.addEventListener("lostpointercapture",stopDrag);
-  el.addEventListener("touchend",()=>resume(900),{passive:true});
-  el.addEventListener("scroll",()=>{if(!down)normalize()},{passive:true});
-  el.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
-  document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden)pause();else resume(300)});
+  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{paused=false;last=0},delay)};
+  const tick=ts=>{
+    if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;
+    if(!reduced&&!paused&&!drag&&!document.hidden&&visible&&half){pos+=dt*.034;normalize();paint()}
+    raf=requestAnimationFrame(tick);
+  };
+  viewport.addEventListener("mouseenter",pause);viewport.addEventListener("mouseleave",()=>resume(180));
+  viewport.addEventListener("focusin",pause);viewport.addEventListener("focusout",()=>resume(420));
+  viewport.addEventListener("pointerdown",e=>{
+    pause();drag={id:e.pointerId,x:e.clientX,y:e.clientY,start:pos,axis:null,moved:false};
+    try{viewport.setPointerCapture(e.pointerId)}catch(_){}
+  });
+  viewport.addEventListener("pointermove",e=>{
+    if(!drag||drag.id!==e.pointerId)return;
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(!drag.axis&&(Math.abs(dx)>5||Math.abs(dy)>5))drag.axis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+    if(drag.axis!=="x")return;
+    drag.moved=true;e.preventDefault();pos=drag.start-dx;normalize();paint();viewport.classList.add("dragging");
+  });
+  const end=e=>{if(!drag||e&&e.pointerId!==drag.id)return;drag=null;viewport.classList.remove("dragging");resume(900)};
+  viewport.addEventListener("pointerup",end);viewport.addEventListener("pointercancel",end);viewport.addEventListener("lostpointercapture",()=>end());
+  document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden)pause();else resume(250)});
   window.addEventListener("resize",refresh,{passive:true});
-  if("ResizeObserver" in window)new ResizeObserver(refresh).observe(el);
+  if("ResizeObserver" in window)new ResizeObserver(refresh).observe(viewport);
+  if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;last=0},{rootMargin:"20% 0px 20%",threshold:.01}).observe(viewport);
   refresh();raf=requestAnimationFrame(tick);
 })();
 
@@ -3131,17 +3287,36 @@ setInterval(updateOpenState,60000);
   const scenes=[...section.querySelectorAll("[data-place-scene]")],copies=[...section.querySelectorAll("[data-place-copy]")],buttons=[...section.querySelectorAll("[data-place-go]")];
   const count=scenes.length;if(!count)return;let active=-1,raf=0;
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const smoother=t=>{t=clamp(t,0,1);return t*t*t*(t*(t*6-15)+10)};
+  const HOLD=.66;
   function setActive(i){
     if(i===active)return;active=i;
-    scenes.forEach((el,n)=>el.classList.toggle("is-active",n===i));
-    copies.forEach((el,n)=>{const on=n===i;el.classList.toggle("is-active",on);el.setAttribute("aria-hidden",on?"false":"true")});
     buttons.forEach((el,n)=>{const on=n===i;el.classList.toggle("on",on);if(on)el.setAttribute("aria-current","step");else el.removeAttribute("aria-current")});
   }
   function update(){
-    raf=0;const range=Math.max(1,section.offsetHeight-innerHeight),raw=clamp((scrollY-section.offsetTop)/range,0,1),scaled=raw*(count-1),i=clamp(Math.round(scaled),0,count-1);
+    raf=0;
+    const range=Math.max(1,section.offsetHeight-innerHeight),raw=clamp((scrollY-section.offsetTop)/range,0,1);
+    const journey=raw*(count-1),base=Math.min(count-1,Math.floor(journey)),local=base===count-1?0:journey-base;
+    const blend=base===count-1?0:smoother((local-HOLD)/(1-HOLD));
+    const weights=scenes.map((_,n)=>n===base?1-blend:(n===base+1?blend:0));
+    const lead=blend>=.5?Math.min(count-1,base+1):base;
     section.style.setProperty("--place-progress",raw.toFixed(4));
-    scenes.forEach((el,n)=>{const d=Math.abs(scaled-n),opacity=clamp(1-d,0,1);el.style.setProperty("--scene-opacity",opacity.toFixed(4));el.style.setProperty("--scene-shift",`${((n-scaled)*18).toFixed(2)}px`)});
-    setActive(i);
+    scenes.forEach((el,n)=>{
+      const w=weights[n]||0;
+      const dir=n-base;
+      el.style.setProperty("--scene-opacity",w.toFixed(4));
+      el.style.setProperty("--scene-shift",`${((dir-blend)*10).toFixed(2)}px`);
+      el.style.setProperty("--scene-scale",(1.018+(1-w)*.006).toFixed(4));
+      el.classList.toggle("is-active",n===lead);
+    });
+    copies.forEach((el,n)=>{
+      const w=weights[n]||0;
+      el.style.opacity=w.toFixed(4);
+      el.style.transform=`translate3d(0,${((1-w)*18).toFixed(2)}px,0)`;
+      el.classList.toggle("is-active",n===lead);
+      el.setAttribute("aria-hidden",w>.04?"false":"true");
+    });
+    setActive(lead);
   }
   function queue(){if(!raf)raf=requestAnimationFrame(update)}
   buttons.forEach((button,i)=>button.addEventListener("click",()=>{
