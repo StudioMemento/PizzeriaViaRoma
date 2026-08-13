@@ -1,4 +1,4 @@
-# Pizzeria Via Roma · V8.3 Vercel Deploy
+# Pizzeria Via Roma · V8.4 Vercel Deploy
 
 This package is ready for a static Vercel deployment. The archive contains `index.html`, `README_DEPLOY.md`, and the complete `assets/` directory directly at its root.
 
@@ -12,19 +12,19 @@ This package is ready for a static Vercel deployment. The archive contains `inde
 
 No API keys, package installation, or build process are required. The location section uses a simple embedded Google Maps place map.
 
-## V8.3 final polish
+## V8.4 micro polish
 
-- Restored full menu consistency for **Birre alla spina** and **Vini della casa**: price numerals now match the rest of the menu and the three size variants distribute evenly on desktop/tablet, with clean mobile stacking.
-- Consolidated the gallery into one intentional control dock containing **previous / play-pause / next / current album / current image count**.
-- Kept the gallery autoplay cue visible as a thin advancing segmented reel across the top edge of the player.
-- Moved the album selector directly below the gallery player and made it scale to the player width, with horizontal scrolling only where smaller screens need it.
-- Simplified Social copy to **“La serata continua. Seguici, taggaci e condividi il tuo momento.”**
-- Strengthened the review ticker autoplay on desktop while preserving hover/focus pause and manual swipe/drag behavior.
-- Reworked the Info header into a **brand + utility** composition: large Via Roma logo, live **Aperto ora / Chiuso ora** status, and no redundant descriptive paragraph.
-- Updated the bottom navigation to **Via Roma / Menù / Gallery / Info / Chiama**.
-- Added a subtle continuous scroll-progress line to the bottom edge of the navbar plus clearer active-section feedback.
-- Added a desktop-only ambient particle field with slow curl-like drift and restrained cursor response, weighted toward screen edges so content remains dominant.
-- Preserved the existing parallax, menu category interactions, pizza reel, community gallery, review cards, Google Maps embed, multi-language support, and static Vercel deployment structure.
+- Rebuilt **Bancone / Entrata / Sala sinistra / Sala destra** as one scroll-driven place experience: a single sticky viewport with four cross-fading steps, direct step controls, image depth, and mobile-friendly navigation before the food sections begin.
+- The bottom **Menù** navigation now lands on the pizza/category slider, so the visual pizza preview is the first menu checkpoint rather than being skipped.
+- Kept the three equal price variants for **Birre alla spina** and **Vini della casa**, while right-aligning their labels and prices to match the printed-menu rhythm.
+- Moved the gallery reel/progress cue **below the gallery dock** while preserving autoplay, pause/play, image count, album controls, and responsive albums.
+- Rebuilt **La community** as a finite horizontal photo composition with swipe/drag, snapping, and a small progress line. Mobile users are no longer forced through a long vertical wall of raw customer photographs.
+- Updated Social copy to **“Socials”** and **“Vivi l'attimo. Se ti va condividi il tuo ricordo.”** with equivalent EN / DE / FR copy.
+- Removed the duplicated opening time in Info: the hours card now shows the time once, with the closure note on the secondary line.
+- Aligned the Info logo box to the exact grid used by the map / utility dashboard below it.
+- Made the live **Aperto ora / Chiuso ora** status a full-width end-to-end strip across the Info header.
+- Replaced the older random ambient particle/orbit treatment with a shared **geometric dot-field system** across Community, Social and Info. Each section uses the same evenly spaced dot grammar but a different restrained idle motion: wave, diagonal drift, or radial ripple.
+- Preserved the existing menu, pizza reel, gallery albums, review ticker, Google Maps embed, multi-language support, responsive behavior, parallax depth, and static Vercel deployment structure.
 
 ## Project structure
 
@@ -51,3 +51,5 @@ Example:
 ```js
 {src:"assets/community/new-photo.webp", name:"Nickname", ratio:"4 / 3"}
 ```
+
+The horizontal reel automatically classifies portrait / regular / wide images from the ratio and keeps the section bounded on desktop and mobile.
