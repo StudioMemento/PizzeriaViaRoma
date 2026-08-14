@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V9.1 reversible cinematic scroll scrub">
+<meta name="build" content="Via Roma V9.2 full-clip cinematic scroll scrub">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1682,7 +1682,7 @@ a,button{touch-action:manipulation}
 }
 
 /* ========================================================================
-   VIA ROMA V9.1 · reversible scroll film, continuous checkpoints
+   VIA ROMA V9.2 · full-clip scrub, end-frame blur, speedrun bypass
    ======================================================================== */
 #storia.place-experience{
   --veil-opacity:.76;
@@ -1695,9 +1695,12 @@ a,button{touch-action:manipulation}
 }
 #storia .place-scenes{background:#050506}
 #storia .place-scene{
-  --scene-opacity:0;--scene-z:0;--idle-x:0%;--idle-y:0%;--idle-scale:1.025;
+  --scene-opacity:0;--scene-z:0;--scene-blur:0px;--scene-brightness:1;--scene-shell-scale:1;
+  --idle-x:0%;--idle-y:0%;--idle-scale:1.025;
   z-index:var(--scene-z)!important;opacity:var(--scene-opacity)!important;
-  transform:none!important;transition:none!important;will-change:opacity;
+  transform:scale(var(--scene-shell-scale))!important;transform-origin:center;
+  filter:blur(var(--scene-blur)) brightness(var(--scene-brightness));
+  transition:none!important;will-change:opacity,filter,transform;
 }
 #storia .place-poster,#storia .place-video{
   object-position:center center;
@@ -1729,6 +1732,8 @@ a,button{touch-action:manipulation}
 }
 #storia .place-copy-splash #splash .split{font-size:clamp(9px,.75vw,12px);letter-spacing:.48em;margin-bottom:clamp(25px,4vh,42px)}
 #storia .place-copy-splash #splash h1{font-size:clamp(19px,2.15vw,34px);line-height:1.48;letter-spacing:.115em;color:rgba(241,236,225,.82)}
+#storia .place-copy-splash #splash h1 .tagline-line{display:inline}
+#storia .place-copy-splash #splash h1 .tagline-line+.tagline-line::before{content:" "}
 #storia .place-copy-splash #splash .diamond{margin-top:clamp(24px,3.6vh,38px)}
 #storia .place-copy-story .inner{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -1739,9 +1744,10 @@ a,button{touch-action:manipulation}
   margin:0 0 clamp(22px,3.6vh,42px);font-size:clamp(10px,.8vw,13px);letter-spacing:.46em;
 }
 #storia .place-copy-story h2{
-  max-width:20ch!important;margin:0;font-size:clamp(58px,8.1vw,138px);font-weight:200;
-  line-height:.98;letter-spacing:.045em;text-wrap:balance;text-shadow:0 6px 54px rgba(0,0,0,.62);
+  max-width:none!important;margin:0;font-size:clamp(38px,4.6vw,72px);font-weight:200;
+  line-height:1;letter-spacing:.022em;white-space:nowrap;text-wrap:nowrap;text-shadow:0 6px 54px rgba(0,0,0,.62);
 }
+#storia .place-copy-story h2 br{display:none}
 #storia .place-copy-story .hairline{width:clamp(52px,5vw,82px);margin:clamp(26px,4.3vh,46px) auto}
 #storia .place-copy-story .inner>p:last-child{
   max-width:38ch!important;margin:0 auto;color:rgba(241,236,225,.78);
@@ -1784,8 +1790,11 @@ a,button{touch-action:manipulation}
   #storia.place-experience{height:720svh!important}
   #storia .place-copy-splash .inner{width:calc(100% - 36px);padding-bottom:calc(var(--tab-h) + 18px)}
   #storia .place-copy-splash #splash .logo{width:min(72vw,370px)}
+  #storia .place-copy-splash #splash h1 .tagline-line{display:block}
+  #storia .place-copy-splash #splash h1 .tagline-line+.tagline-line::before{content:""}
   #storia .place-copy-story .inner{width:calc(100% - 36px);padding:0 0 calc(var(--tab-h) + 12px)}
-  #storia .place-copy-story h2{max-width:16ch!important;font-size:clamp(43px,12.2vw,76px);line-height:1.01;letter-spacing:.04em}
+  #storia .place-copy-story h2{max-width:none!important;font-size:clamp(29px,8.4vw,46px);line-height:1.04;letter-spacing:.015em;white-space:nowrap;text-wrap:nowrap}
+  #storia .place-copy-story h2 br{display:block}
   #storia .place-copy-story .eyebrow{font-size:9px;letter-spacing:.34em;margin-bottom:24px}
   #storia .place-copy-story .hairline{margin:25px auto}
   #storia .place-copy-story .inner>p:last-child{max-width:31ch!important;font-size:clamp(15px,4.1vw,19px);line-height:1.55}
@@ -1797,7 +1806,7 @@ a,button{touch-action:manipulation}
 @media(max-width:480px){
   #storia .place-copy-splash #splash .logo{width:min(76vw,330px)}
   #storia .place-copy-splash #splash h1{font-size:clamp(17px,5.1vw,23px)}
-  #storia .place-copy-story h2{font-size:clamp(40px,12vw,62px)}
+  #storia .place-copy-story h2{font-size:clamp(28px,8.2vw,42px)}
   #storia .place-stepper button span{font-size:0}
   #storia .place-stepper button.on span{font-size:7px}
 }
@@ -1806,12 +1815,13 @@ a,button{touch-action:manipulation}
   #storia .place-copy-splash #splash .split{margin-bottom:18px}
   #storia .place-copy-splash #splash h1{font-size:clamp(15px,4.4vw,20px);line-height:1.42}
   #storia .place-copy-splash #splash .diamond{margin-top:18px}
-  #storia .place-copy-story h2{font-size:clamp(36px,10.5vw,54px)}
+  #storia .place-copy-story h2{font-size:clamp(27px,7.6vw,38px)}
   #storia .place-copy-story .eyebrow{margin-bottom:16px}
   #storia .place-copy-story .hairline{margin:17px auto}
   #storia .place-copy-story .inner>p:last-child{font-size:14px;line-height:1.45}
 }
 @media(prefers-reduced-motion:reduce){
+  #storia .place-scene{filter:none!important;transform:none!important}
   #storia .place-poster,#storia .place-video{transform:scale(1.02)!important}
   #storia .place-copy-step{filter:none}
 }
@@ -2077,11 +2087,11 @@ const WALKTHROUGH_STEPS = Object.freeze([
 const T = {
 it:{
   sp_kicker:"Maniago · Friuli", place_bancone:"Bancone", place_entrata:"Entrata", place_sala_sinistra:"Sala sinistra", place_sala_destra:"Sala destra", tagline:"<span class=\"tagline-line\">La pizza di sempre,</span><span class=\"tagline-line\">con un tocco in più.</span>", scroll:"scorri",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"A Via Roma,<br>all'angolo di sempre",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"A Via Roma,<br> all'angolo di sempre",
   s1_body:"A due passi da Piazza Italia,<br>nel cuore della città delle coltellerie.",
-  s2_eyebrow:"Sala sinistra", s2_title:"Luce calda,<br>tempo lento",
+  s2_eyebrow:"Sala sinistra", s2_title:"Luce calda,<br> tempo lento",
   s2_body:"Toni profondi, dettagli in ottone<br>ed un mood rilassante.",
-  s3_eyebrow:"Sala destra", s3_title:"Materia, colore,<br>carattere",
+  s3_eyebrow:"Sala destra", s3_title:"Materia, colore,<br> carattere",
   s3_body:"Accenti rossi, superfici scure<br>e un'atmosfera più decisa.",
   a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un po'!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
@@ -2122,11 +2132,11 @@ it:{
 },
 en:{
   sp_kicker:"Maniago · Friuli, Italy", place_bancone:"Counter", place_entrata:"Entrance", place_sala_sinistra:"Left room", place_sala_destra:"Right room", tagline:"<span class=\"tagline-line\">The pizza you know,</span><span class=\"tagline-line\">with a little something more.</span>", scroll:"scroll",
-  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"At Via Roma,<br>on the usual corner",
+  s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"At Via Roma,<br> on the usual corner",
   s1_body:"Just steps from Piazza Italia,<br>in the heart of the town of knife-makers.",
-  s2_eyebrow:"Left room", s2_title:"Warm light,<br>unhurried time",
+  s2_eyebrow:"Left room", s2_title:"Warm light,<br> unhurried time",
   s2_body:"Deep tones, brass details<br>and a relaxed mood.",
-  s3_eyebrow:"Right room", s3_title:"Texture, colour,<br>character",
+  s3_eyebrow:"Right room", s3_title:"Texture, colour,<br> character",
   s3_body:"Red accents, dark surfaces<br>and a bolder atmosphere.",
   a_title:"Le Audaci", a_sub:"For those who like temptation!",
   a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
@@ -2167,11 +2177,11 @@ en:{
 },
 de:{
   sp_kicker:"Maniago · Friaul, Italien", place_bancone:"Theke", place_entrata:"Eingang", place_sala_sinistra:"Linker Saal", place_sala_destra:"Rechter Saal", tagline:"<span class=\"tagline-line\">Die Pizza von immer,</span><span class=\"tagline-line\">mit dem gewissen Etwas.</span>", scroll:"scrollen",
-  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Bei Via Roma,<br>an der vertrauten Ecke",
+  s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Bei Via Roma, an der<br> vertrauten Ecke",
   s1_body:"Wenige Schritte von der Piazza Italia,<br>im Herzen der Stadt der Messerschmiede.",
-  s2_eyebrow:"Linker Saal", s2_title:"Warmes Licht,<br>Zeit ohne Eile",
+  s2_eyebrow:"Linker Saal", s2_title:"Warmes Licht,<br> Zeit ohne Eile",
   s2_body:"Tiefe Töne, Messingdetails<br>und eine entspannte Stimmung.",
-  s3_eyebrow:"Rechter Saal", s3_title:"Material, Farbe,<br>Charakter",
+  s3_eyebrow:"Rechter Saal", s3_title:"Material, Farbe,<br> Charakter",
   s3_body:"Rote Akzente, dunkle Flächen<br>und eine markantere Atmosphäre.",
   a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
   a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
@@ -2212,11 +2222,11 @@ de:{
 },
 fr:{
   sp_kicker:"Maniago · Frioul, Italie", place_bancone:"Comptoir", place_entrata:"Entrée", place_sala_sinistra:"Salle gauche", place_sala_destra:"Salle droite", tagline:"<span class=\"tagline-line\">La pizza de toujours,</span><span class=\"tagline-line\">avec un petit plus.</span>", scroll:"défiler",
-  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Chez Via Roma,<br>au coin de toujours",
+  s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Chez Via Roma,<br> au coin de toujours",
   s1_body:"À quelques pas de la Piazza Italia,<br>au cœur de la ville des couteliers.",
-  s2_eyebrow:"Salle gauche", s2_title:"Lumière chaude,<br>temps suspendu",
+  s2_eyebrow:"Salle gauche", s2_title:"Lumière chaude,<br> temps suspendu",
   s2_body:"Des tons profonds, des détails en laiton<br>et une ambiance détendue.",
-  s3_eyebrow:"Salle droite", s3_title:"Matière, couleur,<br>caractère",
+  s3_eyebrow:"Salle droite", s3_title:"Matière, couleur,<br> caractère",
   s3_body:"Des accents rouges, des surfaces sombres<br>et une atmosphère plus affirmée.",
   a_title:"Le Audaci", a_sub:"Pour ceux qui aiment se laisser tenter !",
   a_body:"Des pizzas au caractère affirmé, des ingrédients de qualité, des accords qui surprennent. Pour ceux qui ne se contentent pas.",
@@ -3559,9 +3569,9 @@ renderWalkthroughStructure();
   }
 
   function copyOpacity(index,timeline){
-    if(index===0)return 1-smootherstep(.04,.24,timeline);
-    const incoming=smootherstep(index-.36,index-.1,timeline);
-    const outgoing=1-smootherstep(index+.055,index+.25,timeline);
+    if(index===0)return 1-smootherstep(.02,.18,timeline);
+    const incoming=smootherstep(index-.25,index-.035,timeline);
+    const outgoing=1-smootherstep(index+.02,index+.18,timeline);
     return clamp(Math.min(incoming,outgoing),0,1);
   }
 
@@ -3570,12 +3580,26 @@ renderWalkthroughStructure();
     const atEnd=timeline>=count;
     const segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1);
     const local=atEnd?1:timeline-segment;
-    const crossfade=segment<count-1?smootherstep(.52,.84,local):0;
+    const crossfade=segment<count-1?smootherstep(.82,.985,local):0;
     const opacities=Array(count).fill(0);
+    const blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
     opacities[segment]=1-crossfade;
-    if(segment<count-1)opacities[segment+1]=crossfade;
+    if(segment<count-1){
+      opacities[segment+1]=crossfade;
+      blurs[segment]=crossfade*11;
+      blurs[segment+1]=(1-crossfade)*7;
+      brightness[segment]=1-crossfade*.2;
+      brightness[segment+1]=.88+crossfade*.12;
+      shellScales[segment]=1+crossfade*.012;
+      shellScales[segment+1]=1.012-crossfade*.012;
+    }else{
+      const finalBlend=smootherstep(.86,1,local);
+      blurs[segment]=finalBlend*8;
+      brightness[segment]=1-finalBlend*.2;
+      shellScales[segment]=1+finalBlend*.01;
+    }
 
-    const clipProgress=smootherstep(0,.84,local);
+    const clipProgress=smootherstep(0,.8,local);
     seekVideo(segment,(WALKTHROUGH_STEPS[segment].duration||3)*clipProgress,now);
     if(segment<count-1&&local>.2){
       ensureMedia(segment+1);
@@ -3593,6 +3617,9 @@ renderWalkthroughStructure();
     scenes.forEach((scene,index)=>{
       scene.style.setProperty("--scene-opacity",opacities[index].toFixed(5));
       scene.style.setProperty("--scene-z",String(index===segment+1&&crossfade>0?2:index===segment?1:0));
+      scene.style.setProperty("--scene-blur",blurs[index].toFixed(2)+"px");
+      scene.style.setProperty("--scene-brightness",brightness[index].toFixed(5));
+      scene.style.setProperty("--scene-shell-scale",shellScales[index].toFixed(5));
       const idle=index===nearest?idleStrength:0;
       const x=Math.sin(seconds*.24+index*.7)*.42*idle;
       const y=Math.cos(seconds*.19+index*.53)*.3*idle;
@@ -3602,9 +3629,14 @@ renderWalkthroughStructure();
       scene.style.setProperty("--idle-scale",scale.toFixed(5));
     });
 
+    const catchup=Math.abs(targetTimeline-renderedTimeline);
+    const speedrunStrength=Math.max(
+      smootherstep(.28,1.05,catchup),
+      smootherstep(.8,2.4,Math.abs(scrollVelocity))
+    );
     let strongestCopy=0;
     copies.forEach((copy,index)=>{
-      const opacity=copyOpacity(index,timeline);
+      const opacity=copyOpacity(index,timeline)*(1-speedrunStrength*.98);
       const leaving=timeline>index;
       const offset=(1-opacity)*(leaving?-20:22);
       const blur=(1-opacity)*18;
@@ -3619,7 +3651,7 @@ renderWalkthroughStructure();
     });
     section.style.setProperty("--veil-opacity",(.14+Math.pow(strongestCopy,.72)*.62).toFixed(5));
 
-    const current=clamp(Math.floor(timeline+.18),0,count-1);
+    const current=clamp(Math.floor((speedrunStrength>.65?targetTimeline:timeline)+.18),0,count-1);
     setActive(current);
     buttons.forEach((button,index)=>{
       button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5));
@@ -3628,7 +3660,8 @@ renderWalkthroughStructure();
     continueCue?.classList.toggle("is-visible",showCue);
     continueCue?.setAttribute("aria-hidden",String(!showCue));
     section.dataset.timeline=timeline.toFixed(3);
-    section.dataset.motion=idleStrength>.5?"idle":"scrub";
+    section.dataset.motion=speedrunStrength>.65?"speedrun":idleStrength>.5?"idle":"scrub";
+    section.dataset.speedrun=speedrunStrength.toFixed(3);
   }
 
   function requestTick(){
@@ -3639,9 +3672,12 @@ renderWalkthroughStructure();
     raf=0;
     const dt=clamp((now-lastFrame)/1000,.001,.05);lastFrame=now;
     scrollVelocity*=Math.exp(-dt*4.6);
-    const response=clamp(7.4+Math.abs(scrollVelocity)*3.2,7.4,18);
+    const gap=Math.abs(targetTimeline-renderedTimeline);
+    const response=clamp(8.4+Math.abs(scrollVelocity)*3.6+gap*4.8,8.4,28);
     const alpha=1-Math.exp(-response*dt);
-    renderedTimeline+= (targetTimeline-renderedTimeline)*alpha;
+    const desiredStep=(targetTimeline-renderedTimeline)*alpha;
+    const maxStep=dt*(7+Math.abs(scrollVelocity)*1.2+gap*1.6);
+    renderedTimeline+=clamp(desiredStep,-maxStep,maxStep);
     if(Math.abs(targetTimeline-renderedTimeline)<.00012)renderedTimeline=targetTimeline;
     render(now);
     if(visible)raf=requestAnimationFrame(tick);
