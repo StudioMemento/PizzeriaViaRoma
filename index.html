@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V9.2 full-clip cinematic scroll scrub">
+<meta name="build" content="Via Roma V9.3 continuous blur-to-film scroll scrub">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1682,11 +1682,11 @@ a,button{touch-action:manipulation}
 }
 
 /* ========================================================================
-   VIA ROMA V9.2 · full-clip scrub, end-frame blur, speedrun bypass
+   VIA ROMA V9.3 · continuous blur-to-film checkpoints and coalesced scrub
    ======================================================================== */
 #storia.place-experience{
   --veil-opacity:.76;
-  height:680svh!important;min-height:0;
+  height:940svh!important;min-height:0;
   overscroll-behavior-y:auto!important;background:#050506;
 }
 #storia .place-sticky{
@@ -1701,12 +1701,14 @@ a,button{touch-action:manipulation}
   transform:scale(var(--scene-shell-scale))!important;transform-origin:center;
   filter:blur(var(--scene-blur)) brightness(var(--scene-brightness));
   transition:none!important;will-change:opacity,filter,transform;
+  backface-visibility:hidden;contain:layout style;
 }
 #storia .place-poster,#storia .place-video{
   object-position:center center;
   transform:translate3d(var(--idle-x),var(--idle-y),0) scale(var(--idle-scale))!important;
   transform-origin:center;transition:none!important;will-change:transform,opacity;
   filter:brightness(.96) saturate(.95) contrast(1.015)!important;
+  backface-visibility:hidden;
 }
 #storia .place-video{opacity:0!important}
 #storia .place-video.is-media-ready{opacity:1!important}
@@ -1787,7 +1789,7 @@ a,button{touch-action:manipulation}
 #storia .place-continue.is-visible{opacity:.86;filter:blur(0);transform:translate(-50%,0)}
 #storia .corners{opacity:.2}
 @media(max-width:820px){
-  #storia.place-experience{height:720svh!important}
+  #storia.place-experience{height:980svh!important}
   #storia .place-copy-splash .inner{width:calc(100% - 36px);padding-bottom:calc(var(--tab-h) + 18px)}
   #storia .place-copy-splash #splash .logo{width:min(72vw,370px)}
   #storia .place-copy-splash #splash h1 .tagline-line{display:block}
@@ -1821,9 +1823,7 @@ a,button{touch-action:manipulation}
   #storia .place-copy-story .inner>p:last-child{font-size:14px;line-height:1.45}
 }
 @media(prefers-reduced-motion:reduce){
-  #storia .place-scene{filter:none!important;transform:none!important}
-  #storia .place-poster,#storia .place-video{transform:scale(1.02)!important}
-  #storia .place-copy-step{filter:none}
+  #storia .place-poster,#storia .place-video{transform:scale(1.035)!important}
 }
 </style>
 </head>
@@ -3507,13 +3507,39 @@ renderWalkthroughStructure();
     const x=clamp((value-start)/(end-start),0,1);
     return x*x*x*(x*(x*6-15)+10);
   };
+  const PHASE=Object.freeze({
+    copyOutStart:.045,copyOutEnd:.155,
+    blurOutStart:.145,blurOutEnd:.27,
+    clipStart:.27,clipEnd:.8,
+    blurInStart:.745,blurInEnd:.885,
+    sceneInStart:.835,sceneInEnd:.992,
+    copyInStart:.865,copyInEnd:.985
+  });
+  const MAX_BLUR=18;
 
   let targetTimeline=0,renderedTimeline=0,scrollVelocity=0;
   let lastScrollY=scrollY,lastScrollStamp=performance.now(),lastFrame=performance.now(),raf=0,visible=false,activeIndex=-1;
-  const desiredTimes=Array(count).fill(0),lastSeekAt=Array(count).fill(0);
+  const seekState=videos.map(()=>({desired:0,lastRequest:0}));
 
   function metrics(){
     return {top:section.offsetTop,range:Math.max(1,section.offsetHeight-innerHeight)};
+  }
+
+  function mediaDuration(index){
+    const video=videos[index],declared=WALKTHROUGH_STEPS[index].duration||3;
+    const actual=Number.isFinite(video?.duration)?video.duration:declared;
+    return Math.max(.01,Math.min(declared,actual)-.002);
+  }
+
+  function flushSeek(index,now=performance.now()){
+    if(posterOnly||index<0||index>=count)return;
+    const video=videos[index],state=seekState[index];
+    if(video.readyState<1||video.dataset.failed==="true"||video.seeking)return;
+    const wanted=clamp(state.desired,0,mediaDuration(index));
+    const delta=Math.abs(video.currentTime-wanted);
+    if(delta<.016||now-state.lastRequest<30)return;
+    state.lastRequest=now;
+    try{video.pause();video.currentTime=wanted}catch(_){}
   }
 
   function ensureMedia(index){
@@ -3521,20 +3547,16 @@ renderWalkthroughStructure();
     const video=videos[index];
     if(video.dataset.mediaBound!=="true"){
       video.dataset.mediaBound="true";
-      video.addEventListener("loadedmetadata",()=>{
-        const max=Math.max(.01,Math.min(WALKTHROUGH_STEPS[index].duration,Number.isFinite(video.duration)?video.duration:WALKTHROUGH_STEPS[index].duration)-.002);
-        try{video.currentTime=clamp(desiredTimes[index],0,max)}catch(_){}
-      },{once:true});
+      video.addEventListener("loadedmetadata",()=>flushSeek(index),{once:true});
       video.addEventListener("loadeddata",()=>{
         video.pause();
-        const wanted=desiredTimes[index];
-        if(Math.abs(video.currentTime-wanted)<=.03){video.classList.add("is-media-ready");return}
-        let revealed=false;
-        const reveal=()=>{if(revealed)return;revealed=true;video.classList.add("is-media-ready")};
-        video.addEventListener("seeked",reveal,{once:true});
-        try{video.currentTime=wanted}catch(_){reveal()}
-        setTimeout(reveal,320);
+        if(Math.abs(video.currentTime-seekState[index].desired)<.04)video.classList.add("is-media-ready");
+        flushSeek(index);
       },{once:true});
+      video.addEventListener("seeked",()=>{
+        video.classList.add("is-media-ready");
+        flushSeek(index);
+      });
       video.addEventListener("error",()=>{
         video.dataset.failed="true";video.classList.remove("is-media-ready");
       },{once:true});
@@ -3547,16 +3569,7 @@ renderWalkthroughStructure();
 
   function seekVideo(index,time,now){
     if(posterOnly||index<0||index>=count)return;
-    desiredTimes[index]=time;ensureMedia(index);
-    const video=videos[index];if(video.readyState<1||video.dataset.failed==="true")return;
-    const declared=WALKTHROUGH_STEPS[index].duration||3;
-    const actual=Number.isFinite(video.duration)?video.duration:declared;
-    const max=Math.max(.01,Math.min(declared,actual)-.002);
-    const wanted=clamp(time,0,max);
-    const delta=Math.abs(video.currentTime-wanted);
-    if(delta<.014||(now-lastSeekAt[index]<34&&delta<.18))return;
-    lastSeekAt[index]=now;
-    try{video.pause();video.currentTime=wanted}catch(_){}
+    seekState[index].desired=time;ensureMedia(index);flushSeek(index,now);
   }
 
   function setActive(index){
@@ -3569,9 +3582,8 @@ renderWalkthroughStructure();
   }
 
   function copyOpacity(index,timeline){
-    if(index===0)return 1-smootherstep(.02,.18,timeline);
-    const incoming=smootherstep(index-.25,index-.035,timeline);
-    const outgoing=1-smootherstep(index+.02,index+.18,timeline);
+    const incoming=index===0?1:smootherstep(index-(1-PHASE.copyInStart),index-(1-PHASE.copyInEnd),timeline);
+    const outgoing=1-smootherstep(index+PHASE.copyOutStart,index+PHASE.copyOutEnd,timeline);
     return clamp(Math.min(incoming,outgoing),0,1);
   }
 
@@ -3580,86 +3592,85 @@ renderWalkthroughStructure();
     const atEnd=timeline>=count;
     const segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1);
     const local=atEnd?1:timeline-segment;
-    const crossfade=segment<count-1?smootherstep(.82,.985,local):0;
-    const opacities=Array(count).fill(0);
-    const blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
-    opacities[segment]=1-crossfade;
+    const transition=segment<count-1?smootherstep(PHASE.sceneInStart,PHASE.sceneInEnd,local):0;
+    const startBlur=1-smootherstep(PHASE.blurOutStart,PHASE.blurOutEnd,local);
+    const endBlur=smootherstep(PHASE.blurInStart,PHASE.blurInEnd,local);
+    const currentBlur=Math.max(startBlur,endBlur);
+    const opacities=Array(count).fill(0),blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
+
+    /* Keep the outgoing frame fully opaque underneath the incoming frame. This
+       avoids the luminance dip of two simultaneous half-opacity layers. */
+    opacities[segment]=1;
+    blurs[segment]=currentBlur*MAX_BLUR;
+    brightness[segment]=1-endBlur*.13;
+    shellScales[segment]=1+currentBlur*.018;
     if(segment<count-1){
-      opacities[segment+1]=crossfade;
-      blurs[segment]=crossfade*11;
-      blurs[segment+1]=(1-crossfade)*7;
-      brightness[segment]=1-crossfade*.2;
-      brightness[segment+1]=.88+crossfade*.12;
-      shellScales[segment]=1+crossfade*.012;
-      shellScales[segment+1]=1.012-crossfade*.012;
-    }else{
-      const finalBlend=smootherstep(.86,1,local);
-      blurs[segment]=finalBlend*8;
-      brightness[segment]=1-finalBlend*.2;
-      shellScales[segment]=1+finalBlend*.01;
+      opacities[segment+1]=transition;
+      blurs[segment+1]=MAX_BLUR;
+      brightness[segment+1]=.91+transition*.09;
+      shellScales[segment+1]=1.018;
     }
 
-    const clipProgress=smootherstep(0,.8,local);
+    /* The full clip is shown before the hand-off. Its scroll mapping eases in
+       and out, while both checkpoint holds stay on exact first/end frames. */
+    const clipProgress=smootherstep(PHASE.clipStart,PHASE.clipEnd,local);
     seekVideo(segment,(WALKTHROUGH_STEPS[segment].duration||3)*clipProgress,now);
-    if(segment<count-1&&local>.2){
-      ensureMedia(segment+1);
+    if(segment<count-1){
+      if(local>.34)ensureMedia(segment+1);
       seekVideo(segment+1,0,now);
     }
-    if(segment+2<count&&local>.66)ensureMedia(segment+2);
+    if(segment+2<count&&local>.62)ensureMedia(segment+2);
 
     const nearest=clamp(Math.round(timeline),0,count-1);
     const distance=Math.abs(timeline-nearest);
-    const nearCheckpoint=1-smootherstep(0,.13,distance);
-    const slowEnough=1-clamp(Math.abs(scrollVelocity)/1.45,0,1);
+    const nearCheckpoint=1-smootherstep(0,.12,distance);
+    const slowEnough=1-clamp(Math.abs(scrollVelocity)/1.25,0,1);
     const idleStrength=nearCheckpoint*slowEnough;
     const seconds=now/1000;
 
     scenes.forEach((scene,index)=>{
       scene.style.setProperty("--scene-opacity",opacities[index].toFixed(5));
-      scene.style.setProperty("--scene-z",String(index===segment+1&&crossfade>0?2:index===segment?1:0));
+      scene.style.setProperty("--scene-z",String(index===segment+1&&transition>0?2:index===segment?1:0));
       scene.style.setProperty("--scene-blur",blurs[index].toFixed(2)+"px");
       scene.style.setProperty("--scene-brightness",brightness[index].toFixed(5));
       scene.style.setProperty("--scene-shell-scale",shellScales[index].toFixed(5));
       const idle=index===nearest?idleStrength:0;
-      const x=Math.sin(seconds*.24+index*.7)*.42*idle;
-      const y=Math.cos(seconds*.19+index*.53)*.3*idle;
-      const scale=1.018+idle*(.012+Math.sin(seconds*.17+index)*.0035);
+      const x=Math.sin(seconds*.22+index*.7)*.38*idle;
+      const y=Math.cos(seconds*.17+index*.53)*.27*idle;
+      const scale=1.025+idle*(.009+Math.sin(seconds*.15+index)*.0025);
       scene.style.setProperty("--idle-x",x.toFixed(4)+"%");
       scene.style.setProperty("--idle-y",y.toFixed(4)+"%");
       scene.style.setProperty("--idle-scale",scale.toFixed(5));
     });
 
-    const catchup=Math.abs(targetTimeline-renderedTimeline);
-    const speedrunStrength=Math.max(
-      smootherstep(.28,1.05,catchup),
-      smootherstep(.8,2.4,Math.abs(scrollVelocity))
-    );
     let strongestCopy=0;
     copies.forEach((copy,index)=>{
-      const opacity=copyOpacity(index,timeline)*(1-speedrunStrength*.98);
-      const leaving=timeline>index;
-      const offset=(1-opacity)*(leaving?-20:22);
-      const blur=(1-opacity)*18;
-      const scale=.974+opacity*.026;
+      const opacity=copyOpacity(index,timeline);
+      const leaving=timeline>index+.01;
+      const offset=(1-opacity)*(leaving?-18:20);
+      const copyBlur=(1-opacity)*15;
+      const scale=.978+opacity*.022;
       copy.style.setProperty("--copy-opacity",opacity.toFixed(5));
       copy.style.setProperty("--copy-y",offset.toFixed(2)+"px");
-      copy.style.setProperty("--copy-blur",blur.toFixed(2)+"px");
+      copy.style.setProperty("--copy-blur",copyBlur.toFixed(2)+"px");
       copy.style.setProperty("--copy-scale",scale.toFixed(5));
       const hidden=opacity<.02;
       if(copy.getAttribute("aria-hidden")!==String(hidden))copy.setAttribute("aria-hidden",String(hidden));
       strongestCopy=Math.max(strongestCopy,opacity);
     });
-    section.style.setProperty("--veil-opacity",(.14+Math.pow(strongestCopy,.72)*.62).toFixed(5));
+    const veil=.08+Math.pow(strongestCopy,.72)*.58+Math.max(endBlur,transition)*.07;
+    section.style.setProperty("--veil-opacity",clamp(veil,.08,.74).toFixed(5));
 
-    const current=clamp(Math.floor((speedrunStrength>.65?targetTimeline:timeline)+.18),0,count-1);
+    const current=segment<count-1&&transition>.5?segment+1:segment;
     setActive(current);
-    buttons.forEach((button,index)=>{
-      button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5));
-    });
+    buttons.forEach((button,index)=>button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5)));
     const showCue=timeline<.055&&targetTimeline<.08;
     continueCue?.classList.toggle("is-visible",showCue);
     continueCue?.setAttribute("aria-hidden",String(!showCue));
+    const catchup=Math.abs(targetTimeline-renderedTimeline);
+    const speedrunStrength=Math.max(smootherstep(.3,1.15,catchup),smootherstep(1.4,4,Math.abs(scrollVelocity)));
     section.dataset.timeline=timeline.toFixed(3);
+    section.dataset.blur=(currentBlur*MAX_BLUR).toFixed(2);
     section.dataset.motion=speedrunStrength>.65?"speedrun":idleStrength>.5?"idle":"scrub";
     section.dataset.speedrun=speedrunStrength.toFixed(3);
   }
@@ -3671,22 +3682,25 @@ renderWalkthroughStructure();
   function tick(now){
     raf=0;
     const dt=clamp((now-lastFrame)/1000,.001,.05);lastFrame=now;
-    scrollVelocity*=Math.exp(-dt*4.6);
-    const gap=Math.abs(targetTimeline-renderedTimeline);
-    const response=clamp(8.4+Math.abs(scrollVelocity)*3.6+gap*4.8,8.4,28);
-    const alpha=1-Math.exp(-response*dt);
-    const desiredStep=(targetTimeline-renderedTimeline)*alpha;
-    const maxStep=dt*(7+Math.abs(scrollVelocity)*1.2+gap*1.6);
+    scrollVelocity*=Math.exp(-dt*5.2);
+    const gap=targetTimeline-renderedTimeline;
+    const catchup=clamp(Math.abs(gap)/1.1,0,1);
+    const response=6.1+catchup*3.9;
+    const desiredStep=gap*(1-Math.exp(-response*dt));
+    /* A hard visual delta cap guarantees that even a full-page speedrun still
+       traverses every blur/crossfade window instead of teleporting over it. */
+    const maxStep=Math.min(.072,dt*(3.25+catchup*1.15));
     renderedTimeline+=clamp(desiredStep,-maxStep,maxStep);
-    if(Math.abs(targetTimeline-renderedTimeline)<.00012)renderedTimeline=targetTimeline;
+    if(Math.abs(targetTimeline-renderedTimeline)<.0001)renderedTimeline=targetTimeline;
     render(now);
     if(visible)raf=requestAnimationFrame(tick);
   }
 
   function updateTarget(jump=false){
     const now=performance.now(),scrollDt=Math.max(8,now-lastScrollStamp);
-    const instantaneous=(scrollY-lastScrollY)/scrollDt;
-    scrollVelocity=jump?0:scrollVelocity*.7+instantaneous*.3;
+    const viewportDelta=(scrollY-lastScrollY)/Math.max(1,innerHeight);
+    const instantaneous=viewportDelta/(scrollDt/1000);
+    scrollVelocity=jump?0:scrollVelocity*.72+instantaneous*.28;
     lastScrollY=scrollY;lastScrollStamp=now;
     const {top,range}=metrics();
     targetTimeline=clamp((scrollY-top)/range,0,1)*count;
@@ -3711,6 +3725,11 @@ renderWalkthroughStructure();
 
   updateTarget(true);
   if(visible){ensureMedia(0);ensureMedia(1);render(performance.now());requestTick()}
+  if(!posterOnly){
+    const warmWalkthrough=()=>{for(let index=0;index<count;index++)ensureMedia(index)};
+    if("requestIdleCallback" in window)requestIdleCallback(warmWalkthrough,{timeout:1600});
+    else setTimeout(warmWalkthrough,700);
+  }
 })();
 
 /* Community: a finite horizontal composition, never a long raw-image wall. */
