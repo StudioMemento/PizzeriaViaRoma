@@ -1,16 +1,18 @@
-# Pizzeria Via Roma · V9
+# Pizzeria Via Roma · V9.1
 
 Vercel-ready static build. Upload this folder or the packaged ZIP directly to Vercel; `index.html` is the entry point.
 
-## V9 cinematic walkthrough
+## V9.1 cinematic scroll film
 
 - Four full-viewport checkpoints: Bancone, Entrata, Sala sinistra and Sala destra.
-- One wheel, swipe or keyboard intent advances exactly one checkpoint and plays its complete clip.
-- Each clip resolves into a soft cinematic blend; its logo or copy remains visible until the next intent.
-- Minimal chapter counter and four fine progress segments replace the previous side indicator.
-- Poster, reduced-motion, Save-Data and playback-error fallbacks remain available.
+- The opening frame is static with a restrained idle drift, logo and claim.
+- Native scrolling drives a continuous, eased video scrub in both directions; nothing force-snaps the page.
+- Every clip eases in and out, then crossfades from its midpoint into the exact first frame of the following clip.
+- Full-screen copy enters near the end of each transition and leaves with a reversible fade-and-blur treatment.
+- One quiet four-segment progress rail replaces the duplicated chapter indicators.
+- Poster-only reduced-motion, Save-Data and playback-error fallbacks remain available.
 
-## V9 interaction and media cleanup
+## Interaction and media cleanup
 
 - Context menus, long-press callouts, image dragging and accidental text selection are suppressed site-wide.
 - Device-orientation and gyroscope permission code has been removed.
