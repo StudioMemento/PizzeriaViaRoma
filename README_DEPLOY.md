@@ -1,23 +1,26 @@
-# Pizzeria Via Roma · V8.6
+# Pizzeria Via Roma · V9
 
-Vercel-ready static build.
+Vercel-ready static build. Upload this folder or the packaged ZIP directly to Vercel; `index.html` is the entry point.
 
-## Deploy
-Upload this folder or ZIP directly to Vercel as a static project. `index.html` is the entry point.
+## V9 cinematic walkthrough
 
-## V8.6 scroll-video walkthrough
-- Four reversible, scroll-controlled architectural videos: Bancone, Entrata, Sala sinistra and Sala destra.
-- First/final-frame holds, short reversible boundary crossfades and frame-rate-independent seek damping.
-- True first-frame poster fallback for reduced motion, Save-Data and media decoding failures.
-- Web media is H.264/1080p/24fps with six-frame closed GOPs, no audio and Fast Start.
-- One `WALKTHROUGH_STEPS` manifest controls media, ordering, labels and copy mapping.
-- Existing multilingual copy, step navigation, fixed bottom dock and 460svh page geometry are preserved.
+- Four full-viewport checkpoints: Bancone, Entrata, Sala sinistra and Sala destra.
+- One wheel, swipe or keyboard intent advances exactly one checkpoint and plays its complete clip.
+- Each clip resolves into a soft cinematic blend; its logo or copy remains visible until the next intent.
+- Minimal chapter counter and four fine progress segments replace the previous side indicator.
+- Poster, reduced-motion, Save-Data and playback-error fallbacks remain available.
 
-## Preserved V8.5 polish
-- Place copy + step indicator aligned to the shared site shell.
-- Menu-category reel uses free glide, a restrained interaction cue, and no hard snapping.
-- Pizza reel drifts slowly while idle; names/ingredients are larger and the lightbox includes ingredients.
-- Draft-beer and house-wine variants align to the menu's right edge in three equal columns.
-- Reviews ticker moved to compositor transforms for smoother continuous motion.
-- Info live-status strip ends at the logo column.
-- Maniago aerial artwork replaces the embedded map preview while preserving the Via Roma 43 Google Maps action.
+## V9 interaction and media cleanup
+
+- Context menus, long-press callouts, image dragging and accidental text selection are suppressed site-wide.
+- Device-orientation and gyroscope permission code has been removed.
+- Menu-category and pizza rails now drift continuously at restrained speeds, pause for interaction and remain free-glide on touch.
+- Mobile category artwork uses its full 4.2:1 composition without cropping or overflowing the viewport.
+- Gallery rebuilt around five albums using the supplied 3840 × 2440 images: Bancone, Sala sinistra, Sala destra, Esterno and Via Roma.
+- Superseded gallery files, covers and legacy hero stills have been removed from the deploy package.
+
+## Preserved experience
+
+- Multilingual Italian, English, German and French content.
+- Printed menu, allergen guide, pizza lightbox with ingredients, community reel, reviews ticker, social links and live opening state.
+- Responsive bottom navigation and desktop/mobile layouts.
