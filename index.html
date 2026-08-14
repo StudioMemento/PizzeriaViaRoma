@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V9.3 continuous blur-to-film scroll scrub">
+<meta name="build" content="Via Roma V9.4 masked bridge scroll scrub">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1682,7 +1682,7 @@ a,button{touch-action:manipulation}
 }
 
 /* ========================================================================
-   VIA ROMA V9.3 · continuous blur-to-film checkpoints and coalesced scrub
+   VIA ROMA V9.4 · masked bridge checkpoints and invisible scene hand-off
    ======================================================================== */
 #storia.place-experience{
   --veil-opacity:.76;
@@ -1702,6 +1702,21 @@ a,button{touch-action:manipulation}
   filter:blur(var(--scene-blur)) brightness(var(--scene-brightness));
   transition:none!important;will-change:opacity,filter,transform;
   backface-visibility:hidden;contain:layout style;
+}
+#storia .place-bridge{
+  --bridge-opacity:0;--bridge-blur:32px;--bridge-brightness:.74;--bridge-scale:1.026;
+  position:absolute;inset:0;z-index:3;margin:0;overflow:hidden;pointer-events:none;
+  opacity:var(--bridge-opacity);transform:scale(var(--bridge-scale));transform-origin:center;
+  filter:blur(var(--bridge-blur)) brightness(var(--bridge-brightness)) saturate(.86) contrast(.98);
+  transition:none!important;will-change:opacity,filter,transform;backface-visibility:hidden;contain:layout style;
+}
+#storia .place-bridge img{
+  width:100%;height:100%;object-fit:cover;object-position:center center;
+  transform:scale(1.035);transform-origin:center;backface-visibility:hidden;
+}
+#storia .place-bridge::after{
+  content:"";position:absolute;inset:0;opacity:var(--bridge-shade-opacity,.34);
+  background:radial-gradient(circle at 50% 46%,rgba(3,3,4,.06),rgba(3,3,4,.64) 86%),linear-gradient(180deg,rgba(3,3,4,.22),rgba(3,3,4,.08) 42%,rgba(3,3,4,.56));
 }
 #storia .place-poster,#storia .place-video{
   object-position:center center;
@@ -1760,7 +1775,12 @@ a,button{touch-action:manipulation}
   position:absolute;z-index:8;top:auto;left:50%;right:auto;
   bottom:calc(var(--tab-h) + 24px);width:min(calc(100% - (var(--page-gutter) * 2)),760px);
   transform:translateX(-50%);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;
-  padding:0;border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;pointer-events:auto;
+  padding:0;border:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;pointer-events:auto;isolation:isolate;
+}
+#storia .place-stepper::before{
+  content:"";position:absolute;z-index:-1;inset:-15px -28px -12px;
+  background:radial-gradient(ellipse at 50% 58%,rgba(4,4,5,.42),rgba(4,4,5,.2) 44%,transparent 76%);
+  filter:blur(8px);pointer-events:none;
 }
 #storia .place-stepper button{
   display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:15px 1px;
@@ -3487,7 +3507,9 @@ function renderWalkthroughStructure(){
   const scenesRoot=section.querySelector("[data-walkthrough-scenes]"),copiesRoot=section.querySelector("[data-walkthrough-copies]"),stepper=section.querySelector("[data-walkthrough-stepper]");
   if(!scenesRoot||!copiesRoot||!stepper)return;
   const tr=key=>T[LANG]?.[key]||"";
-  scenesRoot.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>`<figure class="place-scene" data-place-scene="${n}" data-walkthrough-id="${step.id}" style="--scene-opacity:${n===0?1:0};--scene-z:${n===0?2:0}"><img class="place-poster" src="${step.poster}" alt="" loading="eager" decoding="async" ${n===0?'fetchpriority="high"':''}><video class="place-video" data-video-src="${step.src}" poster="${step.poster}" preload="${n<2?"auto":"metadata"}" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil${step.copyType==="splash"?" place-veil-splash":""}"></span></figure>`).join("");
+  const sceneMarkup=WALKTHROUGH_STEPS.map((step,n)=>`<figure class="place-scene" data-place-scene="${n}" data-walkthrough-id="${step.id}" style="--scene-opacity:${n===0?1:0};--scene-z:${n===0?1:0}"><img class="place-poster" src="${step.poster}" alt="" loading="eager" decoding="async" ${n===0?'fetchpriority="high"':''}><video class="place-video" data-video-src="${step.src}" poster="${step.poster}" preload="${n<2?"auto":"metadata"}" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil${step.copyType==="splash"?" place-veil-splash":""}"></span></figure>`).join("");
+  const bridgeMarkup=WALKTHROUGH_STEPS.slice(1).map((step,n)=>`<figure class="place-bridge" data-place-bridge="${n}" aria-hidden="true"><img src="${step.poster}" alt="" loading="eager" decoding="async"></figure>`).join("");
+  scenesRoot.innerHTML=sceneMarkup+bridgeMarkup;
   copiesRoot.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>step.copyType==="splash"?`<article class="place-copy-step place-copy-splash" data-place-copy="${n}" aria-hidden="${n===0?"false":"true"}"><div class="inner" id="splash"><p class="split"><span data-i18n="sp_kicker">${tr("sp_kicker")}</span></p><img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma, Maniago"><h1 data-i18n="tagline">${tr("tagline")}</h1><div class="diamond"></div></div></article>`:`<article class="place-copy-step place-copy-story story" data-place-copy="${n}" aria-hidden="true"><span class="num"><b>${step.index}</b> · <span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span></span><div class="inner"><p class="eyebrow" data-i18n="${step.eyebrowKey}">${tr(step.eyebrowKey)}</p><h2 data-i18n="${step.titleKey}">${tr(step.titleKey)}</h2><hr class="hairline"><p data-i18n="${step.bodyKey}">${tr(step.bodyKey)}</p></div></article>`).join("");
   stepper.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>`<button type="button"${n===0?' class="on" aria-current="step"':''} data-place-go="${n}"><small>${step.index}</small><span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span><i></i></button>`).join("");
   section.querySelector("#splash")?.classList.add("ready");
@@ -3496,8 +3518,8 @@ renderWalkthroughStructure();
 
 (function initPlaceExperience(){
   const section=document.getElementById("storia");if(!section)return;
-  const scenes=[...section.querySelectorAll("[data-place-scene]")],copies=[...section.querySelectorAll("[data-place-copy]")],buttons=[...section.querySelectorAll("[data-place-go]")],videos=[...section.querySelectorAll(".place-video")];
-  const count=WALKTHROUGH_STEPS.length;if(!count||scenes.length!==count)return;
+  const scenes=[...section.querySelectorAll("[data-place-scene]")],bridges=[...section.querySelectorAll("[data-place-bridge]")],copies=[...section.querySelectorAll("[data-place-copy]")],buttons=[...section.querySelectorAll("[data-place-go]")],videos=[...section.querySelectorAll(".place-video")];
+  const count=WALKTHROUGH_STEPS.length;if(!count||scenes.length!==count||bridges.length!==count-1)return;
   const continueCue=section.querySelector("[data-walkthrough-continue]");
   const reducedQuery=matchMedia("(prefers-reduced-motion: reduce)");
   const posterOnly=reducedQuery.matches||!!navigator.connection?.saveData;
@@ -3508,14 +3530,15 @@ renderWalkthroughStructure();
     return x*x*x*(x*(x*6-15)+10);
   };
   const PHASE=Object.freeze({
-    copyOutStart:.045,copyOutEnd:.155,
-    blurOutStart:.145,blurOutEnd:.27,
-    clipStart:.27,clipEnd:.8,
-    blurInStart:.745,blurInEnd:.885,
-    sceneInStart:.835,sceneInEnd:.992,
-    copyInStart:.865,copyInEnd:.985
+    copyOutStart:.07,copyOutEnd:.19,
+    bridgeOutStart:.12,bridgeOutEnd:.24,
+    blurOutStart:.18,blurOutEnd:.31,
+    clipStart:.3,clipEnd:.79,
+    blurInStart:.62,blurInEnd:.8,
+    bridgeInStart:.7,bridgeInEnd:.9,
+    copyInStart:.76,copyInEnd:.92
   });
-  const MAX_BLUR=18;
+  const MAX_BLUR=28,BRIDGE_BLUR=32;
 
   let targetTimeline=0,renderedTimeline=0,scrollVelocity=0;
   let lastScrollY=scrollY,lastScrollStamp=performance.now(),lastFrame=performance.now(),raf=0,visible=false,activeIndex=-1;
@@ -3587,50 +3610,53 @@ renderWalkthroughStructure();
     return clamp(Math.min(incoming,outgoing),0,1);
   }
 
+  function bridgeOpacity(index,timeline){
+    const checkpoint=index+1;
+    const incoming=smootherstep(checkpoint-(1-PHASE.bridgeInStart),checkpoint-(1-PHASE.bridgeInEnd),timeline);
+    const outgoing=1-smootherstep(checkpoint+PHASE.bridgeOutStart,checkpoint+PHASE.bridgeOutEnd,timeline);
+    return clamp(Math.min(incoming,outgoing),0,1);
+  }
+
   function render(now){
     const timeline=clamp(renderedTimeline,0,count);
     const atEnd=timeline>=count;
     const segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1);
     const local=atEnd?1:timeline-segment;
-    const transition=segment<count-1?smootherstep(PHASE.sceneInStart,PHASE.sceneInEnd,local):0;
     const startBlur=1-smootherstep(PHASE.blurOutStart,PHASE.blurOutEnd,local);
     const endBlur=smootherstep(PHASE.blurInStart,PHASE.blurInEnd,local);
     const currentBlur=Math.max(startBlur,endBlur);
     const opacities=Array(count).fill(0),blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
 
-    /* Keep the outgoing frame fully opaque underneath the incoming frame. This
-       avoids the luminance dip of two simultaneous half-opacity layers. */
+    /* Only one live scene is exposed at a time. The real scene switch happens
+       underneath a fully opaque bridge made from the next exact first frame. */
     opacities[segment]=1;
     blurs[segment]=currentBlur*MAX_BLUR;
-    brightness[segment]=1-endBlur*.13;
-    shellScales[segment]=1+currentBlur*.018;
-    if(segment<count-1){
-      opacities[segment+1]=transition;
-      blurs[segment+1]=MAX_BLUR;
-      brightness[segment+1]=.91+transition*.09;
-      shellScales[segment+1]=1.018;
-    }
+    brightness[segment]=1-currentBlur*.12;
+    shellScales[segment]=1+currentBlur*.022;
 
-    /* The full clip is shown before the hand-off. Its scroll mapping eases in
-       and out, while both checkpoint holds stay on exact first/end frames. */
+    /* The clip keeps advancing while the end blur rises. It reaches the exact
+       final frame only after the mask has already started to hide the detail. */
     const clipProgress=smootherstep(PHASE.clipStart,PHASE.clipEnd,local);
     seekVideo(segment,(WALKTHROUGH_STEPS[segment].duration||3)*clipProgress,now);
     if(segment<count-1){
-      if(local>.34)ensureMedia(segment+1);
+      if(local>.24)ensureMedia(segment+1);
       seekVideo(segment+1,0,now);
     }
-    if(segment+2<count&&local>.62)ensureMedia(segment+2);
+    if(segment+2<count&&local>.54)ensureMedia(segment+2);
+
+    const bridgeOpacities=bridges.map((_,index)=>bridgeOpacity(index,timeline));
+    const strongestBridge=Math.max(0,...bridgeOpacities);
 
     const nearest=clamp(Math.round(timeline),0,count-1);
     const distance=Math.abs(timeline-nearest);
     const nearCheckpoint=1-smootherstep(0,.12,distance);
     const slowEnough=1-clamp(Math.abs(scrollVelocity)/1.25,0,1);
-    const idleStrength=nearCheckpoint*slowEnough;
+    const idleStrength=nearCheckpoint*slowEnough*(1-strongestBridge);
     const seconds=now/1000;
 
     scenes.forEach((scene,index)=>{
       scene.style.setProperty("--scene-opacity",opacities[index].toFixed(5));
-      scene.style.setProperty("--scene-z",String(index===segment+1&&transition>0?2:index===segment?1:0));
+      scene.style.setProperty("--scene-z",String(index===segment?1:0));
       scene.style.setProperty("--scene-blur",blurs[index].toFixed(2)+"px");
       scene.style.setProperty("--scene-brightness",brightness[index].toFixed(5));
       scene.style.setProperty("--scene-shell-scale",shellScales[index].toFixed(5));
@@ -3641,6 +3667,14 @@ renderWalkthroughStructure();
       scene.style.setProperty("--idle-x",x.toFixed(4)+"%");
       scene.style.setProperty("--idle-y",y.toFixed(4)+"%");
       scene.style.setProperty("--idle-scale",scale.toFixed(5));
+    });
+
+    bridges.forEach((bridge,index)=>{
+      const opacity=bridgeOpacities[index];
+      bridge.style.setProperty("--bridge-opacity",opacity.toFixed(5));
+      bridge.style.setProperty("--bridge-blur",BRIDGE_BLUR.toFixed(2)+"px");
+      bridge.style.setProperty("--bridge-brightness",(.7+opacity*.04).toFixed(5));
+      bridge.style.setProperty("--bridge-scale",(1.03-opacity*.004).toFixed(5));
     });
 
     let strongestCopy=0;
@@ -3658,10 +3692,12 @@ renderWalkthroughStructure();
       if(copy.getAttribute("aria-hidden")!==String(hidden))copy.setAttribute("aria-hidden",String(hidden));
       strongestCopy=Math.max(strongestCopy,opacity);
     });
-    const veil=.08+Math.pow(strongestCopy,.72)*.58+Math.max(endBlur,transition)*.07;
-    section.style.setProperty("--veil-opacity",clamp(veil,.08,.74).toFixed(5));
+    const maskStrength=Math.max(startBlur,endBlur,strongestBridge);
+    const veil=.055+maskStrength*.24+Math.pow(strongestCopy,.72)*.37;
+    section.style.setProperty("--veil-opacity",clamp(veil,.055,.7).toFixed(5));
+    section.style.setProperty("--bridge-shade-opacity",(.3+strongestCopy*.18).toFixed(5));
 
-    const current=segment<count-1&&transition>.5?segment+1:segment;
+    const current=segment<count-1&&bridgeOpacity(segment,timeline)>.55?segment+1:segment;
     setActive(current);
     buttons.forEach((button,index)=>button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5)));
     const showCue=timeline<.055&&targetTimeline<.08;
@@ -3671,6 +3707,7 @@ renderWalkthroughStructure();
     const speedrunStrength=Math.max(smootherstep(.3,1.15,catchup),smootherstep(1.4,4,Math.abs(scrollVelocity)));
     section.dataset.timeline=timeline.toFixed(3);
     section.dataset.blur=(currentBlur*MAX_BLUR).toFixed(2);
+    section.dataset.bridge=strongestBridge.toFixed(3);
     section.dataset.motion=speedrunStrength>.65?"speedrun":idleStrength>.5?"idle":"scrub";
     section.dataset.speedrun=speedrunStrength.toFixed(3);
   }
@@ -3687,9 +3724,9 @@ renderWalkthroughStructure();
     const catchup=clamp(Math.abs(gap)/1.1,0,1);
     const response=6.1+catchup*3.9;
     const desiredStep=gap*(1-Math.exp(-response*dt));
-    /* A hard visual delta cap guarantees that even a full-page speedrun still
-       traverses every blur/crossfade window instead of teleporting over it. */
-    const maxStep=Math.min(.072,dt*(3.25+catchup*1.15));
+    /* Keep enough rendered frames inside the bridge even when the physical
+       scroll jumps by several viewports in one gesture. */
+    const maxStep=Math.min(.048,dt*(2.7+catchup*.95));
     renderedTimeline+=clamp(desiredStep,-maxStep,maxStep);
     if(Math.abs(targetTimeline-renderedTimeline)<.0001)renderedTimeline=targetTimeline;
     render(now);
