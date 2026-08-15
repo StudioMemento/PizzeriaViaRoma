@@ -1,8 +1,14 @@
-# Pizzeria Via Roma · V9.4
+# Pizzeria Via Roma · V9.5 FINAL
 
 Vercel-ready static build. Upload this folder or the packaged ZIP directly to Vercel; `index.html` is the entry point.
 
-## V9.4 masked bridge cinematic scroll film
+## V9.5 final mobile cinematic scroll film
+
+- Dedicated 960 × 540 mobile H.264 clips keep the same 24 fps timing and dense 125 ms keyframes while cutting decode and seek cost.
+- Mobile loads only the active clip and its next hand-off instead of warming all four videos at once.
+- The mobile renderer stops its animation loop at rest, quantizes seeks to source frames and avoids redundant style writes.
+- Mobile blur is tuned for the lower-resolution source, preserving the masked transition with substantially less GPU work.
+- The incoming mobile bridge uses a baked blurred first frame, removing a second live full-screen blur from the scene switch.
 
 - Four full-viewport checkpoints: Bancone, Entrata, Sala sinistra and Sala destra.
 - The opening frame is static with a restrained idle drift, logo and claim.

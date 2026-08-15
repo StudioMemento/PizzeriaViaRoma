@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V9.4 masked bridge scroll scrub">
+<meta name="build" content="Via Roma V9.5 final mobile cinematic scrub">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1682,7 +1682,7 @@ a,button{touch-action:manipulation}
 }
 
 /* ========================================================================
-   VIA ROMA V9.4 · masked bridge checkpoints and invisible scene hand-off
+   VIA ROMA V9.5 FINAL · mobile-first masked bridge cinematic scrub
    ======================================================================== */
 #storia.place-experience{
   --veil-opacity:.76;
@@ -1700,9 +1700,10 @@ a,button{touch-action:manipulation}
   z-index:var(--scene-z)!important;opacity:var(--scene-opacity)!important;
   transform:scale(var(--scene-shell-scale))!important;transform-origin:center;
   filter:blur(var(--scene-blur)) brightness(var(--scene-brightness));
-  transition:none!important;will-change:opacity,filter,transform;
+  transition:none!important;will-change:opacity,transform;
   backface-visibility:hidden;contain:layout style;
 }
+#storia .place-scene.is-render-active{will-change:opacity,filter,transform}
 #storia .place-bridge{
   --bridge-opacity:0;--bridge-blur:32px;--bridge-brightness:.74;--bridge-scale:1.026;
   position:absolute;inset:0;z-index:3;margin:0;overflow:hidden;pointer-events:none;
@@ -1714,6 +1715,7 @@ a,button{touch-action:manipulation}
   width:100%;height:100%;object-fit:cover;object-position:center center;
   transform:scale(1.035);transform-origin:center;backface-visibility:hidden;
 }
+#storia .place-bridge.is-baked{filter:none}
 #storia .place-bridge::after{
   content:"";position:absolute;inset:0;opacity:var(--bridge-shade-opacity,.34);
   background:radial-gradient(circle at 50% 46%,rgba(3,3,4,.06),rgba(3,3,4,.64) 86%),linear-gradient(180deg,rgba(3,3,4,.22),rgba(3,3,4,.08) 42%,rgba(3,3,4,.56));
@@ -1810,6 +1812,14 @@ a,button{touch-action:manipulation}
 #storia .corners{opacity:.2}
 @media(max-width:820px){
   #storia.place-experience{height:980svh!important}
+  #storia .place-scene{will-change:auto}
+  #storia .place-scene.is-render-active{will-change:opacity,filter,transform}
+  #storia .place-bridge{will-change:auto}
+  #storia .place-bridge.is-bridge-active{will-change:opacity,transform}
+  #storia .place-poster,#storia .place-video,#storia .place-veil,#storia .place-copy-step{will-change:auto}
+  #storia .place-scene.is-render-active .place-video{will-change:opacity}
+  #storia .place-scene.is-render-active .place-veil{will-change:opacity}
+  #storia .place-copy-step.is-copy-active{will-change:opacity,filter,transform}
   #storia .place-copy-splash .inner{width:calc(100% - 36px);padding-bottom:calc(var(--tab-h) + 18px)}
   #storia .place-copy-splash #splash .logo{width:min(72vw,370px)}
   #storia .place-copy-splash #splash h1 .tagline-line{display:block}
@@ -2097,11 +2107,12 @@ document.addEventListener("selectstart",event=>{if(!event.target.closest?.("inpu
 
 /* Single source of truth for order, labels, copy and media mapping. */
 const WALKTHROUGH_STEPS = Object.freeze([
-  {id:"bancone",index:"01",labelKey:"place_bancone",copyType:"splash",sourceMaster:"1.mp4",src:"assets/video/walkthrough/01-bancone.mp4",poster:"assets/video/walkthrough/01-bancone.webp",duration:3.041667},
-  {id:"entrata",index:"02",labelKey:"place_entrata",eyebrowKey:"s1_eyebrow",titleKey:"s1_title",bodyKey:"s1_body",sourceMaster:"2.mp4",src:"assets/video/walkthrough/03-sala-sinistra.mp4",poster:"assets/video/walkthrough/03-sala-sinistra.webp",duration:3.041667},
-  {id:"sala-sinistra",index:"03",labelKey:"place_sala_sinistra",eyebrowKey:"s2_eyebrow",titleKey:"s2_title",bodyKey:"s2_body",sourceMaster:"3.mp4",src:"assets/video/walkthrough/04-sala-destra.mp4",poster:"assets/video/walkthrough/04-sala-destra.webp",duration:3.041667},
-  {id:"sala-destra",index:"04",labelKey:"place_sala_destra",eyebrowKey:"s3_eyebrow",titleKey:"s3_title",bodyKey:"s3_body",sourceMaster:"4.mp4",src:"assets/video/walkthrough/02-entrata.mp4",poster:"assets/video/walkthrough/02-entrata.webp",duration:3}
+  {id:"bancone",index:"01",labelKey:"place_bancone",copyType:"splash",sourceMaster:"1.mp4",src:"assets/video/walkthrough/01-bancone.mp4",mobileSrc:"assets/video/walkthrough/mobile/01-bancone.mp4",poster:"assets/video/walkthrough/01-bancone.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/01-bancone.webp",duration:3.041667},
+  {id:"entrata",index:"02",labelKey:"place_entrata",eyebrowKey:"s1_eyebrow",titleKey:"s1_title",bodyKey:"s1_body",sourceMaster:"2.mp4",src:"assets/video/walkthrough/03-sala-sinistra.mp4",mobileSrc:"assets/video/walkthrough/mobile/03-sala-sinistra.mp4",poster:"assets/video/walkthrough/03-sala-sinistra.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/03-sala-sinistra.webp",duration:3.041667},
+  {id:"sala-sinistra",index:"03",labelKey:"place_sala_sinistra",eyebrowKey:"s2_eyebrow",titleKey:"s2_title",bodyKey:"s2_body",sourceMaster:"3.mp4",src:"assets/video/walkthrough/04-sala-destra.mp4",mobileSrc:"assets/video/walkthrough/mobile/04-sala-destra.mp4",poster:"assets/video/walkthrough/04-sala-destra.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/04-sala-destra.webp",duration:3.041667},
+  {id:"sala-destra",index:"04",labelKey:"place_sala_destra",eyebrowKey:"s3_eyebrow",titleKey:"s3_title",bodyKey:"s3_body",sourceMaster:"4.mp4",src:"assets/video/walkthrough/02-entrata.mp4",mobileSrc:"assets/video/walkthrough/mobile/02-entrata.mp4",poster:"assets/video/walkthrough/02-entrata.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/02-entrata.webp",duration:3}
 ]);
+const WALKTHROUGH_MOBILE=matchMedia("(max-width: 820px), (pointer: coarse)").matches;
 
 /* =============== UI + narrative i18n =============== */
 const T = {
@@ -3014,28 +3025,33 @@ dragScroll(forno); dragScroll(rail,{snap:false,inertia:true}); dragScroll(docume
 /* Both rails behave as restrained tickers and pause naturally for interaction. */
 function installSubtleTicker(el,{speed,normalize,update}){
   if(!el||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  let paused=false,dragging=false,last=0,resumeTimer=0,position=el.scrollLeft;
+  let paused=false,dragging=false,last=0,resumeTimer=0,position=el.scrollLeft,visible=false,raf=0;
+  const schedule=()=>{if(visible&&!document.hidden&&!raf)raf=requestAnimationFrame(tick)};
   const pause=()=>{position=el.scrollLeft;paused=true;clearTimeout(resumeTimer)};
-  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{position=el.scrollLeft;paused=false;last=0},delay)};
-  const inViewport=()=>{const rect=el.getBoundingClientRect();return rect.bottom>0&&rect.top<innerHeight};
+  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{position=el.scrollLeft;paused=false;last=0;schedule()},delay)};
   el.addEventListener("pointerdown",()=>{dragging=true;pause()},{passive:true});
   ["pointerup","pointercancel","lostpointercapture"].forEach(type=>el.addEventListener(type,()=>{dragging=false;resume(1700)},{passive:true}));
   el.addEventListener("focusin",pause);el.addEventListener("focusout",()=>resume(900));
   el.addEventListener("wheel",()=>{pause();resume(1100)},{passive:true});
-  document.addEventListener("visibilitychange",()=>{last=0;if(!document.hidden)position=el.scrollLeft});
+  document.addEventListener("visibilitychange",()=>{last=0;if(!document.hidden){position=el.scrollLeft;schedule()}else if(raf){cancelAnimationFrame(raf);raf=0}});
   if("ResizeObserver" in window)new ResizeObserver(()=>{last=0;requestAnimationFrame(()=>{normalize();position=el.scrollLeft;update()})}).observe(el);
-  const tick=now=>{
+  function tick(now){
+    raf=0;
     if(!last)last=now;const dt=Math.min(250,Math.max(0,now-last));last=now;
     const hoverPause=matchMedia("(hover:hover)").matches&&el.matches(":hover");
-    if(inViewport()&&!hoverPause&&!paused&&!dragging&&!el.classList.contains("dragging")&&!document.hidden){
+    if(visible&&!hoverPause&&!paused&&!dragging&&!el.classList.contains("dragging")&&!document.hidden){
       if(Math.abs(el.scrollLeft-position)>2)position=el.scrollLeft;
       position+=dt*speed;el.scrollLeft=position;normalize();
       if(Math.abs(el.scrollLeft-position)>2)position=el.scrollLeft;
       update();
     }
-    requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
+    schedule();
+  }
+  if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{
+    visible=entry.isIntersecting;last=0;
+    if(visible){position=el.scrollLeft;schedule()}else if(raf){cancelAnimationFrame(raf);raf=0}
+  },{rootMargin:"16% 0px 16%",threshold:.01}).observe(el);
+  else{visible=true;schedule()}
 }
 installSubtleTicker(rail,{speed:.007,normalize:normalizeShowLoop,update:()=>setShowDot(nearestShowLogical())});
 installSubtleTicker(forno,{speed:.0055,normalize:normalizeLoop,update:()=>{markMid();setDot(nearestLogical())}});
@@ -3442,7 +3458,8 @@ function renderSocialFallback(){
 (function enableReviewTicker(){
   const viewport=document.getElementById("reviewTrack");if(!viewport)return;
   const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let pos=0,half=0,last=0,paused=false,drag=null,raf=0,resumeTimer=0,visible=true;
+  let pos=0,half=0,last=0,paused=false,drag=null,raf=0,resumeTimer=0,visible=false;
+  const schedule=()=>{if(!reduced&&visible&&!document.hidden&&!raf)raf=requestAnimationFrame(tick)};
   const runner=()=>viewport.querySelector(".review-runner");
   const normalize=()=>{if(half>0){pos%=half;if(pos<0)pos+=half}};
   const paint=()=>{const r=runner();if(r)r.style.transform=`translate3d(${-pos.toFixed(3)}px,0,0)`};
@@ -3454,12 +3471,13 @@ function renderSocialFallback(){
   });
   window.__refreshReviewTicker=()=>{pos=0;last=0;refresh()};
   const pause=()=>{paused=true;clearTimeout(resumeTimer)};
-  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{paused=false;last=0},delay)};
-  const tick=ts=>{
+  const resume=(delay=0)=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>{paused=false;last=0;schedule()},delay)};
+  function tick(ts){
+    raf=0;
     if(!last)last=ts;const dt=Math.min(40,ts-last);last=ts;
     if(!reduced&&!paused&&!drag&&!document.hidden&&visible&&half){pos+=dt*.034;normalize();paint()}
-    raf=requestAnimationFrame(tick);
-  };
+    schedule();
+  }
   viewport.addEventListener("mouseenter",pause);viewport.addEventListener("mouseleave",()=>resume(180));
   viewport.addEventListener("focusin",pause);viewport.addEventListener("focusout",()=>resume(420));
   viewport.addEventListener("pointerdown",e=>{
@@ -3478,8 +3496,12 @@ function renderSocialFallback(){
   document.addEventListener("visibilitychange",()=>{last=0;if(document.hidden)pause();else resume(250)});
   window.addEventListener("resize",refresh,{passive:true});
   if("ResizeObserver" in window)new ResizeObserver(refresh).observe(viewport);
-  if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;last=0},{rootMargin:"20% 0px 20%",threshold:.01}).observe(viewport);
-  refresh();raf=requestAnimationFrame(tick);
+  if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{
+    visible=entry.isIntersecting;last=0;
+    if(visible)schedule();else if(raf){cancelAnimationFrame(raf);raf=0}
+  },{rootMargin:"20% 0px 20%",threshold:.01}).observe(viewport);
+  else{visible=true;schedule()}
+  refresh();
 })();
 
 /* Open / closed state in the restaurant's local time. */
@@ -3507,8 +3529,8 @@ function renderWalkthroughStructure(){
   const scenesRoot=section.querySelector("[data-walkthrough-scenes]"),copiesRoot=section.querySelector("[data-walkthrough-copies]"),stepper=section.querySelector("[data-walkthrough-stepper]");
   if(!scenesRoot||!copiesRoot||!stepper)return;
   const tr=key=>T[LANG]?.[key]||"";
-  const sceneMarkup=WALKTHROUGH_STEPS.map((step,n)=>`<figure class="place-scene" data-place-scene="${n}" data-walkthrough-id="${step.id}" style="--scene-opacity:${n===0?1:0};--scene-z:${n===0?1:0}"><img class="place-poster" src="${step.poster}" alt="" loading="eager" decoding="async" ${n===0?'fetchpriority="high"':''}><video class="place-video" data-video-src="${step.src}" poster="${step.poster}" preload="${n<2?"auto":"metadata"}" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil${step.copyType==="splash"?" place-veil-splash":""}"></span></figure>`).join("");
-  const bridgeMarkup=WALKTHROUGH_STEPS.slice(1).map((step,n)=>`<figure class="place-bridge" data-place-bridge="${n}" aria-hidden="true"><img src="${step.poster}" alt="" loading="eager" decoding="async"></figure>`).join("");
+  const sceneMarkup=WALKTHROUGH_STEPS.map((step,n)=>`<figure class="place-scene${n===0?" is-render-active":""}" data-place-scene="${n}" data-walkthrough-id="${step.id}" style="--scene-opacity:${n===0?1:0};--scene-z:${n===0?1:0}"><img class="place-poster" src="${step.poster}" alt="" loading="eager" decoding="async" ${n===0?'fetchpriority="high"':''}><video class="place-video" data-video-src="${WALKTHROUGH_MOBILE?step.mobileSrc:step.src}" poster="${step.poster}" preload="${n===0||(!WALKTHROUGH_MOBILE&&n<2)?"auto":"metadata"}" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil${step.copyType==="splash"?" place-veil-splash":""}"></span></figure>`).join("");
+  const bridgeMarkup=WALKTHROUGH_STEPS.slice(1).map((step,n)=>`<figure class="place-bridge${WALKTHROUGH_MOBILE?" is-baked":""}" data-place-bridge="${n}" aria-hidden="true"><img src="${WALKTHROUGH_MOBILE?step.mobileBridge:step.poster}" alt="" loading="eager" decoding="async"></figure>`).join("");
   scenesRoot.innerHTML=sceneMarkup+bridgeMarkup;
   copiesRoot.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>step.copyType==="splash"?`<article class="place-copy-step place-copy-splash" data-place-copy="${n}" aria-hidden="${n===0?"false":"true"}"><div class="inner" id="splash"><p class="split"><span data-i18n="sp_kicker">${tr("sp_kicker")}</span></p><img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma, Maniago"><h1 data-i18n="tagline">${tr("tagline")}</h1><div class="diamond"></div></div></article>`:`<article class="place-copy-step place-copy-story story" data-place-copy="${n}" aria-hidden="true"><span class="num"><b>${step.index}</b> · <span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span></span><div class="inner"><p class="eyebrow" data-i18n="${step.eyebrowKey}">${tr(step.eyebrowKey)}</p><h2 data-i18n="${step.titleKey}">${tr(step.titleKey)}</h2><hr class="hairline"><p data-i18n="${step.bodyKey}">${tr(step.bodyKey)}</p></div></article>`).join("");
   stepper.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>`<button type="button"${n===0?' class="on" aria-current="step"':''} data-place-go="${n}"><small>${step.index}</small><span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span><i></i></button>`).join("");
@@ -3522,6 +3544,7 @@ renderWalkthroughStructure();
   const count=WALKTHROUGH_STEPS.length;if(!count||scenes.length!==count||bridges.length!==count-1)return;
   const continueCue=section.querySelector("[data-walkthrough-continue]");
   const reducedQuery=matchMedia("(prefers-reduced-motion: reduce)");
+  const mobileMode=WALKTHROUGH_MOBILE;
   const posterOnly=reducedQuery.matches||!!navigator.connection?.saveData;
   const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
   const smootherstep=(start,end,value)=>{
@@ -3538,11 +3561,15 @@ renderWalkthroughStructure();
     bridgeInStart:.7,bridgeInEnd:.9,
     copyInStart:.76,copyInEnd:.92
   });
-  const MAX_BLUR=28,BRIDGE_BLUR=32;
+  const MAX_BLUR=mobileMode?18:28,BRIDGE_BLUR=mobileMode?22:32;
+  const SEEK_THRESHOLD=mobileMode?.032:.016,MIN_SEEK_INTERVAL=mobileMode?46:30;
 
   let targetTimeline=0,renderedTimeline=0,scrollVelocity=0;
-  let lastScrollY=scrollY,lastScrollStamp=performance.now(),lastFrame=performance.now(),raf=0,visible=false,activeIndex=-1;
-  const seekState=videos.map(()=>({desired:0,lastRequest:0}));
+  let lastScrollY=scrollY,lastScrollStamp=performance.now(),lastFrame=performance.now(),raf=0,visible=false,activeIndex=-1,renderSegment=-1,renderBridge=-1;
+  const seekState=videos.map(()=>({desired:0,lastRequest:0,timer:0}));
+  const setVar=(element,name,value)=>{
+    if(element.style.getPropertyValue(name)!==value)element.style.setProperty(name,value);
+  };
 
   function metrics(){
     return {top:section.offsetTop,range:Math.max(1,section.offsetHeight-innerHeight)};
@@ -3560,7 +3587,13 @@ renderWalkthroughStructure();
     if(video.readyState<1||video.dataset.failed==="true"||video.seeking)return;
     const wanted=clamp(state.desired,0,mediaDuration(index));
     const delta=Math.abs(video.currentTime-wanted);
-    if(delta<.016||now-state.lastRequest<30)return;
+    if(delta<SEEK_THRESHOLD)return;
+    const wait=MIN_SEEK_INTERVAL-(now-state.lastRequest);
+    if(wait>0){
+      if(!state.timer)state.timer=setTimeout(()=>{state.timer=0;flushSeek(index)},Math.ceil(wait));
+      return;
+    }
+    if(state.timer){clearTimeout(state.timer);state.timer=0}
     state.lastRequest=now;
     try{video.pause();video.currentTime=wanted}catch(_){}
   }
@@ -3573,7 +3606,7 @@ renderWalkthroughStructure();
       video.addEventListener("loadedmetadata",()=>flushSeek(index),{once:true});
       video.addEventListener("loadeddata",()=>{
         video.pause();
-        if(Math.abs(video.currentTime-seekState[index].desired)<.04)video.classList.add("is-media-ready");
+        if(Math.abs(video.currentTime-seekState[index].desired)<(mobileMode?.065:.04))video.classList.add("is-media-ready");
         flushSeek(index);
       },{once:true});
       video.addEventListener("seeked",()=>{
@@ -3592,7 +3625,8 @@ renderWalkthroughStructure();
 
   function seekVideo(index,time,now){
     if(posterOnly||index<0||index>=count)return;
-    seekState[index].desired=time;ensureMedia(index);flushSeek(index,now);
+    const desired=mobileMode?Math.round(time*24)/24:time;
+    seekState[index].desired=desired;ensureMedia(index);flushSeek(index,now);
   }
 
   function setActive(index){
@@ -3627,6 +3661,11 @@ renderWalkthroughStructure();
     const currentBlur=Math.max(startBlur,endBlur);
     const opacities=Array(count).fill(0),blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
 
+    if(segment!==renderSegment){
+      renderSegment=segment;
+      scenes.forEach((scene,index)=>scene.classList.toggle("is-render-active",index===segment));
+    }
+
     /* Only one live scene is exposed at a time. The real scene switch happens
        underneath a fully opaque bridge made from the next exact first frame. */
     opacities[segment]=1;
@@ -3642,39 +3681,45 @@ renderWalkthroughStructure();
       if(local>.24)ensureMedia(segment+1);
       seekVideo(segment+1,0,now);
     }
-    if(segment+2<count&&local>.54)ensureMedia(segment+2);
+    if(!mobileMode&&segment+2<count&&local>.54)ensureMedia(segment+2);
 
     const bridgeOpacities=bridges.map((_,index)=>bridgeOpacity(index,timeline));
     const strongestBridge=Math.max(0,...bridgeOpacities);
+    const nextRenderBridge=strongestBridge>.001?bridgeOpacities.indexOf(strongestBridge):-1;
+    if(nextRenderBridge!==renderBridge){
+      renderBridge=nextRenderBridge;
+      bridges.forEach((bridge,index)=>bridge.classList.toggle("is-bridge-active",index===renderBridge));
+    }
 
     const nearest=clamp(Math.round(timeline),0,count-1);
     const distance=Math.abs(timeline-nearest);
     const nearCheckpoint=1-smootherstep(0,.12,distance);
     const slowEnough=1-clamp(Math.abs(scrollVelocity)/1.25,0,1);
-    const idleStrength=nearCheckpoint*slowEnough*(1-strongestBridge);
+    const idleStrength=mobileMode?0:nearCheckpoint*slowEnough*(1-strongestBridge);
     const seconds=now/1000;
 
     scenes.forEach((scene,index)=>{
-      scene.style.setProperty("--scene-opacity",opacities[index].toFixed(5));
-      scene.style.setProperty("--scene-z",String(index===segment?1:0));
-      scene.style.setProperty("--scene-blur",blurs[index].toFixed(2)+"px");
-      scene.style.setProperty("--scene-brightness",brightness[index].toFixed(5));
-      scene.style.setProperty("--scene-shell-scale",shellScales[index].toFixed(5));
+      setVar(scene,"--scene-opacity",opacities[index].toFixed(5));
+      setVar(scene,"--scene-z",String(index===segment?1:0));
+      const blurValue=mobileMode?Math.round(blurs[index]*2)/2:blurs[index];
+      setVar(scene,"--scene-blur",blurValue.toFixed(2)+"px");
+      setVar(scene,"--scene-brightness",brightness[index].toFixed(5));
+      setVar(scene,"--scene-shell-scale",shellScales[index].toFixed(5));
       const idle=index===nearest?idleStrength:0;
       const x=Math.sin(seconds*.22+index*.7)*.38*idle;
       const y=Math.cos(seconds*.17+index*.53)*.27*idle;
       const scale=1.025+idle*(.009+Math.sin(seconds*.15+index)*.0025);
-      scene.style.setProperty("--idle-x",x.toFixed(4)+"%");
-      scene.style.setProperty("--idle-y",y.toFixed(4)+"%");
-      scene.style.setProperty("--idle-scale",scale.toFixed(5));
+      setVar(scene,"--idle-x",x.toFixed(4)+"%");
+      setVar(scene,"--idle-y",y.toFixed(4)+"%");
+      setVar(scene,"--idle-scale",scale.toFixed(5));
     });
 
     bridges.forEach((bridge,index)=>{
       const opacity=bridgeOpacities[index];
-      bridge.style.setProperty("--bridge-opacity",opacity.toFixed(5));
-      bridge.style.setProperty("--bridge-blur",BRIDGE_BLUR.toFixed(2)+"px");
-      bridge.style.setProperty("--bridge-brightness",(.7+opacity*.04).toFixed(5));
-      bridge.style.setProperty("--bridge-scale",(1.03-opacity*.004).toFixed(5));
+      setVar(bridge,"--bridge-opacity",opacity.toFixed(5));
+      setVar(bridge,"--bridge-blur",BRIDGE_BLUR.toFixed(2)+"px");
+      setVar(bridge,"--bridge-brightness",(mobileMode?.74:.7+opacity*.04).toFixed(5));
+      setVar(bridge,"--bridge-scale",(mobileMode?1.026:1.03-opacity*.004).toFixed(5));
     });
 
     let strongestCopy=0;
@@ -3684,36 +3729,31 @@ renderWalkthroughStructure();
       const offset=(1-opacity)*(leaving?-18:20);
       const copyBlur=(1-opacity)*15;
       const scale=.978+opacity*.022;
-      copy.style.setProperty("--copy-opacity",opacity.toFixed(5));
-      copy.style.setProperty("--copy-y",offset.toFixed(2)+"px");
-      copy.style.setProperty("--copy-blur",copyBlur.toFixed(2)+"px");
-      copy.style.setProperty("--copy-scale",scale.toFixed(5));
+      setVar(copy,"--copy-opacity",opacity.toFixed(5));
+      setVar(copy,"--copy-y",offset.toFixed(2)+"px");
+      setVar(copy,"--copy-blur",copyBlur.toFixed(2)+"px");
+      setVar(copy,"--copy-scale",scale.toFixed(5));
       const hidden=opacity<.02;
+      copy.classList.toggle("is-copy-active",!hidden);
       if(copy.getAttribute("aria-hidden")!==String(hidden))copy.setAttribute("aria-hidden",String(hidden));
       strongestCopy=Math.max(strongestCopy,opacity);
     });
     const maskStrength=Math.max(startBlur,endBlur,strongestBridge);
     const veil=.055+maskStrength*.24+Math.pow(strongestCopy,.72)*.37;
-    section.style.setProperty("--veil-opacity",clamp(veil,.055,.7).toFixed(5));
-    section.style.setProperty("--bridge-shade-opacity",(.3+strongestCopy*.18).toFixed(5));
+    setVar(section,"--veil-opacity",clamp(veil,.055,.7).toFixed(5));
+    setVar(section,"--bridge-shade-opacity",(.3+strongestCopy*.18).toFixed(5));
 
     const current=segment<count-1&&bridgeOpacity(segment,timeline)>.55?segment+1:segment;
     setActive(current);
-    buttons.forEach((button,index)=>button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5)));
+    buttons.forEach((button,index)=>setVar(button,"--step-fill",clamp(timeline-index,0,1).toFixed(5)));
     const showCue=timeline<.055&&targetTimeline<.08;
     continueCue?.classList.toggle("is-visible",showCue);
-    continueCue?.setAttribute("aria-hidden",String(!showCue));
-    const catchup=Math.abs(targetTimeline-renderedTimeline);
-    const speedrunStrength=Math.max(smootherstep(.3,1.15,catchup),smootherstep(1.4,4,Math.abs(scrollVelocity)));
-    section.dataset.timeline=timeline.toFixed(3);
-    section.dataset.blur=(currentBlur*MAX_BLUR).toFixed(2);
-    section.dataset.bridge=strongestBridge.toFixed(3);
-    section.dataset.motion=speedrunStrength>.65?"speedrun":idleStrength>.5?"idle":"scrub";
-    section.dataset.speedrun=speedrunStrength.toFixed(3);
+    const cueHidden=String(!showCue);
+    if(continueCue&&continueCue.getAttribute("aria-hidden")!==cueHidden)continueCue.setAttribute("aria-hidden",cueHidden);
   }
 
   function requestTick(){
-    if(!raf)raf=requestAnimationFrame(tick);
+    if(!raf){lastFrame=performance.now()-16.7;raf=requestAnimationFrame(tick)}
   }
 
   function tick(now){
@@ -3730,7 +3770,8 @@ renderWalkthroughStructure();
     renderedTimeline+=clamp(desiredStep,-maxStep,maxStep);
     if(Math.abs(targetTimeline-renderedTimeline)<.0001)renderedTimeline=targetTimeline;
     render(now);
-    if(visible)raf=requestAnimationFrame(tick);
+    const unsettled=Math.abs(targetTimeline-renderedTimeline)>.0001;
+    if(visible&&(!mobileMode||unsettled))raf=requestAnimationFrame(tick);
   }
 
   function updateTarget(jump=false){
@@ -3761,8 +3802,8 @@ renderWalkthroughStructure();
   }));
 
   updateTarget(true);
-  if(visible){ensureMedia(0);ensureMedia(1);render(performance.now());requestTick()}
-  if(!posterOnly){
+  if(visible){ensureMedia(0);if(!mobileMode)ensureMedia(1);render(performance.now());requestTick()}
+  if(!posterOnly&&!mobileMode){
     const warmWalkthrough=()=>{for(let index=0;index<count;index++)ensureMedia(index)};
     if("requestIdleCallback" in window)requestIdleCallback(warmWalkthrough,{timeout:1600});
     else setTimeout(warmWalkthrough,700);
@@ -3827,11 +3868,21 @@ renderWalkthroughStructure();
       }
     }
   }
-  const io=new IntersectionObserver(entries=>entries.forEach(entry=>{const f=fields.find(v=>v.el===entry.target);if(f)f.visible=entry.isIntersecting}),{rootMargin:"18% 0px 18%",threshold:.01});
+  let last=0,raf=0;
+  const anyVisible=()=>fields.some(f=>f.visible);
+  const start=()=>{if(!reduced&&anyVisible()&&!raf)raf=requestAnimationFrame(loop)};
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{const f=fields.find(v=>v.el===entry.target);if(f)f.visible=entry.isIntersecting});
+    if(anyVisible())start();else if(raf){cancelAnimationFrame(raf);raf=0}
+  },{rootMargin:"18% 0px 18%",threshold:.01});
   fields.forEach(f=>{io.observe(f.el);f.el.addEventListener("pointermove",e=>{const r=f.el.getBoundingClientRect();f.px=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));f.py=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))},{passive:true})});
   if("ResizeObserver" in window){const ro=new ResizeObserver(entries=>entries.forEach(e=>{const f=fields.find(v=>v.el===e.target);if(f){f.w=0;f.h=0}}));fields.forEach(f=>ro.observe(f.el))}
-  let last=0;function loop(now){if(!reduced&&now-last<33){requestAnimationFrame(loop);return}last=now;fields.forEach(f=>{if(f.visible||reduced)draw(f,now)});if(!reduced)requestAnimationFrame(loop)}
-  if(reduced)fields.forEach(f=>draw(f,0));else requestAnimationFrame(loop);
+  function loop(now){
+    raf=0;if(!anyVisible())return;
+    if(now-last<33){start();return}
+    last=now;fields.forEach(f=>{if(f.visible)draw(f,now)});start();
+  }
+  if(reduced)fields.forEach(f=>draw(f,0));
 })();
 
 /* =============== reveal + lazy =============== */
