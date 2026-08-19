@@ -1,0 +1,688 @@
+/* ==========================================================================
+   PIZZERIA VIA ROMA V14A
+   Menu-first architecture · native film scrub · responsive motion polish
+   ========================================================================== */
+
+:root{
+  --v14a-trace-inset:0px;
+  --v14a-hero-height:calc(100svh - var(--tab-h));
+  --v14a-ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ---------- Arrival hero ---------- */
+#home{
+  position:relative;
+  min-height:var(--v14a-hero-height);
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  padding:
+    calc(88px + env(safe-area-inset-top))
+    var(--page-gutter)
+    calc(var(--tab-h) + 58px);
+  border-bottom:1px solid var(--hair-soft);
+  background:
+    radial-gradient(760px 520px at 50% 43%,rgba(198,161,91,.09),transparent 66%),
+    linear-gradient(180deg,#0a0a0b 0%,#070708 100%);
+}
+#home::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.72;
+  background:
+    radial-gradient(circle at 50% 43%,transparent 0 15%,rgba(198,161,91,.025) 15.15% 15.35%,transparent 15.5% 27%,rgba(198,161,91,.02) 27.15% 27.35%,transparent 27.5%),
+    linear-gradient(180deg,rgba(10,10,11,.08),rgba(10,10,11,.58));
+}
+#home::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(7,7,8,.42),transparent 24%,transparent 70%,rgba(7,7,8,.7)),
+    radial-gradient(circle at 50% 45%,transparent 28%,rgba(7,7,8,.5) 100%);
+}
+.v14a-particles.home-particles{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:.96;
+}
+.home-inner{
+  position:relative;
+  z-index:2;
+  width:min(100%,860px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.home-kicker{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:clamp(24px,4vh,42px);
+  color:var(--oro);
+  font-size:10px;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+}
+.home-kicker::before,
+.home-kicker::after{
+  content:"";
+  width:42px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--hair));
+}
+.home-kicker::after{transform:scaleX(-1)}
+.home-logo{
+  width:min(72vw,560px);
+  max-height:clamp(160px,32vh,330px);
+  object-fit:contain;
+  filter:drop-shadow(0 32px 70px rgba(0,0,0,.54));
+  transform:translateZ(0);
+}
+.home-tagline{
+  max-width:34ch;
+  margin-top:clamp(25px,4vh,46px);
+  color:rgba(241,236,225,.68);
+  font-size:clamp(15px,1.5vw,20px);
+  line-height:1.62;
+  letter-spacing:.1em;
+}
+.home-tagline .tagline-line{display:inline}
+.home-tagline .tagline-line+.tagline-line::before{content:" "}
+.home-scroll{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  bottom:calc(var(--tab-h) + 20px);
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  color:rgba(241,236,225,.5);
+  font-size:8px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+}
+.home-scroll i{
+  display:block;
+  width:1px;
+  height:34px;
+  overflow:hidden;
+  background:rgba(198,161,91,.18);
+}
+.home-scroll i::after{
+  content:"";
+  display:block;
+  width:100%;
+  height:55%;
+  background:linear-gradient(180deg,transparent,var(--oro));
+  animation:v14a-scroll-cue 2s var(--v14a-ease) infinite;
+}
+@keyframes v14a-scroll-cue{
+  0%{transform:translateY(-110%);opacity:0}
+  30%{opacity:1}
+  100%{transform:translateY(210%);opacity:0}
+}
+
+/* ---------- Menu-first transition ---------- */
+body.v14a-ready #catshow{
+  scroll-margin-top:62px;
+  border-top:0;
+  background:
+    radial-gradient(760px 360px at 50% 40%,rgba(198,161,91,.07),transparent 72%),
+    linear-gradient(180deg,#09090a,#0a0a0b);
+}
+body.v14a-ready #menu{
+  border-top:1px solid var(--hair-soft);
+}
+body.v14a-ready .screen.compact.teaser{
+  border-top:1px solid var(--hair-soft);
+}
+
+/* The category preview and printed category artwork now share one path grammar. */
+body.v14a-ready #catshow .preview-card,
+body.v14a-ready #catshow .preview-head,
+body.v14a-ready #catshow .preview-window{
+  overflow:visible;
+}
+body.v14a-ready #catshow .preview-window{
+  aspect-ratio:2048 / 487!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+body.v14a-ready #catshow .preview-cutout{
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+body.v14a-ready #catshow .preview-trace{
+  display:block!important;
+  left:var(--v14a-trace-inset)!important;
+  right:var(--v14a-trace-inset)!important;
+  height:1px;
+  opacity:1;
+  transform:none!important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(198,161,91,.25) 5%,
+      rgba(198,161,91,.56) 18%,
+      var(--oro) 50%,
+      rgba(198,161,91,.56) 82%,
+      rgba(198,161,91,.25) 95%,
+      transparent 100%
+    )!important;
+  box-shadow:0 0 14px rgba(198,161,91,.08);
+}
+body.v14a-ready #catshow .preview-trace.t1{top:0!important}
+body.v14a-ready #catshow .preview-trace.t2{bottom:0!important}
+
+body.v14a-ready .menu-art::before,
+body.v14a-ready .menu-art::after{
+  left:var(--v14a-trace-inset)!important;
+  right:var(--v14a-trace-inset)!important;
+  height:1px;
+  transform:none!important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(198,161,91,.25) 5%,
+      rgba(198,161,91,.56) 18%,
+      var(--oro) 50%,
+      rgba(198,161,91,.56) 82%,
+      rgba(198,161,91,.25) 95%,
+      transparent 100%
+    )!important;
+  box-shadow:0 0 14px rgba(198,161,91,.07);
+}
+body.v14a-ready .menu-art{
+  aspect-ratio:2048 / 487!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+body.v14a-ready .menu-art::before{top:0!important}
+body.v14a-ready .menu-art::after{bottom:0!important}
+body.v14a-ready .menu-art-window{inset:1px 0!important}
+
+/* ---------- Walkthrough: continuous, reversible scroll-to-video timeline ---------- */
+body.v14a-ready #storia.place-experience{
+  height:760svh!important;
+  min-height:0!important;
+  scroll-margin-top:0;
+  overscroll-behavior-y:auto!important;
+  scroll-snap-type:none!important;
+}
+body.v14a-ready #storia .place-sticky{
+  touch-action:auto!important;
+  overscroll-behavior:auto!important;
+}
+body.v14a-ready #catshow .rail,
+body.v14a-ready .strip{
+  -webkit-overflow-scrolling:touch;
+}
+body.v14a-ready #storia .place-copy-story .inner{
+  padding-bottom:calc(var(--tab-h) + clamp(100px,13vh,158px));
+}
+body.v14a-ready #storia .place-continue{
+  display:none!important;
+}
+
+/* ---------- Bottom navigation: four clear actions ---------- */
+body.v14a-ready .tabbar a{
+  flex:0 0 25%;
+}
+body.v14a-ready .tabbar a[data-tab="gallery"]{
+  display:none!important;
+}
+body.v14a-ready .tabbar{
+  justify-content:center;
+}
+
+/* ---------- Info / map alignment ---------- */
+body.v14a-ready .map-address{
+  width:auto;
+  min-width:0;
+  box-sizing:border-box;
+  grid-template-columns:minmax(0,1fr) auto;
+}
+body.v14a-ready .map-address strong{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+
+/* ---------- Mobile editorial pass ---------- */
+@media(max-width:700px){
+  :root{
+    --v14a-trace-inset:0px;
+    --v14a-hero-height:calc(100svh - var(--tab-h));
+  }
+
+  #home{
+    padding:
+      calc(80px + env(safe-area-inset-top))
+      18px
+      calc(var(--tab-h) + 54px);
+  }
+  .home-kicker{
+    margin-bottom:24px;
+    font-size:8.5px;
+    letter-spacing:.33em;
+  }
+  .home-kicker::before,
+  .home-kicker::after{width:28px}
+  .home-logo{
+    width:min(78vw,390px);
+    max-height:34svh;
+  }
+  .home-tagline{
+    max-width:28ch;
+    margin-top:25px;
+    font-size:14px;
+    line-height:1.58;
+    letter-spacing:.075em;
+  }
+  .home-tagline .tagline-line{display:block}
+  .home-tagline .tagline-line+.tagline-line::before{content:""}
+  .home-scroll{bottom:calc(var(--tab-h) + 14px)}
+
+  body.v14a-ready #catshow{
+    padding:74px 0 58px!important;
+  }
+  body.v14a-ready #catshow .slide{
+    overflow:visible!important;
+    padding:0 18px!important;
+  }
+  body.v14a-ready #catshow .preview-card{
+    width:100%;
+    overflow:visible!important;
+  }
+  body.v14a-ready #catshow .preview-head{
+    min-height:2.7em;
+    width:100%;
+    padding:0 3px;
+    align-items:center;
+  }
+  body.v14a-ready #catshow h2{
+    width:100%;
+    max-width:100%;
+    font-size:clamp(23px,6.5vw,31px)!important;
+    line-height:1.18;
+    letter-spacing:.12em!important;
+    white-space:normal!important;
+    text-wrap:balance;
+    overflow:visible!important;
+  }
+  body.v14a-ready #catshow .preview-window{
+    width:100%;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:2048 / 487!important;
+    margin-top:18px!important;
+    overflow:visible!important;
+  }
+  body.v14a-ready #catshow .preview-cutout{
+    position:absolute;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    max-width:100%!important;
+    transform:none!important;
+    object-fit:contain!important;
+  }
+  body.v14a-ready #catshow .preview-trace.t1{top:0!important}
+  body.v14a-ready #catshow .preview-trace.t2{bottom:0!important}
+  body.v14a-ready #catshow .sub{
+    min-height:2.8em;
+    margin-top:15px!important;
+    padding:0 8px!important;
+    font-size:13.5px!important;
+    line-height:1.48;
+  }
+  body.v14a-ready #showdots{margin-top:15px!important}
+
+  body.v14a-ready .mcat{
+    width:calc(100% - 32px);
+  }
+  body.v14a-ready .mcat-head{
+    padding:0;
+  }
+  body.v14a-ready .menu-art{
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:2048 / 487!important;
+    margin:20px 0 26px!important;
+    overflow:visible;
+  }
+  body.v14a-ready .menu-art::before,
+  body.v14a-ready .menu-art::after{
+    left:0!important;
+    right:0!important;
+  }
+  body.v14a-ready .menu-art-window{
+    inset:1px 0!important;
+    overflow:visible!important;
+    -webkit-mask-image:none!important;
+    mask-image:none!important;
+  }
+
+  /* Allergens become quiet metadata above the title row. */
+  body.v14a-ready #menu .item{
+    padding:18px 0 24px!important;
+  }
+  body.v14a-ready #menu .item > .allergens{
+    display:block;
+    width:max-content;
+    max-width:100%;
+    margin:0 0 6px;
+    color:rgba(198,161,91,.55);
+    font-size:8.5px;
+    line-height:1;
+    letter-spacing:.22em;
+    white-space:nowrap;
+    text-transform:uppercase;
+  }
+  body.v14a-ready #menu .item > .allergens::before{
+    content:"";
+    display:inline-block;
+    width:13px;
+    height:1px;
+    margin:0 8px 3px 0;
+    background:rgba(198,161,91,.45);
+  }
+  body.v14a-ready #menu .item .row{
+    grid-template-columns:minmax(0,auto) minmax(18px,1fr) auto!important;
+    gap:9px!important;
+    align-items:baseline;
+  }
+  body.v14a-ready #menu .item .label{
+    display:block;
+    min-width:0;
+  }
+  body.v14a-ready #menu .item .nome{
+    font-size:15px;
+    line-height:1.42;
+    letter-spacing:.115em;
+  }
+  body.v14a-ready #menu .item .qualifier{
+    display:block;
+    margin-top:3px;
+  }
+  body.v14a-ready #menu .item .dots{
+    display:block!important;
+    min-width:18px;
+  }
+  body.v14a-ready #menu .item .desc{
+    margin-top:7px;
+    font-size:14px;
+    line-height:1.52;
+  }
+  body.v14a-ready #menu .drink-item .row{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body.v14a-ready #menu .drink-item .dots{
+    display:none!important;
+  }
+
+  /* Full-screen blur on live video frames was the main mobile compositor cost. */
+  body.v14a-ready #storia.place-experience{
+    height:840svh!important;
+  }
+  body.v14a-ready #storia .place-scene{
+    filter:none!important;
+  }
+  body.v14a-ready #storia .place-copy-step{
+    filter:none!important;
+  }
+  body.v14a-ready #storia .place-copy-story .inner{
+    width:calc(100% - 36px);
+    padding-bottom:calc(var(--tab-h) + 102px)!important;
+  }
+  body.v14a-ready #storia .place-copy-story h2{
+    white-space:normal!important;
+    text-wrap:balance!important;
+  }
+
+  /* Map and utility cards now land on the same 18px mobile grid. */
+  body.v14a-ready #dove .closing-dashboard{
+    padding:0 18px;
+  }
+  body.v14a-ready #dove .closing-map-card{
+    width:100%;
+    min-height:390px;
+    aspect-ratio:1;
+    border-left:1px solid rgba(198,161,91,.2)!important;
+    border-right:1px solid rgba(198,161,91,.2)!important;
+  }
+  body.v14a-ready #dove .visit-grid{
+    padding:12px 0 0!important;
+  }
+  body.v14a-ready #dove .map-address{
+    left:14px!important;
+    right:14px!important;
+    bottom:14px!important;
+    padding:17px 18px!important;
+  }
+  body.v14a-ready #dove .map-address small{
+    font-size:8px;
+    letter-spacing:.2em;
+  }
+  body.v14a-ready #dove .map-address strong{
+    font-size:clamp(22px,7vw,30px);
+  }
+
+  body.v14a-ready .tabbar a{
+    font-size:9px!important;
+    letter-spacing:.15em!important;
+  }
+  body.v14a-ready .tabbar a i{
+    font-size:20px!important;
+  }
+}
+
+@media(max-width:380px){
+  body.v14a-ready #catshow h2{
+    font-size:22px!important;
+    letter-spacing:.1em!important;
+  }
+  body.v14a-ready #menu .item .nome{
+    font-size:14px;
+    letter-spacing:.1em;
+  }
+  body.v14a-ready #menu .item .prezzo{
+    font-size:16px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .home-scroll i::after{animation:none;transform:none}
+}
+
+
+/* ==========================================================================
+   PIZZERIA VIA ROMA V14A CLEAN · authoritative final layer
+   ========================================================================== */
+:root{
+  --v14a-trace-inset:0px;
+  --v14a-ease:cubic-bezier(.22,1,.36,1);
+}
+html{overflow-x:clip;scroll-behavior:smooth}
+body{overflow-x:clip}
+body.v14a-ready{min-width:0}
+#home,#catshow,#pizza-slider,.screen.compact.teaser,#menu,#storia,#gallery,#customer,#social,#dove{scroll-margin-top:0}
+
+/* Home: visible responsive dots, exact copy and a true chevron cue. */
+#home{min-height:calc(100svh - var(--tab-h));padding-bottom:calc(var(--tab-h) + 68px)}
+#home .v14a-particles{opacity:1}
+.home-inner{width:min(100%,900px)}
+.home-kicker{font-size:clamp(8px,.72vw,11px);letter-spacing:.34em;white-space:normal;text-wrap:balance}
+.home-logo{width:min(70vw,520px);max-height:clamp(170px,31vh,320px)}
+.home-tagline{max-width:34ch;margin-top:clamp(24px,4vh,42px);font-size:clamp(17px,1.55vw,22px);font-weight:300;line-height:1.5;letter-spacing:.075em;color:rgba(241,236,225,.8)}
+.home-tagline .tagline-line{display:block}
+.home-tagline .tagline-line+.tagline-line::before{content:""}
+.home-scroll{bottom:calc(var(--tab-h) + 16px);gap:8px;white-space:nowrap}
+.home-scroll svg{display:block;color:var(--oro);animation:v14a-chevron 1.85s var(--v14a-ease) infinite}
+@keyframes v14a-chevron{0%,100%{transform:translateY(0);opacity:.48}48%{transform:translateY(7px);opacity:1}}
+
+/* Requested sequence is encoded in the DOM. The oven title, arrows and dots stay together. */
+#pizza-slider{position:relative;z-index:1;border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);scroll-margin-top:58px}
+#pizza-slider .strip-head,#pizza-slider .edge,#pizza-slider #fornodots{position:relative;z-index:5}
+#pizza-slider #fornodots{margin-top:14px}
+.screen.compact.teaser{border-top:0!important}
+.screen.compact.teaser h2{max-width:19ch;margin-inline:auto;text-wrap:balance}
+.screen.compact.teaser p{max-width:47ch;margin-inline:auto;text-wrap:balance}
+
+/* Category and printed-menu paths share the exact 2048×487 artwork frame. */
+body.v14a-ready #catshow .preview-card,
+body.v14a-ready #catshow .preview-head,
+body.v14a-ready #catshow .preview-window{overflow:visible!important}
+body.v14a-ready #catshow .preview-window,
+body.v14a-ready .menu-art{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:2048 / 487!important;
+  overflow:visible!important;
+}
+body.v14a-ready #catshow .preview-cutout,
+body.v14a-ready .menu-art-window>img{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  transform:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+body.v14a-ready .menu-art-window{
+  position:absolute!important;
+  inset:0!important;
+  overflow:hidden!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+body.v14a-ready #catshow .preview-trace,
+body.v14a-ready .menu-art::before,
+body.v14a-ready .menu-art::after{
+  left:0!important;right:0!important;transform:none!important;
+}
+body.v14a-ready #catshow .preview-trace.t1,
+body.v14a-ready .menu-art::before{top:0!important}
+body.v14a-ready #catshow .preview-trace.t2,
+body.v14a-ready .menu-art::after{bottom:0!important}
+
+/* One optimized walkthrough film: no bridge masks and no multi-video seek contention. */
+body.v14a-ready #storia.place-experience{height:580svh!important;min-height:0!important;overscroll-behavior-y:auto!important;background:#050506}
+body.v14a-ready #storia .place-sticky{height:100svh!important;min-height:0;touch-action:auto!important;overscroll-behavior:auto!important}
+body.v14a-ready #storia .place-scene{filter:none!important;transition:none!important;contain:layout style paint}
+body.v14a-ready #storia .place-scene.is-render-active{will-change:opacity,transform}
+body.v14a-ready #storia .place-poster,
+body.v14a-ready #storia .place-video{transform:scale(var(--idle-scale,1.018))!important;filter:brightness(.96) saturate(.95) contrast(1.015)!important}
+body.v14a-ready #storia .place-video{opacity:0!important}
+body.v14a-ready #storia .place-video.is-media-ready{opacity:1!important}
+body.v14a-ready #storia .place-veil{background:linear-gradient(180deg,rgba(4,4,5,.18),rgba(4,4,5,.02) 42%,rgba(4,4,5,.47));opacity:var(--veil-opacity,.28)}
+body.v14a-ready #storia .place-copy-step{filter:blur(var(--copy-blur,0px));transition:none!important}
+body.v14a-ready #storia .place-logo-only .inner{display:grid;place-items:center;width:100%;height:100%;padding:0 24px calc(var(--tab-h) + 18px)}
+body.v14a-ready #storia .place-logo-only #splash .logo{width:min(44vw,500px);margin:0!important;opacity:1;transform:none;filter:drop-shadow(0 28px 70px rgba(0,0,0,.55))}
+body.v14a-ready #storia .place-copy-story .inner{padding-bottom:calc(var(--tab-h) + 22px)}
+body.v14a-ready #storia .place-copy-story h2{max-width:min(90vw,980px)!important;white-space:normal!important;text-wrap:balance!important;line-height:1.06}
+body.v14a-ready #storia .place-copy-story .inner>p:last-child{max-width:40ch!important}
+body.v14a-ready #storia .place-continue{display:none!important}
+
+/* Gallery: player, dock and all five album thumbnails resolve to one shared edge. */
+#gallery{padding-inline:var(--page-gutter)!important}
+#gallery .g-viewer{width:min(100%,1440px)!important;max-width:none!important;margin:0 auto!important;display:block!important}
+#gallery .g-stage{width:100%!important;max-width:none!important;margin:0!important;aspect-ratio:16 / 9;min-height:clamp(430px,62vw,820px)}
+#gallery .g-tabs-shell{position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:10px 0 0!important;overflow:visible!important;background:#080809!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+#gallery .g-tabs{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important;transform:none!important}
+#gallery .g-album{display:block!important;flex:none!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important}
+#gallery .g-cover{width:100%!important;aspect-ratio:16 / 9!important}
+#gallery .g-dock{left:14px!important;right:14px!important;bottom:14px!important;width:auto!important;max-width:none!important;transform:none!important}
+#gallery .g-dock-status{min-width:0!important}
+
+/* Info: simple particles, no radial cursor glow and no tilted map card. */
+#dove{background:linear-gradient(155deg,#0d0d0f,#070708 72%)!important;isolation:isolate}
+#dove>.v14a-particles{position:absolute!important;inset:0!important;z-index:0;opacity:1;mix-blend-mode:normal}
+#dove .closing-shell{position:relative;z-index:1}
+.social-glow,.closing-orbit{display:none!important}
+#dove .closing-map-card{transform:none!important;transition:border-color .3s,box-shadow .4s!important}
+.v14a-particles{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* Four equal nav actions: Menù, Via Roma, Info, Chiama. */
+.tabbar{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.tabbar>a{min-width:0!important;flex:0 0 25%!important}
+
+@media(max-width:900px){
+  #gallery{padding-inline:18px!important}
+  #gallery .g-stage{min-height:clamp(390px,72vw,650px)}
+}
+@media(max-width:700px){
+  #home{padding:calc(78px + env(safe-area-inset-top)) 18px calc(var(--tab-h) + 62px)}
+  .home-kicker{max-width:88vw;margin-bottom:24px;font-size:8px;letter-spacing:.28em}
+  .home-kicker::before,.home-kicker::after{width:24px}
+  .home-logo{width:min(76vw,350px);max-height:31svh}
+  .home-tagline{max-width:28ch;margin-top:24px;font-size:15px;line-height:1.5;letter-spacing:.06em}
+  .home-scroll{bottom:calc(var(--tab-h) + 12px)}
+
+  body.v14a-ready #catshow{padding:74px 0 58px!important}
+  body.v14a-ready #catshow .slide{padding:0 16px!important}
+  body.v14a-ready #catshow .preview-window{margin-top:18px!important}
+  body.v14a-ready .mcat{width:calc(100% - 32px)!important}
+  body.v14a-ready .menu-art{margin:18px 0 24px!important}
+
+  body.v14a-ready #storia.place-experience{height:640svh!important}
+  body.v14a-ready #storia .place-logo-only #splash .logo{width:min(72vw,340px)}
+  body.v14a-ready #storia .place-copy-story .inner{width:calc(100% - 36px);padding-bottom:calc(var(--tab-h) + 18px)}
+  body.v14a-ready #storia .place-copy-story h2{font-size:clamp(29px,8vw,44px)!important;line-height:1.08!important}
+  body.v14a-ready #storia .place-copy-story .eyebrow{margin-bottom:22px}
+  body.v14a-ready #storia .place-copy-story .hairline{margin:22px auto}
+  body.v14a-ready #storia .place-stepper{width:calc(100% - 32px);bottom:calc(var(--tab-h) + 16px)}
+
+  #gallery{padding-inline:0!important}
+  #gallery .g-viewer{width:100%!important}
+  #gallery .g-stage{aspect-ratio:4 / 5;min-height:520px}
+  #gallery .g-tabs-shell{padding:8px 10px 0!important}
+  #gallery .g-tabs{gap:5px!important}
+  #gallery .g-cover{aspect-ratio:1 / 1!important}
+  #gallery .g-album small{font-size:6.5px!important;letter-spacing:.08em!important}
+  #gallery .g-dock{left:10px!important;right:10px!important;bottom:10px!important;grid-template-columns:42px 42px 42px minmax(0,1fr)!important}
+  #gallery .g-dock .g-nav,#gallery .g-dock .g-play{width:42px!important;height:42px!important}
+
+  #dove .closing-dashboard{padding:0 18px}
+  #dove .closing-map-card{min-height:390px;aspect-ratio:1}
+}
+@media(max-width:420px){
+  .tabbar a{font-size:8px!important;letter-spacing:.11em!important}
+  .tabbar a i{font-size:18px!important}
+  #gallery .g-dock-status{font-size:7.5px!important;letter-spacing:.1em!important;padding:0 7px!important}
+  body.v14a-ready #storia .place-stepper button span{font-size:0}
+  body.v14a-ready #storia .place-stepper button.on span{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .home-scroll svg{animation:none}
+}

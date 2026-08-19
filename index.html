@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Via Roma V9.5 final mobile cinematic scrub">
+<meta name="build" content="Pizzeria Via Roma V14A Clean">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1856,11 +1856,12 @@ a,button{touch-action:manipulation}
   #storia .place-poster,#storia .place-video{transform:scale(1.035)!important}
 }
 </style>
+  <link rel="stylesheet" href="app.css?v=14.1.0">
 </head>
 <body>
 
 <div class="top" id="topbar">
-  <a class="brand" href="#storia" aria-label="Pizzeria Via Roma"><img class="mark" src="assets/flame.png" alt="Pizzeria Via Roma"></a>
+  <a class="brand" href="#home" aria-label="Pizzeria Via Roma — home"><img class="mark" src="assets/flame.png" alt="Pizzeria Via Roma"></a>
   <div class="lang" role="group" aria-label="Language">
     <button data-lang="it" class="on">IT</button>
     <button data-lang="en">EN</button>
@@ -1868,18 +1869,18 @@ a,button{touch-action:manipulation}
     <button data-lang="fr">FR</button>
   </div>
 </div>
-<!-- 01–04 · VIA ROMA / ONE PLACE EXPERIENCE -->
-<section class="place-experience" id="storia" aria-label="Via Roma">
-  <div class="place-sticky">
-    <div class="place-scenes" data-walkthrough-scenes aria-hidden="true"></div>
-
-    <div class="corners"><i></i><i></i><i></i><i></i></div>
-
-    <div class="place-copy-layer" data-walkthrough-copies></div>
-
-    <nav class="place-stepper" data-walkthrough-stepper aria-label="Spazi di Via Roma"></nav>
-    <p class="place-continue" data-walkthrough-continue aria-hidden="true"><span data-i18n="scroll">Scorri</span><i></i></p>
+<!-- 00 · HOME -->
+<section id="home" aria-label="Pizzeria Via Roma">
+  <canvas class="v14a-particles home-particles" data-v14a-particles="home" aria-hidden="true"></canvas>
+  <div class="home-inner">
+    <p class="home-kicker" data-i18n="sp_kicker">Maniago - Friuli Venezia Giulia</p>
+    <img class="home-logo" src="assets/logo.png" alt="Pizzeria Via Roma">
+    <h1 class="home-tagline" data-i18n="tagline"><span class="tagline-line">La pizza di sempre,</span><span class="tagline-line">con un tocco in più!</span></h1>
   </div>
+  <a class="home-scroll" href="#catshow">
+    <span data-i18n="home_cta">Scopri il menù</span>
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6.5 9.25 12 14.75l5.5-5.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <!-- 05 · LE NOSTRE PIZZE (carosello categorie) -->
@@ -1891,6 +1892,15 @@ a,button{touch-action:manipulation}
   <div class="dots" id="showdots" aria-label="Categorie del menù"></div>
 </section>
 
+<!-- 07 · STRIP FORNO -->
+<div class="strip-wrap" id="pizza-slider">
+  <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
+  <div class="edge l"><button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button></div>
+  <div class="edge r"><button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button></div>
+  <div class="strip" id="forno"></div>
+  <div class="dots" id="fornodots"></div>
+</div>
+
 <!-- 06 · CORNICIONE -->
 <section class="screen compact teaser">
   <div class="inner fx">
@@ -1898,8 +1908,8 @@ a,button{touch-action:manipulation}
       <span class="arc"></span>
       <img class="pizza bgimg" style="position:static" data-src="assets/pizze/cornice-ripieno.webp" alt="Cornicione ripieno">
     </div>
-    <h2 data-i18n="t_title">Il cornicione,<br>con qualcosa in più</h2>
-    <p data-i18n="t_body">Ricotta, Brie o Gorgonzola dolce. Scegli il ripieno e rendi la tua pizza ancora più Via Roma.</p>
+    <h2 data-i18n="t_title">Il cornicione con qualcosa in più.</h2>
+    <p data-i18n="t_body">Scegli il ripieno e rendi la tua pizza unica.</p>
     <div class="mini-list">
       <div><span>Ricotta</span><b>3,00</b></div>
       <div><span>Brie</span><b>3,00</b></div>
@@ -1908,15 +1918,6 @@ a,button{touch-action:manipulation}
     <a class="btn-oro" href="#menu" data-i18n="t_cta">Scopri il menù</a>
   </div>
 </section>
-
-<!-- 07 · STRIP FORNO -->
-<div class="strip-wrap">
-  <div class="strip-head fx"><p class="k-s" data-i18n="strip_k">Dal nostro forno</p></div>
-  <div class="edge l"><button class="chev l" data-forno="-1" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button></div>
-  <div class="edge r"><button class="chev r" data-forno="1" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button></div>
-  <div class="strip" id="forno"></div>
-  <div class="dots" id="fornodots"></div>
-</div>
 
 <!-- 08 · MENU -->
 <section id="menu">
@@ -1932,6 +1933,20 @@ a,button{touch-action:manipulation}
   <div id="carta"></div>
 </section>
 
+<!-- VIA ROMA · CONTINUOUS SCROLL WALKTHROUGH -->
+<section class="place-experience" id="storia" aria-label="Via Roma">
+  <div class="place-sticky">
+    <div class="place-scenes" data-walkthrough-scenes aria-hidden="true"></div>
+
+    <div class="corners"><i></i><i></i><i></i><i></i></div>
+
+    <div class="place-copy-layer" data-walkthrough-copies></div>
+
+    <nav class="place-stepper" data-walkthrough-stepper aria-label="Spazi di Via Roma"></nav>
+    <p class="place-continue" data-walkthrough-continue aria-hidden="true"><span data-i18n="scroll">Scorri</span><i></i></p>
+  </div>
+</section>
+
 <!-- GALLERY · SPAZI DI VIA ROMA -->
 <section id="gallery">
   <div class="g-viewer fx" id="gviewer" role="tabpanel" aria-live="polite" tabindex="0">
@@ -1939,7 +1954,7 @@ a,button{touch-action:manipulation}
       <div class="g-backdrop" id="gbackdrop" aria-hidden="true"></div>
       <div class="g-progress" id="gprogress" aria-hidden="true"></div>
       <div class="g-thumbs" id="gthumbs" aria-label="Sequenza dell’album"></div>
-      <img class="g-main" id="gmain" src="" alt="" decoding="async">
+      <img class="g-main" id="gmain" alt="" loading="lazy" fetchpriority="low" decoding="async">
       <div class="g-dock" aria-label="Controlli gallery">
         <button class="g-nav l" id="gprev" type="button" aria-label="Foto precedente"><i class="ph-thin ph-caret-left"></i></button>
         <button class="g-play" id="gplay" type="button" aria-label="Metti in pausa">
@@ -1972,7 +1987,6 @@ a,button{touch-action:manipulation}
 
 <!-- SOCIAL -->
 <section id="social">
-  <div class="social-glow" aria-hidden="true"></div>
   <div class="social-shell">
     <header class="social-head fx">
       <p class="k-s" data-i18n="so_eyebrow">Socials</p>
@@ -1993,7 +2007,7 @@ a,button{touch-action:manipulation}
       </a>
       <a class="social-card" href="https://www.tripadvisor.it/Restaurant_Review-g790406-d20931745-Reviews-Pizzeria_Via_Roma-Maniago_Province_of_Pordenone_Friuli_Venezia_Giulia.html" target="_blank" rel="noopener">
         <span class="social-icon"><i class="ph-thin ph-star"></i></span>
-        <span class="social-copy"><small>Tripadvisor</small><strong>Leggi. Salva. Condividi.</strong><em data-ui="so_tripadvisor">Scopri le recensioni</em></span>
+        <span class="social-copy"><small>Tripadvisor</small><strong data-ui="tripadvisor_phrase">Leggi. Salva. Condividi.</strong><em data-ui="so_tripadvisor">Scopri le recensioni</em></span>
         <i class="ph-thin ph-arrow-up-right social-arrow"></i>
       </a>
       <a class="social-card social-card-wa" href="https://wa.me/393802453757" target="_blank" rel="noopener">
@@ -2021,7 +2035,7 @@ a,button{touch-action:manipulation}
 
 <!-- DOVE / FOOTER -->
 <section id="dove">
-  <div class="closing-orbit" aria-hidden="true"></div>
+  <canvas class="v14a-particles info-particles section-dot-field" data-v14a-particles="info" aria-hidden="true"></canvas>
   <div class="closing-shell">
     <header class="closing-head fx">
       <div class="closing-heading">
@@ -2068,17 +2082,16 @@ a,button{touch-action:manipulation}
 
     <div class="footer-bottom">
       <p class="foot">© 2026 Pizzeria Via Roma</p>
-      <p class="footer-place">Maniago · Friuli Venezia Giulia</p>
-      <p class="foot">Design &amp; development · <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
+      <p class="footer-place" data-ui="footer_place">Maniago · Friuli Venezia Giulia</p>
+      <p class="foot" data-ui="footer_credit">Design &amp; development · <a href="https://mementostudio.it" target="_blank" rel="noopener">Memento Studio</a></p>
     </div>
   </div>
 </section>
 
 <nav class="tabbar" aria-label="Navigazione">
   <span class="tabbar-progress" aria-hidden="true"><i></i></span>
-  <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Via Roma</span></a>
   <a href="#catshow" data-tab="menu"><i class="ph-thin ph-fork-knife"></i><span data-i18n="tab_menu">Menù</span></a>
-  <a href="#gallery" data-tab="gallery"><i class="ph-thin ph-images-square"></i><span data-i18n="tab_gallery">Gallery</span></a>
+  <a href="#storia" data-tab="storia"><i class="ph-thin ph-fire"></i><span data-i18n="tab_storia">Via Roma</span></a>
   <a href="#dove" data-tab="dove"><i class="ph-thin ph-info"></i><span data-i18n="tab_dove">Info</span></a>
   <a href="tel:+390427541232"><i class="ph-thin ph-phone"></i><span data-i18n="tab_chiama">Chiama</span></a>
 </nav>
@@ -2088,7 +2101,7 @@ a,button{touch-action:manipulation}
   <button id="lb-close" aria-label="Chiudi"><i class="ph-thin ph-x"></i></button>
   <button class="lb-nav l" aria-label="Precedente"><i class="ph-thin ph-caret-left"></i></button>
   <button class="lb-nav r" aria-label="Successiva"><i class="ph-thin ph-caret-right"></i></button>
-  <figure><img id="lb-img" src="" alt=""><figcaption id="lb-cap"></figcaption><p id="lb-desc" class="lb-desc"></p></figure>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption><p id="lb-desc" class="lb-desc"></p></figure>
 </div>
 
 <script>
@@ -2107,17 +2120,23 @@ document.addEventListener("selectstart",event=>{if(!event.target.closest?.("inpu
 
 /* Single source of truth for order, labels, copy and media mapping. */
 const WALKTHROUGH_STEPS = Object.freeze([
-  {id:"bancone",index:"01",labelKey:"place_bancone",copyType:"splash",sourceMaster:"1.mp4",src:"assets/video/walkthrough/01-bancone.mp4",mobileSrc:"assets/video/walkthrough/mobile/01-bancone.mp4",poster:"assets/video/walkthrough/01-bancone.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/01-bancone.webp",duration:3.041667},
-  {id:"entrata",index:"02",labelKey:"place_entrata",eyebrowKey:"s1_eyebrow",titleKey:"s1_title",bodyKey:"s1_body",sourceMaster:"2.mp4",src:"assets/video/walkthrough/03-sala-sinistra.mp4",mobileSrc:"assets/video/walkthrough/mobile/03-sala-sinistra.mp4",poster:"assets/video/walkthrough/03-sala-sinistra.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/03-sala-sinistra.webp",duration:3.041667},
-  {id:"sala-sinistra",index:"03",labelKey:"place_sala_sinistra",eyebrowKey:"s2_eyebrow",titleKey:"s2_title",bodyKey:"s2_body",sourceMaster:"3.mp4",src:"assets/video/walkthrough/04-sala-destra.mp4",mobileSrc:"assets/video/walkthrough/mobile/04-sala-destra.mp4",poster:"assets/video/walkthrough/04-sala-destra.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/04-sala-destra.webp",duration:3.041667},
-  {id:"sala-destra",index:"04",labelKey:"place_sala_destra",eyebrowKey:"s3_eyebrow",titleKey:"s3_title",bodyKey:"s3_body",sourceMaster:"4.mp4",src:"assets/video/walkthrough/02-entrata.mp4",mobileSrc:"assets/video/walkthrough/mobile/02-entrata.mp4",poster:"assets/video/walkthrough/02-entrata.webp",mobileBridge:"assets/video/walkthrough/mobile-bridge/02-entrata.webp",duration:3}
+  {id:"via-roma",index:"01",labelKey:"place_via_roma",copyType:"logo"},
+  {id:"sala-sinistra",index:"02",labelKey:"place_sala_sinistra",eyebrowKey:"s2_eyebrow",titleKey:"s2_title",bodyKey:"s2_body"},
+  {id:"sala-destra",index:"03",labelKey:"place_sala_destra",eyebrowKey:"s3_eyebrow",titleKey:"s3_title",bodyKey:"s3_body"},
+  {id:"esperienza",index:"04",labelKey:"place_experienza",eyebrowKey:"s4_eyebrow",titleKey:"s4_title",bodyKey:"s4_body"}
 ]);
+const WALKTHROUGH_FILM = Object.freeze({
+  src:"assets/video/walkthrough/v14a-walkthrough.mp4",
+  mobileSrc:"assets/video/walkthrough/mobile/v14a-walkthrough.mp4",
+  poster:"assets/video/walkthrough/02-entrata.webp",
+  duration:12
+});
 const WALKTHROUGH_MOBILE=matchMedia("(max-width: 820px), (pointer: coarse)").matches;
 
 /* =============== UI + narrative i18n =============== */
 const T = {
 it:{
-  sp_kicker:"Maniago · Friuli", place_bancone:"Bancone", place_entrata:"Entrata", place_sala_sinistra:"Sala sinistra", place_sala_destra:"Sala destra", tagline:"<span class=\"tagline-line\">La pizza di sempre,</span><span class=\"tagline-line\">con un tocco in più.</span>", scroll:"scorri",
+  home_cta:"Scopri il menù", place_via_roma:"Via Roma", place_experienza:"Esperienza", s4_eyebrow:"Via Roma", s4_title:"Prenota la tua esperienza", s4_body:"",  sp_kicker:"Maniago - Friuli Venezia Giulia", place_bancone:"Bancone", place_entrata:"Entrata", place_sala_sinistra:"Sala sinistra", place_sala_destra:"Sala destra", tagline:"<span class=\"tagline-line\">La pizza di sempre,</span><span class=\"tagline-line\">con un tocco in più!</span>", scroll:"scorri",
   s1_eyebrow:"Maniago · Friuli Venezia Giulia", s1_title:"A Via Roma,<br> all'angolo di sempre",
   s1_body:"A due passi da Piazza Italia,<br>nel cuore della città delle coltellerie.",
   s2_eyebrow:"Sala sinistra", s2_title:"Luce calda,<br> tempo lento",
@@ -2126,7 +2145,7 @@ it:{
   s3_body:"Accenti rossi, superfici scure<br>e un'atmosfera più decisa.",
   a_title:"Le Audaci", a_sub:"Per chi vuole farsi tentare un po'!",
   a_body:"Pizze dall'anima decisa, ingredienti di qualità, abbinamenti che sorprendono. Per chi non si accontenta.",
-  t_title:"Il cornicione,<br>con qualcosa in più", t_body:"Ricotta, Brie o Gorgonzola dolce. Scegli il ripieno e rendi la tua pizza ancora più Via Roma.",
+  t_title:"Il cornicione con qualcosa in più.", t_body:"Scegli il ripieno e rendi la tua pizza unica.",
   t_cta:"Scopri il menù", gorgo:"Gorgonzola dolce", strip_k:"Dal nostro forno",
   m_eyebrow:"La carta", m_title:"Il Menù",
   sel_cta:"Scopri la selezione",
@@ -2162,7 +2181,7 @@ it:{
   calice:"Calice", caraffa:"Caraffa", bott:"Bottiglia"
 },
 en:{
-  sp_kicker:"Maniago · Friuli, Italy", place_bancone:"Counter", place_entrata:"Entrance", place_sala_sinistra:"Left room", place_sala_destra:"Right room", tagline:"<span class=\"tagline-line\">The pizza you know,</span><span class=\"tagline-line\">with a little something more.</span>", scroll:"scroll",
+  home_cta:"Explore the menu", place_via_roma:"Via Roma", place_experienza:"Experience", s4_eyebrow:"Via Roma", s4_title:"Book your experience", s4_body:"",  sp_kicker:"Maniago - Friuli Venezia Giulia", place_bancone:"Counter", place_entrata:"Entrance", place_sala_sinistra:"Left room", place_sala_destra:"Right room", tagline:"<span class=\"tagline-line\">The pizza you know,</span><span class=\"tagline-line\">with a little something extra!</span>", scroll:"scroll",
   s1_eyebrow:"Maniago · Friuli Venezia Giulia, Italy", s1_title:"At Via Roma,<br> on the usual corner",
   s1_body:"Just steps from Piazza Italia,<br>in the heart of the town of knife-makers.",
   s2_eyebrow:"Left room", s2_title:"Warm light,<br> unhurried time",
@@ -2171,7 +2190,7 @@ en:{
   s3_body:"Red accents, dark surfaces<br>and a bolder atmosphere.",
   a_title:"Le Audaci", a_sub:"For those who like temptation!",
   a_body:"Bold-hearted pizzas, quality ingredients, surprising pairings. For those who never settle.",
-  t_title:"The crust,<br>with something more", t_body:"Ricotta, Brie or sweet Gorgonzola. Choose your filling and make your pizza unmistakably Via Roma.",
+  t_title:"The crust with something extra.", t_body:"Choose your filling and make your pizza unique.",
   t_cta:"Discover the menu", gorgo:"Sweet gorgonzola", strip_k:"From our oven",
   m_eyebrow:"The menu", m_title:"The Menu",
   sel_cta:"Discover the selection",
@@ -2207,7 +2226,7 @@ en:{
   calice:"Glass", caraffa:"Carafe", bott:"Bottle"
 },
 de:{
-  sp_kicker:"Maniago · Friaul, Italien", place_bancone:"Theke", place_entrata:"Eingang", place_sala_sinistra:"Linker Saal", place_sala_destra:"Rechter Saal", tagline:"<span class=\"tagline-line\">Die Pizza von immer,</span><span class=\"tagline-line\">mit dem gewissen Etwas.</span>", scroll:"scrollen",
+  home_cta:"Menü entdecken", place_via_roma:"Via Roma", place_experienza:"Erlebnis", s4_eyebrow:"Via Roma", s4_title:"Reserviere dein Erlebnis", s4_body:"",  sp_kicker:"Maniago - Friuli Venezia Giulia", place_bancone:"Theke", place_entrata:"Eingang", place_sala_sinistra:"Linker Saal", place_sala_destra:"Rechter Saal", tagline:"<span class=\"tagline-line\">Die Pizza von immer,</span><span class=\"tagline-line\">mit dem gewissen Etwas!</span>", scroll:"scrollen",
   s1_eyebrow:"Maniago · Friaul-Julisch Venetien, Italien", s1_title:"Bei Via Roma, an der<br> vertrauten Ecke",
   s1_body:"Wenige Schritte von der Piazza Italia,<br>im Herzen der Stadt der Messerschmiede.",
   s2_eyebrow:"Linker Saal", s2_title:"Warmes Licht,<br> Zeit ohne Eile",
@@ -2216,7 +2235,7 @@ de:{
   s3_body:"Rote Akzente, dunkle Flächen<br>und eine markantere Atmosphäre.",
   a_title:"Le Audaci", a_sub:"Für alle, die sich verführen lassen!",
   a_body:"Pizzen mit Charakter, hochwertige Zutaten, überraschende Kombinationen. Für alle, die mehr wollen.",
-  t_title:"Der Rand,<br>mit dem gewissen Etwas", t_body:"Ricotta, Brie oder milder Gorgonzola. Wählen Sie die Füllung und machen Sie Ihre Pizza unverkennbar Via Roma.",
+  t_title:"Der Rand mit dem gewissen Etwas.", t_body:"Wähle die Füllung und mach deine Pizza einzigartig.",
   t_cta:"Zur Speisekarte", gorgo:"Milder Gorgonzola", strip_k:"Aus unserem Ofen",
   m_eyebrow:"Die Karte", m_title:"Die Speisekarte",
   sel_cta:"Zur Auswahl",
@@ -2252,7 +2271,7 @@ de:{
   calice:"Glas", caraffa:"Karaffe", bott:"Flasche"
 },
 fr:{
-  sp_kicker:"Maniago · Frioul, Italie", place_bancone:"Comptoir", place_entrata:"Entrée", place_sala_sinistra:"Salle gauche", place_sala_destra:"Salle droite", tagline:"<span class=\"tagline-line\">La pizza de toujours,</span><span class=\"tagline-line\">avec un petit plus.</span>", scroll:"défiler",
+  home_cta:"Découvrir le menu", place_via_roma:"Via Roma", place_experienza:"Expérience", s4_eyebrow:"Via Roma", s4_title:"Réservez votre expérience", s4_body:"",  sp_kicker:"Maniago - Friuli Venezia Giulia", place_bancone:"Comptoir", place_entrata:"Entrée", place_sala_sinistra:"Salle gauche", place_sala_destra:"Salle droite", tagline:"<span class=\"tagline-line\">La pizza de toujours,</span><span class=\"tagline-line\">avec un petit plus !</span>", scroll:"défiler",
   s1_eyebrow:"Maniago · Frioul-Vénétie Julienne, Italie", s1_title:"Chez Via Roma,<br> au coin de toujours",
   s1_body:"À quelques pas de la Piazza Italia,<br>au cœur de la ville des couteliers.",
   s2_eyebrow:"Salle gauche", s2_title:"Lumière chaude,<br> temps suspendu",
@@ -2261,7 +2280,7 @@ fr:{
   s3_body:"Des accents rouges, des surfaces sombres<br>et une atmosphère plus affirmée.",
   a_title:"Le Audaci", a_sub:"Pour ceux qui aiment se laisser tenter !",
   a_body:"Des pizzas au caractère affirmé, des ingrédients de qualité, des accords qui surprennent. Pour ceux qui ne se contentent pas.",
-  t_title:"Le bord,<br>avec un petit plus", t_body:"Ricotta, Brie ou Gorgonzola doux. Choisissez la garniture et rendez votre pizza résolument Via Roma.",
+  t_title:"Le bord avec un petit plus.", t_body:"Choisissez la garniture et rendez votre pizza unique.",
   t_cta:"Découvrir le menu", gorgo:"Gorgonzola doux", strip_k:"De notre four",
   m_eyebrow:"La carte", m_title:"Le Menu",
   sel_cta:"Découvrir la sélection",
@@ -2300,25 +2319,25 @@ fr:{
 
 const UI = {
   it:{
-    depth:"Profondità",g_intro:"Ogni spazio è un album. Aprilo e lascialo scorrere.",g_autoplay:"Autoplay · 5 secondi",g_pause:"Pausa",g_play:"Riprendi",gallery_open:"Apri l'album",
+    tripadvisor_phrase:"Leggi. Salva. Condividi.", footer_place:"Maniago · Friuli Venezia Giulia", footer_credit:"Design &amp; development · <a href=\"https://mementostudio.it\" target=\"_blank\" rel=\"noopener\">Memento Studio</a>", depth:"Profondità",g_intro:"Ogni spazio è un album. Aprilo e lascialo scorrere.",g_autoplay:"Autoplay · 5 secondi",g_pause:"Pausa",g_play:"Riprendi",gallery_open:"Apri l'album",
     so_title:"La serata continua.",so_lead:"Vivi l'attimo.<br>Se ti va condividi il tuo ricordo.",so_instagram:"Apri il profilo",so_facebook:"Entra nella community",so_tripadvisor:"Scopri le recensioni",so_whatsapp:"Mandaci il tuo scatto",
     review_selection:"Selezione",review_live:"Feed live",all_reviews:"Tutte le recensioni",reviews_count:"recensioni",marquee:"TAGGACI · CONDIVIDI · TORNA · #VIAROMAMANIAGO · ",
     info_label:"Info",d_title:"Ci vediamo all'angolo di sempre",directions:"Indicazioni",call:"Chiama",open_now:"Aperto ora",closed_now:"Chiuso ora",opens_at:"Apre alle 18:00",closed_monday:"Chiuso il lunedì"
   },
   en:{
-    depth:"Depth",g_intro:"Every room is an album. Open it and let it play.",g_autoplay:"Autoplay · 5 seconds",g_pause:"Pause",g_play:"Play",gallery_open:"Open album",
+    tripadvisor_phrase:"Read. Save. Share.", footer_place:"Maniago · Friuli Venezia Giulia", footer_credit:"Design &amp; development · <a href=\"https://mementostudio.it\" target=\"_blank\" rel=\"noopener\">Memento Studio</a>", depth:"Depth",g_intro:"Every room is an album. Open it and let it play.",g_autoplay:"Autoplay · 5 seconds",g_pause:"Pause",g_play:"Play",gallery_open:"Open album",
     so_title:"The evening continues.",so_lead:"Live the moment.<br>If you feel like it, share your memory.",so_instagram:"Open profile",so_facebook:"Join the community",so_tripadvisor:"Read the reviews",so_whatsapp:"Send us your shot",
     review_selection:"Selection",review_live:"Live feed",all_reviews:"All reviews",reviews_count:"reviews",marquee:"TAG US · SHARE · COME BACK · #VIAROMAMANIAGO · ",
     info_label:"Info",d_title:"Meet us on the usual corner",directions:"Directions",call:"Call",open_now:"Open now",closed_now:"Closed now",opens_at:"Opens at 6 pm",closed_monday:"Closed on Monday"
   },
   de:{
-    depth:"Tiefe",g_intro:"Jeder Raum ist ein Album. Öffnen und abspielen lassen.",g_autoplay:"Autoplay · 5 Sekunden",g_pause:"Pause",g_play:"Abspielen",gallery_open:"Album öffnen",
+    tripadvisor_phrase:"Lesen. Speichern. Teilen.", footer_place:"Maniago · Friuli Venezia Giulia", footer_credit:"Design &amp; Entwicklung · <a href=\"https://mementostudio.it\" target=\"_blank\" rel=\"noopener\">Memento Studio</a>", depth:"Tiefe",g_intro:"Jeder Raum ist ein Album. Öffnen und abspielen lassen.",g_autoplay:"Autoplay · 5 Sekunden",g_pause:"Pause",g_play:"Abspielen",gallery_open:"Album öffnen",
     so_title:"Der Abend geht weiter.",so_lead:"Lebt den Moment.<br>Wenn ihr mögt, teilt eure Erinnerung.",so_instagram:"Profil öffnen",so_facebook:"Community beitreten",so_tripadvisor:"Bewertungen lesen",so_whatsapp:"Foto senden",
     review_selection:"Auswahl",review_live:"Live-Feed",all_reviews:"Alle Bewertungen",reviews_count:"Bewertungen",marquee:"MARKIERT UNS · TEILEN · WIEDERKOMMEN · #VIAROMAMANIAGO · ",
     info_label:"Info",d_title:"Wir sehen uns an der vertrauten Ecke",directions:"Route",call:"Anrufen",open_now:"Jetzt geöffnet",closed_now:"Jetzt geschlossen",opens_at:"Öffnet um 18 Uhr",closed_monday:"Montags geschlossen"
   },
   fr:{
-    depth:"Profondeur",g_intro:"Chaque espace est un album. Ouvrez-le et laissez-le défiler.",g_autoplay:"Lecture auto · 5 secondes",g_pause:"Pause",g_play:"Lecture",gallery_open:"Ouvrir l'album",
+    tripadvisor_phrase:"Lire. Enregistrer. Partager.", footer_place:"Maniago · Friuli Venezia Giulia", footer_credit:"Design &amp; développement · <a href=\"https://mementostudio.it\" target=\"_blank\" rel=\"noopener\">Memento Studio</a>", depth:"Profondeur",g_intro:"Chaque espace est un album. Ouvrez-le et laissez-le défiler.",g_autoplay:"Lecture auto · 5 secondes",g_pause:"Pause",g_play:"Lecture",gallery_open:"Ouvrir l'album",
     so_title:"La soirée continue.",so_lead:"Vivez l'instant.<br>Si vous en avez envie, partagez votre souvenir.",so_instagram:"Ouvrir le profil",so_facebook:"Rejoindre la communauté",so_tripadvisor:"Lire les avis",so_whatsapp:"Envoyer votre photo",
     review_selection:"Sélection",review_live:"Flux en direct",all_reviews:"Tous les avis",reviews_count:"avis",marquee:"IDENTIFIEZ-NOUS · PARTAGEZ · REVENEZ · #VIAROMAMANIAGO · ",
     info_label:"Info",d_title:"Rendez-vous au coin de toujours",directions:"Itinéraire",call:"Appeler",open_now:"Ouvert maintenant",closed_now:"Fermé maintenant",opens_at:"Ouvre à 18 h",closed_monday:"Fermé le lundi"
@@ -3053,8 +3072,7 @@ function installSubtleTicker(el,{speed,normalize,update}){
   },{rootMargin:"16% 0px 16%",threshold:.01}).observe(el);
   else{visible=true;schedule()}
 }
-installSubtleTicker(rail,{speed:.007,normalize:normalizeShowLoop,update:()=>setShowDot(nearestShowLogical())});
-installSubtleTicker(forno,{speed:.0055,normalize:normalizeLoop,update:()=>{markMid();setDot(nearestLogical())}});
+/* V14A: discrete, interaction-aware autoplay is initialized in app.js. */
 
 /* =============== gallery fotografica: album / reel player =============== */
 const GALLERY_ORDER=["bancone","sala_sinistra","sala_destra","esterno","via_roma"];
@@ -3077,7 +3095,8 @@ let galleryPlaying=!matchMedia("(prefers-reduced-motion: reduce)").matches,galle
 const GALLERY_MS=5000;
 const galleryTabs=document.getElementById("gtabs"),galleryViewer=document.getElementById("gviewer"),galleryStage=document.getElementById("gstage"),galleryMain=document.getElementById("gmain"),galleryBackdrop=document.getElementById("gbackdrop"),galleryThumbs=document.getElementById("gthumbs"),galleryLabel=document.getElementById("glabel"),galleryCount=document.getElementById("gcount"),galleryProgress=document.getElementById("gprogress"),galleryPlay=document.getElementById("gplay");
 function galleryAlt(i){return `${T[LANG].g_categories[galleryCategory]} · ${String(i+1).padStart(2,"0")}`}
-function preloadGalleryNeighbours(){const items=GALLERY[galleryCategory];if(items.length<2)return;[items[(galleryIndex+1)%items.length],items[(galleryIndex-1+items.length)%items.length]].forEach(src=>{const im=new Image();im.src=src})}
+function preloadGalleryNeighbours(){if(!galleryInView||document.hidden)return;const items=GALLERY[galleryCategory];if(items.length<2)return;[items[(galleryIndex+1)%items.length],items[(galleryIndex-1+items.length)%items.length]].forEach(src=>{const im=new Image();im.src=src})}
+function syncGalleryBackdrop(){const src=galleryMain.getAttribute("src");if(galleryInView&&src)galleryBackdrop.style.backgroundImage=`url("${src}")`;else galleryBackdrop.style.backgroundImage=""}
 function updateGalleryPlayButton(){
   if(!galleryPlay)return;
   galleryPlay.innerHTML=`<i class="ph-thin ${galleryPlaying?'ph-pause':'ph-play'}"></i><span class="sr-only">${galleryPlaying?ui('g_pause'):ui('g_play')}</span>`;
@@ -3116,14 +3135,14 @@ function scheduleGalleryAutoplay(){
 function setGalleryImage(i,animate=true,restart=true){
   const items=GALLERY[galleryCategory];galleryIndex=(i+items.length)%items.length;const src=items[galleryIndex];
   if(animate)galleryStage.classList.add("changing");
-  galleryMain.src=src;galleryMain.alt=galleryAlt(galleryIndex);galleryBackdrop.style.backgroundImage=`url("${src}")`;
+  galleryMain.src=src;galleryMain.alt=galleryAlt(galleryIndex);syncGalleryBackdrop();
   if(galleryLabel)galleryLabel.textContent=T[LANG].g_categories[galleryCategory];if(galleryCount)galleryCount.textContent=`${String(galleryIndex+1).padStart(2,"0")} / ${String(items.length).padStart(2,"0")}`;
   setTimeout(()=>galleryStage.classList.remove("changing"),170);preloadGalleryNeighbours();
   if(restart)scheduleGalleryAutoplay();else renderGalleryProgress();
 }
 function renderGallery(){
   const t=T[LANG];
-  galleryTabs.innerHTML=GALLERY_ORDER.map((id,albumIndex)=>{const on=id===galleryCategory;const cover=GALLERY_COVERS[id]||GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="eager" decoding="async"></span><span class="g-album-label"><small>${String(albumIndex+1).padStart(2,"0")}</small><span>${t.g_categories[id]}</span></span></button>`}).join("");
+  galleryTabs.innerHTML=GALLERY_ORDER.map((id,albumIndex)=>{const on=id===galleryCategory;const cover=GALLERY_COVERS[id]||GALLERY[id][0];return `<button id="g-tab-${id}" class="g-album ${on?'on':''}" role="tab" aria-controls="gviewer" data-gallery="${id}" aria-label="${t.g_categories[id]}" aria-selected="${on}" tabindex="${on?0:-1}"><span class="g-album-cover"><img src="${cover}" alt="" loading="lazy" fetchpriority="low" decoding="async"></span><span class="g-album-label"><small>${String(albumIndex+1).padStart(2,"0")}</small><span>${t.g_categories[id]}</span></span></button>`}).join("");
   galleryViewer.setAttribute("aria-labelledby",`g-tab-${galleryCategory}`);
   if(galleryIndex>=GALLERY[galleryCategory].length)galleryIndex=0;
   galleryThumbs.innerHTML=GALLERY[galleryCategory].map((_,i)=>`<button class="g-thumb ${i<galleryIndex?'done ':''}${i===galleryIndex?'on':''}" type="button" data-gindex="${i}" aria-label="${galleryAlt(i)}" aria-current="${i===galleryIndex?'true':'false'}"><span></span></button>`).join("");
@@ -3146,7 +3165,7 @@ galleryStage.addEventListener("pointermove",e=>{if(!gDown)return;const dx=e.clie
 function endGallerySwipe(){if(!gDown)return;gDown=false;galleryMain.style.transform="";if(gMode==="h"&&Math.abs(gDx)>44){gallerySuppressOpen=true;setGalleryImage(galleryIndex+(gDx<0?1:-1));setTimeout(()=>gallerySuppressOpen=false,90)}gDx=0;gMode=null}
 galleryStage.addEventListener("pointerup",endGallerySwipe);galleryStage.addEventListener("pointercancel",endGallerySwipe);
 galleryStage.addEventListener("click",e=>{if(e.target.closest("button")||gallerySuppressOpen)return;window.__openGalleryLightbox?.(GALLERY[galleryCategory],galleryIndex,T[LANG].g_categories[galleryCategory])});
-new IntersectionObserver(([entry])=>{galleryInView=entry.isIntersecting&&entry.intersectionRatio>.2;scheduleGalleryAutoplay()},{threshold:[0,.2,.45]}).observe(galleryStage);
+new IntersectionObserver(([entry])=>{galleryInView=entry.isIntersecting&&entry.intersectionRatio>.2;syncGalleryBackdrop();if(galleryInView)preloadGalleryNeighbours();scheduleGalleryAutoplay()},{threshold:[0,.2,.45]}).observe(galleryStage);
 document.addEventListener("visibilitychange",scheduleGalleryAutoplay);
 window.addEventListener("lightbox:opened",()=>{clearTimeout(galleryTimer)});window.addEventListener("lightbox:closed",scheduleGalleryAutoplay);
 
@@ -3515,299 +3534,101 @@ function updateOpenState(){
 }
 setInterval(updateOpenState,60000);
 
-/* Pointer-reactive closing card. */
-(function closingInteraction(){
-  const section=document.getElementById("dove"),card=document.getElementById("closingMapCard");if(!section||!card||!matchMedia("(pointer:fine)").matches)return;
-  section.addEventListener("pointermove",e=>{const r=section.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width,ny=(e.clientY-r.top)/r.height;section.style.setProperty("--close-x",`${(nx*100).toFixed(1)}%`);section.style.setProperty("--close-y",`${(ny*100).toFixed(1)}%`)});
-  card.addEventListener("pointermove",e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.setProperty("--map-rx",`${(-y*5).toFixed(2)}deg`);card.style.setProperty("--map-ry",`${(x*6).toFixed(2)}deg`)});
-  card.addEventListener("pointerleave",()=>{card.style.setProperty("--map-rx","0deg");card.style.setProperty("--map-ry","0deg")});
-})();
+/* V14A: the info section uses a restrained touch/cursor particle field. */
 
-/* One continuous, reversible film: every checkpoint is the first frame of its clip. */
+/* V14A walkthrough: one optimized continuous film, four scroll checkpoints. */
 function renderWalkthroughStructure(){
   const section=document.getElementById("storia");if(!section)return;
   const scenesRoot=section.querySelector("[data-walkthrough-scenes]"),copiesRoot=section.querySelector("[data-walkthrough-copies]"),stepper=section.querySelector("[data-walkthrough-stepper]");
   if(!scenesRoot||!copiesRoot||!stepper)return;
   const tr=key=>T[LANG]?.[key]||"";
-  const sceneMarkup=WALKTHROUGH_STEPS.map((step,n)=>`<figure class="place-scene${n===0?" is-render-active":""}" data-place-scene="${n}" data-walkthrough-id="${step.id}" style="--scene-opacity:${n===0?1:0};--scene-z:${n===0?1:0}"><img class="place-poster" src="${step.poster}" alt="" loading="eager" decoding="async" ${n===0?'fetchpriority="high"':''}><video class="place-video" data-video-src="${WALKTHROUGH_MOBILE?step.mobileSrc:step.src}" poster="${step.poster}" preload="${n===0||(!WALKTHROUGH_MOBILE&&n<2)?"auto":"metadata"}" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil${step.copyType==="splash"?" place-veil-splash":""}"></span></figure>`).join("");
-  const bridgeMarkup=WALKTHROUGH_STEPS.slice(1).map((step,n)=>`<figure class="place-bridge${WALKTHROUGH_MOBILE?" is-baked":""}" data-place-bridge="${n}" aria-hidden="true"><img src="${WALKTHROUGH_MOBILE?step.mobileBridge:step.poster}" alt="" loading="eager" decoding="async"></figure>`).join("");
-  scenesRoot.innerHTML=sceneMarkup+bridgeMarkup;
-  copiesRoot.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>step.copyType==="splash"?`<article class="place-copy-step place-copy-splash" data-place-copy="${n}" aria-hidden="${n===0?"false":"true"}"><div class="inner" id="splash"><p class="split"><span data-i18n="sp_kicker">${tr("sp_kicker")}</span></p><img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma, Maniago"><h1 data-i18n="tagline">${tr("tagline")}</h1><div class="diamond"></div></div></article>`:`<article class="place-copy-step place-copy-story story" data-place-copy="${n}" aria-hidden="true"><span class="num"><b>${step.index}</b> · <span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span></span><div class="inner"><p class="eyebrow" data-i18n="${step.eyebrowKey}">${tr(step.eyebrowKey)}</p><h2 data-i18n="${step.titleKey}">${tr(step.titleKey)}</h2><hr class="hairline"><p data-i18n="${step.bodyKey}">${tr(step.bodyKey)}</p></div></article>`).join("");
-  stepper.innerHTML=WALKTHROUGH_STEPS.map((step,n)=>`<button type="button"${n===0?' class="on" aria-current="step"':''} data-place-go="${n}"><small>${step.index}</small><span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span><i></i></button>`).join("");
-  section.querySelector("#splash")?.classList.add("ready");
+  const filmSrc=WALKTHROUGH_MOBILE?WALKTHROUGH_FILM.mobileSrc:WALKTHROUGH_FILM.src;
+  scenesRoot.innerHTML=`<figure class="place-scene place-scene-film is-render-active" data-place-scene="0" data-walkthrough-id="continuous-film" style="--scene-opacity:1;--scene-z:2;--scene-blur:0px"><img class="place-poster" src="${WALKTHROUGH_FILM.poster}" alt="" loading="eager" fetchpriority="high" decoding="async"><video class="place-video" data-video-src="${filmSrc}" preload="auto" muted playsinline webkit-playsinline disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" tabindex="-1" aria-hidden="true"></video><span class="place-veil place-veil-splash"></span></figure>`;
+  copiesRoot.innerHTML=WALKTHROUGH_STEPS.map((step,index)=>{
+    if(step.copyType==="logo")return `<article class="place-copy-step place-copy-splash place-logo-only" data-place-copy="${index}" aria-hidden="false" style="--copy-opacity:1;--copy-y:0px;--copy-scale:1;--copy-blur:0px"><div class="inner" id="splash"><img class="logo" src="assets/logo.png" alt="Pizzeria Via Roma"></div></article>`;
+    const body=step.bodyKey&&tr(step.bodyKey)?`<hr class="hairline"><p data-i18n="${step.bodyKey}">${tr(step.bodyKey)}</p>`:"";
+    return `<article class="place-copy-step place-copy-story story" data-place-copy="${index}" aria-hidden="true"><span class="num"><b>${step.index}</b> · <span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span></span><div class="inner"><p class="eyebrow" data-i18n="${step.eyebrowKey}">${tr(step.eyebrowKey)}</p><h2 data-i18n="${step.titleKey}">${tr(step.titleKey)}</h2>${body}</div></article>`;
+  }).join("");
+  stepper.innerHTML=WALKTHROUGH_STEPS.map((step,index)=>`<button type="button"${index===0?' class="on" aria-current="step"':''} data-place-go="${index}"><small>${step.index}</small><span data-i18n="${step.labelKey}">${tr(step.labelKey)}</span><i></i></button>`).join("");
 }
 renderWalkthroughStructure();
 
 (function initPlaceExperience(){
   const section=document.getElementById("storia");if(!section)return;
-  const scenes=[...section.querySelectorAll("[data-place-scene]")],bridges=[...section.querySelectorAll("[data-place-bridge]")],copies=[...section.querySelectorAll("[data-place-copy]")],buttons=[...section.querySelectorAll("[data-place-go]")],videos=[...section.querySelectorAll(".place-video")];
-  const count=WALKTHROUGH_STEPS.length;if(!count||scenes.length!==count||bridges.length!==count-1)return;
-  const continueCue=section.querySelector("[data-walkthrough-continue]");
-  const reducedQuery=matchMedia("(prefers-reduced-motion: reduce)");
-  const mobileMode=WALKTHROUGH_MOBILE;
-  const posterOnly=reducedQuery.matches||!!navigator.connection?.saveData;
+  const scene=section.querySelector("[data-place-scene]"),video=section.querySelector(".place-video"),veil=section.querySelector(".place-veil"),copies=[...section.querySelectorAll("[data-place-copy]")],buttons=[...section.querySelectorAll("[data-place-go]")];
+  const count=WALKTHROUGH_STEPS.length;if(!scene||!video||copies.length!==count||buttons.length!==count)return;
+  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const saveData=!!navigator.connection?.saveData;
+  const posterOnly=reduced||saveData;
+  const mobile=WALKTHROUGH_MOBILE;
   const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
-  const smootherstep=(start,end,value)=>{
-    if(start===end)return value>=end?1:0;
-    const x=clamp((value-start)/(end-start),0,1);
-    return x*x*x*(x*(x*6-15)+10);
-  };
-  const PHASE=Object.freeze({
-    copyOutStart:.07,copyOutEnd:.19,
-    bridgeOutStart:.12,bridgeOutEnd:.24,
-    blurOutStart:.18,blurOutEnd:.31,
-    clipStart:.3,clipEnd:.79,
-    blurInStart:.62,blurInEnd:.8,
-    bridgeInStart:.7,bridgeInEnd:.9,
-    copyInStart:.76,copyInEnd:.92
-  });
-  const MAX_BLUR=mobileMode?18:28,BRIDGE_BLUR=mobileMode?22:32;
-  const SEEK_THRESHOLD=mobileMode?.032:.016,MIN_SEEK_INTERVAL=mobileMode?46:30;
+  const smooth=(start,end,value)=>{if(start===end)return value>=end?1:0;const x=clamp((value-start)/(end-start),0,1);return x*x*(3-2*x)};
+  const state={desired:0,lastApplied:0,timer:0,loaded:false,failed:false,seeking:false,pending:false,seekCount:0};
+  const seekInterval=mobile?66:48,seekThreshold=mobile?.055:.035;
+  let target=0,rendered=0,raf=0,lastFrame=performance.now(),visible=false,activeIndex=-1;
 
-  let targetTimeline=0,renderedTimeline=0,scrollVelocity=0;
-  let lastScrollY=scrollY,lastScrollStamp=performance.now(),lastFrame=performance.now(),raf=0,visible=false,activeIndex=-1,renderSegment=-1,renderBridge=-1;
-  const seekState=videos.map(()=>({desired:0,lastRequest:0,timer:0}));
-  const setVar=(element,name,value)=>{
-    if(element.style.getPropertyValue(name)!==value)element.style.setProperty(name,value);
-  };
-
-  function metrics(){
-    return {top:section.offsetTop,range:Math.max(1,section.offsetHeight-innerHeight)};
+  function metrics(){return{top:section.offsetTop,range:Math.max(1,section.offsetHeight-innerHeight)}}
+  function filmDuration(){const actual=video.duration;return Math.max(.01,(Number.isFinite(actual)&&actual>0?Math.min(actual,WALKTHROUGH_FILM.duration):WALKTHROUGH_FILM.duration)-.012)}
+  function revealVideo(){if(video.readyState>=2)video.classList.add("is-media-ready")}
+  function scheduleSeek(force=false){
+    if(posterOnly||state.failed||video.readyState<1)return;
+    if(state.seeking||video.seeking){state.pending=true;return}
+    const now=performance.now(),wait=seekInterval-(now-state.lastApplied);
+    if(!force&&wait>0){if(!state.timer)state.timer=setTimeout(()=>{state.timer=0;scheduleSeek(false)},Math.ceil(wait));return}
+    const wanted=clamp(state.desired,0,filmDuration());
+    if(!force&&Math.abs(video.currentTime-wanted)<seekThreshold){revealVideo();return}
+    state.lastApplied=now;state.seeking=true;state.pending=false;state.seekCount++;
+    try{video.pause();video.currentTime=wanted}catch(_){state.seeking=false}
   }
-
-  function mediaDuration(index){
-    const video=videos[index],declared=WALKTHROUGH_STEPS[index].duration||3;
-    const actual=Number.isFinite(video?.duration)?video.duration:declared;
-    return Math.max(.01,Math.min(declared,actual)-.002);
+  function ensureMedia(){
+    if(posterOnly||state.loaded||state.failed)return;
+    state.loaded=true;
+    video.addEventListener("loadedmetadata",()=>scheduleSeek(true));
+    video.addEventListener("loadeddata",()=>{if(state.desired<=seekThreshold)revealVideo();scheduleSeek(true)},{once:true});
+    video.addEventListener("seeking",()=>{state.seeking=true});
+    video.addEventListener("seeked",()=>{state.seeking=false;revealVideo();if(state.pending||Math.abs(video.currentTime-state.desired)>=seekThreshold)scheduleSeek(false)});
+    video.addEventListener("error",()=>{state.failed=true;video.dataset.failed="true";video.classList.remove("is-media-ready")},{once:true});
+    video.src=video.dataset.videoSrc;
+    try{video.load()}catch(_){}
   }
-
-  function flushSeek(index,now=performance.now()){
-    if(posterOnly||index<0||index>=count)return;
-    const video=videos[index],state=seekState[index];
-    if(video.readyState<1||video.dataset.failed==="true"||video.seeking)return;
-    const wanted=clamp(state.desired,0,mediaDuration(index));
-    const delta=Math.abs(video.currentTime-wanted);
-    if(delta<SEEK_THRESHOLD)return;
-    const wait=MIN_SEEK_INTERVAL-(now-state.lastRequest);
-    if(wait>0){
-      if(!state.timer)state.timer=setTimeout(()=>{state.timer=0;flushSeek(index)},Math.ceil(wait));
-      return;
-    }
-    if(state.timer){clearTimeout(state.timer);state.timer=0}
-    state.lastRequest=now;
-    try{video.pause();video.currentTime=wanted}catch(_){}
-  }
-
-  function ensureMedia(index){
-    if(posterOnly||index<0||index>=count)return;
-    const video=videos[index];
-    if(video.dataset.mediaBound!=="true"){
-      video.dataset.mediaBound="true";
-      video.addEventListener("loadedmetadata",()=>flushSeek(index),{once:true});
-      video.addEventListener("loadeddata",()=>{
-        video.pause();
-        if(Math.abs(video.currentTime-seekState[index].desired)<(mobileMode?.065:.04))video.classList.add("is-media-ready");
-        flushSeek(index);
-      },{once:true});
-      video.addEventListener("seeked",()=>{
-        video.classList.add("is-media-ready");
-        flushSeek(index);
-      });
-      video.addEventListener("error",()=>{
-        video.dataset.failed="true";video.classList.remove("is-media-ready");
-      },{once:true});
-    }
-    if(!video.getAttribute("src")){
-      video.src=video.dataset.videoSrc;
-      try{video.load()}catch(_){}
-    }
-  }
-
-  function seekVideo(index,time,now){
-    if(posterOnly||index<0||index>=count)return;
-    const desired=mobileMode?Math.round(time*24)/24:time;
-    seekState[index].desired=desired;ensureMedia(index);flushSeek(index,now);
-  }
-
+  function setDesired(progress){state.desired=clamp(progress,0,1)*filmDuration();video.dataset.targetTime=state.desired.toFixed(4);ensureMedia();scheduleSeek(false)}
   function setActive(index){
-    if(index===activeIndex)return;
-    activeIndex=index;section.dataset.checkpoint=WALKTHROUGH_STEPS[index]?.id||"";
-    buttons.forEach((button,n)=>{
-      const on=n===index;button.classList.toggle("on",on);
-      if(on)button.setAttribute("aria-current","step");else button.removeAttribute("aria-current");
-    });
+    if(index===activeIndex)return;activeIndex=index;section.dataset.checkpoint=WALKTHROUGH_STEPS[index]?.id||"";
+    buttons.forEach((button,n)=>{const on=n===index;button.classList.toggle("on",on);if(on)button.setAttribute("aria-current","step");else button.removeAttribute("aria-current")});
   }
-
-  function copyOpacity(index,timeline){
-    const incoming=index===0?1:smootherstep(index-(1-PHASE.copyInStart),index-(1-PHASE.copyInEnd),timeline);
-    const outgoing=1-smootherstep(index+PHASE.copyOutStart,index+PHASE.copyOutEnd,timeline);
-    return clamp(Math.min(incoming,outgoing),0,1);
+  function copyOpacity(index,segment,local){
+    if(index!==segment)return 0;
+    if(index===0)return 1-smooth(.58,.84,local);
+    const incoming=smooth(.05,.22,local);
+    const outgoing=index===count-1?1:1-smooth(.70,.9,local);
+    return Math.min(incoming,outgoing);
   }
-
-  function bridgeOpacity(index,timeline){
-    const checkpoint=index+1;
-    const incoming=smootherstep(checkpoint-(1-PHASE.bridgeInStart),checkpoint-(1-PHASE.bridgeInEnd),timeline);
-    const outgoing=1-smootherstep(checkpoint+PHASE.bridgeOutStart,checkpoint+PHASE.bridgeOutEnd,timeline);
-    return clamp(Math.min(incoming,outgoing),0,1);
-  }
-
-  function render(now){
-    const timeline=clamp(renderedTimeline,0,count);
-    const atEnd=timeline>=count;
-    const segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1);
-    const local=atEnd?1:timeline-segment;
-    const startBlur=1-smootherstep(PHASE.blurOutStart,PHASE.blurOutEnd,local);
-    const endBlur=smootherstep(PHASE.blurInStart,PHASE.blurInEnd,local);
-    const currentBlur=Math.max(startBlur,endBlur);
-    const opacities=Array(count).fill(0),blurs=Array(count).fill(0),brightness=Array(count).fill(1),shellScales=Array(count).fill(1);
-
-    if(segment!==renderSegment){
-      renderSegment=segment;
-      scenes.forEach((scene,index)=>scene.classList.toggle("is-render-active",index===segment));
-    }
-
-    /* Only one live scene is exposed at a time. The real scene switch happens
-       underneath a fully opaque bridge made from the next exact first frame. */
-    opacities[segment]=1;
-    blurs[segment]=currentBlur*MAX_BLUR;
-    brightness[segment]=1-currentBlur*.12;
-    shellScales[segment]=1+currentBlur*.022;
-
-    /* The clip keeps advancing while the end blur rises. It reaches the exact
-       final frame only after the mask has already started to hide the detail. */
-    const clipProgress=smootherstep(PHASE.clipStart,PHASE.clipEnd,local);
-    seekVideo(segment,(WALKTHROUGH_STEPS[segment].duration||3)*clipProgress,now);
-    if(segment<count-1){
-      if(local>.24)ensureMedia(segment+1);
-      seekVideo(segment+1,0,now);
-    }
-    if(!mobileMode&&segment+2<count&&local>.54)ensureMedia(segment+2);
-
-    const bridgeOpacities=bridges.map((_,index)=>bridgeOpacity(index,timeline));
-    const strongestBridge=Math.max(0,...bridgeOpacities);
-    const nextRenderBridge=strongestBridge>.001?bridgeOpacities.indexOf(strongestBridge):-1;
-    if(nextRenderBridge!==renderBridge){
-      renderBridge=nextRenderBridge;
-      bridges.forEach((bridge,index)=>bridge.classList.toggle("is-bridge-active",index===renderBridge));
-    }
-
-    const nearest=clamp(Math.round(timeline),0,count-1);
-    const distance=Math.abs(timeline-nearest);
-    const nearCheckpoint=1-smootherstep(0,.12,distance);
-    const slowEnough=1-clamp(Math.abs(scrollVelocity)/1.25,0,1);
-    const idleStrength=mobileMode?0:nearCheckpoint*slowEnough*(1-strongestBridge);
-    const seconds=now/1000;
-
-    scenes.forEach((scene,index)=>{
-      setVar(scene,"--scene-opacity",opacities[index].toFixed(5));
-      setVar(scene,"--scene-z",String(index===segment?1:0));
-      const blurValue=mobileMode?Math.round(blurs[index]*2)/2:blurs[index];
-      setVar(scene,"--scene-blur",blurValue.toFixed(2)+"px");
-      setVar(scene,"--scene-brightness",brightness[index].toFixed(5));
-      setVar(scene,"--scene-shell-scale",shellScales[index].toFixed(5));
-      const idle=index===nearest?idleStrength:0;
-      const x=Math.sin(seconds*.22+index*.7)*.38*idle;
-      const y=Math.cos(seconds*.17+index*.53)*.27*idle;
-      const scale=1.025+idle*(.009+Math.sin(seconds*.15+index)*.0025);
-      setVar(scene,"--idle-x",x.toFixed(4)+"%");
-      setVar(scene,"--idle-y",y.toFixed(4)+"%");
-      setVar(scene,"--idle-scale",scale.toFixed(5));
-    });
-
-    bridges.forEach((bridge,index)=>{
-      const opacity=bridgeOpacities[index];
-      setVar(bridge,"--bridge-opacity",opacity.toFixed(5));
-      setVar(bridge,"--bridge-blur",BRIDGE_BLUR.toFixed(2)+"px");
-      setVar(bridge,"--bridge-brightness",(mobileMode?.74:.7+opacity*.04).toFixed(5));
-      setVar(bridge,"--bridge-scale",(mobileMode?1.026:1.03-opacity*.004).toFixed(5));
-    });
-
+  function render(){
+    const progress=clamp(rendered,0,1),timeline=progress*count,atEnd=timeline>=count,segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1),local=atEnd?1:timeline-segment;
+    scene.style.setProperty("--scene-opacity","1");scene.style.setProperty("--scene-z","2");scene.style.setProperty("--scene-blur","0px");scene.style.setProperty("--idle-scale",(1.016+Math.sin(progress*Math.PI)*.006).toFixed(5));
+    scene.classList.add("is-render-active");veil?.classList.toggle("place-veil-splash",segment===0);
+    setDesired(progress);
     let strongestCopy=0;
     copies.forEach((copy,index)=>{
-      const opacity=copyOpacity(index,timeline);
-      const leaving=timeline>index+.01;
-      const offset=(1-opacity)*(leaving?-18:20);
-      const copyBlur=(1-opacity)*15;
-      const scale=.978+opacity*.022;
-      setVar(copy,"--copy-opacity",opacity.toFixed(5));
-      setVar(copy,"--copy-y",offset.toFixed(2)+"px");
-      setVar(copy,"--copy-blur",copyBlur.toFixed(2)+"px");
-      setVar(copy,"--copy-scale",scale.toFixed(5));
-      const hidden=opacity<.02;
-      copy.classList.toggle("is-copy-active",!hidden);
-      if(copy.getAttribute("aria-hidden")!==String(hidden))copy.setAttribute("aria-hidden",String(hidden));
-      strongestCopy=Math.max(strongestCopy,opacity);
+      const opacity=copyOpacity(index,segment,local),leaving=local>.5;
+      copy.style.setProperty("--copy-opacity",opacity.toFixed(5));copy.style.setProperty("--copy-y",`${((1-opacity)*(leaving?-14:16)).toFixed(2)}px`);copy.style.setProperty("--copy-scale",(.982+opacity*.018).toFixed(5));copy.style.setProperty("--copy-blur",`${((1-opacity)*(mobile?4:6)).toFixed(2)}px`);
+      const hidden=opacity<.015;copy.classList.toggle("is-copy-active",!hidden);copy.setAttribute("aria-hidden",String(hidden));strongestCopy=Math.max(strongestCopy,opacity);
     });
-    const maskStrength=Math.max(startBlur,endBlur,strongestBridge);
-    const veil=.055+maskStrength*.24+Math.pow(strongestCopy,.72)*.37;
-    setVar(section,"--veil-opacity",clamp(veil,.055,.7).toFixed(5));
-    setVar(section,"--bridge-shade-opacity",(.3+strongestCopy*.18).toFixed(5));
-
-    const current=segment<count-1&&bridgeOpacity(segment,timeline)>.55?segment+1:segment;
-    setActive(current);
-    buttons.forEach((button,index)=>setVar(button,"--step-fill",clamp(timeline-index,0,1).toFixed(5)));
-    const showCue=timeline<.055&&targetTimeline<.08;
-    continueCue?.classList.toggle("is-visible",showCue);
-    const cueHidden=String(!showCue);
-    if(continueCue&&continueCue.getAttribute("aria-hidden")!==cueHidden)continueCue.setAttribute("aria-hidden",cueHidden);
+    section.style.setProperty("--veil-opacity",(.10+strongestCopy*.31).toFixed(4));setActive(segment);
+    buttons.forEach((button,index)=>button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5)));
   }
-
-  function requestTick(){
-    if(!raf){lastFrame=performance.now()-16.7;raf=requestAnimationFrame(tick)}
-  }
-
   function tick(now){
-    raf=0;
-    const dt=clamp((now-lastFrame)/1000,.001,.05);lastFrame=now;
-    scrollVelocity*=Math.exp(-dt*5.2);
-    const gap=targetTimeline-renderedTimeline;
-    const catchup=clamp(Math.abs(gap)/1.1,0,1);
-    const response=6.1+catchup*3.9;
-    const desiredStep=gap*(1-Math.exp(-response*dt));
-    /* Keep enough rendered frames inside the bridge even when the physical
-       scroll jumps by several viewports in one gesture. */
-    const maxStep=Math.min(.048,dt*(2.7+catchup*.95));
-    renderedTimeline+=clamp(desiredStep,-maxStep,maxStep);
-    if(Math.abs(targetTimeline-renderedTimeline)<.0001)renderedTimeline=targetTimeline;
-    render(now);
-    const unsettled=Math.abs(targetTimeline-renderedTimeline)>.0001;
-    if(visible&&(!mobileMode||unsettled))raf=requestAnimationFrame(tick);
+    raf=0;const dt=clamp((now-lastFrame)/1000,.001,.05);lastFrame=now;const gap=target-rendered,response=11.5;rendered+=gap*(1-Math.exp(-response*dt));if(Math.abs(gap)<.00008)rendered=target;render();if(visible&&Math.abs(target-rendered)>.00008)raf=requestAnimationFrame(tick)
   }
-
-  function updateTarget(jump=false){
-    const now=performance.now(),scrollDt=Math.max(8,now-lastScrollStamp);
-    const viewportDelta=(scrollY-lastScrollY)/Math.max(1,innerHeight);
-    const instantaneous=viewportDelta/(scrollDt/1000);
-    scrollVelocity=jump?0:scrollVelocity*.72+instantaneous*.28;
-    lastScrollY=scrollY;lastScrollStamp=now;
-    const {top,range}=metrics();
-    targetTimeline=clamp((scrollY-top)/range,0,1)*count;
-    const rect=section.getBoundingClientRect();
-    visible=rect.bottom>0&&rect.top<innerHeight;
-    if(jump)renderedTimeline=targetTimeline;
-    if(visible)requestTick();
-    else if(raf){cancelAnimationFrame(raf);raf=0}
+  function requestTick(){if(!raf){lastFrame=performance.now()-16;raf=requestAnimationFrame(tick)}}
+  function update(jump=false){
+    const {top,range}=metrics();target=clamp((scrollY-top)/range,0,1);const rect=section.getBoundingClientRect();visible=rect.bottom>0&&rect.top<innerHeight;if(jump)rendered=target;render();if(visible)requestTick();else if(raf){cancelAnimationFrame(raf);raf=0}
   }
-
-  addEventListener("scroll",()=>updateTarget(false),{passive:true});
-  addEventListener("resize",()=>updateTarget(true),{passive:true});
-  addEventListener("pageshow",()=>updateTarget(true),{passive:true});
-  document.addEventListener("visibilitychange",()=>{
-    videos.forEach(video=>video.pause());
-    if(!document.hidden)updateTarget(true);
-  });
-  buttons.forEach((button,index)=>button.addEventListener("click",()=>{
-    const {top,range}=metrics();
-    scrollTo({top:top+(index/count)*range,behavior:reducedQuery.matches?"auto":"smooth"});
-  }));
-
-  updateTarget(true);
-  if(visible){ensureMedia(0);if(!mobileMode)ensureMedia(1);render(performance.now());requestTick()}
-  if(!posterOnly&&!mobileMode){
-    const warmWalkthrough=()=>{for(let index=0;index<count;index++)ensureMedia(index)};
-    if("requestIdleCallback" in window)requestIdleCallback(warmWalkthrough,{timeout:1600});
-    else setTimeout(warmWalkthrough,700);
-  }
+  addEventListener("scroll",()=>update(false),{passive:true});addEventListener("resize",()=>update(true),{passive:true});addEventListener("pageshow",()=>update(true),{passive:true});
+  document.addEventListener("visibilitychange",()=>{video.pause();if(!document.hidden)update(true)});
+  buttons.forEach((button,index)=>button.addEventListener("click",()=>{const {top,range}=metrics();scrollTo({top:top+(index/count)*range+1,behavior:reduced?"auto":"smooth"})}));
+  update(true);ensureMedia();
+  window.__viaRomaWalkthrough={section,video,videos:[video],state,states:[state],update,seekTo:index=>{const {top,range}=metrics();scrollTo(0,top+(index/count)*range+1)}};
 })();
 
 /* Community: a finite horizontal composition, never a long raw-image wall. */
@@ -3819,72 +3640,7 @@ renderWalkthroughStructure();
   if("ResizeObserver" in window)new ResizeObserver(update).observe(reel);requestAnimationFrame(update);
 })();
 
-/* Section dot fields: one geometric visual language, three restrained motions. */
-(function initSectionDotFields(){
-  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const defs=[
-    {selector:"#customer",mode:"wave",alpha:.17,spacing:34},
-    {selector:"#social",mode:"diagonal",alpha:.145,spacing:38},
-    {selector:"#dove",mode:"ripple",alpha:.15,spacing:36}
-  ];
-  const fields=defs.map((def,index)=>{
-    const el=document.querySelector(def.selector);if(!el)return null;
-    const canvas=document.createElement("canvas");canvas.className="section-dot-field";canvas.setAttribute("aria-hidden","true");canvas.dataset.mode=def.mode;
-    el.insertBefore(canvas,el.firstChild);
-    const ctx=canvas.getContext("2d",{alpha:true});
-    return {el,canvas,ctx,def,index,w:0,h:0,visible:false,px:.5,py:.5};
-  }).filter(Boolean);
-  if(!fields.length)return;
-  function resizeField(f){
-    const w=Math.max(1,Math.round(f.el.clientWidth)),h=Math.max(1,Math.round(f.el.scrollHeight));
-    if(w===f.w&&h===f.h)return;f.w=w;f.h=h;f.canvas.width=w;f.canvas.height=h;
-  }
-  function draw(f,time){
-    resizeField(f);const {ctx,w,h,def}=f;if(!w||!h)return;ctx.clearRect(0,0,w,h);
-    const mobile=w<700,spacing=mobile?Math.max(28,def.spacing-6):def.spacing;
-    const tt=reduced?0:time*.00022;
-    const cx=w*(def.mode==="ripple"?.72:.5),cy=h*(def.mode==="ripple"?.22:.44);
-    for(let y=spacing*.5;y<h;y+=spacing){
-      for(let x=spacing*.5;x<w;x+=spacing){
-        let dx=0,dy=0;
-        if(def.mode==="wave"){
-          dy=Math.sin(x*.015+tt*7+y*.0017)*3.6+Math.sin(y*.007-tt*4)*1.4;
-          dx=Math.cos(y*.011+tt*3.4)*.9;
-        }else if(def.mode==="diagonal"){
-          const phase=(x+y)*.0105+tt*6.5;dx=Math.sin(phase)*2.4;dy=Math.cos(phase*.82)*2.8;
-        }else{
-          const rx=x-cx,ry=y-cy,d=Math.hypot(rx,ry)||1,amp=Math.sin(d*.026-tt*8.2)*2.7;
-          dx=rx/d*amp;dy=ry/d*amp;
-        }
-        if(!mobile&&!reduced){
-          const mx=f.px*w,my=f.py*h,pdx=x-mx,pdy=y-my,pdist=Math.hypot(pdx,pdy),influence=Math.max(0,1-pdist/300)*1.7;
-          dx+=pdx/(pdist||1)*influence;dy+=pdy/(pdist||1)*influence;
-        }
-        const edge=Math.min(1,Math.max(.12,(Math.min(x,w-x)/Math.max(1,w*.18))));
-        const vertical=.48+.52*Math.sin((y/h)*Math.PI);
-        const major=((Math.round(x/spacing)+Math.round(y/spacing))%7===0);
-        const alpha=def.alpha*(.48+.52*edge)*(.66+.34*vertical)*(major?1.32:1);
-        ctx.beginPath();ctx.arc(x+dx,y+dy,major?1.05:.7,0,Math.PI*2);ctx.fillStyle=`rgba(198,161,91,${alpha.toFixed(4)})`;ctx.fill();
-      }
-    }
-  }
-  let last=0,raf=0;
-  const anyVisible=()=>fields.some(f=>f.visible);
-  const start=()=>{if(!reduced&&anyVisible()&&!raf)raf=requestAnimationFrame(loop)};
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{const f=fields.find(v=>v.el===entry.target);if(f)f.visible=entry.isIntersecting});
-    if(anyVisible())start();else if(raf){cancelAnimationFrame(raf);raf=0}
-  },{rootMargin:"18% 0px 18%",threshold:.01});
-  fields.forEach(f=>{io.observe(f.el);f.el.addEventListener("pointermove",e=>{const r=f.el.getBoundingClientRect();f.px=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));f.py=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))},{passive:true})});
-  if("ResizeObserver" in window){const ro=new ResizeObserver(entries=>entries.forEach(e=>{const f=fields.find(v=>v.el===e.target);if(f){f.w=0;f.h=0}}));fields.forEach(f=>ro.observe(f.el))}
-  function loop(now){
-    raf=0;if(!anyVisible())return;
-    if(now-last<33){start();return}
-    last=now;fields.forEach(f=>{if(f.visible)draw(f,now)});start();
-  }
-  if(reduced)fields.forEach(f=>draw(f,0));
-})();
-
+/* V14A particles are initialized by app.js. */
 /* =============== reveal + lazy =============== */
 let fxObs;
 function observeAll(){
@@ -3913,9 +3669,9 @@ sent.style.cssText = "position:absolute;top:60px;height:1px;width:1px;pointer-ev
 document.body.prepend(sent);
 new IntersectionObserver(([e])=>{$("#topbar").classList.toggle("solid",!e.isIntersecting)},{rootMargin:"0px"}).observe(sent);
 const primaryNavStops=[
-  {id:"storia",tab:"storia"},
+  {id:"home",tab:""},
   {id:"catshow",tab:"menu"},
-  {id:"gallery",tab:"gallery"},
+  {id:"storia",tab:"storia"},
   {id:"dove",tab:"dove"}
 ];
 let navTick=0;
@@ -3952,5 +3708,6 @@ requestAnimationFrame(()=>requestAnimationFrame(settleInitialRails));
 addEventListener("load",settleInitialRails,{once:true});
 document.fonts?.ready?.then(settleInitialRails).catch(()=>{});
 </script>
+  <script src="app.js?v=14.1.0"></script>
 </body>
 </html>

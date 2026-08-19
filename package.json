@@ -1,0 +1,11 @@
+{
+  "name": "pizzeria-via-roma",
+  "private": true,
+  "version": "14.1.0",
+  "scripts": {
+    "build": "node v11-build.cjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
