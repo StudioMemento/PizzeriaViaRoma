@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node v11-build.cjs",
+  "buildCommand": "node v15-build.cjs",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false

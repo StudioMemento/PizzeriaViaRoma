@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0B">
 <title>Pizzeria Via Roma - Maniago</title>
-<meta name="build" content="Pizzeria Via Roma V14A Clean">
+<meta name="build" content="Pizzeria Via Roma V15 Clean">
 <meta name="description" content="Pizzeria Via Roma, Maniago. La pizza di sempre, con un tocco in più.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1856,7 +1856,7 @@ a,button{touch-action:manipulation}
   #storia .place-poster,#storia .place-video{transform:scale(1.035)!important}
 }
 </style>
-  <link rel="stylesheet" href="app.css?v=14.1.0">
+  <link rel="stylesheet" href="app.css?v=15.0.3">
 </head>
 <body>
 
@@ -2994,7 +2994,7 @@ document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",
 /* drag-to-scroll desktop (mouse) per entrambi.
    Il drag termina immediatamente al rilascio del mouse: nessuna inerzia,
    snap fluido alla card più vicina, centrata. */
-function dragScroll(el,{snap=true,inertia=false}={}){
+function dragScroll(el,{snap=false,inertia=true}={}){
   let state=null,suppressClick=false,anim=0;
   const cards=()=>[...el.querySelectorAll(".slide, figure")];
   const ease=t=>1-Math.pow(1-t,4);
@@ -3011,10 +3011,10 @@ function dragScroll(el,{snap=true,inertia=false}={}){
   };
   const release=e=>{
     if(!state||e&&e.pointerId!==state.id)return;
-    const moved=state.moved,velocity=state.velocity||0;state=null;el.classList.remove("dragging");
+    const moved=state.moved,totalVelocity=(state.x-state.lastX)/Math.max(16,performance.now()-state.started),velocity=(state.velocity||0)*.68+totalVelocity*.32;state=null;el.classList.remove("dragging");
     if(moved){
       suppressClick=true;
-      if(inertia){const travel=Math.max(-360,Math.min(360,velocity*280));animateTo(el.scrollLeft+travel,560)}
+      if(inertia){const travel=Math.max(-280,Math.min(280,velocity*250));animateTo(el.scrollLeft+travel,620)}
       else if(snap)requestAnimationFrame(snapNearest);
       setTimeout(()=>suppressClick=false,160);
     }else if(snap)snapNearest();
@@ -3024,7 +3024,7 @@ function dragScroll(el,{snap=true,inertia=false}={}){
   el.addEventListener("pointerdown",e=>{
     if(e.pointerType!=="mouse"||e.button!==0)return;
     cancelAnimationFrame(anim);
-    state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false,lastX:e.clientX,lastT:performance.now(),velocity:0};
+    state={id:e.pointerId,x:e.clientX,y:e.clientY,left:el.scrollLeft,moved:false,started:performance.now(),lastX:e.clientX,lastT:performance.now(),velocity:0};
   });
   el.addEventListener("pointermove",e=>{
     if(!state||e.pointerId!==state.id)return;
@@ -3039,7 +3039,9 @@ function dragScroll(el,{snap=true,inertia=false}={}){
   window.addEventListener("blur",()=>release());
   el.addEventListener("click",e=>{if(suppressClick){e.preventDefault();e.stopPropagation()}},true);
 }
-dragScroll(forno); dragScroll(rail,{snap:false,inertia:true}); dragScroll(document.getElementById("custgrid"));
+dragScroll(forno,{snap:false,inertia:true});
+dragScroll(rail,{snap:false,inertia:true});
+dragScroll(document.getElementById("custgrid"));
 
 /* Both rails behave as restrained tickers and pause naturally for interaction. */
 function installSubtleTicker(el,{speed,normalize,update}){
@@ -3072,7 +3074,7 @@ function installSubtleTicker(el,{speed,normalize,update}){
   },{rootMargin:"16% 0px 16%",threshold:.01}).observe(el);
   else{visible=true;schedule()}
 }
-/* V14A: discrete, interaction-aware autoplay is initialized in app.js. */
+/* V15: both primary rails use the shared continuous motion controller. */
 
 /* =============== gallery fotografica: album / reel player =============== */
 const GALLERY_ORDER=["bancone","sala_sinistra","sala_destra","esterno","via_roma"];
@@ -3534,9 +3536,9 @@ function updateOpenState(){
 }
 setInterval(updateOpenState,60000);
 
-/* V14A: the info section uses a restrained touch/cursor particle field. */
+/* The info section uses a restrained touch/cursor particle field. */
 
-/* V14A walkthrough: one optimized continuous film, four scroll checkpoints. */
+/* V15 walkthrough: one continuous film, four synchronized checkpoints. */
 function renderWalkthroughStructure(){
   const section=document.getElementById("storia");if(!section)return;
   const scenesRoot=section.querySelector("[data-walkthrough-scenes]"),copiesRoot=section.querySelector("[data-walkthrough-copies]"),stepper=section.querySelector("[data-walkthrough-stepper]");
@@ -3598,14 +3600,25 @@ renderWalkthroughStructure();
   }
   function copyOpacity(index,segment,local){
     if(index!==segment)return 0;
-    if(index===0)return 1-smooth(.58,.84,local);
-    const incoming=smooth(.05,.22,local);
-    const outgoing=index===count-1?1:1-smooth(.70,.9,local);
+    if(index===0)return 1-smooth(.62,.82,local);
+    const incoming=smooth(.16,.30,local);
+    const outgoing=index===count-1?1:1-smooth(.62,.82,local);
     return Math.min(incoming,outgoing);
+  }
+  function transitionStrength(progress){
+    const width=mobile?.034:.028;let strength=0;
+    for(let index=1;index<count;index++){
+      const distance=Math.abs(progress-index/count);
+      if(distance>=width)continue;
+      strength=Math.max(strength,smooth(0,1,1-distance/width));
+    }
+    return strength;
   }
   function render(){
     const progress=clamp(rendered,0,1),timeline=progress*count,atEnd=timeline>=count,segment=atEnd?count-1:clamp(Math.floor(timeline),0,count-1),local=atEnd?1:timeline-segment;
-    scene.style.setProperty("--scene-opacity","1");scene.style.setProperty("--scene-z","2");scene.style.setProperty("--scene-blur","0px");scene.style.setProperty("--idle-scale",(1.016+Math.sin(progress*Math.PI)*.006).toFixed(5));
+    const transition=transitionStrength(progress),blur=transition*(mobile?4.5:8);
+    scene.style.setProperty("--scene-opacity","1");scene.style.setProperty("--scene-z","2");scene.style.setProperty("--scene-blur",`${blur.toFixed(2)}px`);scene.style.setProperty("--idle-scale",(1.018+Math.sin(progress*Math.PI)*.005+transition*.014).toFixed(5));
+    scene.classList.toggle("is-transitioning",transition>.025);
     scene.classList.add("is-render-active");veil?.classList.toggle("place-veil-splash",segment===0);
     setDesired(progress);
     let strongestCopy=0;
@@ -3614,7 +3627,7 @@ renderWalkthroughStructure();
       copy.style.setProperty("--copy-opacity",opacity.toFixed(5));copy.style.setProperty("--copy-y",`${((1-opacity)*(leaving?-14:16)).toFixed(2)}px`);copy.style.setProperty("--copy-scale",(.982+opacity*.018).toFixed(5));copy.style.setProperty("--copy-blur",`${((1-opacity)*(mobile?4:6)).toFixed(2)}px`);
       const hidden=opacity<.015;copy.classList.toggle("is-copy-active",!hidden);copy.setAttribute("aria-hidden",String(hidden));strongestCopy=Math.max(strongestCopy,opacity);
     });
-    section.style.setProperty("--veil-opacity",(.10+strongestCopy*.31).toFixed(4));setActive(segment);
+    section.style.setProperty("--veil-opacity",(.10+strongestCopy*.31+transition*.18).toFixed(4));setActive(segment);
     buttons.forEach((button,index)=>button.style.setProperty("--step-fill",clamp(timeline-index,0,1).toFixed(5)));
   }
   function tick(now){
@@ -3640,7 +3653,7 @@ renderWalkthroughStructure();
   if("ResizeObserver" in window)new ResizeObserver(update).observe(reel);requestAnimationFrame(update);
 })();
 
-/* V14A particles are initialized by app.js. */
+/* Particle fields are initialized by app.js. */
 /* =============== reveal + lazy =============== */
 let fxObs;
 function observeAll(){
@@ -3708,6 +3721,6 @@ requestAnimationFrame(()=>requestAnimationFrame(settleInitialRails));
 addEventListener("load",settleInitialRails,{once:true});
 document.fonts?.ready?.then(settleInitialRails).catch(()=>{});
 </script>
-  <script src="app.js?v=14.1.0"></script>
+  <script src="app.js?v=15.0.3"></script>
 </body>
 </html>

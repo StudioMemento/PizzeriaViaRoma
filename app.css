@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PIZZERIA VIA ROMA V14A
+   PIZZERIA VIA ROMA V15
    Menu-first architecture · native film scrub · responsive motion polish
    ========================================================================== */
 
@@ -521,13 +521,14 @@ body.v14a-ready .map-address strong{
 
 
 /* ==========================================================================
-   PIZZERIA VIA ROMA V14A CLEAN · authoritative final layer
+   PIZZERIA VIA ROMA V15 FOUNDATION · authoritative base layer
    ========================================================================== */
 :root{
   --v14a-trace-inset:0px;
   --v14a-ease:cubic-bezier(.22,1,.36,1);
 }
 html{overflow-x:clip;scroll-behavior:smooth}
+html.v15-section-jump{scroll-behavior:auto!important}
 body{overflow-x:clip}
 body.v14a-ready{min-width:0}
 #home,#catshow,#pizza-slider,.screen.compact.teaser,#menu,#storia,#gallery,#customer,#social,#dove{scroll-margin-top:0}
@@ -685,4 +686,142 @@ body.v14a-ready #storia .place-continue{display:none!important}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .home-scroll svg{animation:none}
+}
+
+
+/* ==========================================================================
+   PIZZERIA VIA ROMA V15 · emergency release layer
+   ========================================================================== */
+
+/* Home interaction: broader direct response, clean release, stronger cue. */
+.home-scroll{
+  color:rgba(241,236,225,.76)!important;
+  font-size:9px!important;
+  text-shadow:0 0 18px rgba(198,161,91,.18);
+}
+.home-scroll svg{
+  width:30px!important;
+  height:30px!important;
+  color:var(--oro-vivo)!important;
+  filter:drop-shadow(0 0 9px rgba(198,161,91,.5));
+}
+.home-scroll svg path{stroke-width:1.9}
+
+/* Both editorial rails use the same free, inertial motion grammar. */
+#showrail,#forno{
+  scroll-snap-type:none!important;
+  scroll-behavior:auto!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+}
+#showrail .slide,#forno figure{scroll-snap-align:none!important}
+#showrail.dragging,#forno.dragging{cursor:grabbing!important}
+
+/* One film, explicit transition blur, and copy blur on the same timeline. */
+body.v14a-ready #storia .place-poster,
+body.v14a-ready #storia .place-video{
+  transform:scale(var(--idle-scale,1.018)) translateZ(0)!important;
+  filter:blur(var(--scene-blur,0px)) brightness(.96) saturate(.95) contrast(1.015)!important;
+  backface-visibility:hidden;
+  will-change:transform,filter;
+}
+body.v14a-ready #storia .place-copy-step{
+  filter:blur(var(--copy-blur,0px))!important;
+}
+
+/* Gallery is content-sized: player, reel, dock, albums, then the next section. */
+#gallery{
+  display:block!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:clamp(16px,2.2vw,30px) var(--page-gutter) 24px!important;
+  overflow:visible!important;
+}
+#gallery .g-viewer{
+  width:min(100%,1440px)!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:0!important;
+  display:grid!important;
+  grid-template-rows:auto auto!important;
+  gap:10px!important;
+  overflow:visible!important;
+}
+#gallery .g-stage{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:16 / 9!important;
+  margin:0!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+#gallery .g-backdrop{z-index:0!important}
+#gallery .g-main{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  width:100%!important;
+  height:100%!important;
+  padding:36px clamp(18px,4vw,64px) 116px!important;
+  object-fit:contain!important;
+}
+#gallery .g-stage::after{z-index:2!important;pointer-events:none}
+#gallery .g-dock{
+  z-index:11!important;
+  bottom:14px!important;
+}
+#gallery .g-thumbs{
+  position:absolute!important;
+  z-index:12!important;
+  top:auto!important;
+  right:14px!important;
+  bottom:82px!important;
+  left:14px!important;
+  width:auto!important;
+  height:14px!important;
+  display:grid!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:1fr!important;
+  gap:5px!important;
+  padding:0!important;
+  overflow:visible!important;
+  opacity:1!important;
+}
+#gallery .g-thumb{
+  display:block!important;
+  width:100%!important;
+  height:14px!important;
+  min-width:0!important;
+  opacity:1!important;
+}
+#gallery .g-tabs-shell{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:10px 0 0!important;
+  overflow:visible!important;
+}
+#gallery + #customer{margin-top:0!important}
+
+@media(max-width:700px){
+  .home-scroll svg{width:27px!important;height:27px!important}
+
+  #gallery{padding:0 0 18px!important}
+  #gallery .g-viewer{width:100%!important;gap:0!important}
+  #gallery .g-stage{aspect-ratio:4 / 5!important}
+  #gallery .g-main{padding:28px 0 100px!important}
+  #gallery .g-dock{bottom:10px!important}
+  #gallery .g-thumbs{right:10px!important;bottom:70px!important;left:10px!important;height:12px!important;gap:4px!important}
+  #gallery .g-thumb{height:12px!important}
+  #gallery .g-tabs-shell{padding:8px 10px 0!important;overflow:hidden!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.v14a-ready #storia .place-poster,
+  body.v14a-ready #storia .place-video{filter:brightness(.96) saturate(.95) contrast(1.015)!important}
 }
