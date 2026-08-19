@@ -9,5 +9,5 @@ fs.rmSync(out,{recursive:true,force:true});
 fs.mkdirSync(out,{recursive:true});
 for(const file of ["index.html","app.css","app.js"])fs.copyFileSync(path.join(root,file),path.join(out,file));
 fs.cpSync(path.join(root,"assets"),path.join(out,"assets"),{recursive:true,force:true});
-fs.writeFileSync(path.join(out,"BUILD.txt"),"Pizzeria Via Roma V15 CLEAN\nMenu > Via Roma > Info > Call\nWide direct home-particle response without trails\nUnified free-motion category and pizza rails\nSynchronized walkthrough checkpoints, blur and copy\nGallery reel cue above the player dock\nContent-sized gallery with an unbroken path to Community, Social and Info\n");
-console.log(`Pizzeria Via Roma V15 build complete: ${out}`);
+fs.writeFileSync(path.join(out,"BUILD.txt"),"Pizzeria Via Roma V15.1 MICRO POLISH\nStable equal-size category and pizza cards with opacity-only focus\nCached continuous rail motion with working eased controls\nWalkthrough first/last film segments exchanged\nCheckpoint copy synchronized to transition blur\nGallery media expanded to the shared layout gutters\n");
+console.log(`Pizzeria Via Roma V15.1 build complete: ${out}`);

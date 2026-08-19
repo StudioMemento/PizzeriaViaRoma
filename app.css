@@ -825,3 +825,45 @@ body.v14a-ready #storia .place-copy-step{
   body.v14a-ready #storia .place-poster,
   body.v14a-ready #storia .place-video{filter:brightness(.96) saturate(.95) contrast(1.015)!important}
 }
+
+
+/* ==========================================================================
+   PIZZERIA VIA ROMA V15.1 · micro-polish layer
+   ========================================================================== */
+
+/* Active cards keep identical geometry; opacity is the only selection motion. */
+#catshow .preview-card{
+  opacity:.52!important;
+  transform:none!important;
+  transition:opacity .42s ease!important;
+}
+#catshow .slide.is-active .preview-card{opacity:1!important;transform:none!important}
+#catshow .preview-cutout{transform:none!important}
+
+#forno figure{
+  opacity:.58!important;
+  transform:none!important;
+  filter:none!important;
+  transition:opacity .42s ease!important;
+}
+#forno figure.mid{opacity:1!important;transform:none!important;filter:none!important}
+#forno figure .shot::after{opacity:0!important}
+#forno figure figcaption,
+#forno figure .forno-ingredients{opacity:1!important;transform:none!important}
+#forno figure figcaption span{color:var(--oro-vivo)!important}
+#forno figure .forno-ingredients{color:rgba(241,236,225,.74)!important}
+
+/* The pizza controls stay above the fades and pause the shared motion controller. */
+#pizza-slider .edge{z-index:20!important;pointer-events:none!important}
+#pizza-slider .edge .chev{
+  position:relative!important;
+  z-index:2!important;
+  pointer-events:auto!important;
+  touch-action:manipulation;
+  opacity:1!important;
+  visibility:visible!important;
+}
+
+/* The gallery player now reaches the section gutters; controls remain overlaid. */
+#gallery .g-viewer{width:100%!important;max-width:none!important}
+#gallery .g-main{padding:0!important}

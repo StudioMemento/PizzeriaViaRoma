@@ -1,4 +1,4 @@
-/* PIZZERIA VIA ROMA V15 CLEAN */
+/* PIZZERIA VIA ROMA V15.1 MICRO POLISH */
 (function(){
   "use strict";
   if(window.__VIA_ROMA_V15__)return;
@@ -22,53 +22,83 @@
   function initUnifiedSliderMotion(){
     const category=$("#showrail"),pizza=$("#forno");
     if(!category||!pizza||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-    const speed=.014;
+    const speed=.018;
     function mount(rail,itemSelector,kind){
-      let visible=false,interacting=false,pausedUntil=0,raf=0,last=0,position=rail.scrollLeft;
-      const items=()=>$$(`:scope > ${itemSelector}`,rail);
-      const update=()=>{
-        const list=items();if(!list.length)return;
-        const centre=rail.scrollLeft+rail.clientWidth/2;let nearest=list[0],distance=Infinity;
-        list.forEach(item=>{const d=Math.abs(item.offsetLeft+item.offsetWidth/2-centre);if(d<distance){distance=d;nearest=item}});
+      let visible=false,interacting=false,programmatic=false,pausedUntil=0,raf=0,motionRaf=0,last=0,position=rail.scrollLeft;
+      let list=[],centres=[],loopStart=0,loopEnd=0,loopBand=0,activeKey=null,activeItem=null,geometryRaf=0;
+      const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      const nearestIndex=()=>{
+        if(!centres.length)return-1;
+        const centre=rail.scrollLeft+rail.clientWidth/2;let nearest=0,distance=Infinity;
+        centres.forEach((itemCentre,index)=>{const d=Math.abs(itemCentre-centre);if(d<distance){distance=d;nearest=index}});
+        return nearest;
+      };
+      const update=(force=false)=>{
+        const nearest=list[nearestIndex()];if(!nearest)return;
         if(kind==="category"){
-          const id=nearest.dataset.cat,real=list.slice(Math.floor(list.length/3),Math.floor(list.length*2/3));
+          const id=nearest.dataset.cat;if(!force&&id===activeKey)return;activeKey=id;
+          const real=list.slice(Math.floor(list.length/3),Math.floor(list.length*2/3));
           const logical=Math.max(0,real.findIndex(item=>item.dataset.cat===id));
           list.forEach(item=>item.classList.toggle("is-active",item.dataset.cat===id));
           $$("#showdots i").forEach((dot,index)=>dot.classList.toggle("on",index===logical));
         }else{
+          if(!force&&nearest===activeItem)return;
+          activeItem?.classList.remove("mid");activeItem=nearest;activeItem.classList.add("mid");
           const logical=Number(nearest.dataset.fornoIndex)||0;
-          list.forEach(item=>item.classList.toggle("mid",item===nearest));
           $$("#fornodots i").forEach((dot,index)=>dot.classList.toggle("on",index===logical));
         }
       };
+      const readGeometry=()=>{
+        geometryRaf=0;list=$$(`:scope > ${itemSelector}`,rail);centres=list.map(item=>item.offsetLeft+item.offsetWidth/2);
+        const count=Math.floor(list.length/3);loopStart=list[count]?.offsetLeft||0;loopEnd=list[count*2]?.offsetLeft||0;loopBand=Math.max(0,loopEnd-loopStart);
+        if(kind==="pizza")list.forEach(item=>item.classList.remove("mid"));
+        activeKey=null;activeItem=null;position=rail.scrollLeft;update(true);
+      };
+      const refreshGeometry=()=>{if(!geometryRaf)geometryRaf=requestAnimationFrame(readGeometry)};
       const normalize=()=>{
-        const list=items(),count=Math.floor(list.length/3);if(!count)return;
-        const start=list[count]?.offsetLeft,end=list[count*2]?.offsetLeft;if(!Number.isFinite(start)||!Number.isFinite(end))return;
-        const band=end-start;if(band<=0)return;
-        if(rail.scrollLeft<start-band*.32)rail.scrollLeft+=band;
-        else if(rail.scrollLeft>end+band*.32)rail.scrollLeft-=band;
+        if(loopBand<=0)return;
+        if(rail.scrollLeft<loopStart-loopBand*.32)rail.scrollLeft+=loopBand;
+        else if(rail.scrollLeft>loopEnd+loopBand*.32)rail.scrollLeft-=loopBand;
       };
       const schedule=()=>{if(visible&&!document.hidden&&!raf)raf=requestAnimationFrame(tick)};
       const tick=now=>{
         raf=0;if(!last)last=now;const dt=Math.min(80,Math.max(0,now-last));last=now;
         const hover=matchMedia("(hover:hover)").matches&&rail.matches(":hover");
-        if(visible&&!interacting&&!hover&&now>=pausedUntil&&!rail.classList.contains("dragging")&&!document.hidden){
-          if(Math.abs(rail.scrollLeft-position)>2)position=rail.scrollLeft;
+        if(visible&&!interacting&&!programmatic&&!hover&&now>=pausedUntil&&!rail.classList.contains("dragging")&&!document.hidden){
+          if(Math.abs(rail.scrollLeft-position)>8)position=rail.scrollLeft;
           position+=dt*speed;rail.scrollLeft=position;normalize();
-          if(Math.abs(rail.scrollLeft-position)>2)position=rail.scrollLeft;
+          if(Math.abs(rail.scrollLeft-position)>8)position=rail.scrollLeft;
           update();
         }
         schedule();
       };
-      rail.addEventListener("pointerdown",()=>{interacting=true;position=rail.scrollLeft;last=0},{passive:true});
+      const cancelMotion=()=>{if(motionRaf)cancelAnimationFrame(motionRaf);motionRaf=0;programmatic=false;position=rail.scrollLeft};
+      const animateToIndex=index=>{
+        if(!list.length)return;const targetItem=list[clamp(index,0,list.length-1)];if(!targetItem)return;
+        cancelMotion();programmatic=true;const from=rail.scrollLeft,target=targetItem.offsetLeft-(rail.clientWidth-targetItem.offsetWidth)/2,delta=target-from;
+        const duration=clamp(520+Math.abs(delta)*.34,560,920),started=performance.now();
+        const frame=now=>{
+          const t=clamp((now-started)/duration,0,1);position=from+delta*ease(t);rail.scrollLeft=position;update();
+          if(t<1)motionRaf=requestAnimationFrame(frame);
+          else{motionRaf=0;programmatic=false;normalize();position=rail.scrollLeft;pausedUntil=now+1300;last=0;update(true);schedule()}
+        };
+        motionRaf=requestAnimationFrame(frame);
+      };
+      const moveBy=delta=>{const index=nearestIndex();if(index>=0)animateToIndex(index+Number(delta||0))};
+      const moveToLogical=logical=>{const count=Math.floor(list.length/3);if(count)animateToIndex(count+(((Number(logical)||0)%count)+count)%count)};
+      rail.addEventListener("pointerdown",()=>{cancelMotion();interacting=true;position=rail.scrollLeft;last=0},{passive:true});
       ["pointerup","pointercancel","lostpointercapture"].forEach(type=>rail.addEventListener(type,()=>{interacting=false;position=rail.scrollLeft;pausedUntil=performance.now()+1500;last=0;schedule()},{passive:true}));
       rail.addEventListener("wheel",()=>{position=rail.scrollLeft;pausedUntil=performance.now()+1200;last=0},{passive:true});
       rail.addEventListener("focusin",()=>{interacting=true},{passive:true});
       rail.addEventListener("focusout",()=>{interacting=false;position=rail.scrollLeft;pausedUntil=performance.now()+900;last=0;schedule()},{passive:true});
       rail.addEventListener("scroll",()=>{if(interacting||performance.now()<pausedUntil)position=rail.scrollLeft;update()},{passive:true});
+      if("ResizeObserver" in window)new ResizeObserver(refreshGeometry).observe(rail);
+      if("MutationObserver" in window)new MutationObserver(refreshGeometry).observe(rail,{childList:true});
+      addEventListener("load",refreshGeometry,{once:true,passive:true});document.fonts?.ready?.then(refreshGeometry).catch(()=>{});
       if("IntersectionObserver" in window)new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;last=0;if(visible)schedule();else if(raf){cancelAnimationFrame(raf);raf=0}},{rootMargin:"14% 0px 14%",threshold:.01}).observe(rail);
       else{visible=true;schedule()}
-      return{rail,update};
+      readGeometry();
+      return{rail,update,moveBy,moveToLogical,refreshGeometry};
     }
     window.__viaRomaSliderMotion={category:mount(category,".slide","category"),pizza:mount(pizza,"figure","pizza"),speed};
   }
@@ -157,7 +187,7 @@
     const mq=matchMedia("(max-width:700px)");mq.addEventListener?.("change",()=>requestAnimationFrame(syncAllergenOrder));
     const menu=$("#menu");if(menu&&"MutationObserver" in window)new MutationObserver(()=>requestAnimationFrame(syncAllergenOrder)).observe(menu,{childList:true,subtree:true});
     initUnifiedSliderMotion();initParticles();initAnchorNavigation();
-    document.documentElement.dataset.viaRomaBuild="15.0.0";
+    document.documentElement.dataset.viaRomaBuild="15.1.0";
     requestAnimationFrame(()=>{dispatchEvent(new Event("resize"));dispatchEvent(new Event("scroll"));if(!location.hash)scrollTo(0,0)});
   }
   boot();

@@ -1856,7 +1856,7 @@ a,button{touch-action:manipulation}
   #storia .place-poster,#storia .place-video{transform:scale(1.035)!important}
 }
 </style>
-  <link rel="stylesheet" href="app.css?v=15.0.3">
+  <link rel="stylesheet" href="app.css?v=15.1.0">
 </head>
 <body>
 
@@ -2128,8 +2128,9 @@ const WALKTHROUGH_STEPS = Object.freeze([
 const WALKTHROUGH_FILM = Object.freeze({
   src:"assets/video/walkthrough/v14a-walkthrough.mp4",
   mobileSrc:"assets/video/walkthrough/mobile/v14a-walkthrough.mp4",
-  poster:"assets/video/walkthrough/02-entrata.webp",
-  duration:12
+  poster:"assets/gallery/bancone-01.webp",
+  duration:12,
+  segmentOrder:Object.freeze([3,1,2,0])
 });
 const WALKTHROUGH_MOBILE=matchMedia("(max-width: 820px), (pointer: coarse)").matches;
 
@@ -2868,8 +2869,11 @@ rail.addEventListener("scroll",()=>{
   clearTimeout(showTick);
   showTick=setTimeout(()=>{setShowDot(nearestShowLogical());normalizeShowLoop()},82);
 },{passive:true});
-document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>showRailCenter(nearestShowDom()+Number(b.dataset.show),"smooth")));
-document.getElementById("showdots").addEventListener("click",e=>{const d=e.target.closest("[data-showdot]");if(d)showCenter(Number(d.dataset.showdot),"smooth")});
+document.querySelectorAll("[data-show]").forEach(b=>b.addEventListener("click",()=>{
+  const direction=Number(b.dataset.show),motion=window.__viaRomaSliderMotion?.category;
+  if(motion?.moveBy)motion.moveBy(direction);else showRailCenter(nearestShowDom()+direction,"smooth");
+}));
+document.getElementById("showdots").addEventListener("click",e=>{const d=e.target.closest("[data-showdot]");if(!d)return;const logical=Number(d.dataset.showdot),motion=window.__viaRomaSliderMotion?.category;if(motion?.moveToLogical)motion.moveToLogical(logical);else showCenter(logical,"smooth")});
 rail.addEventListener("click",e=>{
   const target=e.target.closest("[data-cat-go]");
   if(!target)return;
@@ -2953,9 +2957,10 @@ function nearestDom(){
 /* indice logico (0..N-1) della card centrata */
 const nearestLogical = () => (((nearestDom() - CLONES)%N)+N)%N;
 /* evidenzia la figure centrata (scale/shadow/brightness) */
+let fornoMid=null;
 function markMid(){
-  const b = nearestDom();
-  figs().forEach((f,k)=>f.classList.toggle("mid",k===b));
+  const next=figs()[nearestDom()];if(!next||next===fornoMid)return;
+  fornoMid?.classList.remove("mid");next.classList.add("mid");fornoMid=next;
 }
 /* riporta invisibilmente lo scroll nella fascia reale se siamo finiti sui cloni.
    Avviene mentre l'utente non sta trascinando; salto istantaneo (auto) senza
@@ -2985,10 +2990,12 @@ forno.addEventListener("scroll",()=>{
   },80);
 },{passive:true});
 document.querySelectorAll("[data-forno]").forEach(b=>b.addEventListener("click",()=>{
-  scrollToDom(nearestDom() + Number(b.dataset.forno), "smooth");
+  const direction=Number(b.dataset.forno),motion=window.__viaRomaSliderMotion?.pizza;
+  if(motion?.moveBy)motion.moveBy(direction);else scrollToDom(nearestDom()+direction,"smooth");
 }));
 document.querySelectorAll("#fornodots i").forEach(d=>d.addEventListener("click",()=>{
-  scrollToFig(Number(d.dataset.d), "smooth");
+  const logical=Number(d.dataset.d),motion=window.__viaRomaSliderMotion?.pizza;
+  if(motion?.moveToLogical)motion.moveToLogical(logical);else scrollToFig(logical,"smooth");
 }));
 
 /* drag-to-scroll desktop (mouse) per entrambi.
@@ -3593,16 +3600,21 @@ renderWalkthroughStructure();
     video.src=video.dataset.videoSrc;
     try{video.load()}catch(_){}
   }
-  function setDesired(progress){state.desired=clamp(progress,0,1)*filmDuration();video.dataset.targetTime=state.desired.toFixed(4);ensureMedia();scheduleSeek(false)}
+  function mediaProgress(progress){
+    const timeline=clamp(progress,0,1)*count,atEnd=timeline>=count,segment=atEnd?count-1:Math.floor(timeline),local=atEnd?1:timeline-segment;
+    const mediaSegment=WALKTHROUGH_FILM.segmentOrder?.[segment]??segment;
+    return clamp((mediaSegment+local)/count,0,1);
+  }
+  function setDesired(progress){state.desired=mediaProgress(progress)*filmDuration();video.dataset.targetTime=state.desired.toFixed(4);ensureMedia();scheduleSeek(false)}
   function setActive(index){
     if(index===activeIndex)return;activeIndex=index;section.dataset.checkpoint=WALKTHROUGH_STEPS[index]?.id||"";
     buttons.forEach((button,n)=>{const on=n===index;button.classList.toggle("on",on);if(on)button.setAttribute("aria-current","step");else button.removeAttribute("aria-current")});
   }
-  function copyOpacity(index,segment,local){
-    if(index!==segment)return 0;
-    if(index===0)return 1-smooth(.62,.82,local);
-    const incoming=smooth(.16,.30,local);
-    const outgoing=index===count-1?1:1-smooth(.62,.82,local);
+  function copyOpacity(index,progress){
+    const width=mobile?.034:.028,start=index/count,end=(index+1)/count;
+    if(index===0)return 1-smooth(end-width,end,progress);
+    const incoming=smooth(start-width,start,progress);
+    const outgoing=index===count-1?1:1-smooth(end-width,end,progress);
     return Math.min(incoming,outgoing);
   }
   function transitionStrength(progress){
@@ -3623,8 +3635,8 @@ renderWalkthroughStructure();
     setDesired(progress);
     let strongestCopy=0;
     copies.forEach((copy,index)=>{
-      const opacity=copyOpacity(index,segment,local),leaving=local>.5;
-      copy.style.setProperty("--copy-opacity",opacity.toFixed(5));copy.style.setProperty("--copy-y",`${((1-opacity)*(leaving?-14:16)).toFixed(2)}px`);copy.style.setProperty("--copy-scale",(.982+opacity*.018).toFixed(5));copy.style.setProperty("--copy-blur",`${((1-opacity)*(mobile?4:6)).toFixed(2)}px`);
+      const opacity=copyOpacity(index,progress),entering=progress<index/count;
+      copy.style.setProperty("--copy-opacity",opacity.toFixed(5));copy.style.setProperty("--copy-y",`${((1-opacity)*(entering?16:-14)).toFixed(2)}px`);copy.style.setProperty("--copy-scale",(.982+opacity*.018).toFixed(5));copy.style.setProperty("--copy-blur",`${((1-opacity)*(mobile?4:6)).toFixed(2)}px`);
       const hidden=opacity<.015;copy.classList.toggle("is-copy-active",!hidden);copy.setAttribute("aria-hidden",String(hidden));strongestCopy=Math.max(strongestCopy,opacity);
     });
     section.style.setProperty("--veil-opacity",(.10+strongestCopy*.31+transition*.18).toFixed(4));setActive(segment);
@@ -3721,6 +3733,6 @@ requestAnimationFrame(()=>requestAnimationFrame(settleInitialRails));
 addEventListener("load",settleInitialRails,{once:true});
 document.fonts?.ready?.then(settleInitialRails).catch(()=>{});
 </script>
-  <script src="app.js?v=15.0.3"></script>
+  <script src="app.js?v=15.1.0"></script>
 </body>
 </html>
