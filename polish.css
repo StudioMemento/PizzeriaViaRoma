@@ -1,0 +1,113 @@
+/* V17: final cascade for the retained black/gold printed identity. */
+:root{--v17-bg:#080809;--v17-gold:#c6a15b;--v17-line:rgba(198,161,91,.2)}
+html{scrollbar-gutter:stable}
+body{background:var(--v17-bg)!important;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,[contenteditable]{-webkit-user-select:text;user-select:text}
+button,a{-webkit-tap-highlight-color:rgba(198,161,91,.13)}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:2px solid #d7b570;outline-offset:5px}
+body.v17-ready #home,body.v17-ready #catshow,body.v17-ready #menu,body.v17-ready #cornicione,body.v17-ready #customer,body.v17-ready #social,body.v17-ready #dove{background-color:var(--v17-bg)!important;background-image:none!important}
+body.v17-ready #home::before,body.v17-ready #home::after{opacity:.12!important;pointer-events:none}
+body.v17-ready .home-particles{inset:0!important;width:100%!important;height:100%!important;opacity:1!important;z-index:1!important;mask-image:none!important;-webkit-mask-image:none!important;pointer-events:none!important;mix-blend-mode:screen}
+body.v17-ready #home .home-inner,body.v17-ready #home .home-scroll{position:relative;z-index:2}
+body.v17-ready #home .home-scroll{position:absolute}
+body.v17-ready .info-particles{opacity:.8!important;pointer-events:none}
+
+/* All of the forno band, including title, masks and pagination, is black. */
+body.v17-ready #pizza-slider,body.v17-ready #pizza-slider .strip-head,body.v17-ready #forno,body.v17-ready #fornodots,body.v17-ready #pizza-slider figure,body.v17-ready #pizza-slider .shot{background:#000!important;background-image:none!important}
+body.v17-ready #pizza-slider{padding:48px 0 22px!important;border:0!important;text-align:center}
+body.v17-ready #pizza-slider::before,body.v17-ready #pizza-slider::after{display:none!important}
+body.v17-ready #pizza-slider .edge.l{background:linear-gradient(90deg,#000,transparent)!important}
+body.v17-ready #pizza-slider .edge.r{background:linear-gradient(270deg,#000,transparent)!important}
+body.v17-ready #showrail,body.v17-ready #forno{display:block!important;width:100%;padding:0!important;gap:0!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-behavior:auto!important;scroll-snap-type:none!important;touch-action:pan-x pan-y;cursor:grab;scrollbar-width:none}
+#showrail::-webkit-scrollbar,#forno::-webkit-scrollbar{display:none}
+.rail-track{position:relative;display:flex;align-items:stretch;width:max-content;gap:0;will-change:transform}
+body.v17-ready #showrail .slide{width:min(66vw,1120px)!important;flex:0 0 min(66vw,1120px)!important;padding:0 24px!important;transform:none!important}
+body.v17-ready #forno .rail-track{gap:26px}
+body.v17-ready #forno figure{width:clamp(250px,28vw,410px)!important;flex:0 0 clamp(250px,28vw,410px)!important;margin:0!important;transform:none!important;opacity:.68;transition:opacity .6s ease!important}
+body.v17-ready #forno figure.mid{opacity:1}
+body.v17-ready #catshow .preview-card,body.v17-ready #catshow .slide.is-active .preview-card{transform:none!important;transition:opacity .6s ease!important}
+body.v17-ready #catshow{padding:64px 0 28px!important;text-align:center}
+body.v17-ready #showdots,body.v17-ready #fornodots{display:inline-flex!important;align-items:center;justify-content:center;gap:0!important;margin:12px 0 0!important;vertical-align:middle;max-width:calc(100% - 50px);flex-wrap:wrap;min-height:44px}
+#showdots button,#fornodots button{display:grid;place-items:center;width:28px;height:44px;border:0;padding:0;background:none;cursor:pointer}
+#showdots button::before,#fornodots button::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:#74613c;opacity:.6;transition:background .3s,opacity .3s,transform .3s}
+#showdots button.on::before,#fornodots button.on::before{background:#dfbf7b;opacity:1;transform:scale(1.35)}
+body.v17-ready #cornicione{min-height:0!important;height:auto!important;padding:64px 28px!important}
+body.v17-ready #cornicione .inner{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(280px,1fr);align-items:center;gap:clamp(30px,5vw,80px);max-width:1030px;width:100%;padding:0;margin:auto;text-align:left}
+body.v17-ready #cornicione .pz-s{width:100%;max-width:360px;margin:0 auto!important;aspect-ratio:1;height:auto!important}
+body.v17-ready #cornicione .pz-s img{width:100%;height:100%;object-fit:contain}
+body.v17-ready #cornicione h2{font-size:clamp(27px,3vw,42px);line-height:1.25;max-width:18ch;margin:0 0 18px!important}
+body.v17-ready #cornicione p{margin:0 0 20px!important;font-size:16px;line-height:1.6}
+body.v17-ready #cornicione .mini-list{max-width:360px;margin:0 0 24px!important;gap:0}
+body.v17-ready #cornicione .mini-list div{padding:10px 0;border-bottom:1px solid var(--v17-line)}
+body.v17-ready #cornicione .btn-oro{margin-top:0}
+
+/* Readable item names, ingredients and prices; numbers are the modal trigger. */
+body.v17-ready #menu .item{position:relative;padding:24px 0!important;min-width:0}
+body.v17-ready #menu .item .nome{font-size:20px!important;line-height:1.35;letter-spacing:.025em!important;white-space:normal!important;overflow-wrap:anywhere}
+body.v17-ready #menu .item .desc{font-size:18px!important;line-height:1.6!important;letter-spacing:.015em!important;color:#bcb7ae!important;margin:9px 0 2px!important;max-width:72ch;padding:0!important;white-space:normal}
+body.v17-ready #menu .item .prezzo,body.v17-ready #menu .pricegrid b{font-size:22px!important;line-height:1.3;white-space:nowrap}
+body.v17-ready #menu .item .row{align-items:baseline;gap:12px;min-width:0}
+body.v17-ready #menu .label{min-width:0}
+body.v17-ready #menu .item .qualifier{font-size:15px!important;line-height:1.5!important}
+.allergen-trigger{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 0;border:0;background:none;color:#c8aa6c;font-size:13px;font-weight:500;line-height:1.3;letter-spacing:.12em;cursor:pointer}
+html.allergen-open{overflow:hidden}
+.allergen-dialog{color:#e7e1d6;background:#101011;border:1px solid #4b402b;border-radius:14px;padding:22px 24px;width:min(520px,calc(100vw - 28px));max-height:calc(100dvh - 32px);margin:auto;overflow-y:auto;overscroll-behavior:contain;box-shadow:0 28px 100px #000a}
+.allergen-dialog::backdrop{background:rgba(0,0,0,.78);backdrop-filter:blur(5px)}
+.allergen-dialog header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.allergen-dialog header p{text-transform:uppercase;letter-spacing:.2em;color:#c6a15b;font-size:10px;margin:0 0 7px}
+.allergen-dialog h2{font-size:24px;font-weight:400;line-height:1.25;margin:0;letter-spacing:.015em;text-transform:none}
+.allergen-close{flex:0 0 44px;width:44px;height:44px;margin:-10px -10px 0 0;color:#ccb681;background:transparent;border:0;font-size:28px;cursor:pointer}
+.allergen-dialog ol{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.allergen-dialog li{display:grid;grid-template-columns:27px 1fr 16px;align-items:start;gap:8px;padding:5px 7px;border:1px solid transparent;border-radius:6px;color:#aaa59b}
+.allergen-dialog li.contains{border-color:#5b4c2e;background:#c6a15b0d;color:#e9d5a6}
+.allergen-number{font-size:13px;line-height:20px;color:#c6a15b;font-weight:500;font-variant-numeric:tabular-nums}
+.allergen-dialog li strong{display:block;font-size:13px;line-height:19px;font-weight:500}
+.allergen-dialog li small{display:block;font-size:11px;line-height:1.4;color:#99958c}
+.allergen-dialog .allergen-note{font-size:11px;line-height:1.5;color:#a49b8b;margin:12px 0 0}
+.allergen-dialog .allergen-note{padding-top:12px;border-top:1px solid var(--v17-line)}
+
+/* A single film, scrubbed continuously; copy is timed inside the blend windows. */
+body.v17-ready #storia.place-experience{height:460svh!important;min-height:0!important;background:#080809!important}
+body.v17-ready #storia .place-sticky{height:100svh!important;position:sticky!important;top:0!important;overflow:hidden}
+body.v17-ready #storia .place-scenes{position:absolute;inset:0;background:#080809}
+.walkthrough-video,.walkthrough-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:none!important;transform:none!important}
+.walkthrough-video{opacity:0;transition:opacity .3s}
+.walkthrough-video.is-ready{opacity:1}
+body.v17-ready #storia .place-copy-layer{position:absolute;inset:0;pointer-events:none;z-index:4}
+.film-copy{position:absolute;inset:0;display:grid;align-content:center;text-align:center;padding:32px 22px calc(32px + var(--tab-h,68px));opacity:0;background:linear-gradient(transparent,rgba(0,0,0,.46),transparent);will-change:opacity}
+.film-copy .k-s{font-size:12px;margin:0 0 18px}
+.film-copy h2{font-size:clamp(30px,5vw,68px);line-height:1.15;color:#ead7ae;font-weight:300;margin:0 0 20px;letter-spacing:.05em}
+.film-copy p:last-child{font-size:clamp(15px,1.5vw,19px);line-height:1.6;color:#ded5c5}
+body.v17-ready #storia.is-static{height:72svh!important;min-height:420px!important}
+body.v17-ready #storia.is-static .place-sticky{position:relative!important;height:100%!important}
+.g-error:empty{display:none}.g-error{font-size:13px;color:#c6a15b}
+
+/* Closing logo aligns with the heading, with no enclosing panel. */
+body.v17-ready #dove .closing-head{grid-template-columns:minmax(0,1fr) minmax(210px,.72fr)!important;align-items:center!important;gap:clamp(30px,6vw,100px)!important}
+body.v17-ready #dove .closing-heading{min-height:0!important;justify-content:center!important}
+body.v17-ready #dove .closing-brand{background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;min-height:0!important;height:100%!important;max-height:300px!important;display:flex!important;align-items:center!important;justify-content:center!important;grid-row:auto!important}
+body.v17-ready #dove .closing-brand::before,body.v17-ready #dove .closing-brand::after{display:none!important}
+body.v17-ready #dove .closing-logo{width:100%!important;max-width:390px!important;max-height:270px!important;height:100%!important;object-fit:contain!important;filter:none!important}
+#openState.visit-card{display:flex!important;align-items:center;gap:18px;background:transparent!important;border:1px solid var(--v17-line)!important;padding:24px!important;letter-spacing:inherit;text-transform:none}
+#openState .status-dot{display:block;width:9px;height:9px;border-radius:50%;background:#9e8260;box-shadow:0 0 16px #9e82602e}
+#openState.open .status-dot{background:#92b98d;box-shadow:0 0 18px #92b98d45}
+#openState [data-status-label]{font-size:24px!important;line-height:1.3}#openState [data-status-detail]{font-size:13px!important;line-height:1.6;color:#afa697}
+#social .rev .src{flex-wrap:wrap;gap:8px}
+
+@media(max-width:799px){
+ body.v17-ready #showrail .slide{width:86vw!important;flex-basis:86vw!important;padding:0 12px!important}
+ body.v17-ready #catshow h2{font-size:clamp(25px,5.4vw,38px)!important;letter-spacing:.12em!important;white-space:normal}
+ body.v17-ready #forno figure{width:72vw!important;flex-basis:72vw!important}body.v17-ready #forno .rail-track{gap:12px}
+ body.v17-ready #cornicione{padding:44px 24px!important}body.v17-ready #cornicione .inner{gap:26px;grid-template-columns:minmax(130px,.8fr) minmax(0,1fr)}
+ body.v17-ready #menu .item .nome{font-size:18px!important}body.v17-ready #menu .item .desc{font-size:16px!important}body.v17-ready #menu .item .prezzo,body.v17-ready #menu .pricegrid b{font-size:20px!important}
+ body.v17-ready #dove .closing-head{grid-template-columns:minmax(0,1fr) minmax(170px,.75fr)!important;gap:25px!important}
+}
+@media(max-width:520px){
+ body.v17-ready #pizza-slider{padding-top:35px!important}body.v17-ready #catshow{padding-top:40px!important}
+ body.v17-ready #cornicione .inner{grid-template-columns:1fr;text-align:center;gap:15px}body.v17-ready #cornicione .pz-s{max-width:210px!important}
+ body.v17-ready #cornicione h2,body.v17-ready #cornicione p,body.v17-ready #cornicione .mini-list{margin-left:auto!important;margin-right:auto!important}
+ body.v17-ready #dove .closing-head{grid-template-columns:minmax(0,1fr) 130px!important;gap:14px!important}body.v17-ready #dove .closing-head h2{font-size:clamp(24px,6.5vw,34px)!important;line-height:1.18!important;letter-spacing:.015em!important}
+ .allergen-dialog{padding:18px 15px}.allergen-dialog li{padding:4px 5px}.allergen-dialog h2{font-size:21px}
+}
+@media(hover:hover){.allergen-trigger:hover{color:#f0d89c}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.rail-track{will-change:auto}.film-copy{will-change:auto}}
