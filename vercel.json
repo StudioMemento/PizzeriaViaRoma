@@ -1,7 +1,12 @@
 {
+<<<<<<< HEAD
   "framework": "vite",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
+=======
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node v15-build.cjs",
+>>>>>>> parent of 62523d9 (V18)
   "outputDirectory": "dist",
   "headers": [
     {

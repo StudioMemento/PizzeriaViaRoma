@@ -2,7 +2,15 @@
   "name": "pizzeria-via-roma-react-polish",
   "version": "22.0.0",
   "private": true,
+<<<<<<< HEAD
   "type": "module",
+=======
+  "version": "15.1.0",
+  "scripts": {
+    "dev": "node preview-server.cjs",
+    "build": "node v15-build.cjs"
+  },
+>>>>>>> parent of 62523d9 (V18)
   "engines": {
     "node": "^22.13.0 || >=24.0.0"
   },

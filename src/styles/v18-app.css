@@ -531,7 +531,7 @@ html{overflow-x:clip;scroll-behavior:smooth}
 html.v15-section-jump{scroll-behavior:auto!important}
 body{overflow-x:clip}
 body.v14a-ready{min-width:0}
-#home,#catshow,#pizza-slider,.screen.compact.teaser,#menu,#storia,#customer,#social,#dove{scroll-margin-top:0}
+#home,#catshow,#pizza-slider,.screen.compact.teaser,#menu,#storia,#gallery,#customer,#social,#dove{scroll-margin-top:0}
 
 /* Home: visible responsive dots, exact copy and a true chevron cue. */
 #home{min-height:calc(100svh - var(--tab-h));padding-bottom:calc(var(--tab-h) + 68px)}
@@ -614,6 +614,17 @@ body.v14a-ready #storia .place-copy-story h2{max-width:min(90vw,980px)!important
 body.v14a-ready #storia .place-copy-story .inner>p:last-child{max-width:40ch!important}
 body.v14a-ready #storia .place-continue{display:none!important}
 
+/* Gallery: player, dock and all five album thumbnails resolve to one shared edge. */
+#gallery{padding-inline:var(--page-gutter)!important}
+#gallery .g-viewer{width:min(100%,1440px)!important;max-width:none!important;margin:0 auto!important;display:block!important}
+#gallery .g-stage{width:100%!important;max-width:none!important;margin:0!important;aspect-ratio:16 / 9;min-height:clamp(430px,62vw,820px)}
+#gallery .g-tabs-shell{position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:10px 0 0!important;overflow:visible!important;background:#080809!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+#gallery .g-tabs{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:8px!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important;transform:none!important}
+#gallery .g-album{display:block!important;flex:none!important;width:100%!important;min-width:0!important;max-width:none!important;margin:0!important}
+#gallery .g-cover{width:100%!important;aspect-ratio:16 / 9!important}
+#gallery .g-dock{left:14px!important;right:14px!important;bottom:14px!important;width:auto!important;max-width:none!important;transform:none!important}
+#gallery .g-dock-status{min-width:0!important}
+
 /* Info: simple particles, no radial cursor glow and no tilted map card. */
 #dove{background:linear-gradient(155deg,#0d0d0f,#070708 72%)!important;isolation:isolate}
 #dove>.v14a-particles{position:absolute!important;inset:0!important;z-index:0;opacity:1;mix-blend-mode:normal}
@@ -625,6 +636,11 @@ body.v14a-ready #storia .place-continue{display:none!important}
 /* Four equal nav actions: Menù, Via Roma, Info, Chiama. */
 .tabbar{grid-template-columns:repeat(4,minmax(0,1fr))!important}
 .tabbar>a{min-width:0!important;flex:0 0 25%!important}
+
+@media(max-width:900px){
+  #gallery{padding-inline:18px!important}
+  #gallery .g-stage{min-height:clamp(390px,72vw,650px)}
+}
 @media(max-width:700px){
   #home{padding:calc(78px + env(safe-area-inset-top)) 18px calc(var(--tab-h) + 62px)}
   .home-kicker{max-width:88vw;margin-bottom:24px;font-size:8px;letter-spacing:.28em}
@@ -647,12 +663,23 @@ body.v14a-ready #storia .place-continue{display:none!important}
   body.v14a-ready #storia .place-copy-story .hairline{margin:22px auto}
   body.v14a-ready #storia .place-stepper{width:calc(100% - 32px);bottom:calc(var(--tab-h) + 16px)}
 
+  #gallery{padding-inline:0!important}
+  #gallery .g-viewer{width:100%!important}
+  #gallery .g-stage{aspect-ratio:4 / 5;min-height:520px}
+  #gallery .g-tabs-shell{padding:8px 10px 0!important}
+  #gallery .g-tabs{gap:5px!important}
+  #gallery .g-cover{aspect-ratio:1 / 1!important}
+  #gallery .g-album small{font-size:6.5px!important;letter-spacing:.08em!important}
+  #gallery .g-dock{left:10px!important;right:10px!important;bottom:10px!important;grid-template-columns:42px 42px 42px minmax(0,1fr)!important}
+  #gallery .g-dock .g-nav,#gallery .g-dock .g-play{width:42px!important;height:42px!important}
+
   #dove .closing-dashboard{padding:0 18px}
   #dove .closing-map-card{min-height:390px;aspect-ratio:1}
 }
 @media(max-width:420px){
   .tabbar a{font-size:8px!important;letter-spacing:.11em!important}
   .tabbar a i{font-size:18px!important}
+  #gallery .g-dock-status{font-size:7.5px!important;letter-spacing:.1em!important;padding:0 7px!important}
   body.v14a-ready #storia .place-stepper button span{font-size:0}
   body.v14a-ready #storia .place-stepper button.on span{font-size:7px}
 }
@@ -702,8 +729,96 @@ body.v14a-ready #storia .place-copy-step{
   filter:blur(var(--copy-blur,0px))!important;
 }
 
+/* Gallery is content-sized: player, reel, dock, albums, then the next section. */
+#gallery{
+  display:block!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:clamp(16px,2.2vw,30px) var(--page-gutter) 24px!important;
+  overflow:visible!important;
+}
+#gallery .g-viewer{
+  width:min(100%,1440px)!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:0!important;
+  display:grid!important;
+  grid-template-rows:auto auto!important;
+  gap:10px!important;
+  overflow:visible!important;
+}
+#gallery .g-stage{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:16 / 9!important;
+  margin:0!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+#gallery .g-backdrop{z-index:0!important}
+#gallery .g-main{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  width:100%!important;
+  height:100%!important;
+  padding:36px clamp(18px,4vw,64px) 116px!important;
+  object-fit:contain!important;
+}
+#gallery .g-stage::after{z-index:2!important;pointer-events:none}
+#gallery .g-dock{
+  z-index:11!important;
+  bottom:14px!important;
+}
+#gallery .g-thumbs{
+  position:absolute!important;
+  z-index:12!important;
+  top:auto!important;
+  right:14px!important;
+  bottom:82px!important;
+  left:14px!important;
+  width:auto!important;
+  height:14px!important;
+  display:grid!important;
+  grid-auto-flow:column!important;
+  grid-auto-columns:1fr!important;
+  gap:5px!important;
+  padding:0!important;
+  overflow:visible!important;
+  opacity:1!important;
+}
+#gallery .g-thumb{
+  display:block!important;
+  width:100%!important;
+  height:14px!important;
+  min-width:0!important;
+  opacity:1!important;
+}
+#gallery .g-tabs-shell{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:10px 0 0!important;
+  overflow:visible!important;
+}
+#gallery + #customer{margin-top:0!important}
+
 @media(max-width:700px){
   .home-scroll svg{width:27px!important;height:27px!important}
+
+  #gallery{padding:0 0 18px!important}
+  #gallery .g-viewer{width:100%!important;gap:0!important}
+  #gallery .g-stage{aspect-ratio:4 / 5!important}
+  #gallery .g-main{padding:28px 0 100px!important}
+  #gallery .g-dock{bottom:10px!important}
+  #gallery .g-thumbs{right:10px!important;bottom:70px!important;left:10px!important;height:12px!important;gap:4px!important}
+  #gallery .g-thumb{height:12px!important}
+  #gallery .g-tabs-shell{padding:8px 10px 0!important;overflow:hidden!important}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -748,3 +863,7 @@ body.v14a-ready #storia .place-copy-step{
   opacity:1!important;
   visibility:visible!important;
 }
+
+/* The gallery player now reaches the section gutters; controls remain overlaid. */
+#gallery .g-viewer{width:100%!important;max-width:none!important}
+#gallery .g-main{padding:0!important}
