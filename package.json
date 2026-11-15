@@ -1,40 +1,12 @@
 {
-  "name": "pizzeria-via-roma-react-polish",
-  "version": "22.0.0",
+  "name": "pizzeria-via-roma",
   "private": true,
-<<<<<<< HEAD
-  "type": "module",
-=======
-  "version": "15.1.0",
+  "version": "18.0.0",
   "scripts": {
     "dev": "node preview-server.cjs",
-    "build": "node v15-build.cjs"
+    "build": "node build.cjs"
   },
->>>>>>> parent of 62523d9 (V18)
   "engines": {
-    "node": "^22.13.0 || >=24.0.0"
-  },
-  "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "typecheck": "tsc --noEmit",
-    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir .ssr && node scripts/prerender.mjs",
-    "preview": "vite preview --host 0.0.0.0",
-    "check": "npm run typecheck && npm run build && node scripts/check-build.mjs",
-    "test": "node scripts/verify-v22.mjs"
-  },
-  "dependencies": {
-    "gsap": "^3.15.1",
-    "react": "19.3.1",
-    "react-dom": "19.3.1"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.0",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "@vitejs/plugin-react": "6.3.0",
-    "playwright": "1.65.1",
-    "purgecss": "^7.0.2",
-    "typescript": "7.0.2",
-    "vite": "8.3.8"
+    "node": ">=18"
   }
 }

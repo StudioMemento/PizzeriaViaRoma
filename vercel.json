@@ -1,28 +1,7 @@
 {
-<<<<<<< HEAD
-  "framework": "vite",
-  "installCommand": "npm ci",
-  "buildCommand": "npm run build",
-=======
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node v15-build.cjs",
->>>>>>> parent of 62523d9 (V18)
+  "buildCommand": "node build.cjs",
   "outputDirectory": "dist",
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
-        },
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
