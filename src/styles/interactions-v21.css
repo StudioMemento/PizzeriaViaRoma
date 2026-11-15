@@ -1,0 +1,181 @@
+/* Via Roma V21 — persistent image layers, touch-first carousels and React Bits galleries. */
+body.v21-ready #pizza-slider.vr-pizza-carousel,
+body.v21-ready #catshow.vr-category-carousel {
+  position: relative; isolation: isolate; overflow: hidden; width: 100%; max-width: none;
+  padding: clamp(64px, 7vw, 108px) 0 48px !important; border: 0; text-align: center;
+}
+.vr-carousel-heading { padding-inline: var(--vr-gutter, 5vw); margin-bottom: 16px; }
+.vr-carousel-heading .k-s { margin: 0; }
+.vr-pizza-viewport { width: 100%; overflow: hidden; }
+.vr-pizza-stage,
+.vr-category-stage {
+  position: relative; width: 100%; outline-offset: -6px; touch-action: pan-y;
+  user-select: none; -webkit-user-select: none; cursor: grab; overflow: hidden;
+}
+.vr-pizza-stage *, .vr-category-stage * { -webkit-user-drag: none; user-select: none; }
+.vr-pizza-stage.is-dragging, .vr-category-stage.is-dragging { cursor: grabbing; }
+/* Explicitly retire V17/V18's important scroll-track declarations on these retained anchor IDs. */
+body.v21-ready #forno.vr-pizza-stage,
+body.v21-ready #showrail.vr-category-stage {
+  display: block !important; overflow: hidden !important; padding: 0 !important;
+  touch-action: pan-y !important; background: transparent !important; scroll-snap-type: none !important;
+}
+body.v21-ready #forno .vr-pizza-card {
+  position: absolute !important; width: var(--pizza-width) !important;
+  max-width: none !important; flex: none !important; margin: 0 !important;
+  background: transparent !important; filter: none !important; opacity: 1 !important;
+  transform: translate3d(calc(-50% + var(--slide-x, 0px)), 0, 0) scale(clamp(.78, calc(1 - var(--slide-distance, 0) * .10), 1)) !important;
+  transition: none !important;
+}
+.vr-pizza-stage {
+  --carousel-gap: 4; --pizza-width: clamp(250px, 25vw, 420px);
+  height: calc(var(--pizza-width) + 126px); mix-blend-mode: screen;
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.vr-pizza-card {
+  position: absolute; left: 50%; top: 0; width: var(--pizza-width); margin: 0;
+  padding: 0; background: transparent; border: 0; opacity: 1;
+  transform: translate3d(calc(-50% + var(--slide-x, 0px)), 0, 0) scale(clamp(.78, calc(1 - var(--slide-distance, 0) * .10), 1));
+  transform-origin: center 45%; will-change: transform; backface-visibility: hidden;
+}
+.vr-pizza-image { width: 100%; aspect-ratio: 1; }
+.vr-pizza-image img {
+  width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none;
+  opacity: clamp(.36, calc(1 - var(--slide-distance, 0) * .28), 1);
+  /* Source photographs have true black backgrounds. Screen is applied to the whole stage,
+     so every black pixel blends consistently even while cards overlap. No transient mask tiles. */
+  mask-image: none; -webkit-mask-image: none; filter: none;
+}
+.vr-pizza-card figcaption {
+  font-size: clamp(13px, 1.1vw, 17px); letter-spacing: .14em; line-height: 1.35;
+  text-transform: uppercase; font-weight: 400; color: var(--vr-gold, #c6ab70);
+  margin-top: 8px; padding-inline: 10px;
+  opacity: clamp(.4, calc(1 - var(--slide-distance, 0) * .28), 1);
+}
+.vr-pizza-ingredients {
+  margin: 12px auto 0; width: 87%; max-width: 36ch; color: #c8c0b1;
+  font-size: clamp(12px, .9vw, 14px); line-height: 1.5;
+  opacity: clamp(.35, calc(1 - var(--slide-distance, 0) * .26), 1);
+}
+.vr-pizza-ingredients::first-letter { text-transform: uppercase; }
+.vr-carousel-footer, .vr-community-footer {
+  width: calc(100% - var(--vr-gutter,5vw) * 2); margin: 20px auto 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.vr-drag-cue { display: flex; align-items: center; gap: 11px; color: #a69d8e; font-size: 13px; line-height: 1.5; letter-spacing: .02em; margin: 0; }
+.vr-drag-cue > span { color: var(--vr-gold,#c6ab70); font-size: 21px; font-weight: 200; }
+.vr-carousel-controls { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.vr-carousel-arrow, .vr-autoplay { width: 44px; height: 44px; display: grid; place-items: center; color: #d5c293; flex: 0 0 auto; border-radius: 50%; transition: background .2s, color .2s; }
+.vr-carousel-arrow:hover, .vr-autoplay:hover { color: #fff1ce; background: #c6ab7012; }
+.vr-carousel-arrow svg { width: 19px; height: 19px; }
+.vr-autoplay { border: 1px solid #c6ab7030; width: 38px; height: 38px; margin-left: 8px; }
+.vr-carousel-count { display: flex; align-items: baseline; gap: 13px; min-width: 68px; color: #decca4; font-size: 12px; letter-spacing: .12em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vr-carousel-count span { color: #716956; font-size: 10px; }
+
+body.v21-ready #cornicione.vr-crust-intro { isolation: isolate; position: relative; }
+body.v21-ready #cornicione.vr-crust-intro > .vr-atmosphere { position: absolute; }
+body.v21-ready #cornicione.vr-crust-intro .crust-price { display: flex; flex-direction: column; gap: 4px; white-space: nowrap; }
+body.v21-ready #cornicione.vr-crust-intro .crust-price strong { font-weight: 400; }
+body.v21-ready #cornicione.vr-crust-intro .crust-price span { font-size: 11px; color: #a69d8e; font-weight: 300; }
+body.v21-ready #cornicione.vr-crust-intro .crust-option-copy > p { flex: 1 1 100%; }
+
+body.v21-ready #catshow.vr-category-carousel { padding-top: clamp(80px, 8vw, 130px) !important; }
+.vr-category-stage { --carousel-gap: 30; --category-width: min(69vw, 1180px); height: clamp(390px, 35vw, 570px); }
+.vr-category-slide {
+  position: absolute; left: 50%; top: 0; width: var(--category-width);
+  transform: translate3d(calc(-50% + var(--slide-x, 0px)),0,0);
+  will-change: transform; backface-visibility: hidden;
+  opacity: clamp(.28, calc(1 - var(--slide-distance, 0) * .6), 1);
+}
+body.v21-ready #catshow.vr-category-carousel .vr-category-heading h2 {
+  font-size: clamp(35px,4.7vw,76px) !important; line-height: 1.15 !important;
+  letter-spacing: .12em !important; color: #d9c18c; font-weight: 200;
+  margin: 0 0 32px; max-width: none; white-space: nowrap !important;
+}
+.vr-category-image { display: block; position: relative; width: 100%; height: clamp(180px,20vw,330px); overflow: hidden; }
+.vr-category-image img { width: 100%; height: 100%; object-fit: cover; max-width: none; pointer-events: none; }
+.vr-category-link { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 15px; padding: 9px 14px; color: #f5e3bc; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; white-space: nowrap; background: #080806a8; backdrop-filter: blur(10px); opacity: 0; transition: opacity .3s; }
+.vr-category-slide.is-current .vr-category-image:hover .vr-category-link,
+.vr-category-slide.is-current .vr-category-image:focus-visible .vr-category-link { opacity: 1; }
+.vr-category-link svg { width: 15px; height: 15px; }
+.vr-category-description { font-size: 16px; color: #b8b0a1; margin: 22px 0 0; min-height: 2em; letter-spacing: .025em; }
+
+/* Accordion Gallery retains React Bits flex/GSAP mechanics; application controls stay outside its transform space. */
+body.v21-ready #gallery.room-gallery { padding: 30px 0 0 !important; height: auto !important; min-height: 0 !important; overflow: hidden; }
+body.v21-ready #gallery .vr-album { position: relative; isolation: isolate; width: 100%; max-width: none; padding: clamp(70px,7vw,110px) var(--vr-gutter,5vw) clamp(55px,6vw,90px); margin: 0; }
+body.v21-ready #gallery .album-heading { width: 100%; max-width: none; padding: 0; margin: 0 auto clamp(28px,4vw,52px); text-align: center; }
+body.v21-ready #gallery .album-heading .k-s { font-size: 10px; letter-spacing: .2em; margin: 0 0 14px; color: #9c8961; }
+body.v21-ready #gallery .album-heading h2 { width: 100%; max-width: none; margin: 0; font-size: clamp(35px,5.1vw,78px); font-weight: 200; line-height: 1.12; letter-spacing: .14em; text-align: center; color: #e2d1a5; }
+.vr-album-frame { width: 100%; padding-block: 6px; overflow: visible; }
+.vr-accordion.accordion-gallery { width: 100%; height: clamp(320px,34vw,560px) !important; }
+.vr-accordion .ag-panel { background: #11110f; border: 0; padding: 0; text-align: left; }
+.vr-accordion .ag-panel__overlay { background: linear-gradient(0deg, #09080630, transparent 50%); }
+.vr-accordion .ag-panel__media img { transition: none; }
+.vr-album-controls { display: flex; justify-content: center; align-items: center; gap: 34px; margin-top: 28px; }
+.vr-album-expand { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 11px; color: #aa9e84; letter-spacing: .04em; }
+.vr-album-expand svg { width: 17px; height: 17px; }
+.vr-album-expand:hover { color: #efdeba; }
+
+body.v21-ready #customer.vr-community { min-height: 100svh !important; height: auto !important; padding: clamp(96px,9vw,150px) 0 110px !important; position: relative; isolation: isolate; text-align: center; overflow: hidden; }
+body.v21-ready #customer .vr-community-heading { margin-inline: var(--vr-gutter,5vw); }
+body.v21-ready #customer .vr-community-heading h2 { font-size: clamp(34px,4.2vw,64px); max-width: 19ch; font-weight: 200; letter-spacing: .08em; line-height: 1.12; margin: 20px auto; }
+body.v21-ready #customer .vr-community-heading .lead { color: #bbb2a1; margin: 0; font-size: 16px; }
+body.v21-ready #customer .vr-community-reel { width: 100%; height: clamp(390px,37vw,600px); margin-top: 20px; position: relative; z-index: 1; }
+.vr-circular-gallery { width: 100%; height: 100%; }
+.vr-circular-gallery[data-gallery-ready="false"] { touch-action: pan-x pan-y; }
+.vr-circular-gallery[data-gallery-ready="false"] .circular-gallery-canvas,
+.vr-circular-gallery[data-gallery-ready="false"] .circular-gallery-labels { visibility: hidden; }
+/* Equal square cards, zero gap and continuous motion also survive devices without WebGL2. */
+.vr-flat-gallery { width: 100%; height: 100%; padding-inline: var(--vr-gutter,5vw); }
+.vr-flat-stage { --carousel-gap: 0; --flat-width: clamp(230px,22vw,360px); position: relative; height: 100%; width: 100%; overflow: hidden; touch-action: pan-y; cursor: grab; mask-image: linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent); -webkit-mask-image: linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent); }
+.vr-flat-stage.is-dragging { cursor: grabbing; }
+.vr-flat-card { position: absolute; left: 50%; top: 50%; width: var(--flat-width); padding: 0; border: 0; background: none; transform: translate3d(calc(-50% + var(--slide-x,0px)),-50%,0) scale(clamp(.97,calc(1 - var(--slide-distance,0)*.018),1)); will-change: transform; backface-visibility: hidden; }
+.vr-flat-card img { width: 100%; aspect-ratio: 1; object-fit: cover; box-shadow: 0 16px 32px #0007; pointer-events: none; }
+.vr-flat-card > span { display: block; text-align: center; color: #ddceb0; font-size: 14px; line-height: 1.4; padding-top: 14px; }
+.vr-flat-card:focus-visible { outline: 1px solid #c6ab70; outline-offset: -2px; }
+body.v21-ready #customer .vr-community-footer { margin-top: -16px; }
+
+@media(max-width:700px) {
+  body.v21-ready #pizza-slider.vr-pizza-carousel { padding-top: 70px !important; padding-bottom: 48px !important; }
+  .vr-pizza-stage { --pizza-width: min(74vw,360px); --carousel-gap: 7; height: calc(var(--pizza-width) + 134px); mask-image: linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent); }
+  .vr-pizza-card figcaption { font-size: 14px; margin-top: 13px; letter-spacing: .1em; }
+  .vr-pizza-ingredients { font-size: 13px; width: 94%; }
+  .vr-carousel-footer,.vr-community-footer { flex-direction: column; gap: 12px; margin-top: 8px; }
+  .vr-drag-cue { font-size: 12px; gap: 8px; }
+  .vr-carousel-controls { gap: 10px; }
+  body.v21-ready #catshow.vr-category-carousel { padding-top: 70px !important; padding-bottom: 54px !important; }
+  .vr-category-stage { --category-width: 86vw; --carousel-gap: 18; height: 338px; }
+  body.v21-ready #catshow.vr-category-carousel .vr-category-heading h2 { font-size: clamp(26px,6.8vw,40px) !important; letter-spacing: .07em !important; margin-bottom: 25px; }
+  .vr-category-image { height: 190px; }
+  .vr-category-image img { object-fit: cover; }
+  .vr-category-link { opacity: 1; padding: 7px 10px; font-size: 9px; bottom: 11px; }
+  .vr-category-description { font-size: 13px; line-height: 1.45; margin-top: 17px; padding-inline: 6px; }
+  body.v21-ready #gallery .vr-album { padding-top: 64px; padding-bottom: 48px; }
+  body.v21-ready #gallery .album-heading h2 { font-size: clamp(28px,7.4vw,48px); letter-spacing: .09em; }
+  .vr-accordion.accordion-gallery { height: 310px !important; flex-direction: row; perspective: 1100px; --ag-gap: 6px !important; }
+  .vr-accordion .ag-panel { min-height: 0; transform-style: preserve-3d; }
+  .vr-accordion .ag-panel__media { width: var(--ag-media-size); height: 100%; }
+  .vr-album-controls { margin-top: 20px; gap: 12px; flex-wrap: wrap; }
+  .vr-album-expand span { font-size: 10px; }
+  body.v21-ready #customer.vr-community { padding-top: 95px !important; padding-bottom: 105px !important; min-height: 100svh !important; }
+  body.v21-ready #customer .vr-community-heading h2 { font-size: clamp(29px,7.6vw,43px); letter-spacing: .07em; }
+  body.v21-ready #customer .vr-community-heading .lead { font-size: 14px; }
+  body.v21-ready #customer .vr-community-reel { height: 420px; margin-top: 0; }
+  body.v21-ready #customer .vr-community-footer { margin-top: -20px; }
+}
+@media(max-width:380px) {
+  .vr-category-stage { height: 320px; }
+  .vr-category-image { height: 175px; }
+  .vr-accordion.accordion-gallery { height: 270px !important; }
+  .vr-album-expand span { display: none; }
+  body.v21-ready #customer .vr-community-reel { height: 370px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .vr-pizza-card,.vr-category-slide { will-change: auto; }
+  .vr-autoplay { display: none; }
+  .vr-category-link,.vr-carousel-arrow { transition: none; }
+}
+
+@media(max-width:700px) { .vr-flat-stage { --flat-width:min(68vw,290px); mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent); -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent); } }
+@media(prefers-reduced-motion:reduce) { .vr-flat-card { will-change:auto; } }

@@ -1,0 +1,17 @@
+{
+  "T": [
+    "cu_title",
+    "cu_lead",
+    "cu_cta",
+    "cu_hint",
+    "wa_msg"
+  ],
+  "UI": [
+    "so_lead",
+    "review_title",
+    "review_body",
+    "tripadvisor_phrase",
+    "so_whatsapp",
+    "marquee"
+  ]
+}

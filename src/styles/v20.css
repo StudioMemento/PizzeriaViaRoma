@@ -1,0 +1,102 @@
+/* V20: readable controls, continuous gestures and a consistent album composition. */
+.hero-location { font-size: 11px; }
+.hero-cta { font-size: 12px; }
+.dock-label { font-size: 10px; letter-spacing: .12em; }
+.scroll-progress { transform: scaleY(.03); }
+.menu-utility { color: #c1baad; font-size: 13px; line-height: 1.6; margin: 14px auto 26px; max-width: 50ch; }
+
+body.v20-ready :is(.gallery-stage, .oven-stage, .category-stage),
+body.v20-ready :is(.gallery-stage, .oven-stage, .category-stage) * {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+body.v20-ready #forno .oven-card,
+body.v20-ready #showrail .slide {
+  transition: transform .48s cubic-bezier(.22,.8,.25,1), opacity .35s ease !important;
+}
+body.v20-ready #forno.is-dragging .oven-card,
+body.v20-ready #showrail.is-dragging .slide,
+body.v20-ready .gallery-stage.is-dragging .gallery-card { transition: none !important; }
+
+body.v20-ready #gallery.room-gallery { padding: 20px 0 0 !important; }
+body.v20-ready .album { width: 100%; max-width: none; margin: 0; }
+.gallery-shell { --slide-w: min(58vw, 900px); }
+.gallery-card.depth-1 { filter: grayscale(.4) brightness(.62); opacity: .85; }
+.gallery-card.depth-2 { filter: grayscale(.8) brightness(.4) blur(1px); opacity: .65; }
+.gallery-card.depth-3 { filter: grayscale(1) brightness(.3) blur(2px); opacity: .4; }
+.gallery-card[data-side="left"] { mask-image: linear-gradient(90deg, transparent, #000 65%); }
+.gallery-card[data-side="right"] { mask-image: linear-gradient(270deg, transparent, #000 65%); }
+.gallery-card.is-current { mask-image: none; }
+
+/* Reviews stay still until the reader uses arrows, a gesture or the keyboard. */
+.reviews-reader { min-width: 0; display: flex; flex-direction: column; }
+body.v20-ready #social .review-track {
+  display: block;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scroll-snap-type: x mandatory !important;
+  touch-action: pan-x pan-y;
+  mask-image: none;
+  -webkit-mask-image: none;
+  flex: 1;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+body.v20-ready #social .review-track.dragging { scroll-snap-type: none !important; user-select: none; }
+body.v20-ready #social .review-track.dragging * { user-select: none; }
+body.v20-ready #social .review-runner {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  gap: 18px;
+  transform: none;
+  will-change: auto;
+}
+body.v20-ready #social .review-runner .rev {
+  width: 100%;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 290px;
+}
+.review-controls { display: flex; gap: 8px; justify-content: flex-end; padding-top: 10px; }
+.review-controls button { width: 44px; height: 44px; display: grid; place-items: center; color: #d0b87f; }
+.review-controls button:disabled { opacity: .25; cursor: default; }
+.review-controls button:not(:disabled):hover { color: #f0dab0; }
+@media (min-width: 1200px) {
+  body.v20-ready #social .review-runner .rev { flex-basis: calc((100% - 18px) / 2); width: calc((100% - 18px) / 2); }
+}
+
+.contacts-bento .visit-copy small { font-size: 11px; letter-spacing: .12em; }
+.contacts-bento .visit-copy em { font-size: 11px; letter-spacing: .04em; }
+.vr-map .map-address small { font-size: 11px; letter-spacing: .14em; }
+.contacts-bento .vr-visit-contact { padding: 18px; }
+.contacts-bento .vr-visit-contact strong { font-size: clamp(14px, 1.4vw, 21px); }
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .gallery-shell { --slide-w: 68vw; }
+  .vr-visit-status, .vr-visit-hours { padding: 18px; gap: 12px; }
+  .contacts-bento .visit-icon { width: 36px; height: 36px; flex-basis: 36px; }
+  .contacts-bento .visit-copy strong { font-size: 21px; }
+  .contacts-bento .vr-visit-contact { padding: 12px; }
+  .contacts-bento .vr-visit-contact strong { font-size: 18px; }
+  .contacts-bento .vr-visit-contact .visit-copy small { font-size: 10px; }
+  .contacts-bento .vr-visit-contact .visit-copy em { font-size: 10px; }
+  .contacts-bento .visit-arrow { right: 12px; top: 26px; }
+}
+@media (max-width: 700px) {
+  .hero-location { font-size: 10px; }
+  .hero-cta { font-size: 11px; }
+  .dock-label { font-size: 10px; letter-spacing: .08em; }
+  .gallery-shell { --slide-w: 78vw; }
+  .gallery-arrow { width: 44px; }
+  .gallery-card.depth-1 { opacity: .7; }
+  .contacts-bento .vr-visit-contact strong { font-size: clamp(15px, 4.2vw, 20px); }
+  .contacts-bento .vr-visit-contact { padding: 16px; }
+  .menu-utility { padding: 0 20px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.v20-ready #forno .oven-card,
+  body.v20-ready #showrail .slide { transition: none !important; }
+}

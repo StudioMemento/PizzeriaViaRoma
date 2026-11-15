@@ -1,0 +1,10 @@
+.gradual-blur {
+  pointer-events: none;
+  user-select: none;
+  /* Each layer carries its own smooth mask. A wrapper tint would make a box. */
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradual-blur > div { transition: none !important; }
+}

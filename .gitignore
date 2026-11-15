@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.ssr/
+test-results/
+.env
+.env.*
+!.env.example
+.vercel/
+.DS_Store
+
+.unlazy/
+qa/

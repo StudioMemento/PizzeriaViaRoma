@@ -1,0 +1,175 @@
+{
+  "result": "PASS",
+  "source": "Producer browser captures, independently compared by QA using strict equality",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "runtimeMenuCharacters": 47782,
+  "runtimeMenuSha256": "3a016608acbe04f3b96638772e2fe491c2f2524bbf920c16644dc2145b34f113",
+  "sampledStyleRecords": 10,
+  "stylesIdentical": true,
+  "menuInnerHtmlIdentical": true,
+  "styles": [
+    {
+      "class": "",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "200 72px / 79.2px Jost, system-ui, sans-serif",
+        "margin": "8px 0px 0px",
+        "padding": "0px",
+        "rect": [
+          1296,
+          79.1875
+        ]
+      },
+      "tag": "H2",
+      "text": "Il Menù"
+    },
+    {
+      "class": "chipbar",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0px 0px / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "5px 0px 20px",
+        "rect": [
+          1440,
+          79
+        ]
+      },
+      "tag": "DIV",
+      "text": "Le ClassicheLe AudaciLe BiancheI CalzoniDalla CucinaStuzzicherieDolciBevande"
+    },
+    {
+      "class": "",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(218, 193, 139)",
+        "font": "200 66.24px / 74.1888px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "0px",
+        "rect": [
+          1296,
+          74.171875
+        ]
+      },
+      "tag": "H3",
+      "text": "Le Classiche"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Marinara Classica6,50Pomodoro, aglio, olio, origano1 · 7"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Marinara d'Oro8,00Passata di pomodorino giallo, aglio, origano1 · 7"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Margherita Classica7,50Pomodoro, mozzarella, basilico1 · 7"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Margherita Affumicata10,00Pomodoro, provola affumicata in cottura, bufala affumi"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Bufalina9,00Pomodoro, mozzarella di Bufala in cottura, basilico1 · 7"
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Primo Amore9,50Pomodoro, mozzarella di Bufala in cottura, pomodorini, basilico1 "
+    },
+    {
+      "class": "item",
+      "style": {
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "color": "rgb(241, 236, 225)",
+        "font": "300 17px / 25.5px Jost, system-ui, sans-serif",
+        "margin": "0px",
+        "padding": "15px 0px",
+        "rect": [
+          1296,
+          126.171875
+        ]
+      },
+      "tag": "DIV",
+      "text": "Siciliana9,00Pomodoro, mozzarella, capperi, olive, acciughe, origano1 · 4 · 7"
+    }
+  ]
+}

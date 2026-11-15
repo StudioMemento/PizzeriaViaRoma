@@ -1,0 +1,493 @@
+{
+  "assets/logo.png": {
+    "width": 851,
+    "height": 851,
+    "bytes": 28968,
+    "sha256": "08680e08cee8d42c0031074d3b08d5ddd4e07c0a0042316dbf76531a33467f1b"
+  },
+  "assets/maniago.webp": {
+    "width": 1254,
+    "height": 1254,
+    "bytes": 447442,
+    "sha256": "4c18291f677cdb13e2d6fb99887b033c7dea1953025524d17b4d0bdf191beb5d"
+  },
+  "assets/flame.png": {
+    "width": 153,
+    "height": 159,
+    "bytes": 2996,
+    "sha256": "d23e7f8f68dfbf155dcdf70e7f9f5925da9d674c853ea80aed79d07f90a50274"
+  },
+  "assets/community/matteo-4f4e3cd9.webp": {
+    "width": 1360,
+    "height": 1020,
+    "bytes": 262274,
+    "sha256": "4f4e3cd95e89f3a0e1b6f12afd1a81fcc6ac49fd0001480024ef84dd49997fb7",
+    "small": "assets/community/matteo-4f4e3cd9-768.webp"
+  },
+  "assets/community/tomaz-a3e72513.webp": {
+    "width": 574,
+    "height": 1020,
+    "bytes": 113532,
+    "sha256": "a3e72513eede4f81ea6f74edbff39007877aad2765858782ba0bdf74e936407e"
+  },
+  "assets/community/fabio-9e64d53d.webp": {
+    "width": 1360,
+    "height": 1017,
+    "bytes": 161628,
+    "sha256": "9e64d53dd01b612f7aa8638b2f2031906de69dab97da8ab6d008a532d5a530c9",
+    "small": "assets/community/fabio-9e64d53d-768.webp"
+  },
+  "assets/community/david-a1ea9444.webp": {
+    "width": 1020,
+    "height": 1020,
+    "bytes": 114676,
+    "sha256": "a1ea9444dff9af01a9c68b8978d683f5aab80868d305627a192f4126a7ef5e7f",
+    "small": "assets/community/david-a1ea9444-768.webp"
+  },
+  "assets/community/erika-5f6313c1.webp": {
+    "width": 1360,
+    "height": 1020,
+    "bytes": 204818,
+    "sha256": "5f6313c13b6d135cfc189a7e9d0896fb3a44fa942c4c3636786726f82edb2730",
+    "small": "assets/community/erika-5f6313c1-768.webp"
+  },
+  "assets/community/giovanni-f9dc1207.webp": {
+    "width": 765,
+    "height": 1020,
+    "bytes": 177244,
+    "sha256": "f9dc1207244834ab48890b99c5c79c3e4c5f8784403e4bcdf2fc81e7c2c5d518"
+  },
+  "assets/community/tomaz-96f3508e.webp": {
+    "width": 1360,
+    "height": 765,
+    "bytes": 182674,
+    "sha256": "96f3508ed40b99661809c5a64e52919c99141a39132438bb4dbd4d3d81f8877a",
+    "small": "assets/community/tomaz-96f3508e-768.webp"
+  },
+  "assets/community/silvia-85ad0cf5.webp": {
+    "width": 1080,
+    "height": 720,
+    "bytes": 86634,
+    "sha256": "85ad0cf53c2b0103d0b917fd57d4ea5e101a828e952587e047ef866022bd1813",
+    "small": "assets/community/silvia-85ad0cf5-768.webp"
+  },
+  "assets/community/carina-5a23f980.webp": {
+    "width": 765,
+    "height": 1020,
+    "bytes": 84648,
+    "sha256": "5a23f980be70adf2770b0dbb0ef4f4322f4991400b0f04c65d5f62db53125bb1"
+  },
+  "assets/community/carina-30dddd1c.webp": {
+    "width": 765,
+    "height": 1020,
+    "bytes": 133790,
+    "sha256": "30dddd1c02d989927af873c3a6ecd4a0bc65695edeb77daddd1a3c4bf0867d26"
+  },
+  "assets/community/carina-326a5b44.webp": {
+    "width": 765,
+    "height": 1020,
+    "bytes": 137430,
+    "sha256": "326a5b44ad68febb2410031a4d2f4d3f8e2a34169ceae42395ddef4298fe7a45"
+  },
+  "assets/community/erika-c356f761.webp": {
+    "width": 1360,
+    "height": 1020,
+    "bytes": 211404,
+    "sha256": "c356f761711fd46ba8cd6d68d2268c43e0a45c461ebaf76a3387e4f5a57cd585",
+    "small": "assets/community/erika-c356f761-768.webp"
+  },
+  "assets/menu/stuzzicherie.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 228548,
+    "sha256": "7a72282d46b441ec1978c177bfaaff01eebceed4a7b8d1aa4c7d4e3cd5a795e8"
+  },
+  "assets/menu/dolci.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 297166,
+    "sha256": "a37f60a747e66a0f4530cb8d439c9baab2afc775c369ea23f9fafbe7c8035548"
+  },
+  "assets/menu/cucina.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 209246,
+    "sha256": "5521b8e5bd7f78bcfe27454c3c713f91ac8f1f28f51dd87f50c271315e02de2a"
+  },
+  "assets/menu/calzoni.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 215962,
+    "sha256": "d4444b9c7fae1664c3d05dff06ec187b668a5c04c9b955b3424596f64ae3f964"
+  },
+  "assets/menu/bianche.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 262618,
+    "sha256": "43d12ae2fc2eb0f8c5640e311f946f87b1ead9c4089b3c4bcb5d741169c932cb"
+  },
+  "assets/menu/classiche.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 244430,
+    "sha256": "44d4312c81c632def099c6865458cc2e2f6863e209e68e0d54e6c2119327ba5f"
+  },
+  "assets/menu/bevande.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 275474,
+    "sha256": "925e3d1875c7b45ca61cf5aabdc8f72854a9b16fec7cc6407b78900226b4044c"
+  },
+  "assets/menu/audaci.webp": {
+    "width": 2048,
+    "height": 487,
+    "bytes": 215818,
+    "sha256": "41a1c517f5537564dcb1e7e491bd719261d7477212891c58ed1f0ada6ab6c315"
+  },
+  "assets/gallery/bancone-05.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 344522,
+    "sha256": "3cac2a225004a16fc6bd90c9c50db39962dcc6ae9df11e84a6db58fe3efa27a4",
+    "small": "assets/gallery/bancone-05-768.webp"
+  },
+  "assets/gallery/sala-sinistra-02.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 347390,
+    "sha256": "b359e81836636889c06775640ef1d4a2dc504a197f214cdc6ce69d333150c51d",
+    "small": "assets/gallery/sala-sinistra-02-768.webp"
+  },
+  "assets/gallery/sala-destra-03.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 292194,
+    "sha256": "9b4395b546ee619a7ad4590317a13da8342ca74f7db5c3620753b95ff7252444",
+    "small": "assets/gallery/sala-destra-03-768.webp"
+  },
+  "assets/gallery/bancone-01.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 333468,
+    "sha256": "eeda526a924136e8e5f6f3eba072b0e97a15375b075c9ae734b4de72b4688972",
+    "small": "assets/gallery/bancone-01-768.webp"
+  },
+  "assets/gallery/esterno-05.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 201390,
+    "sha256": "a3578a018731039101f5504f037e2ac713ef0b5ec4c441ba3f95f193100d99d5",
+    "small": "assets/gallery/esterno-05-768.webp"
+  },
+  "assets/gallery/sala-sinistra-09.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 931292,
+    "sha256": "0f153a7d7f861df12a0d432c611b7938fa6bc3ca76668cf03b9741125f44af7d",
+    "small": "assets/gallery/sala-sinistra-09-768.webp"
+  },
+  "assets/gallery/bancone-06.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 472376,
+    "sha256": "8f1f84b74c86d12a6f6921c734beee4fced8b7d3e1d0a06a1bb60ec5ff6349d0",
+    "small": "assets/gallery/bancone-06-768.webp"
+  },
+  "assets/gallery/esterno-01.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 643648,
+    "sha256": "3d504a80a63e3efc4c0c32b54774b2b431318e000cc35673eddb40a7c85b0650",
+    "small": "assets/gallery/esterno-01-768.webp"
+  },
+  "assets/gallery/esterno-03.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 630934,
+    "sha256": "b447b85bdcdf16bd5e65d1b7ce138d85bf7700b2a4203f71bed9d67e17735756",
+    "small": "assets/gallery/esterno-03-768.webp"
+  },
+  "assets/gallery/via-roma-05.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 517120,
+    "sha256": "cdb0c4bcfdde4f272a614e16007cad80e4511531c61d61a5e3fdda54b3736770",
+    "small": "assets/gallery/via-roma-05-768.webp"
+  },
+  "assets/gallery/via-roma-01.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 327604,
+    "sha256": "b41d245e3b86c77f022e985dd84cfa0ffdeb3526b297414694ef1769fc2bb3a3",
+    "small": "assets/gallery/via-roma-01-768.webp"
+  },
+  "assets/gallery/sala-destra-08.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 221636,
+    "sha256": "b66580500e42c8e9768e5ad4177c9b2201e6e05079be1f07191cde1d8c6cfd5a",
+    "small": "assets/gallery/sala-destra-08-768.webp"
+  },
+  "assets/gallery/sala-destra-02.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 193944,
+    "sha256": "b857d722e87a81c09d4420ba961b0bee67c8be63769cbb949c5e129c0ee39476",
+    "small": "assets/gallery/sala-destra-02-768.webp"
+  },
+  "assets/gallery/sala-destra-06.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 231712,
+    "sha256": "96ed4cc50a3736a84b446ef84e3185d4c5196230547f6361807f2ace268ba623",
+    "small": "assets/gallery/sala-destra-06-768.webp"
+  },
+  "assets/gallery/sala-destra-04.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 235308,
+    "sha256": "ad9fb38e9c57787cc782af94d86cf8055d81410af42bfcb3ed035a862c2670f3",
+    "small": "assets/gallery/sala-destra-04-768.webp"
+  },
+  "assets/gallery/bancone-04.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 284256,
+    "sha256": "516410a35cfbc6c17ceba9e1b6a6fa987cb869b0a33259d060a12bb739c8bd7b",
+    "small": "assets/gallery/bancone-04-768.webp"
+  },
+  "assets/gallery/sala-sinistra-05.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 380278,
+    "sha256": "18c3ecb2ce4d948e23d5c0de6982c2177afd241125c315fc33e27a1e8a02e312",
+    "small": "assets/gallery/sala-sinistra-05-768.webp"
+  },
+  "assets/gallery/sala-destra-07.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 187808,
+    "sha256": "2b875375fa2be77dfe4727a1ae68f3aa70349fec6a7645dcb06491025935b17c",
+    "small": "assets/gallery/sala-destra-07-768.webp"
+  },
+  "assets/gallery/esterno-04.webp": {
+    "width": 3840,
+    "height": 2441,
+    "bytes": 418262,
+    "sha256": "ea494bc93e770ff9f423a836458c2482c7601f94cc8baab394cb84e84d4253bc",
+    "small": "assets/gallery/esterno-04-768.webp"
+  },
+  "assets/gallery/sala-sinistra-03.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 437220,
+    "sha256": "286de1adc9bee83c656a51dc9ad675bb76281ac9baf0206cc2a1a8ee1fdb5ef1",
+    "small": "assets/gallery/sala-sinistra-03-768.webp"
+  },
+  "assets/gallery/via-roma-04.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 305286,
+    "sha256": "5a30f81c7f0520b1a33c1b59565de31904a766b82f0dc678d30e35c1260a03a2",
+    "small": "assets/gallery/via-roma-04-768.webp"
+  },
+  "assets/gallery/via-roma-02.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 145492,
+    "sha256": "3cd699a117da1d190b0d14234a363c1b36942e15170d965b7a931fa9e7ca71bd",
+    "small": "assets/gallery/via-roma-02-768.webp"
+  },
+  "assets/gallery/esterno-07.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 503498,
+    "sha256": "d6efd2fbf6104045f3ddfad857080432877651f6b343423025621f3c9a76a00e",
+    "small": "assets/gallery/esterno-07-768.webp"
+  },
+  "assets/gallery/esterno-06.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 367906,
+    "sha256": "6f81694ea88278949898badc1558d7733484be587a51dd019c569247acb06bef",
+    "small": "assets/gallery/esterno-06-768.webp"
+  },
+  "assets/gallery/sala-destra-01.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 371920,
+    "sha256": "379ec06f2f1b77f918ca2952e305abe3147f92491297db56f8b6a27429119248",
+    "small": "assets/gallery/sala-destra-01-768.webp"
+  },
+  "assets/gallery/via-roma-06.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 572852,
+    "sha256": "f7c34595703a09287b3aa935a8e1c46e20c4c2c664f9f930aee19c9d3076c50e",
+    "small": "assets/gallery/via-roma-06-768.webp"
+  },
+  "assets/gallery/sala-sinistra-07.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 448364,
+    "sha256": "416e187ff46e7de7cc3eec344845dd9a8e5c297a50a273ea2d8962139ba9c312",
+    "small": "assets/gallery/sala-sinistra-07-768.webp"
+  },
+  "assets/gallery/bancone-07.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 416088,
+    "sha256": "6cf6ad3a8e30f757e6dd64858389339419474a3d659b044c5ea00a36b40eb0d2",
+    "small": "assets/gallery/bancone-07-768.webp"
+  },
+  "assets/gallery/via-roma-08.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 265184,
+    "sha256": "8cc5d938e43b889435e5421cb24e6d9ca83faeba1d41db7d90096901d441e54b",
+    "small": "assets/gallery/via-roma-08-768.webp"
+  },
+  "assets/gallery/bancone-03.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 316162,
+    "sha256": "29f42f3e6682ab8b4f5f5301819189037e1d1e777608cbc637a72cd501df0d19",
+    "small": "assets/gallery/bancone-03-768.webp"
+  },
+  "assets/gallery/esterno-02.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 714106,
+    "sha256": "061c27b27d281b546efeb519c296357d588c72de864d165eb2bd7c52775e9f4d",
+    "small": "assets/gallery/esterno-02-768.webp"
+  },
+  "assets/gallery/bancone-02.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 225498,
+    "sha256": "29f209ee1e96cb47f2c64dc5b60c852502bb1e7435d8af77ddb74d51a859736c",
+    "small": "assets/gallery/bancone-02-768.webp"
+  },
+  "assets/gallery/sala-sinistra-01.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 372006,
+    "sha256": "d8e99540c814038835476bc030471d4c80fae974efb73daeef42c6d2f7776c22",
+    "small": "assets/gallery/sala-sinistra-01-768.webp"
+  },
+  "assets/gallery/sala-sinistra-08.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 883314,
+    "sha256": "ef3b6ffbb698e619b351a5b75178d0f5f4d859890a99c45d62bd6c4160b34b1c",
+    "small": "assets/gallery/sala-sinistra-08-768.webp"
+  },
+  "assets/gallery/sala-sinistra-04.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 276394,
+    "sha256": "b95d23af309cbadfdfca4b90f1c7e82683fc4b7326cb4b19385fe60289f3b66e",
+    "small": "assets/gallery/sala-sinistra-04-768.webp"
+  },
+  "assets/gallery/via-roma-07.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 167702,
+    "sha256": "690256c0f0b2eaec2eaee91890f870907ad719653ec842f7d38e8324f6909b6f",
+    "small": "assets/gallery/via-roma-07-768.webp"
+  },
+  "assets/gallery/via-roma-03.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 739064,
+    "sha256": "1d2137218f99ac97b9fe27354e90fa56a1f7b7adbe59f20645a321e8e7a8ddbf",
+    "small": "assets/gallery/via-roma-03-768.webp"
+  },
+  "assets/gallery/via-roma-09.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 143332,
+    "sha256": "93902ecc96bb52eaf1517645d0e01d4ce67fdb08f1892081f8152f4f05067437",
+    "small": "assets/gallery/via-roma-09-768.webp"
+  },
+  "assets/gallery/sala-sinistra-06.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 226708,
+    "sha256": "5daaeddc9761635ded894dfb5fd2dc0f3ebac76e1b2f153b31ec3cc72295bea4",
+    "small": "assets/gallery/sala-sinistra-06-768.webp"
+  },
+  "assets/gallery/sala-destra-05.webp": {
+    "width": 3840,
+    "height": 2440,
+    "bytes": 219074,
+    "sha256": "b9674888b9b8d93848fce0b4407426fc504e9c12f3d3ba50a335d680249b0610",
+    "small": "assets/gallery/sala-destra-05-768.webp"
+  },
+  "assets/pizze/deliziosa.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 289448,
+    "sha256": "11edcedbb6820201304f2ef27d01c0ae00efb4019607d6439c0411ad78b62280"
+  },
+  "assets/pizze/burrata-e-crudo.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 204002,
+    "sha256": "a621b637e0bf028c6ff3b0384439a2d71f31cff566467b367dbb26523d731d2e"
+  },
+  "assets/pizze/saporita.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 289264,
+    "sha256": "97f553578f9c25f79da4e09df679452ad1185649b0690057eaa15212e0b25448"
+  },
+  "assets/pizze/friarielli-e-salsiccia.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 211334,
+    "sha256": "8e052d343f9124d5cde5004411217309e76072a50bf6896af3e67fd092f162ab"
+  },
+  "assets/pizze/cornice-ripieno.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 189544,
+    "sha256": "9d7041996c18e12a88132cf41fcc0e8346f45fc99793672df0bfe38fb54d1748"
+  },
+  "assets/pizze/alpina.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 266660,
+    "sha256": "8a3f1bb42d431b83d9652c5f89c369027d919fb1fd41e74dd1f95af2867b24a0"
+  },
+  "assets/pizze/povera.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 127036,
+    "sha256": "e9926bf7b7d7cfcee0d3c0f669aaf1677c77998bc397302e61f8d955ceb7cb0b"
+  },
+  "assets/pizze/bufalina.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 211850,
+    "sha256": "147cd2636fe52e6d781d6b2f1c58a226294414dc5635c93e0b3aab4d67e8ffc6"
+  },
+  "assets/pizze/monte-jouf.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 202356,
+    "sha256": "1080536d28220f9bbc55b46ab08f453dbab99b92e5dee602e2c8d682702f0036"
+  },
+  "assets/pizze/via-roma.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 246884,
+    "sha256": "5dfb69487a0d7c8eee8adda1f9a1ed7e30d1c8ada68aa42cd6739a57c352697f"
+  },
+  "assets/pizze/margherita.webp": {
+    "width": 1100,
+    "height": 1100,
+    "bytes": 211244,
+    "sha256": "9f22e3a53dd4ca1b4ecb04efd0c35d4a0da120cb9dd2334f0841880320681399"
+  }
+}
