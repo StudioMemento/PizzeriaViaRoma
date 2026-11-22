@@ -1,0 +1,12 @@
+{
+  "checkpoint": "ViaRoma_3_MENU",
+  "version": "3.0.0",
+  "initialJsGzipBytes": 98730,
+  "allJsGzipBytes": 105015,
+  "cssGzipBytes": 8249,
+  "htmlGzipBytes": 9471,
+  "htmlBytes": 79002,
+  "initialJsDeltaFromIntro": 498,
+  "cssDeltaFromIntro": 661,
+  "browserVisualValidation": false
+}

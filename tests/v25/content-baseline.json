@@ -1,0 +1,21 @@
+{
+  "src/data/cookie.html": "b36e74729f4e11288d521306a573aeca8d05e0a32f63f9fb0c5a69f2a5a04eff",
+  "src/data/reviews.json": "55d4d935f1ffb0d7645e867e69ac227e4fc3174d412a928b5519f376f7b7c7c6",
+  "src/data/translations.json": "610c88343cfcbfc3032c15401d19dd4df27ac132455d70f5aa2a0c0e2680d2a9",
+  "src/data/privacy.html": "e1e7557494258586aa432c635dd7edb25ff856a4b961ecc12b357837c90ae295",
+  "src/data/allergens.json": "b6cb1f081cd03b67420856805433dec88776549f9d2b4a6a5ffdd458993dc190",
+  "src/data/photos.json": "ee1f16d5342107546d51d406405287e6dfb173e274996379be6eb29bd4ea5c57",
+  "src/data/menu.json": "b3b2ab1c435338a518df75ed1999747388a04c30595146b4043c93bccf279592",
+  "src/data/allergen-info.ts": "5a3ed46caa370862b3eafec2bef5f95b8592b12e99ce506a6197863f46a541eb",
+  "src/data/note-legali.html": "c7e1eb9ca1cb9075865423150724778df72772da34f2a1c5bb22f02257d28cfe",
+  "public/assets/logo.png": "08680e08cee8d42c0031074d3b08d5ddd4e07c0a0042316dbf76531a33467f1b",
+  "public/assets/flame.png": "d23e7f8f68dfbf155dcdf70e7f9f5925da9d674c853ea80aed79d07f90a50274",
+  "public/assets/menu/classiche.webp": "44d4312c81c632def099c6865458cc2e2f6863e209e68e0d54e6c2119327ba5f",
+  "public/assets/menu/audaci.webp": "41a1c517f5537564dcb1e7e491bd719261d7477212891c58ed1f0ada6ab6c315",
+  "public/assets/menu/bianche.webp": "43d12ae2fc2eb0f8c5640e311f946f87b1ead9c4089b3c4bcb5d741169c932cb",
+  "public/assets/menu/calzoni.webp": "d4444b9c7fae1664c3d05dff06ec187b668a5c04c9b955b3424596f64ae3f964",
+  "public/assets/menu/cucina.webp": "5521b8e5bd7f78bcfe27454c3c713f91ac8f1f28f51dd87f50c271315e02de2a",
+  "public/assets/menu/stuzzicherie.webp": "7a72282d46b441ec1978c177bfaaff01eebceed4a7b8d1aa4c7d4e3cd5a795e8",
+  "public/assets/menu/dolci.webp": "a37f60a747e66a0f4530cb8d439c9baab2afc775c369ea23f9fafbe7c8035548",
+  "public/assets/menu/bevande.webp": "925e3d1875c7b45ca61cf5aabdc8f72854a9b16fec7cc6407b78900226b4044c"
+}

@@ -1,0 +1,682 @@
+[
+  {
+    "path": "assets/gallery/bancone-01.webp",
+    "before": {
+      "bytes": 333468,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 127238,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-02.webp",
+    "before": {
+      "bytes": 225498,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 92478,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-03.webp",
+    "before": {
+      "bytes": 316162,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 110188,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-04.webp",
+    "before": {
+      "bytes": 284256,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 98750,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-05.webp",
+    "before": {
+      "bytes": 344522,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 129414,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-06.webp",
+    "before": {
+      "bytes": 472376,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 154578,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/bancone-07.webp",
+    "before": {
+      "bytes": 416088,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 128938,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-01.webp",
+    "before": {
+      "bytes": 372006,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 135544,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-02.webp",
+    "before": {
+      "bytes": 347390,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 118586,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-03.webp",
+    "before": {
+      "bytes": 437220,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 160972,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-04.webp",
+    "before": {
+      "bytes": 276394,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 98260,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-05.webp",
+    "before": {
+      "bytes": 380278,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 134722,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-06.webp",
+    "before": {
+      "bytes": 226708,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 82416,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-07.webp",
+    "before": {
+      "bytes": 448364,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 137544,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-08.webp",
+    "before": {
+      "bytes": 883314,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 307606,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-sinistra-09.webp",
+    "before": {
+      "bytes": 931292,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 239888,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-01.webp",
+    "before": {
+      "bytes": 371920,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 109102,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-02.webp",
+    "before": {
+      "bytes": 193944,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 76808,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-03.webp",
+    "before": {
+      "bytes": 292194,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 100590,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-04.webp",
+    "before": {
+      "bytes": 235308,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 80172,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-05.webp",
+    "before": {
+      "bytes": 219074,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 83032,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-06.webp",
+    "before": {
+      "bytes": 231712,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 90470,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-07.webp",
+    "before": {
+      "bytes": 187808,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 70456,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/sala-destra-08.webp",
+    "before": {
+      "bytes": 221636,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 76718,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-01.webp",
+    "before": {
+      "bytes": 643648,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 194192,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-02.webp",
+    "before": {
+      "bytes": 714106,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 225922,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-03.webp",
+    "before": {
+      "bytes": 630934,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 206130,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-04.webp",
+    "before": {
+      "bytes": 418262,
+      "dimensions": [
+        3840,
+        2441
+      ]
+    },
+    "after": {
+      "bytes": 169558,
+      "dimensions": [
+        1699,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-05.webp",
+    "before": {
+      "bytes": 201390,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 84362,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-06.webp",
+    "before": {
+      "bytes": 367906,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 145534,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/esterno-07.webp",
+    "before": {
+      "bytes": 503498,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 174504,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-01.webp",
+    "before": {
+      "bytes": 327604,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 114626,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-02.webp",
+    "before": {
+      "bytes": 145492,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 52908,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-03.webp",
+    "before": {
+      "bytes": 739064,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 258734,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-04.webp",
+    "before": {
+      "bytes": 305286,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 65272,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-05.webp",
+    "before": {
+      "bytes": 517120,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 202030,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-06.webp",
+    "before": {
+      "bytes": 572852,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 210156,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-07.webp",
+    "before": {
+      "bytes": 167702,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 70510,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-08.webp",
+    "before": {
+      "bytes": 265184,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 107618,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  },
+  {
+    "path": "assets/gallery/via-roma-09.webp",
+    "before": {
+      "bytes": 143332,
+      "dimensions": [
+        3840,
+        2440
+      ]
+    },
+    "after": {
+      "bytes": 42870,
+      "dimensions": [
+        1700,
+        1080
+      ]
+    }
+  }
+]

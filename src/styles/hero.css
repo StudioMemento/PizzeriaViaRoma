@@ -1,0 +1,100 @@
+/* ViaRoma_1_HERO — scoped visual layer; existing type/layout stays in clean.css. */
+:root {
+  --vr-carbon: #090909;
+  --vr-gold-muted: #a89b7b;
+  --vr-highlight: #dac18b; /* sampled from LE CLASSICHE, matches .mcat h3 */
+  --vr-logo-gold:linear-gradient(120deg,#a98242 8%,#f5dc9d 32%,#ffefc5 40%,#be984e 62%,#ebd092 83%);
+  --satin-rim:rgb(255 255 255 / .12);
+  --specks:none;
+  --satin-ink:#bebebe;
+  --selected-rim:#d8b772;
+  --selected-ink:#f2d594;
+  --selected-glass:radial-gradient(ellipse at 50% 116%,#9976409c,transparent 71%),linear-gradient(155deg,#292825e8,#191919ed);
+  --selected-light:inset 0 -2px 6px #dfb55f33,0 1px 9px #bd944916;
+  --vr-hero-gradient-speed: 5s;
+}
+@media(prefers-reduced-motion:no-preference) and (forced-colors:none) { :root { --lit-specks:url("/assets/satin-specks.svg"); } }
+.vr-hero { position:relative; isolation:isolate; background:var(--vr-carbon); }
+.hero-glimmer { position:absolute; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+.hero-logo { position:relative; aspect-ratio:1; flex:none; filter:drop-shadow(0 0 9px rgb(218 193 139 / 0)); transition:filter .7s ease; }
+.hero-logo[data-gold=true] { filter:drop-shadow(0 0 9px rgb(218 193 139 / .23)); }
+.hero-logo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(120deg,var(--vr-gold),var(--vr-highlight)); -webkit-mask:url('/assets/logo.png') center/contain no-repeat; mask:url('/assets/logo.png') center/contain no-repeat; opacity:0; transition:opacity .7s ease; }
+.hero-logo[data-gold=true]::after { opacity:1; }
+.hero-logo[data-liquid-ready=true]::after { display:none; }
+.hero-logo > img { width:100%; height:auto; }
+.hero-liquid { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; }
+.hero-logo[data-liquid-ready=true] > img { opacity:0; }
+.hero-logo[data-liquid-ready=true] > .hero-liquid { opacity:1; }
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+  .hero-slogan {
+    background-image:linear-gradient(90deg,var(--vr-gold-muted) 0%,var(--vr-gold) 30%,var(--vr-highlight) 50%,var(--vr-gold) 70%,var(--vr-gold-muted) 100%);
+    background-size:250% 100%; background-position:0% 50%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 16px rgb(218 193 139 / .08);
+    animation:vr-hero-gradient var(--vr-hero-gradient-speed) ease-in-out infinite alternate;
+    animation-play-state:paused;
+  }
+  :is(.vr-hero,.vr-crust-intro)[data-fx-state=running] .hero-slogan { animation-play-state:running; }
+}
+@keyframes vr-hero-gradient { to { background-position:100% 50%; } }
+/* The blur is behind the chrome, never inside an icon's material. No tint. */
+.vr-edge-blur { position:fixed; left:0; right:0; z-index:40; pointer-events:none; background:transparent; }
+.vr-edge-blur--top { top:0; height:calc(clamp(6rem,14vh,9rem) + env(safe-area-inset-top)); }
+.vr-edge-blur--bottom { bottom:0; height:calc(clamp(7rem,16vh,10rem) + env(safe-area-inset-bottom)); }
+.vr-edge-blur > div { position:absolute; inset:0; background:transparent; }
+/* The light sits in the glass. Glyphs inherit one opaque colour. */
+.dock-tile,.lang,.chips button {
+  isolation:isolate; color:var(--satin-ink); border-color:var(--satin-rim);
+  background:var(--specks),linear-gradient(145deg,#252525c9,#191919a8); box-shadow:0 2px 8px #0002;
+  -webkit-backdrop-filter:blur(var(--satin-blur,12px)); backdrop-filter:blur(var(--satin-blur,12px));
+}
+.lang { border-color:#ffffff12; background:linear-gradient(145deg,#242424ba,#161616a6); }
+.dock-tile,.chips button { overflow:hidden; }
+.site-brand:focus-visible,.site-brand:active { color:var(--selected-ink); }
+.hero-down,.hero-down svg { width:clamp(72px,6.8vw,96px); height:clamp(72px,6.8vw,96px); }
+.hero-down svg path { stroke-width:1.55; }
+@media(max-height:540px) { .hero-down,.hero-down svg { width:60px; height:60px; } }
+.lang button { border:0; background-image:var(--specks); transition:background-color .25s; }
+.lang button.on,.vr-dock a[aria-current] .dock-tile,.vr-dock a:active .dock-tile,.chips button.on {
+  color:var(--selected-ink); border:1px solid var(--selected-rim); background:var(--specks),var(--selected-glass); box-shadow:var(--selected-light);
+}
+.vr-dock a:focus-visible,.lang button:focus-visible { outline-color:#eee; }
+.lang button:focus-visible { outline-offset:-2px; }
+@media(hover:hover) and (pointer:fine) {
+  .site-brand:hover { color:var(--selected-ink); }
+  .vr-dock a:hover,:is(.lang,.chips) button:hover { --specks:var(--lit-specks,none); }
+  .lang button:not(.on):hover { background-color:#ffffff12; }
+  .vr-dock a:not([aria-current]):not(:active):hover .dock-tile { border-color:#ffffff30; }
+}
+@media(max-height:320px) and (orientation:landscape) {
+  .site-top { padding-top:calc(6px + env(safe-area-inset-top)); }
+  .vr-dock { bottom:calc(8px + env(safe-area-inset-bottom)); }
+}
+/* Native scrolling is intact; only its scrollbar is replaced. */
+html,body { scrollbar-width:none; }
+html::-webkit-scrollbar,body::-webkit-scrollbar { display:none; width:0; height:0; }
+body { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+input,textarea,[contenteditable=true] { -webkit-user-select:text; user-select:text; -webkit-touch-callout:default; }
+.vr-scroll-progress { position:fixed; z-index:70; top:0; right:0; width:2px; height:100vh; height:100dvh; pointer-events:none; }
+.vr-scroll-progress > span { display:block; width:100%; height:100%; background:linear-gradient(180deg,transparent,#dac18b30 42%,#c6ab7085 82%,#f0d69c); transform:scaleY(0); transform-origin:top; }
+@media(prefers-reduced-motion:reduce) {
+  .hero-slogan { animation:none; }
+  .site-brand,.lang button,.hero-logo,.hero-logo::after { transition:none; }
+}
+/* Keep optical blur when the OS reports reduced transparency: the old rule hid it entirely on the review browser. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .vr-edge-blur { display:none; } .dock-tile,.lang,.chips button { background:#252525e0; } }
+@media(forced-colors:active) {
+  .hero-slogan { color:CanvasText; -webkit-text-fill-color:CanvasText; background:none; text-shadow:none; }
+  .hero-glimmer,.hero-liquid,.hero-logo::after,.vr-edge-blur { display:none; }
+  .hero-logo[data-liquid-ready=true] > img { opacity:1; }
+  .vr-dock a[aria-current] .dock-tile,.lang button.on { outline:2px solid Highlight; outline-offset:-2px; }
+  .vr-dock a[aria-current] .dock-tile,.lang button.on { color:Highlight; }
+  .vr-scroll-progress > span { background:Highlight; forced-color-adjust:none; }
+}
+
+@supports (-webkit-touch-callout:none) {
+  @media (hover:none) and (pointer:coarse) {
+    .vr-edge-blur > div:nth-child(odd) { display:none; }
+  }
+}

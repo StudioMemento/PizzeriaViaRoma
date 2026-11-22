@@ -1,0 +1,54 @@
+{
+  "GALLERY_ALBUMS": {
+    "bancone": [
+      "assets/gallery/bancone-01.webp",
+      "assets/gallery/bancone-02.webp",
+      "assets/gallery/bancone-03.webp",
+      "assets/gallery/bancone-04.webp",
+      "assets/gallery/bancone-05.webp",
+      "assets/gallery/bancone-06.webp",
+      "assets/gallery/bancone-07.webp"
+    ],
+    "sala_sinistra": [
+      "assets/gallery/sala-sinistra-01.webp",
+      "assets/gallery/sala-sinistra-02.webp",
+      "assets/gallery/sala-sinistra-03.webp",
+      "assets/gallery/sala-sinistra-04.webp",
+      "assets/gallery/sala-sinistra-05.webp",
+      "assets/gallery/sala-sinistra-06.webp",
+      "assets/gallery/sala-sinistra-07.webp",
+      "assets/gallery/sala-sinistra-08.webp",
+      "assets/gallery/sala-sinistra-09.webp"
+    ],
+    "sala_destra": [
+      "assets/gallery/sala-destra-01.webp",
+      "assets/gallery/sala-destra-02.webp",
+      "assets/gallery/sala-destra-03.webp",
+      "assets/gallery/sala-destra-04.webp",
+      "assets/gallery/sala-destra-05.webp",
+      "assets/gallery/sala-destra-06.webp",
+      "assets/gallery/sala-destra-07.webp",
+      "assets/gallery/sala-destra-08.webp"
+    ],
+    "esterno": [
+      "assets/gallery/esterno-01.webp",
+      "assets/gallery/esterno-02.webp",
+      "assets/gallery/esterno-03.webp",
+      "assets/gallery/esterno-04.webp",
+      "assets/gallery/esterno-05.webp",
+      "assets/gallery/esterno-06.webp",
+      "assets/gallery/esterno-07.webp"
+    ],
+    "via_roma": [
+      "assets/gallery/via-roma-01.webp",
+      "assets/gallery/via-roma-02.webp",
+      "assets/gallery/via-roma-03.webp",
+      "assets/gallery/via-roma-04.webp",
+      "assets/gallery/via-roma-05.webp",
+      "assets/gallery/via-roma-06.webp",
+      "assets/gallery/via-roma-07.webp",
+      "assets/gallery/via-roma-08.webp",
+      "assets/gallery/via-roma-09.webp"
+    ]
+  }
+}

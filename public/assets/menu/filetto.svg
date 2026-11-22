@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 3" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="gold">
+      <stop stop-color="#645537"/>
+      <stop offset=".5" stop-color="#e1c891"/>
+      <stop offset="1" stop-color="#645537"/>
+    </linearGradient>
+    <linearGradient id="shoulder">
+      <stop stop-color="#090909"/>
+      <stop offset=".17" stop-color="#201b13"/>
+      <stop offset=".5" stop-color="#c3a66c"/>
+      <stop offset=".83" stop-color="#201b13"/>
+      <stop offset="1" stop-color="#090909"/>
+    </linearGradient>
+    <linearGradient id="tip">
+      <stop offset=".18" stop-color="#090909"/>
+      <stop offset=".5" stop-color="#826e4b"/>
+      <stop offset=".82" stop-color="#090909"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#tip)" d="M0 0h1000v1H0z"/>
+  <path fill="url(#shoulder)" d="M0 1h1000v1H0z"/>
+  <path fill="url(#gold)" d="M0 2h1000v1H0z"/>
+</svg>

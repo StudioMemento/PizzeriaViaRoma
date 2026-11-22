@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "initialJsGzipBytes": 98232,
+  "allJsGzipBytes": 104493,
+  "cssGzipBytes": 7588,
+  "htmlGzipBytes": 9068,
+  "htmlBytes": 70795,
+  "initialJsFiles": 1,
+  "totalJsFiles": 2,
+  "runtimeDependenciesAdded": 0,
+  "baseHeroInitialJsGzipBytes": 97332
+}

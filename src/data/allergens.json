@@ -1,0 +1,234 @@
+{
+  "it": [
+    [
+      "Cereali contenenti glutine",
+      "Grano (anche farro e khorasan), segale, orzo, avena, loro ibridi e derivati."
+    ],
+    [
+      "Crostacei",
+      "Crostacei e prodotti derivati."
+    ],
+    [
+      "Uova",
+      "Uova e prodotti derivati."
+    ],
+    [
+      "Pesce",
+      "Pesce e prodotti derivati."
+    ],
+    [
+      "Arachidi",
+      "Arachidi e prodotti derivati."
+    ],
+    [
+      "Soia",
+      "Soia e prodotti derivati."
+    ],
+    [
+      "Latte",
+      "Latte e derivati, incluso il lattosio."
+    ],
+    [
+      "Frutta a guscio",
+      "Mandorle, nocciole, noci, anacardi, pecan, noci del Brasile, pistacchi, macadamia e derivati."
+    ],
+    [
+      "Sedano",
+      "Sedano e prodotti derivati."
+    ],
+    [
+      "Senape",
+      "Senape e prodotti derivati."
+    ],
+    [
+      "Sesamo",
+      "Semi di sesamo e prodotti derivati."
+    ],
+    [
+      "Solfiti",
+      "Anidride solforosa e solfiti oltre 10 mg/kg o 10 mg/l di SO₂ totale nel prodotto pronto al consumo."
+    ],
+    [
+      "Lupini",
+      "Lupini e prodotti derivati."
+    ],
+    [
+      "Molluschi",
+      "Molluschi e prodotti derivati."
+    ]
+  ],
+  "en": [
+    [
+      "Cereals containing gluten",
+      "Wheat (including spelt and khorasan), rye, barley, oats, their hybrids and derivatives."
+    ],
+    [
+      "Crustaceans",
+      "Crustaceans and derivatives."
+    ],
+    [
+      "Eggs",
+      "Eggs and derivatives."
+    ],
+    [
+      "Fish",
+      "Fish and derivatives."
+    ],
+    [
+      "Peanuts",
+      "Peanuts and derivatives."
+    ],
+    [
+      "Soy",
+      "Soybeans and derivatives."
+    ],
+    [
+      "Milk",
+      "Milk and derivatives, including lactose."
+    ],
+    [
+      "Nuts",
+      "Almonds, hazelnuts, walnuts, cashews, pecans, Brazil nuts, pistachios, macadamias and derivatives."
+    ],
+    [
+      "Celery",
+      "Celery and derivatives."
+    ],
+    [
+      "Mustard",
+      "Mustard and derivatives."
+    ],
+    [
+      "Sesame",
+      "Sesame seeds and derivatives."
+    ],
+    [
+      "Sulphites",
+      "Sulphur dioxide and sulphites above 10 mg/kg or 10 mg/l as total SO₂ in the ready-to-eat product."
+    ],
+    [
+      "Lupin",
+      "Lupin and derivatives."
+    ],
+    [
+      "Molluscs",
+      "Molluscs and derivatives."
+    ]
+  ],
+  "de": [
+    [
+      "Glutenhaltiges Getreide",
+      "Weizen (auch Dinkel und Khorasan), Roggen, Gerste, Hafer, ihre Kreuzungen und Erzeugnisse daraus."
+    ],
+    [
+      "Krebstiere",
+      "Krebstiere und Erzeugnisse."
+    ],
+    [
+      "Eier",
+      "Eier und Erzeugnisse."
+    ],
+    [
+      "Fisch",
+      "Fisch und Erzeugnisse."
+    ],
+    [
+      "Erdnüsse",
+      "Erdnüsse und Erzeugnisse."
+    ],
+    [
+      "Soja",
+      "Sojabohnen und Erzeugnisse."
+    ],
+    [
+      "Milch",
+      "Milch und Erzeugnisse, einschließlich Laktose."
+    ],
+    [
+      "Schalenfrüchte",
+      "Mandeln, Haselnüsse, Walnüsse, Cashews, Pekannüsse, Paranüsse, Pistazien, Macadamianüsse und Erzeugnisse daraus."
+    ],
+    [
+      "Sellerie",
+      "Sellerie und Erzeugnisse."
+    ],
+    [
+      "Senf",
+      "Senf und Erzeugnisse."
+    ],
+    [
+      "Sesam",
+      "Sesamsamen und Erzeugnisse."
+    ],
+    [
+      "Sulfite",
+      "Schwefeldioxid und Sulfite über 10 mg/kg oder 10 mg/l als Gesamt-SO₂ im verzehrfertigen Produkt."
+    ],
+    [
+      "Lupinen",
+      "Lupinen und Erzeugnisse."
+    ],
+    [
+      "Weichtiere",
+      "Weichtiere und Erzeugnisse."
+    ]
+  ],
+  "fr": [
+    [
+      "Céréales contenant du gluten",
+      "Blé (dont épeautre et khorasan), seigle, orge, avoine, leurs hybrides et produits dérivés."
+    ],
+    [
+      "Crustacés",
+      "Crustacés et dérivés."
+    ],
+    [
+      "Œufs",
+      "Œufs et dérivés."
+    ],
+    [
+      "Poisson",
+      "Poisson et dérivés."
+    ],
+    [
+      "Arachides",
+      "Arachides et dérivés."
+    ],
+    [
+      "Soja",
+      "Soja et dérivés."
+    ],
+    [
+      "Lait",
+      "Lait et dérivés, y compris le lactose."
+    ],
+    [
+      "Fruits à coque",
+      "Amandes, noisettes, noix, noix de cajou, de pécan et du Brésil, pistaches, noix de macadamia et dérivés."
+    ],
+    [
+      "Céleri",
+      "Céleri et dérivés."
+    ],
+    [
+      "Moutarde",
+      "Moutarde et dérivés."
+    ],
+    [
+      "Sésame",
+      "Graines de sésame et dérivés."
+    ],
+    [
+      "Sulfites",
+      "Anhydride sulfureux et sulfites au-delà de 10 mg/kg ou 10 mg/l de SO₂ total dans le produit prêt à consommer."
+    ],
+    [
+      "Lupins",
+      "Lupins et dérivés."
+    ],
+    [
+      "Mollusques",
+      "Mollusques et dérivés."
+    ]
+  ]
+}

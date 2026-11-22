@@ -1,12 +1,29 @@
 {
-  "name": "pizzeria-via-roma",
+  "name": "viaroma-5-9",
+  "version": "5.9.0",
   "private": true,
-  "version": "18.0.0",
-  "scripts": {
-    "dev": "node preview-server.cjs",
-    "build": "node build.cjs"
-  },
+  "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": "^22.13.0 || >=24.0.0"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "build": "vite build && vite build --ssr src/entry-server.tsx --outDir .ssr && node scripts/prerender.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "npm run typecheck && npm run build && node scripts/check-build.mjs",
+    "test": "node scripts/verify-menu.mjs && node tests/menu/interactions.mjs && node tests/menu/blinking-squares.mjs"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.8"
   }
 }

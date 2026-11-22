@@ -1,0 +1,7 @@
+/* Shared by the in-page reader and the directly accessible legal pages. */
+.legal-text { overflow-wrap:anywhere; }
+.legal-text p { max-inline-size:66ch; text-wrap:pretty; }
+.legal-text p + p { margin-top:.55em; }
+.legal-text h2 { text-wrap:balance; }
+.legal-text:lang(de) { -webkit-hyphens:auto; hyphens:auto; }
+.legal-text .legal-unit,.legal-text a[href^="tel:"] { hyphens:none; }

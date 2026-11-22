@@ -1,0 +1,130 @@
+/* ViaRoma_4.0_MENU — original artwork/data, scoped menu and dialog presentation. */
+.menu-atmosphere { position:relative; background:#090909; }
+#cornicione { position:relative; }
+#menu { position:relative; padding-top:clamp(80px,12svh,160px); padding-bottom:clamp(36px,6svh,84px); }
+.menu-head,.mcat,.chipbar-inner { width:var(--vr-content); margin-inline:auto; }
+.menu-head { text-align:center; margin-bottom:clamp(32px,6vw,72px); }
+.menu-head h2 { font-size:calc(var(--vr-content) * var(--menu-title-scale,.25)); font-weight:200; line-height:1.12; letter-spacing:.26em; text-transform:uppercase; color:var(--vr-highlight); }
+.menu-head h2 span { display:inline-block; white-space:nowrap; vertical-align:top; margin-inline-end:-.26em; }
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+  .menu-head h2 span {
+    background:linear-gradient(110deg,var(--vr-gold-muted) 0%,var(--vr-gold) 26%,var(--vr-highlight) 44%,#f1dfb5 49%,var(--vr-gold) 55%,var(--vr-highlight) 75%,var(--vr-gold-muted) 100%) 0% 50% / 230% 100%;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    animation:vr-menu-gold 5s ease-in-out infinite alternate paused;
+    filter:drop-shadow(0 0 10px rgb(218 193 139 / .1)); transition:filter .7s ease;
+  }
+  .menu-head[data-fx-state=running] h2 span { animation-play-state:running; }
+  .mcat h3 span { display:inline-block; max-width:100%; background:linear-gradient(110deg,var(--vr-gold) 0%,var(--vr-highlight) 30%,#f1dfb5 48%,var(--vr-gold) 58%,var(--vr-highlight) 80%,var(--vr-gold) 100%) 0% 50% / 230% 100%; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 10px rgb(218 193 139 / 0)); transition:filter .7s ease; }
+}
+@keyframes vr-menu-gold { to { background-position:100% 50%; } }
+/* Above the neutral edge blur (40), below the site controls (50). */
+.chipbar { position:sticky; top:calc(72px + env(safe-area-inset-top)); z-index:45; padding-block:5px 12px; pointer-events:none; }
+.chipbar-inner { position:relative; pointer-events:auto; }
+.chips { position:relative; display:flex; overflow-x:auto; gap:8px; padding:7px 2px; scroll-padding-inline:2px; scrollbar-width:none; overscroll-behavior-x:contain; }
+.chips::-webkit-scrollbar { display:none; }
+.chips button { --satin-blur:22px; flex:1 0 auto; min-height:40px; padding:9px 16px; border:1px solid; border-radius:24px; font-size:11px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; -webkit-mask-image:var(--chip-edge,none); mask-image:var(--chip-edge,none); transition:color .45s,border-color .45s; }
+@media (min-width:768px) { .chips button { letter-spacing:.16em; } }
+.chips button:focus-visible { outline-color:#fff; outline-offset:-4px; }
+.chips button.on:focus-visible { outline-color:var(--vr-highlight); }
+.chipchev { position:absolute; z-index:1; top:5px; width:32px; height:44px; display:none; place-items:center; color:var(--vr-highlight); background:none; border:0; border-radius:0; }
+.chipchev svg { width:20px; height:20px; }
+.chipchev.l { left:0; } .chipchev.r { right:0; }
+.can-l .chipchev.l,.can-r .chipchev.r { display:grid; }
+
+.mcat { padding:clamp(64px,8svh,120px) 0 24px; scroll-margin-top:128px; }
+#carta > .mcat + .mcat { margin-block-start:clamp(40px,6svh,88px); }
+.mcat-head { text-align:center; }
+.mcat h3 { font-size:clamp(33px,4.6vw,68px); line-height:1.12; letter-spacing:.12em; font-weight:200; text-transform:uppercase; color:var(--vr-highlight); overflow-wrap:anywhere; }
+.mcat .tag { margin:12px auto 0; max-width:48ch; color:var(--vr-muted); letter-spacing:.015em; font-size:clamp(19px,1.5vw,23px); line-height:1.4; text-wrap:pretty; }
+.mobile-break { display:none; }
+.menu-art { width:100%; margin:28px 0; background:var(--vr-carbon); }
+:root { --price-dots:repeating-linear-gradient(90deg,#252524 0 1px,transparent 1px 8px); }
+.menu-art::before,.menu-art::after {
+  content:""; display:block; height:3px;
+  background:var(--vr-carbon) url("/assets/menu/filetto.svg?v=51") center / 100% 100% no-repeat;
+}
+.menu-art::after { transform:scaleY(-1); }
+.menu-art-window { aspect-ratio:2048/487; overflow:hidden; }
+.menu-art img { width:100%; height:auto; }
+.item { position:relative; padding:10px 0; min-width:0; }
+.item .row { display:flex; gap:12px; align-items:baseline; }
+.item .label { display:flex; flex:0 1 auto; flex-wrap:wrap; gap:4px 10px; min-width:0; align-items:baseline; }
+.item .nome { font-size:19px; line-height:1.3; letter-spacing:.11em; color:#dfcb9b; text-transform:uppercase; font-weight:400; text-align:left; overflow-wrap:anywhere; }
+.item button.nome { position:relative; }
+.item button.nome::before { content:""; position:absolute; inset:-6px 0; }
+.item .prezzo,.pricegrid b { font-size:21px; line-height:1.25; letter-spacing:-.01em; color:var(--vr-highlight); font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:300; }
+.item .qualifier { font-size:14px; color:#b9b09f; line-height:1.4; }
+/* Whole-pixel microdots remain visible at DPR 1: a subpixel radial dot can vanish. */
+.item .dots { display:block; flex:1 0 20px; min-width:20px; height:1px; align-self:baseline; background:var(--price-dots); transform:translateY(-4px); }
+.item .desc { font-size:18px; line-height:1.45; margin-top:6px; letter-spacing:.005em; color:#d0cabe; max-width:80ch; }
+.allergen-trigger { display:flex; align-items:center; gap:5px; min-height:28px; padding:3px 0; font-size:12px; font-weight:400; letter-spacing:.12em; color:#969590; }
+.frozen-mark { display:inline-block; font-size:1.35em; line-height:1; transform:translateY(.17em); }
+.groupline { margin:32px 0 12px; font-size:12px; text-transform:uppercase; letter-spacing:.18em; color:var(--vr-gold); }
+.groupsub { margin:18px 0 8px; color:#c1b7a4; font-size:15px; }
+.groupsub strong { font-weight:400; }
+.variant-callout { margin:28px 0 10px; padding-top:12px; font-size:20px; letter-spacing:.015em; }
+.dolci-note { max-width:46ch; margin:28px auto 0; text-align:center; font-size:clamp(22px,1.8vw,28px); line-height:1.45; letter-spacing:.02em; color:var(--vr-highlight); text-wrap:balance; }
+#cat-bevande { --drink-intro:#b59a62; --drink-detail:#a19d96; --drink-group-gap:clamp(56px,8svh,112px); }
+#cat-bevande .mcat-body > .groupline { margin-block:var(--drink-group-gap) clamp(14px,2svh,22px); }
+.drink-bottle-group + .drink-bottle-group { margin-block-start:clamp(38px,5.8svh,80px); }
+#cat-bevande .groupline { font-size:clamp(16px,1.3vw,21px); font-weight:400; letter-spacing:.09em; color:var(--drink-intro); }
+.drink-bottle-group .groupsub { margin-block:0 8px; color:var(--drink-detail); font-size:clamp(16px,1.3vw,20px); line-height:1.4; }
+.groupsub strong { color:var(--drink-intro); font-weight:500; }
+#cat-bevande .desc,.drink-product .qualifier { color:var(--drink-detail); }
+.drink-bottle-group .item .desc { max-width:none; }
+.drink-table { width:100%; margin:var(--drink-group-gap) 0 0; }
+.drink-table-head,.drink-row>.row { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,40%); align-items:baseline; column-gap:0; }
+.drink-table-head { padding-bottom:10px; }
+.drink-table-head .groupline { margin:0; }
+.drink-size-head,.drink-row .pricegrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:12px; align-items:baseline; text-align:right; }
+.drink-size-head { font-size:clamp(15px,1.2vw,19px); line-height:1.28; color:var(--drink-detail); }
+.drink-product { min-width:0; }
+.drink-product .qualifier { display:block; margin-top:3px; font-size:16px; }
+.drink-leader,.drink-price-cell:first-child { display:flex; align-items:baseline; gap:12px; }
+.drink-price-cell { min-width:0; text-align:right; }
+.drink-price-cell:first-child::before { content:""; flex:1; height:1px; transform:translateY(-4px); background:var(--price-dots); }
+@media(hover:hover) {
+  .menu-head:hover h2 span { filter:drop-shadow(0 0 12px rgb(218 193 139 / .23)); }
+  .mcat-head:hover h3 span { animation:vr-menu-gold 4s ease-in-out infinite alternate; filter:drop-shadow(0 0 10px rgb(218 193 139 / .23)); }
+  .chips button:not(.on):hover { color:#d5d5d5; border-color:#ffffff30; }
+  .item button.nome:hover,.allergen-trigger:hover { color:var(--vr-highlight); }
+}
+@media(max-width:767px) {
+  .chipbar { top:calc(65px + env(safe-area-inset-top)); padding-block:3px 12px; }
+  .chips { gap:6px; padding-block:6px; }
+  .chips button { min-height:39px; font-size:10px; padding:8px 13px; letter-spacing:.08em; }
+  .chipchev { top:3px; }
+  .chipchev.l { left:-32px; } .chipchev.r { right:-32px; }
+
+  .mcat { padding:58px 0 18px; scroll-margin-top:120px; }
+  .mcat h3 { font-size:clamp(29px,7.8vw,43px); letter-spacing:.08em; }
+  .mcat .tag { font-size:18px; line-height:1.4; letter-spacing:.005em; margin-top:10px; }
+  .mobile-break { display:block; }
+  .desktop-separator { display:none; }
+  .menu-art { margin:22px 0; }
+  .item { padding:9px 0; }
+  .item .row { gap:8px; }
+  .item .nome { font-size:16px; line-height:1.3; letter-spacing:.095em; }
+  .item .prezzo,.pricegrid b { font-size:19px; }
+  .item .desc { font-size:16.5px; line-height:1.45; margin-top:5px; max-width:calc(100% - 3.5rem); overflow-wrap:break-word; }
+  .item .qualifier { font-size:12px; }
+  .allergen-trigger { min-height:28px; font-size:11px; }
+  .drink-table-head,.drink-row>.row { grid-template-columns:minmax(0,1fr) minmax(0,58%); gap:6px; }
+  #cat-bevande .drink-table-head .groupline { font-size:clamp(14px,3.7vw,17px); line-height:1.25; letter-spacing:.045em; }
+  .drink-size-head,.drink-row .pricegrid { grid-template-columns:minmax(0,.92fr) minmax(0,.96fr) minmax(0,1.12fr); column-gap:3px; }
+  .drink-size-head { font-size:clamp(12.5px,3.45vw,15px); }
+  .drink-leader .dots,.drink-price-cell:first-child::before { display:none; }
+  .drink-price-cell:first-child { display:block; }
+  .drink-row .nome { font-size:clamp(14px,3.8vw,17px); letter-spacing:.055em; }
+  .drink-product .qualifier { font-size:14px; }
+}
+@media(prefers-reduced-motion:reduce) { .menu-head h2 span,.mcat-head:hover h3 span { animation:none; } .menu-head h2 span,.mcat h3 span,.chips button { transition:none; } }
+@media(forced-colors:active) { .menu-head h2 span,.mcat h3 span { background:none; -webkit-text-fill-color:CanvasText; filter:none; } .chips button.on { outline:2px solid Highlight; outline-offset:-4px; } }
+
+/* The existing content widths reserve the requested side bands:
+   mobile 10/80/10, tablet 15/70/15, desktop 20/60/20, ultrawide 30/40/30. */
+.menu-head,#carta { position:relative; z-index:1; }
+.menu-side-background { position:absolute; inset:0; pointer-events:none; z-index:0; }
+.menu-side-viewport { position:sticky; top:0; height:100svh; width:100%; display:flex; justify-content:space-between; overflow:clip; }
+.menu-side-band { display:block; width:var(--vr-gutter); height:100%; flex:none; contain:paint; will-change:transform; }
+

@@ -1,0 +1,79 @@
+/* ViaRoma_1_HERO — scoped visual layer; existing type/layout stays in clean.css. */
+:root {
+  --vr-carbon: #090909;
+  --vr-satin: #252524;
+  --vr-gold-muted: #a89b7b;
+  --vr-highlight: #dac18b; /* sampled from LE CLASSICHE, matches .mcat h3 */
+  --vr-highlight-rgb: 218,193,139;
+  --vr-hero-gradient-speed: 5s;
+}
+.vr-hero { position:relative; isolation:isolate; background:var(--vr-carbon); }
+.hero-glimmer { position:absolute; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+.hero-logo { position:relative; aspect-ratio:1; flex:none; filter:drop-shadow(0 0 9px rgb(218 193 139 / 0)); transition:filter .7s ease; }
+.hero-logo[data-gold=true] { filter:drop-shadow(0 0 9px rgb(218 193 139 / .23)); }
+.hero-logo::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(120deg,var(--vr-gold),var(--vr-highlight)); -webkit-mask:url('/assets/logo.png') center/contain no-repeat; mask:url('/assets/logo.png') center/contain no-repeat; opacity:0; transition:opacity .7s ease; }
+.hero-logo[data-gold=true]::after { opacity:1; }
+.hero-logo[data-liquid-ready=true]::after { display:none; }
+.hero-logo > img { width:100%; height:auto; }
+.hero-liquid { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; }
+.hero-logo[data-liquid-ready=true] > img { opacity:0; }
+.hero-logo[data-liquid-ready=true] > .hero-liquid { opacity:1; }
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+  .hero-slogan {
+    background-image:linear-gradient(90deg,var(--vr-gold-muted) 0%,var(--vr-gold) 30%,var(--vr-highlight) 50%,var(--vr-gold) 70%,var(--vr-gold-muted) 100%);
+    background-size:250% 100%; background-position:0% 50%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 16px rgb(218 193 139 / .08);
+    animation:vr-hero-gradient var(--vr-hero-gradient-speed) ease-in-out infinite alternate;
+    animation-play-state:paused;
+  }
+  .vr-hero[data-fx-state=running] .hero-slogan { animation-play-state:running; }
+}
+@keyframes vr-hero-gradient { to { background-position:100% 50%; } }
+/* The blur is behind the chrome, never inside an icon's material. No tint. */
+.vr-edge-blur { position:fixed; left:0; right:0; z-index:40; pointer-events:none; background:transparent; }
+.vr-edge-blur--top { top:0; height:calc(clamp(6rem,14vh,9rem) + env(safe-area-inset-top)); }
+.vr-edge-blur--bottom { bottom:0; height:calc(clamp(7rem,16vh,10rem) + env(safe-area-inset-bottom)); }
+.vr-edge-blur > div { position:absolute; inset:0; background:transparent; }
+/* Neutral translucent satin. Explicit prefixed blur for Safari; no blend modes,
+ * color boosting or refraction. Alpha belongs to the material, not the icons. */
+.dock-tile,.lang {
+  overflow:hidden; isolation:isolate;
+  color:var(--vr-ivory); border-color:rgb(168 155 123 / .35);
+  background:linear-gradient(150deg,rgb(37 37 36 / .66),rgb(37 37 36 / .44) 55%,rgb(37 37 36 / .56));
+  box-shadow:inset 0 1px 0 rgb(241 236 225 / .12),0 2px 8px rgb(9 9 9 / .15);
+  transition:border-color .45s ease,color .45s ease,box-shadow .45s ease;
+  -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+}
+.lang { position:relative; }
+.lang button { position:relative; color:var(--vr-ivory); transition:color .45s ease,background-color .45s ease,box-shadow .45s ease; }
+.lang button.on { color:var(--vr-highlight); background:rgb(198 171 112 / .14); box-shadow:inset 0 -1px 0 rgb(218 193 139 / .26); }
+.dock-tile::before {
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(ellipse 85% 100% at 50% 120%,rgba(var(--vr-highlight-rgb),.25) 0%,rgba(var(--vr-highlight-rgb),.1) 40%,rgba(var(--vr-highlight-rgb),0) 80%);
+  opacity:0; transform:translateY(9px); transition:opacity .55s ease,transform .65s cubic-bezier(.22,1,.36,1);
+}
+.dock-tile :is(i,svg) { position:relative; z-index:1; }
+.vr-dock a[aria-current] .dock-tile { color:var(--vr-highlight); border-color:#8c7e61; box-shadow:inset 0 1px 0 #ffffff21,inset 0 -1px 0 #dac18b33,0 2px 8px #00000026; }
+.vr-dock a[aria-current] .dock-tile::before { opacity:1; transform:translateY(0); }
+@media(hover:hover) { .lang button:hover { color:var(--vr-highlight); background-color:rgb(198 171 112 / .09); } .vr-dock a:hover .dock-tile { border-color:#a1906d; color:var(--vr-highlight); } .vr-dock a:not([aria-current]):hover .dock-tile::before { opacity:.35; transform:translateY(2px); } }
+/* Native scrolling is intact; only its scrollbar is replaced. */
+html,body { scrollbar-width:none; -ms-overflow-style:none; }
+html::-webkit-scrollbar,body::-webkit-scrollbar { display:none; width:0; height:0; }
+body { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+input,textarea,[contenteditable=true] { -webkit-user-select:text; user-select:text; -webkit-touch-callout:default; }
+.vr-scroll-progress { position:fixed; z-index:70; top:0; right:0; width:2px; height:100vh; height:100dvh; pointer-events:none; }
+.vr-scroll-progress > span { display:block; width:100%; height:100%; background:var(--vr-highlight); transform:scaleY(0); transform-origin:top; }
+@media(prefers-reduced-motion:reduce) {
+  .hero-slogan { animation:none; }
+  .dock-tile,.dock-tile::before,.lang button,.hero-logo,.hero-logo::after { transition:none; }
+}
+/* Keep optical blur when the OS reports reduced transparency: the old rule hid it entirely on the review browser. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .vr-edge-blur { display:none; } .dock-tile,.lang { background:rgb(37 37 36 / .88); } }
+@media(forced-colors:active) {
+  .hero-slogan { color:CanvasText; -webkit-text-fill-color:CanvasText; background:none; text-shadow:none; }
+  .hero-glimmer,.hero-liquid,.hero-logo::after,.vr-edge-blur { display:none; }
+  .hero-logo[data-liquid-ready=true] > img { opacity:1; }
+  .vr-dock a[aria-current] .dock-tile { outline:2px solid Highlight; }
+}

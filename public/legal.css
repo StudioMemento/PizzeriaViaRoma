@@ -1,0 +1,18 @@
+@import url('/assets/fonts/jost.css');
+@import url('/legal-text.css');
+:root { color-scheme:dark; --gold:#dac18b; }
+* { box-sizing:border-box; }
+body { margin:0; background:#090909; color:#e2ddd3; font:300 clamp(16px,1.4vw,19px)/1.55 Jost,system-ui,sans-serif; }
+.legal-top,main { width:min(calc(100% - 40px),710px); margin:auto; }
+.legal-top { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid #c6ab7033; }
+.legal-top a,nav a { min-height:44px; display:inline-flex; align-items:center; }
+main { padding-block:clamp(28px,7vw,80px); }
+h1 { margin:0 0 26px; font-size:clamp(33px,5vw,52px); font-weight:300; line-height:1.1; }
+section + section { margin-top:22px; }
+h2 { margin:0 0 4px; font-size:1.07em; color:var(--gold); font-weight:500; }
+p { margin:0; }
+a { color:var(--gold); text-underline-offset:3px; }
+a:focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
+nav { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0 clamp(4px,2vw,16px); margin-top:26px; }
+nav > span { color:var(--gold); }
+nav [aria-current] { text-decoration:none; }

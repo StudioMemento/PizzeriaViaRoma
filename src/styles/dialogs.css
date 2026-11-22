@@ -1,0 +1,63 @@
+@import url("/legal-text.css");
+.vr-dialog {
+  --inset:clamp(18px,5vw,30px); inset:0; width:100%; max-width:none; height:100dvh; max-height:100dvh; margin:0;
+  padding:max(var(--inset),env(safe-area-inset-top)) max(var(--inset),env(safe-area-inset-right)) max(var(--inset),env(safe-area-inset-bottom)) max(var(--inset),env(safe-area-inset-left));
+  border:0; color:var(--vr-ivory); background:transparent; overscroll-behavior:contain;
+}
+.vr-dialog::backdrop { background:rgb(9 9 9 / .8); -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); }
+.modal-header { display:flex; justify-content:space-between; gap:min(16px,3.75vmin); }
+.modal-close { display:grid; place-items:center; width:44px; height:44px; flex:none; color:var(--vr-gold); font-size:28px; }
+.modal-legal { overflow:hidden; }
+.modal-legal[open] { display:grid; grid-template-rows:minmax(0,1fr); place-items:center; }
+.legal-panel { width:min(100%,710px); max-height:100%; min-height:0; display:flex; flex-direction:column; padding:0; }
+.legal-panel .modal-header { align-items:center; padding:0 0 clamp(14px,2dvh,24px); margin-bottom:4px; border:0; flex:none; }
+.legal-panel .modal-header h2 { font-size:clamp(29px,4.6dvh,44px); font-weight:400; line-height:1.08; }
+.modal-close:focus-visible { outline:0; color:var(--vr-ivory); filter:drop-shadow(0 0 5px var(--vr-highlight)); }
+.legal-scroll { overflow:auto; min-height:0; overscroll-behavior:contain; scrollbar-width:none; outline-offset:-2px; }
+.legal-scroll::-webkit-scrollbar { display:none; }
+.legal-text { font-size:clamp(15px,1.2vw,18px); line-height:1.5; color:#e2ddd3; }
+.legal-text section + section { margin-top:clamp(15px,2.4dvh,24px); }
+.legal-text h2 { font-size:1.06em; font-weight:500; color:var(--vr-highlight); margin:0 0 4px; }
+.legal-text a { color:#e8ce97; text-decoration:underline; text-underline-offset:3px; }
+.legal-panel .vr-scroll-progress[hidden] { display:none; }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .modal-legal::backdrop { background:rgb(9 9 9 / .97); } }
+
+/* The reading area stays symmetric inside the device's safe edges. */
+.vr-dialog.modal-allergens {
+  --name:clamp(15px,1.85dvh,17px); --detail:clamp(13.5px,1.67dvh,15.5px);
+  --title:clamp(31px,4.6dvh,44px); --section-gap:clamp(18px,2.7dvh,30px); --row-gap:clamp(5px,.75dvh,9px);
+  width:100dvw; outline:none; overflow:auto;
+}
+.modal-allergens[data-density=regular] { --inset:clamp(16px,4.8vw,26px); --name:15px; --detail:13.25px; --title:clamp(29px,4.2dvh,37px); --section-gap:17px; --row-gap:4px; }
+.modal-allergens[data-density=compact] { --inset:clamp(13px,4vw,20px); --name:13.5px; --detail:12.25px; --title:28px; --section-gap:12px; --row-gap:2.5px; }
+.modal-allergens[data-density=minimum] { --inset:10px; --name:12.5px; --detail:11.75px; --title:clamp(20px,6.45vmin,24px); --section-gap:8px; --row-gap:1px; }
+.allergen-panel { width:min(100%,760px); min-height:100%; margin:auto; padding:0; display:grid; align-content:center; gap:var(--section-gap); }
+.allergen-panel .modal-header { align-items:flex-start; }
+.allergen-panel .modal-header > div { min-width:0; }
+.allergen-panel .modal-header h2 { font-size:var(--title); font-weight:400; line-height:1.08; overflow-wrap:break-word; }
+.allergen-panel .modal-close { width:32px; height:32px; position:relative; outline:none; }
+.allergen-panel .modal-close::before { content:""; position:absolute; inset:-6px; }
+.allergen-panel .modal-close svg { width:24px; height:24px; }
+.allergen-list { list-style:none; columns:var(--allergen-columns,1); column-gap:14px; }
+.allergen-list li + li { margin-top:var(--row-gap); }
+.allergen-list li { display:grid; grid-template-columns:1.2em minmax(0,1fr); column-gap:.62em; align-items:baseline; color:#555; font-size:var(--name); line-height:1.17; break-inside:avoid; }
+.allergen-code { font-weight:400; text-align:center; }
+.allergen-code .frozen-mark { font-size:1.1em; }
+.allergen-text { min-width:0; overflow-wrap:break-word; }
+.allergen-name { display:block; font-size:inherit; font-weight:500; letter-spacing:.065em; text-transform:uppercase; }
+.allergen-description { display:block; font-size:var(--detail); line-height:1.18; margin-top:1px; }
+.nut-phrase { white-space:nowrap; }
+.allergen-list .contains { color:var(--vr-highlight); }
+.allergen-note { font-size:clamp(15px,2.1dvh,20px); line-height:1.25; font-weight:400; }
+@media(max-height:560px) {
+  .modal-allergens[data-density=minimum] { --inset:7px; --section-gap:3px; --row-gap:0px; }
+  .modal-allergens[data-density=minimum] .allergen-list { column-gap:10px; }
+  .modal-allergens[data-density=minimum] .allergen-list li { grid-template-columns:1em minmax(0,1fr); column-gap:.38em; }
+  .modal-allergens[data-density=minimum] .allergen-list li,
+  .modal-allergens[data-density=minimum] .allergen-description { line-height:1.15; }
+  .modal-allergens[data-density=minimum] .allergen-description { margin-top:.5px; }
+}
+.modal-allergens::backdrop { background:rgb(5 5 5 / .97); }
+@media(min-width:768px) { .allergen-note { font-weight:300; } }
+@media(prefers-contrast:more) { .allergen-list li { color:#aaa; } }
+@media(forced-colors:active) { .allergen-list li { color:GrayText; } .allergen-list .contains { color:Highlight; } .vr-dialog .modal-close:focus-visible { outline:2px solid Highlight; } }

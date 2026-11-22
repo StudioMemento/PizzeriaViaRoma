@@ -1,0 +1,21 @@
+/** Original Via Roma grain. Dimensions are CSS pixels; cycles are seconds. */
+export const SIDE_SQUARES = Object.freeze({
+  spacing: 6,
+  maxFieldWidth: 520,
+  falloff: 2.5,
+  fadeStart: 0.55,
+  minSize: 1,
+  maxSize: 1.5,
+  minCycle: 2.6,
+  maxCycle: 6.5,
+  minPeak: 0.65,
+  maxPeak: 1,
+  squareColor: "#c6ab70",
+  backgroundColor: "#090909",
+  maxSquaresPerSide: 3000,
+  maxPixels: 1_600_000,
+  maxDpr: 2,
+  fps: 20,
+  scrollFactor: .78,
+  overscan: 96,
+});
