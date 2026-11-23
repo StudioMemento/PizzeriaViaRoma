@@ -53,7 +53,7 @@ export function LegalReader({ slug, navigate }: { slug: LegalSlug; navigate: (sl
 
   return <>
     <div className="legal-scroll" ref={reader} role="region" aria-labelledby="modal-title">
-      {html ? <article className="legal-text" lang={language} dangerouslySetInnerHTML={{ __html: html }} onClick={event => {
+      {html ? <article className="legal-text" data-document={slug} lang={language} dangerouslySetInnerHTML={{ __html: html }} onClick={event => {
         if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
         const anchor = (event.target as Element).closest<HTMLAnchorElement>("a[data-legal]");
         const next = anchor?.dataset.legal;

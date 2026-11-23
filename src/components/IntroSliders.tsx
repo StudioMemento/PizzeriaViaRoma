@@ -8,10 +8,17 @@ import { Photo } from "./Photo";
 import { SpreadLetters } from "./SpreadTitle";
 import { HoloCard } from "./intro/HoloCard";
 import { useIntroVisibility } from "./intro/useIntroVisibility";
+import { useDialog } from "./DialogContext";
+
+const pizzaAllergens = new Map(
+  [...data.MENU.classiche, ...data.MENU.audaci, ...data.MENU.bianche].map(([name, , , codes]) => [name, codes]),
+);
+
 export function PizzaSlider() {
+  const { open } = useDialog();
   const { t, language, copy } = useI18n();
   const slides = useMemo(() => data.FORNO.map(([src, name, description]) => ({
-    src,
+    src, originalName: name,
     name: translateName(name, language),
     ingredients: description.split(", ").map(item => translateDescription(item, language)),
   })), [language]);
@@ -46,8 +53,11 @@ export function PizzaSlider() {
         </div>
       </div>
       <div className="pizza-copy" id="pizza-copy">
-        {slides.map(({ name, ingredients }, i) => <div className="pizza-caption" key={i} aria-hidden={i !== carousel.index}>
-          <h3>{name}</h3>
+        {slides.map(({ name, originalName, ingredients }, i) => <div className="pizza-caption" key={originalName} aria-hidden={i !== carousel.index} inert={i !== carousel.index}>
+          <h3><button type="button" aria-haspopup="dialog" onClick={event => {
+            event.currentTarget.focus({ preventScroll: true });
+            open({ kind: "allergens", name: originalName, codes: pizzaAllergens.get(originalName)! });
+          }}>{name}</button></h3>
           <ul>{ingredients.map((item, part) => <li key={part}>{item}</li>)}</ul>
         </div>)}
       </div>

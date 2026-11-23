@@ -42,12 +42,12 @@ assert.match(html,/<p class="dolci-note">Chiedi al personale la disponibilità d
 const modified=html.replace(/(<span class="prezzo">)[^<]+/,'$1INVALID');assert.notDeepEqual(entries(modified),before);
 const start=html.indexOf('<section id="home"');assert.ok(start>=0);
 assert.equal(balanced(html,start,'section'),await readFile('tests/intro/hero-approved.html','utf8'));
-assert.ok(html.includes('ViaRoma_5.9 — preview'));assert.ok(html.includes('noindex,nofollow'));
+assert.ok(html.includes('ViaRoma_V7.0 — preview'));assert.ok(html.includes('noindex,nofollow'));
 const crustStart = html.lastIndexOf('<section',html.indexOf('id="cornicione"'));
 const takeawayStart = html.lastIndexOf('<section',html.indexOf('id="asporto"'));
 assert.equal((balanced(html,crustStart,'section').match(/class="crust-card"/g)||[]).length,3);
 assert.equal((balanced(html,takeawayStart,'section').match(/class="crust-card"/g)||[]).length,1);
-assert.ok(html.indexOf('id="cat-bevande"') < takeawayStart && takeawayStart < html.indexOf('id="gallery"'));
+assert.ok(html.indexOf('id="bevande"') < takeawayStart && takeawayStart < html.indexOf('id="gallery"'));
 assert.equal((html.match(/class="menu-dot-grid"/g)||[]).length,0);
 const menuMarkup=balanced(html,html.indexOf('<div class="menu-atmosphere">'),'div');
 assert.ok(menuMarkup.includes('id="cornicione"') && menuMarkup.includes('id="menu"'), 'The same particle field must cover crust and menu');
@@ -66,7 +66,7 @@ assert.match(html,/<p>Facciamo anche servizio da asporto!<\/p>/);
 assert.match(html,/<h2 id="guest-photos-title">Ricordi condivisi dalla community!</);
 assert.doesNotMatch(html,/I numeri indicano gli allergeni|Tocca il nome della bevanda/);
 assert.doesNotMatch(html,/menu-allergen-guide|Per allergie o intolleranze|Verifica allergeni/);
-const kitchen=balanced(html,html.indexOf('<section class="mcat fx on has-art" id="cat-cucina"'),'section');
+const kitchen=balanced(html,html.indexOf('<section class="mcat fx on has-art" id="cucina"'),'section');
 assert.match(kitchen,/Anche se incredibile\.\.\.<br class="mobile-break"\/><span class="desktop-separator"> <\/span>non si ha sempre voglia di pizza\?/);
 assert.ok(!css.includes('.menu-art:hover'),'Obsolete artwork hover layers remain');
 assert.match(css,/\.menu-art::before,\.menu-art::after \{[^}]*filetto\.svg/);
@@ -77,7 +77,7 @@ assert.ok(!html.includes('class="pizza-count"'));
 const head=balanced(html,html.indexOf('<header class="menu-head"'),'header');
 assert.equal(text(head),'Menù');assert.equal((head.match(/<h2/g)||[]).length,1);
 for(const [id,title] of [['stuzzicherie','Le stuzzicherie'],['dolci','I dolci'],['bevande','Le bevande']]){
- const section=balanced(html,html.indexOf('<section class="mcat fx on has-art" id="cat-'+id+'"'),'section');
+ const section=balanced(html,html.indexOf('<section class="mcat fx on has-art" id="'+id+'"'),'section');
  assert.ok(section.includes('<h3><span>'+title+'</span></h3>'),'Missing article on '+id);
 }
 const captions=balanced(html,html.indexOf('<div class="pizza-copy"'),'div');
@@ -86,7 +86,7 @@ assert.equal(pizzas.length,40);
 assert.deepEqual(data.FORNO.map(row => row.slice(1)),pizzas);
 assert.equal(new Set(data.FORNO.map(row => row[0])).size,40);
 const unescape = s => s.replaceAll('&#x27;',"'").replaceAll('&amp;','&').replaceAll('&quot;','"');
-assert.deepEqual([...captions.matchAll(/<h3>(.*?)<\/h3><ul>(.*?)<\/ul>/g)].map(([,name,list]) =>
+assert.deepEqual([...captions.matchAll(/<h3><button type="button" aria-haspopup="dialog">(.*?)<\/button><\/h3><ul>(.*?)<\/ul>/g)].map(([,name,list]) =>
   [unescape(name), [...list.matchAll(/<li>(.*?)<\/li>/g)].map(m => unescape(m[1])).join(', ')]), pizzas);
 const images = JSON.parse(await readFile('src/data/images.json','utf8'));
 const photos = JSON.parse(await readFile('src/data/photos.json','utf8'));

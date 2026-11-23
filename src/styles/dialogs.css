@@ -12,8 +12,8 @@
 .legal-panel { width:min(100%,710px); max-height:100%; min-height:0; display:flex; flex-direction:column; padding:0; }
 .legal-panel .modal-header { align-items:center; padding:0 0 clamp(14px,2dvh,24px); margin-bottom:4px; border:0; flex:none; }
 .legal-panel .modal-header h2 { font-size:clamp(29px,4.6dvh,44px); font-weight:400; line-height:1.08; }
-.modal-close:focus-visible { outline:0; color:var(--vr-ivory); filter:drop-shadow(0 0 5px var(--vr-highlight)); }
-.legal-scroll { overflow:auto; min-height:0; overscroll-behavior:contain; scrollbar-width:none; outline-offset:-2px; }
+.modal-close:focus-visible { color:var(--vr-ivory); filter:drop-shadow(0 0 5px var(--vr-highlight)); }
+.legal-scroll { overflow:auto; min-height:0; overscroll-behavior:contain; scrollbar-width:none; }
 .legal-scroll::-webkit-scrollbar { display:none; }
 .legal-text { font-size:clamp(15px,1.2vw,18px); line-height:1.5; color:#e2ddd3; }
 .legal-text section + section { margin-top:clamp(15px,2.4dvh,24px); }
@@ -26,7 +26,7 @@
 .vr-dialog.modal-allergens {
   --name:clamp(15px,1.85dvh,17px); --detail:clamp(13.5px,1.67dvh,15.5px);
   --title:clamp(31px,4.6dvh,44px); --section-gap:clamp(18px,2.7dvh,30px); --row-gap:clamp(5px,.75dvh,9px);
-  width:100dvw; outline:none; overflow:auto;
+  width:100dvw; overflow:auto;
 }
 .modal-allergens[data-density=regular] { --inset:clamp(16px,4.8vw,26px); --name:15px; --detail:13.25px; --title:clamp(29px,4.2dvh,37px); --section-gap:17px; --row-gap:4px; }
 .modal-allergens[data-density=compact] { --inset:clamp(13px,4vw,20px); --name:13.5px; --detail:12.25px; --title:28px; --section-gap:12px; --row-gap:2.5px; }
@@ -35,7 +35,7 @@
 .allergen-panel .modal-header { align-items:flex-start; }
 .allergen-panel .modal-header > div { min-width:0; }
 .allergen-panel .modal-header h2 { font-size:var(--title); font-weight:400; line-height:1.08; overflow-wrap:break-word; }
-.allergen-panel .modal-close { width:32px; height:32px; position:relative; outline:none; }
+.allergen-panel .modal-close { width:32px; height:32px; position:relative; }
 .allergen-panel .modal-close::before { content:""; position:absolute; inset:-6px; }
 .allergen-panel .modal-close svg { width:24px; height:24px; }
 .allergen-list { list-style:none; columns:var(--allergen-columns,1); column-gap:14px; }
@@ -45,7 +45,7 @@
 .allergen-code .frozen-mark { font-size:1.1em; }
 .allergen-text { min-width:0; overflow-wrap:break-word; }
 .allergen-name { display:block; font-size:inherit; font-weight:500; letter-spacing:.065em; text-transform:uppercase; }
-.allergen-description { display:block; font-size:var(--detail); line-height:1.18; margin-top:1px; }
+.allergen-description { display:block; white-space:pre-line; font-size:var(--detail); line-height:1.18; margin-top:1px; }
 .nut-phrase { white-space:nowrap; }
 .allergen-list .contains { color:var(--vr-highlight); }
 .allergen-note { font-size:clamp(15px,2.1dvh,20px); line-height:1.25; font-weight:400; }
@@ -60,4 +60,4 @@
 .modal-allergens::backdrop { background:rgb(5 5 5 / .97); }
 @media(min-width:768px) { .allergen-note { font-weight:300; } }
 @media(prefers-contrast:more) { .allergen-list li { color:#aaa; } }
-@media(forced-colors:active) { .allergen-list li { color:GrayText; } .allergen-list .contains { color:Highlight; } .vr-dialog .modal-close:focus-visible { outline:2px solid Highlight; } }
+@media(forced-colors:active) { .allergen-list li { color:GrayText; } .allergen-list .contains { color:Highlight; } }

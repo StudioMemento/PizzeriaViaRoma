@@ -1,7 +1,7 @@
 import data from "../data/images.json";
 const images = data as Record<
   string,
-  { width: number; height: number; small?: string }
+  { width: number; height: number; small?: string; revision?: number }
 >;
 export function Photo({
   src,
@@ -21,7 +21,7 @@ export function Photo({
 }) {
   const meta = images[src];
   const pizza = src.startsWith("assets/pizze/");
-  const revision = pizza ? "?v=47" : src.startsWith("assets/gallery/") ? "?v=25" : "";
+  const revision = pizza ? `?v=${meta?.revision ?? 47}` : src.startsWith("assets/gallery/") ? "?v=25" : "";
   const assetUrl = (path: string) => "/" + path + revision;
   const small = meta?.small === "-768.webp" ? src.replace(/\.webp$/, meta.small) : meta?.small;
   const srcSet = small ? `${assetUrl(small)} 768w, ${assetUrl(src)} ${meta.width}w` : undefined;

@@ -1,7 +1,23 @@
-/* Shared by the in-page reader and the directly accessible legal pages. */
-.legal-text { overflow-wrap:anywhere; }
-.legal-text p { max-inline-size:66ch; text-wrap:pretty; }
-.legal-text p + p { margin-top:.55em; }
+/* The dialog and the standalone page use the same text and layout. */
+.legal-text { container-type:inline-size; overflow-wrap:anywhere; }
+.legal-text p { max-inline-size:62ch; text-wrap:pretty; }
+.legal-text p + p { margin-top:.4em; }
 .legal-text h2 { text-wrap:balance; }
 .legal-text:lang(de) { -webkit-hyphens:auto; hyphens:auto; }
-.legal-text .legal-unit,.legal-text a[href^="tel:"] { hyphens:none; }
+.legal-text a { --focus-bottom:-.42em; }
+.legal-text[data-document="privacy"] a { text-decoration:none; }
+.legal-text a[href^="tel:"] { white-space:nowrap; }
+.legal-text :is(a,.legal-unit) { hyphens:none; }
+.controller-address { display:grid; grid-template-columns:minmax(0,1fr); font-style:normal; line-height:1.42; margin-bottom:.45em; }
+.legal-facts { display:grid; grid-template-columns:fit-content(42%) minmax(0,1fr); align-items:baseline; gap:.45em 1.3em; margin:0; }
+.legal-facts dt { color:#c6bda9; }
+.legal-facts dd { margin:0; }
+.legal-facts dd a { text-decoration:none; }
+@container (max-width:410px) {
+  .legal-facts { grid-template-columns:minmax(0,36fr) minmax(0,64fr); column-gap:.65em; }
+}
+/* With enlarged text, keep each label adjacent to its value. */
+@container (max-width:12em) {
+  .legal-facts { grid-template-columns:minmax(0,1fr); row-gap:0; }
+  .legal-facts dd + dt { margin-top:.55em; }
+}

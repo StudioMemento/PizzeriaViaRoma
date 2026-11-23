@@ -8,7 +8,7 @@ const listeners=new Map(),raf=new Map();let frameId=0,resize,hidden=false,reads=
 const target=name=>({addEventListener:(event,fn)=>listeners.set(name+':'+event,fn),removeEventListener:event=>listeners.delete(name+':'+event)});
 const win={...target('window'),scrollY:0,innerHeight:800};
 const root={scrollHeight:4800};
-const tops={menu:1600,gallery:3000,dove:4200};
+const tops={menu:1600,gallery:3000,info:4600};
 const doc={...target('document'),documentElement:root,body:{},fonts:{ready:Promise.resolve()},get hidden(){return hidden},getElementById:id=>({getBoundingClientRect:()=>{reads++;return {top:tops[id]-win.scrollY}}})};
 const scope={window:win,document:doc,Set,Math,requestAnimationFrame:fn=>{raf.set(++frameId,fn);return frameId},cancelAnimationFrame:id=>raf.delete(id),ResizeObserver:class{constructor(fn){resize=fn}observe(){}disconnect(){}}};
 vm.createContext(scope);
@@ -24,6 +24,7 @@ win.scrollY=2000;listeners.get('window:scroll')();ticks();
 assert.equal(positions.at(-1).progress,.5);assert.equal(positions.at(-1).active,'menu');
 assert.equal(reads,initialReads,'No per-scroll layout measurements');
 win.scrollY=4000;listeners.get('window:scroll')();ticks();assert.equal(positions.at(-1).progress,1);
+assert.equal(positions.at(-1).active,'info','The final visible section is active at the end of the page');
 win.scrollY=4100;listeners.get('window:scroll')();ticks();assert.equal(positions.at(-1).progress,1,'Clamp elastic overscroll');
 root.scrollHeight=8800;resize();ticks();assert.equal(positions.at(-1).progress,4100/8000,'Refresh document range on content resize');
 hidden=true;listeners.get('document:visibilitychange')();assert.equal(raf.size,0);

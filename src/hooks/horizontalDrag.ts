@@ -35,7 +35,7 @@ export function bindHorizontalDrag(stage: HTMLElement, signal: AbortSignal, hand
     if (!g.horizontal) {
       const dx = Math.abs(x - g.x), dy = Math.abs(y - g.y);
       if (Math.max(dx, dy) < 4) return;
-      if (dy >= dx * .8) { finish(); return; }
+      if (dy >= dx * .8) { finish(); skipClick = true; return; }
       g.horizontal = true;
       stage.classList.add("is-dragging");
       if (!touch) stage.setPointerCapture(g.id);

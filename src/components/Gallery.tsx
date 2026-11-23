@@ -15,7 +15,7 @@ export default function Gallery() {
         const photos = data.GALLERY_ALBUMS[room].map((src, index) => ({
           src, caption: `${title} · ${copy.photo} ${index + 1}`,
         }));
-        return <section className="venue-room" key={room} id={`album-${room}`} aria-labelledby={`title-${room}`}>
+        return <section className="screen-section venue-room" key={room} id={`album-${room}`} aria-labelledby={`title-${room}`}>
           <SpreadTitle id={`title-${room}`} text={title} />
           <PhotoRibbon photos={photos} title={title} />
         </section>;

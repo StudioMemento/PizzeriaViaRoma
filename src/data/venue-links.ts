@@ -1,3 +1,6 @@
+export const phoneNumber = "0427 541 232";
+export const phoneHref = `tel:+39${phoneNumber.replaceAll(" ", "")}`;
+
 // Google Maps place identifier from the restaurant’s supplied link.
 export const mapUrl = "https://maps.google.com/?cid=7212905066552907909";
 const placeId = "0x477983a3cc4c3b4f:0x641962f142805885";

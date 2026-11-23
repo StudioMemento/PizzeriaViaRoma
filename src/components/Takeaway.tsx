@@ -12,5 +12,8 @@ export function Takeaway() {
   const { language } = useI18n();
   const [heading, caption] = copy[language];
   return <FeatureCard id="asporto" titleId="takeaway-title" heading={heading} caption={caption}
-    imageBase="/assets/asporto/asporto-serale" />;
+    imageBase="/assets/asporto/via-roma-cartone-67">
+    <img className="takeaway-mark" src="/assets/asporto/marchio-via-roma.webp" width="584" height="581"
+      alt="Pizzeria Via Roma" loading="lazy" decoding="async" draggable={false} />
+  </FeatureCard>;
 }

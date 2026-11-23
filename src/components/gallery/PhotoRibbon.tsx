@@ -47,7 +47,7 @@ export function PhotoRibbon({ photos, title }: Props) {
           const thumb = `/assets/ribbons/${src.split("/").pop()}`;
           return <button className="ribbon-card" type="button" key={src} tabIndex={-1} aria-label={caption} onClick={() => centerPanel(index)}>
             <img className="ribbon-image" src={thumb} srcSet={`${thumb} 640w, /${src.replace(".webp", "-768.webp")} 768w, /${src} ${width}w`}
-              sizes="(max-width: 620px) and (orientation: portrait) 83vw, max(10vw, min(40vw, 60svh))"
+              sizes="(max-width: 620px) and (orientation: portrait) 83vw, (min-aspect-ratio: 2/1) clamp(10vw, 40vw, max(640px, 60svh)), clamp(10vw, 40vw, 640px)"
               width="640" height="480" loading="lazy" decoding="async" draggable={false} alt={caption} />
           </button>;
         })}

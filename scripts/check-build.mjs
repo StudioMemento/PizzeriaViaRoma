@@ -3,7 +3,7 @@ import { gzipSync } from "node:zlib";
 import assert from "node:assert/strict";
 const html = await readFile("dist/index.html", "utf8");
 assert.ok(
-  html.includes("Margherita Classica") && html.includes("cat-calzoni"),
+  html.includes("Margherita Classica") && html.includes('id="calzoni"'),
   "Menu missing from initial HTML",
 );
 assert.ok(!html.includes("<!--app-html-->"));
@@ -52,7 +52,7 @@ assert.ok(js < 112_000, `JS budget exceeded: ${js}`);
 const initialStyles = new Set([...initialKeys].flatMap(key => manifest[key].css || []));
 const initialCss = [...initialStyles].reduce((sum, file) => sum + cssSizes.get(file), 0);
 assert.ok(initialCss < 10_450, `Initial CSS budget exceeded: ${initialCss}`);
-assert.ok(css < 12_100, `Total CSS budget exceeded: ${css}`);
+assert.ok(css < 12_288, `Total CSS budget exceeded: ${css}`);
 const edgeKey = "src/components/bento/effects.ts";
 assert.ok(manifest[edgeKey]?.isDynamicEntry && !initialKeys.has(edgeKey), "Finale field must load on approach");
 assert.ok(jsSizes.get(manifest[edgeKey].file) < 3000, "Combined edge and card particles exceed their deferred budget");

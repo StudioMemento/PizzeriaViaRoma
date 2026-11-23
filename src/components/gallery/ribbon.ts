@@ -17,6 +17,8 @@ export function mountRibbon(stage: HTMLElement, announcement: HTMLElement): Ribb
   const track = stage.querySelector<HTMLElement>(".ribbon-track")!;
   const cards = Array.from(track.children) as HTMLElement[];
   const images = cards.map(card => card.querySelector("img")!);
+  const measuredRoom = CSS.supports("opacity", "cos(0deg)")
+    ? null : stage.closest<HTMLElement>(".venue-room");
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const listeners = new AbortController();
   const signal = listeners.signal;
@@ -65,6 +67,8 @@ export function mountRibbon(stage: HTMLElement, announcement: HTMLElement): Ribb
     const gap = parseFloat(getComputedStyle(track).columnGap);
     pitch = cardWidth + gap;
     focal = Math.min(perspective, cardWidth * 2.15, Math.max(cardWidth * 1.12, width * .54));
+    // Older engines reserve the same projected height when they measure the panorama.
+    measuredRoom?.style.setProperty("--aperture-height", `${Math.ceil(cardWidth * .75 * Math.hypot(1, width / (2 * focal)) + 2)}px`);
     // Keep the seven-photo rooms continuous even on shallow ultrawide screens.
     halfAngle = Math.atan(cardWidth / (2 * focal));
     // Place the next panel's near edge one CSS gap from the centered panel.
@@ -163,6 +167,7 @@ export function mountRibbon(stage: HTMLElement, announcement: HTMLElement): Ribb
   motion.addEventListener("change", resetMotion, options);
   return { focusCard, refresh, destroy() {
     listeners.abort(); resize.disconnect(); observer.disconnect(); cancelAnimationFrame(frame);
+    measuredRoom?.style.removeProperty("--aperture-height");
     delete stage.dataset.enhanced; delete stage.dataset.active;
     stage.classList.remove("is-dragging"); track.style.removeProperty("clip-path");
     activeCard?.classList.remove("is-current");

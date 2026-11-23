@@ -46,9 +46,9 @@ for(const engine of (process.env.HERO_BROWSERS || 'chromium,webkit').split(','))
       };
     });
     assert.deepEqual(canceled,{menu:true,middle:true,primary:false});
-    await page.locator('.vr-dock a[href="#menu"]').click();
+    await page.locator('.vr-dock a[href="#classiche"]').click();
     await page.waitForFunction(()=>document.querySelector('#home').dataset.fxState==='paused');
-    await page.waitForFunction(()=>document.querySelector('.vr-dock a[href="#menu"]').hasAttribute('aria-current'));
+    await page.waitForFunction(()=>document.querySelector('.vr-dock a[href="#classiche"]').hasAttribute('aria-current'));
     await page.evaluate(()=>window.scrollTo({top:(document.documentElement.scrollHeight-innerHeight)/2,behavior:'instant'}));
     await page.waitForFunction(()=>Math.abs(new DOMMatrix(getComputedStyle(document.querySelector('.vr-scroll-progress > span')).transform).m22-.5)<.01);
     await page.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));

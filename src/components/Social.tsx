@@ -5,7 +5,7 @@ import { SpreadTitle } from "./SpreadTitle";
 
 export default function Social() {
   const { t } = useI18n();
-  return <section id="social" className="closing-section" aria-labelledby="social-title">
+  return <section id="social" className="screen-section closing-section" aria-labelledby="social-title">
     <SpreadTitle id="social-title" text={t.so_title} />
     <BentoGrid className="social-bento">
       {socialProfiles.map(({ id, href, name, artHeight }) => <a key={id} className={`bento-tile social-tile platform-${id}`}

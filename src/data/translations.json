@@ -417,7 +417,6 @@
     "it": {
       "footer_place": "Maniago · Friuli Venezia Giulia",
       "info_label": "Info",
-      "call": "Chiama",
       "open_now": "Aperto ora",
       "closed_now": "Chiuso ora",
       "opens_at": "Apre alle 18:00",
@@ -429,7 +428,6 @@
     "en": {
       "footer_place": "Maniago · Friuli Venezia Giulia",
       "info_label": "Info",
-      "call": "Call",
       "open_now": "Open now",
       "closed_now": "Closed now",
       "opens_at": "Opens at 6 pm",
@@ -441,7 +439,6 @@
     "de": {
       "footer_place": "Maniago · Friuli Venezia Giulia",
       "info_label": "Info",
-      "call": "Anrufen",
       "open_now": "Jetzt geöffnet",
       "closed_now": "Jetzt geschlossen",
       "opens_at": "Öffnet um 18 Uhr",
@@ -453,7 +450,6 @@
     "fr": {
       "footer_place": "Maniago · Friuli Venezia Giulia",
       "info_label": "Info",
-      "call": "Appeler",
       "open_now": "Ouvert maintenant",
       "closed_now": "Fermé maintenant",
       "opens_at": "Ouvre à 18 h",

@@ -423,16 +423,18 @@
   "assets/pizze/marinara-classica.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 273614,
-    "sha256": "9730a9d96c9c9abec42f9c1ffc3d9e4a2bbec2ef2728e850f4213dfd1e300921",
-    "small": "assets/pizze/marinara-classica-768.webp"
+    "bytes": 231848,
+    "sha256": "b7d8217c53b4252fc303f72a58fc95b386b2040f3725b7d830d55ff0cfe4a311",
+    "small": "assets/pizze/marinara-classica-768.webp",
+    "revision": 60
   },
   "assets/pizze/marinara-d-oro.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 243460,
-    "sha256": "7b3a7c8ac7e222bb3fb96c050a8be004e7d5b726422146998b172c0051cbe3b7",
-    "small": "assets/pizze/marinara-d-oro-768.webp"
+    "bytes": 181222,
+    "sha256": "0edb539f1d9a9605ec0b0927e07805c2324509b93f6e728cdf4e3055688d1e12",
+    "small": "assets/pizze/marinara-d-oro-768.webp",
+    "revision": 60
   },
   "assets/pizze/margherita-affumicata.webp": {
     "width": 1100,
@@ -458,9 +460,10 @@
   "assets/pizze/diavola.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 231652,
-    "sha256": "51741efc0f3c97bd23a27c8098dbeeb48d566aae26a5de25f22c0ad61ae118eb",
-    "small": "assets/pizze/diavola-768.webp"
+    "bytes": 202006,
+    "sha256": "9b6c28802e73f5c8ce45a8a9a879af81979d06de57b5a43143e7f798b25be171",
+    "small": "assets/pizze/diavola-768.webp",
+    "revision": 60
   },
   "assets/pizze/prosciutto-e-funghi.webp": {
     "width": 1100,
@@ -479,9 +482,10 @@
   "assets/pizze/tonno-e-cipolla.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 251196,
-    "sha256": "2d546c301f9bf53c07ac466df958263b4500a91c34c2eacc733258e54db37473",
-    "small": "assets/pizze/tonno-e-cipolla-768.webp"
+    "bytes": 198870,
+    "sha256": "6fd1c903fa330b5a649a4454c7c0bc66db9a5508bd8375dbd79a4df752a70dac",
+    "small": "assets/pizze/tonno-e-cipolla-768.webp",
+    "revision": 60
   },
   "assets/pizze/formaggi.webp": {
     "width": 1100,
@@ -549,9 +553,10 @@
   "assets/pizze/raf.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 255288,
-    "sha256": "8d6fb61cc839dd338ecbc49bcc69e5c5f690c4827acbf9d2bd74e67512a91d70",
-    "small": "assets/pizze/raf-768.webp"
+    "bytes": 211512,
+    "sha256": "ae7bb44257826d39bc328ef5fd3558d62f961c36f0138561c3d296770410d02f",
+    "small": "assets/pizze/raf-768.webp",
+    "revision": 60
   },
   "assets/pizze/valtellina.webp": {
     "width": 1100,
@@ -563,9 +568,10 @@
   "assets/pizze/greca.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 249790,
-    "sha256": "a5e3bf403c41ec4b0131c330a38a9caff83daacd4ab412b1dc64c213fe1dfaf7",
-    "small": "assets/pizze/greca-768.webp"
+    "bytes": 217960,
+    "sha256": "ed683d8f7b93c2fedf9c5d126279d5c48c7e64eac0bf27f49966ca47539687bf",
+    "small": "assets/pizze/greca-768.webp",
+    "revision": 60
   },
   "assets/pizze/estiva.webp": {
     "width": 1100,
@@ -626,9 +632,10 @@
   "assets/pizze/frico.webp": {
     "width": 1100,
     "height": 1100,
-    "bytes": 241958,
-    "sha256": "2bc919cb388384b3cdbb69404880d95a0891e0cdbba868b084722a03f7f5ed5a",
-    "small": "assets/pizze/frico-768.webp"
+    "bytes": 207208,
+    "sha256": "703ab114eb18bf14d78b017041c319d559d7abf8c45be2dfeb64f1382667afe8",
+    "small": "assets/pizze/frico-768.webp",
+    "revision": 60
   },
   "assets/pizze/delicata.webp": {
     "width": 1100,

@@ -25,7 +25,7 @@ async function checkSectionPolish(page, touch) {
     const atmosphere = document.querySelector('.menu-atmosphere');
     const edges = [oven, atmosphere, document.querySelector('.menu-side-background')];
     const sections = [...document.querySelectorAll('#carta > .mcat')];
-    const drinks = document.querySelector('#cat-bevande .mcat-body');
+    const drinks = document.querySelector('#bevande .mcat-body');
     const bottles = drinks.querySelector(':scope > .groupline');
     const producers = [...drinks.querySelectorAll('.drink-bottle-group')];
     const [draught, wines] = drinks.querySelectorAll('.drink-table');
@@ -114,12 +114,12 @@ try {
   const first=await page.locator('.chips').evaluate(el=>({rail:el.getBoundingClientRect().toJSON(),first:el.querySelector('button').getBoundingClientRect().toJSON(),mask:getComputedStyle(el).maskImage}));
   assert.equal(first.mask,'none','Rail masking isolates satin blur');assert.ok(first.first.left>=first.rail.left);assert.ok(first.first.right<=first.rail.right);
 
-  await page.evaluate(()=>window.scrollTo({top:document.querySelector('#cat-audaci').getBoundingClientRect().top+scrollY-Math.min(140,innerHeight/4),behavior:'instant'}));
+  await page.evaluate(()=>window.scrollTo({top:document.querySelector('#audaci').getBoundingClientRect().top+scrollY-Math.min(140,innerHeight/4),behavior:'instant'}));
   await page.waitForFunction(()=>document.querySelector('[data-go="audaci"]').getAttribute('aria-current')==='location');
   const layout=await page.evaluate(()=>{
    const style=(el,keys)=>Object.fromEntries(keys.map(k=>[k,getComputedStyle(el)[k]]));
    const item=document.querySelector('[data-menu-item="Burrata e Crudo"]'),name=item.querySelector('.nome'),price=item.querySelector('.prezzo'),rail=document.querySelector('.chipbar-inner');
-   return {nav:style(document.querySelector('.chipbar'),['zIndex']),blur:style(document.querySelector('.vr-edge-blur'),['zIndex']),rail:style(rail,['backgroundColor']),pill:style(document.querySelector('.chips button.on'),['backgroundImage','backdropFilter']),category:style(document.querySelector('.mcat-head'),['textAlign']),tag:style(document.querySelector('.mcat .tag'),['fontSize']),dots:style(item.querySelector('.dots'),['display','backgroundImage','height','opacity']),name:name.getBoundingClientRect().toJSON(),price:price.getBoundingClientRect().toJSON(),priceColor:getComputedStyle(price).color,desc:item.querySelector('.desc').getBoundingClientRect().toJSON(),chevron:document.querySelector('.chipchev.r').getBoundingClientRect().toJSON(),railRect:rail.getBoundingClientRect().toJSON(),categoryBorder:getComputedStyle(document.querySelector('#cat-audaci')).borderTopWidth};
+   return {nav:style(document.querySelector('.chipbar'),['zIndex']),blur:style(document.querySelector('.vr-edge-blur'),['zIndex']),rail:style(rail,['backgroundColor']),pill:style(document.querySelector('.chips button.on'),['backgroundImage','backdropFilter']),category:style(document.querySelector('.mcat-head'),['textAlign']),tag:style(document.querySelector('.mcat .tag'),['fontSize']),dots:style(item.querySelector('.dots'),['display','backgroundImage','height','opacity']),name:name.getBoundingClientRect().toJSON(),price:price.getBoundingClientRect().toJSON(),priceColor:getComputedStyle(price).color,desc:item.querySelector('.desc').getBoundingClientRect().toJSON(),chevron:document.querySelector('.chipchev.r').getBoundingClientRect().toJSON(),railRect:rail.getBoundingClientRect().toJSON(),categoryBorder:getComputedStyle(document.querySelector('#audaci')).borderTopWidth};
   });
   assert.ok(+layout.nav.zIndex>+layout.blur.zIndex);assert.equal(layout.rail.backgroundColor,'rgba(0, 0, 0, 0)');
   assert.equal(layout.pill.backdropFilter,'blur(22px)');assert.equal(layout.category.textAlign,'center');assert.ok(parseFloat(layout.tag.fontSize)>=18);assert.equal(layout.categoryBorder,'0px');
@@ -128,7 +128,7 @@ try {
   if(await page.evaluate(()=>matchMedia('(hover: hover)').matches)){
    const inactive=page.locator('.chips button:not(.on)').first();await inactive.hover();
    await page.waitForFunction(()=>getComputedStyle(document.querySelector('.chips button:not(.on)')).color==='rgb(213, 213, 213)');
-   const art=page.locator('#cat-audaci .menu-art');
+   const art=page.locator('#audaci .menu-art');
    const snapshot=el=>{
     const style=(target,pseudo,keys)=>Object.fromEntries(keys.map(k=>[k,getComputedStyle(target,pseudo)[k]]));
     return {frame:style(el,'::before',['height','backgroundImage','backgroundSize','filter','transitionDuration']),after:style(el,'::after',['height','backgroundImage','backgroundSize','filter','transitionDuration']),mask:getComputedStyle(el.querySelector('.menu-art-window')).maskImage,image:style(el.querySelector('img'),null,['filter','transform','opacity','mixBlendMode']),containerFilter:getComputedStyle(el).filter};
@@ -195,8 +195,8 @@ try {
    }
   }
   await page.locator('.lang button').filter({hasText:/^IT$/}).click();
-  assert.equal(await page.locator('#cat-bevande .item button.nome').count(),15,'Drink names open product information');
-  const kitchen=await page.locator('#cat-cucina .tag').evaluate(el=>({height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight),break:getComputedStyle(el.querySelector('br')).display}));
+  assert.equal(await page.locator('#bevande .item button.nome').count(),15,'Drink names open product information');
+  const kitchen=await page.locator('#cucina .tag').evaluate(el=>({height:el.getBoundingClientRect().height,line:parseFloat(getComputedStyle(el).lineHeight),break:getComputedStyle(el.querySelector('br')).display}));
   assert.equal(kitchen.break,width<768?'block':'none');
   if(width<768)assert.ok(Math.abs(kitchen.height-2*kitchen.line)<1,'Kitchen copy must occupy exactly two lines');
   const bottles=await page.locator('.drink-bottle-group .desc').evaluateAll(els=>els.map(el=>({text:el.textContent,breaks:el.querySelectorAll('br').length,overflow:el.scrollWidth>el.clientWidth+1})));
@@ -246,11 +246,11 @@ try {
   await page.locator('#drinks-draught').scrollIntoViewIfNeeded();await page.screenshot({path:`${out}/draught-${width}x${height}.png`});
   await page.locator('#drinks-wines').scrollIntoViewIfNeeded();await page.screenshot({path:`${out}/wines-${width}x${height}.png`});
   await page.emulateMedia({reducedMotion:'no-preference'});
-  await page.evaluate(()=>window.scrollTo({top:document.querySelector('#cat-audaci').getBoundingClientRect().top+scrollY-Math.min(140,innerHeight/4),behavior:'instant'}));
+  await page.evaluate(()=>window.scrollTo({top:document.querySelector('#audaci').getBoundingClientRect().top+scrollY-Math.min(140,innerHeight/4),behavior:'instant'}));
   await waitForFieldState(page, 'running');
   const bands=await page.locator('.menu-side-viewport').evaluate(el=>({
    viewport:el.getBoundingClientRect().toJSON(),
-   content:document.querySelector('#cat-audaci').getBoundingClientRect().toJSON(),
+   content:document.querySelector('#audaci').getBoundingClientRect().toJSON(),
    surfaces:[...el.querySelectorAll('canvas')].map(c=>({rect:c.getBoundingClientRect().toJSON(),pixels:c.width*c.height})),
    events:getComputedStyle(el.parentElement).pointerEvents,
    background:getComputedStyle(document.querySelector('.menu-atmosphere')).backgroundColor,

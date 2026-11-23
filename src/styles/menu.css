@@ -1,7 +1,7 @@
 /* ViaRoma_4.0_MENU — original artwork/data, scoped menu and dialog presentation. */
 .menu-atmosphere { position:relative; background:#090909; }
 #cornicione { position:relative; }
-#menu { position:relative; padding-top:clamp(80px,12svh,160px); padding-bottom:clamp(36px,6svh,84px); }
+#menu { position:relative; padding-top:clamp(80px,12svh,160px); padding-bottom:clamp(36px,3vw,48px); }
 .menu-head,.mcat,.chipbar-inner { width:var(--vr-content); margin-inline:auto; }
 .menu-head { text-align:center; margin-bottom:clamp(32px,6vw,72px); }
 .menu-head h2 { font-size:calc(var(--vr-content) * var(--menu-title-scale,.25)); font-weight:200; line-height:1.12; letter-spacing:.26em; text-transform:uppercase; color:var(--vr-highlight); }
@@ -24,8 +24,6 @@
 .chips::-webkit-scrollbar { display:none; }
 .chips button { --satin-blur:22px; flex:1 0 auto; min-height:40px; padding:9px 16px; border:1px solid; border-radius:24px; font-size:11px; font-weight:400; letter-spacing:.1em; text-transform:uppercase; white-space:nowrap; -webkit-mask-image:var(--chip-edge,none); mask-image:var(--chip-edge,none); transition:color .45s,border-color .45s; }
 @media (min-width:768px) { .chips button { letter-spacing:.16em; } }
-.chips button:focus-visible { outline-color:#fff; outline-offset:-4px; }
-.chips button.on:focus-visible { outline-color:var(--vr-highlight); }
 .chipchev { position:absolute; z-index:1; top:5px; width:32px; height:44px; display:none; place-items:center; color:var(--vr-highlight); background:none; border:0; border-radius:0; }
 .chipchev svg { width:20px; height:20px; }
 .chipchev.l { left:0; } .chipchev.r { right:0; }
@@ -61,16 +59,15 @@
 .frozen-mark { display:inline-block; font-size:1.35em; line-height:1; transform:translateY(.17em); }
 .groupline { margin:32px 0 12px; font-size:12px; text-transform:uppercase; letter-spacing:.18em; color:var(--vr-gold); }
 .groupsub { margin:18px 0 8px; color:#c1b7a4; font-size:15px; }
-.groupsub strong { font-weight:400; }
 .variant-callout { margin:28px 0 10px; padding-top:12px; font-size:20px; letter-spacing:.015em; }
 .dolci-note { max-width:46ch; margin:28px auto 0; text-align:center; font-size:clamp(22px,1.8vw,28px); line-height:1.45; letter-spacing:.02em; color:var(--vr-highlight); text-wrap:balance; }
-#cat-bevande { --drink-intro:#b59a62; --drink-detail:#a19d96; --drink-group-gap:clamp(56px,8svh,112px); }
-#cat-bevande .mcat-body > .groupline { margin-block:var(--drink-group-gap) clamp(14px,2svh,22px); }
+#bevande { --drink-intro:#b59a62; --drink-detail:#a19d96; --drink-group-gap:clamp(56px,8svh,112px); }
+#bevande .mcat-body > .groupline { margin-block:var(--drink-group-gap) clamp(14px,2svh,22px); }
 .drink-bottle-group + .drink-bottle-group { margin-block-start:clamp(38px,5.8svh,80px); }
-#cat-bevande .groupline { font-size:clamp(16px,1.3vw,21px); font-weight:400; letter-spacing:.09em; color:var(--drink-intro); }
+#bevande .groupline { font-size:clamp(16px,1.3vw,21px); font-weight:400; letter-spacing:.09em; color:var(--drink-intro); }
 .drink-bottle-group .groupsub { margin-block:0 8px; color:var(--drink-detail); font-size:clamp(16px,1.3vw,20px); line-height:1.4; }
 .groupsub strong { color:var(--drink-intro); font-weight:500; }
-#cat-bevande .desc,.drink-product .qualifier { color:var(--drink-detail); }
+#bevande .desc,.drink-product .qualifier { color:var(--drink-detail); }
 .drink-bottle-group .item .desc { max-width:none; }
 .drink-table { width:100%; margin:var(--drink-group-gap) 0 0; }
 .drink-table-head,.drink-row>.row { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,40%); align-items:baseline; column-gap:0; }
@@ -110,7 +107,7 @@
   .item .qualifier { font-size:12px; }
   .allergen-trigger { min-height:28px; font-size:11px; }
   .drink-table-head,.drink-row>.row { grid-template-columns:minmax(0,1fr) minmax(0,58%); gap:6px; }
-  #cat-bevande .drink-table-head .groupline { font-size:clamp(14px,3.7vw,17px); line-height:1.25; letter-spacing:.045em; }
+  #bevande .drink-table-head .groupline { font-size:clamp(14px,3.7vw,17px); line-height:1.25; letter-spacing:.045em; }
   .drink-size-head,.drink-row .pricegrid { grid-template-columns:minmax(0,.92fr) minmax(0,.96fr) minmax(0,1.12fr); column-gap:3px; }
   .drink-size-head { font-size:clamp(12.5px,3.45vw,15px); }
   .drink-leader .dots,.drink-price-cell:first-child::before { display:none; }
@@ -119,7 +116,7 @@
   .drink-product .qualifier { font-size:14px; }
 }
 @media(prefers-reduced-motion:reduce) { .menu-head h2 span,.mcat-head:hover h3 span { animation:none; } .menu-head h2 span,.mcat h3 span,.chips button { transition:none; } }
-@media(forced-colors:active) { .menu-head h2 span,.mcat h3 span { background:none; -webkit-text-fill-color:CanvasText; filter:none; } .chips button.on { outline:2px solid Highlight; outline-offset:-4px; } }
+@media(forced-colors:active) { .menu-head h2 span,.mcat h3 span { background:none; -webkit-text-fill-color:CanvasText; filter:none; } .chips button.on { border-color:Highlight; } }
 
 /* The existing content widths reserve the requested side bands:
    mobile 10/80/10, tablet 15/70/15, desktop 20/60/20, ultrawide 30/40/30. */

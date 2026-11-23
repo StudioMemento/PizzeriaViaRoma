@@ -68,9 +68,6 @@
 .ph-thin.ph-quotes:before {
   content: "\e660";
 }
-.ph-thin.ph-whatsapp-logo:before {
-  content: "\e5d0";
-}
 .ph-thin.ph-x:before {
   content: "\e4f6";
 }

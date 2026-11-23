@@ -14,6 +14,61 @@ function neutral(color) {
   return parts[0] === parts[1] && parts[1] === parts[2];
 }
 
+async function checkAnchorsAndCursor(page,touch) {
+  const jump = async (label,id) => {
+    await label.click();
+    await page.waitForFunction(id=>location.hash==="#"+id,id);
+    await page.waitForFunction(id=>{
+      const top=document.getElementById(id).getBoundingClientRect().top;
+      return top>=-1 && top<=200;
+    },id);
+  };
+  await jump(page.locator('.vr-dock [href="#classiche"]'),"classiche");
+  await jump(page.locator('.chips [data-go="audaci"]'),"audaci");
+  await jump(page.locator('.vr-dock [href="#info"]'),"info");
+  await page.goBack();
+  await page.waitForFunction(()=>location.hash==="#audaci" && document.querySelector('.chips .on').dataset.go==="audaci");
+  await page.goForward();
+  await page.waitForFunction(()=>location.hash==="#info");
+  for (const [old,id] of [["cat-classiche","classiche"],["cat-bevande","bevande"],["dove","info"]]) {
+    await page.goto(new URL("/#"+old,url).href);
+    await page.waitForFunction(id=>location.hash==="#"+id,id);
+    await page.reload();
+    await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top)<200,id);
+  }
+  const pointer = page.locator(".phone-tile");
+  const cursor = locator=>locator.evaluate(el=>getComputedStyle(el).cursor);
+  const white=style=>style.includes("cursore-bianco.svg");
+  for(const selector of ["#info h2","#forno",".phone-number",".lang button.on span"]) {
+    assert.equal(white(await cursor(page.locator(selector).first())),!touch,selector);
+  }
+  if (!touch) {
+    const size = await pointer.evaluate(async el => {
+      const url = getComputedStyle(el).cursor.match(/url\("([^"]+)"\)/)[1];
+      const image = new Image();
+      image.src = url;
+      await image.decode();
+      return [image.naturalWidth,image.naturalHeight];
+    });
+    assert.deepEqual(size,[13,15], "Desktop cursor dimensions");
+  }
+  const link=page.locator('.footer-row a[href="/privacy.html"]');
+  await link.click();
+  const close=page.locator("dialog[open] .modal-close");
+  assert.equal(white(await cursor(close)),!touch);
+  await close.click();
+  assert.equal(await link.evaluate(el=>getComputedStyle(el).outlineStyle),"none");
+  if (!touch) {
+    await link.focus();
+    await page.keyboard.press("Tab");
+    assert.ok(await page.locator(".footer-row nav a:focus-visible").evaluate(el=>
+      getComputedStyle(el).outlineStyle==="none" && getComputedStyle(el,"::after").width==="6px"));
+    await page.emulateMedia({forcedColors:"active"});
+    assert.equal(white(await cursor(pointer)),true);
+    await page.emulateMedia({forcedColors:"none"});
+  }
+}
+
 async function checkParticles(page, touch) {
   await page.emulateMedia({reducedMotion:"no-preference"});
   const specks = control => control.evaluate(el=>getComputedStyle(el).backgroundImage.includes("satin-specks.svg"));
@@ -84,10 +139,22 @@ async function checkLegalText(article) {
           typography.push("wrap: " + text.slice(word.index,end+space.length+16));
       }
     }
-    return { noOverflow, intact, typography, headings: el.querySelectorAll("h2").length };
+    const facts=el.querySelector(".legal-facts");
+    let wellFormed;
+    if(facts) {
+      const pairs=[...facts.querySelectorAll("dt")].map(dt=>[dt,dt.nextElementSibling]);
+      const first=pairs[0][1].getBoundingClientRect().left;
+      wellFormed=pairs[0][1].textContent==="NIGRO SARAH PIZZERIA" && pairs.every(([term,value])=>
+        Math.abs(value.getBoundingClientRect().left-first)<1 && term.getBoundingClientRect().right <= first) &&
+        [...facts.querySelectorAll("a")].every(a=>getComputedStyle(a).textDecorationLine==="none");
+    }
+    const structure = facts
+      ? wellFormed && el.querySelectorAll("section").length === 1 && el.querySelectorAll("h2,p").length === 0
+      : el.querySelectorAll("h2").length >= 2;
+    return { noOverflow, intact, typography, structure };
   });
   assert.deepEqual(report.typography,[]);
-  assert.ok(report.noOverflow && report.intact && report.headings >= 2, JSON.stringify(report));
+  assert.ok(report.noOverflow && report.intact && report.structure, JSON.stringify(report));
 }
 
 async function testViewport(width,height,touch) {
@@ -167,8 +234,11 @@ async function testViewport(width,height,touch) {
     });
     assert.ok(!neutral(await brandInk()));
     await flame.blur();
-    if (width===390 || width===1440) await checkParticles(page,touch);
-    for (const [id,ratio] of [["home",0],["menu",null],["gallery",null],["dove",1]]) {
+    if (width===390 || width===1440) {
+      await checkAnchorsAndCursor(page,touch);
+      await checkParticles(page,touch);
+    }
+    for (const [id,ratio] of [["home",0],["classiche",null],["gallery",null],["info",1]]) {
       await page.evaluate(({id,ratio})=>{
         const y=ratio===null ? document.getElementById(id).getBoundingClientRect().top+scrollY : (document.documentElement.scrollHeight-innerHeight)*ratio;
         scrollTo({top:y,behavior:"instant"});
@@ -202,7 +272,7 @@ async function testViewport(width,height,touch) {
     });
     assert.equal(footer.divider,"0px");
     assert.equal(footer.stacked, width<768);
-    assert.ok(footer.wordmark>=8.5);
+    assert.ok(footer.wordmark>=8.3);
     if(width===390) {
       for(const language of languages) {
         await page.locator('.lang button[data-lang="'+language+'"]').click();

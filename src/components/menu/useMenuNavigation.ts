@@ -34,7 +34,7 @@ export function useMenuNavigation(language: string) {
       const top = Math.min(150, window.innerHeight / 3);
       observer = new IntersectionObserver(entries => {
         for (const entry of entries) if (entry.isIntersecting)
-          setActive(entry.target.id.replace("cat-", ""));
+          setActive(entry.target.id);
       }, { rootMargin: `-${top}px 0px -${Math.max(0, window.innerHeight - top - 2)}px 0px` });
       document.querySelectorAll(".mcat").forEach(el => observer.observe(el));
     };
@@ -91,8 +91,8 @@ export function useMenuNavigation(language: string) {
     };
   }, [active, language]);
   const select = (id: string) => {
-    document.getElementById(`cat-${id}`)?.scrollIntoView({ behavior: behavior() });
-    history.replaceState(null, "", `#cat-${id}`);
+    if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
+    document.getElementById(id)?.scrollIntoView({ behavior: behavior() });
     setActive(id);
   };
   const nudge = (direction: number) => chips.current?.scrollBy({ left: direction * Math.max(160, chips.current.clientWidth * .65), behavior: behavior() });

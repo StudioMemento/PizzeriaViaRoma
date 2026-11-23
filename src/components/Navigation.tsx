@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { languages, useI18n } from "../i18n";
 import { DockIcon } from "./Icon";
+import { phoneHref } from "../data/venue-links";
 import GradualBlur from "./hero/GradualBlur";
 import { usePresentationInteractions } from "./hero/usePresentationInteractions";
 
@@ -32,14 +33,16 @@ function subscribePagePosition(listener: PositionListener) {
       if (dirty) {
         viewportHeight = Math.max(1, window.innerHeight);
         scrollRange = Math.max(0, document.documentElement.scrollHeight - viewportHeight);
-        landmarks = ["menu", "gallery", "dove"].flatMap((id) => {
+        landmarks = ["menu", "gallery", "info"].flatMap((id) => {
           const element = document.getElementById(id);
           return element ? [{ id, top: element.getBoundingClientRect().top + y }] : [];
         });
         dirty = false;
       }
       let active = "home";
-      const marker = y + viewportHeight * 0.45;
+      // Short closing sections can remain below the usual marker at the end of the page.
+      const atPageEnd = scrollRange > 0 && y >= scrollRange - 1;
+      const marker = y + viewportHeight * (atPageEnd ? 1 : 0.45);
       for (const landmark of landmarks) if (landmark.top <= marker) active = landmark.id;
       const position = { active, progress: scrollRange > 0 ? Math.max(0, Math.min(1, y / scrollRange)) : 0 };
       latestPosition = position;
@@ -56,7 +59,7 @@ function subscribePagePosition(listener: PositionListener) {
     };
     const observer = new ResizeObserver(measure);
     observer.observe(document.body);
-    for (const id of ["menu", "gallery", "dove"]) {
+    for (const id of ["menu", "gallery", "info"]) {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     }
@@ -147,15 +150,15 @@ export function Dock() {
       <nav className="vr-dock" aria-label={copy.navigation}>
         {[
           { id: "home", icon: "house", label: "Home" },
-          { id: "menu", icon: "fork-knife", label: t.tab_menu },
+          { id: "menu", target: "classiche", icon: "fork-knife", label: t.tab_menu },
           { id: "gallery", icon: "gallery", label: copy.gallery },
-          { id: "dove", icon: "brand-flame", label: `Pizzeria Via Roma · ${t.tab_dove}` },
+          { id: "info", icon: "brand-flame", label: `Pizzeria Via Roma · ${t.tab_dove}` },
           { id: "call", icon: "phone", label: t.tab_chiama },
         ].map((x) => (
           <a
             key={x.id}
             aria-label={x.label}
-            href={x.id === "call" ? "tel:+390427541232" : `#${x.id}`}
+            href={x.id === "call" ? phoneHref : `#${x.target ?? x.id}`}
             aria-current={active === x.id ? "location" : undefined}
           >
             <span className="dock-tile">

@@ -51,11 +51,18 @@ export default function Dialogs() {
     const dialog = ref.current;
     if (!dialog || modal?.kind !== "allergens") return;
     let active = true;
-    const fit = () => { if (active) fitAllergens(dialog); };
+    let width = 0, height = 0;
+    const fit = (fontsChanged = false) => {
+      if (!active) return;
+      const nextWidth = dialog.clientWidth, nextHeight = dialog.clientHeight;
+      if (!fontsChanged && width === nextWidth && height === nextHeight) return;
+      width = nextWidth; height = nextHeight;
+      fitAllergens(dialog);
+    };
     fit();
-    const resize = new ResizeObserver(fit);
+    const resize = new ResizeObserver(() => fit());
     resize.observe(dialog);
-    void document.fonts.ready.then(fit);
+    if (document.fonts.status === "loading") void document.fonts.ready.then(() => fit(true));
     return () => { active = false; resize.disconnect(); };
   }, [modal, language]);
   if (!modal) return null;

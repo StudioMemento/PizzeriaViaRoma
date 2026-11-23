@@ -1,0 +1,20 @@
+/* The same native pointer is used on text, links, drags and open dialogs. */
+@media (any-hover:hover) and (any-pointer:fine) {
+  :where(*),dialog::backdrop { cursor:url("/assets/cursore-bianco.svg?v=65") 1 1, auto; }
+}
+
+:root { -webkit-tap-highlight-color:transparent; }
+:where(a[href],button,.modal-header) { position:relative; }
+:focus { outline:none; }
+
+/* Use a small mark over the focused control while leaving its hit area and selection intact. */
+:where(a[href],button):not(:where(.lang button,.bento-tile,.ribbon-card)):focus-visible::after,
+.lang button:focus-visible::before,
+.bento-tile:focus-visible :is(.tile-bottom,.visit-copy)::after,
+#forno:focus-visible::after,
+.legal-panel:has(.legal-scroll:focus-visible) .modal-header::after {
+  content:""; position:absolute; z-index:4; pointer-events:none; left:50%; bottom:var(--focus-bottom,2px); translate:-50% 0;
+  width:6px; height:6px; border-radius:50%; background:var(--focus-ink,#ffe2a1); box-shadow:0 0 0 1px #262017;
+  forced-color-adjust:none;
+}
+@media (forced-colors:active) { :root { --focus-ink:Highlight; } }

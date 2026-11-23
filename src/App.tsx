@@ -4,6 +4,7 @@ import { DialogProvider, useDialog } from "./components/DialogContext";
 import { Header, Dock } from "./components/Navigation";
 import Hero from "./components/Hero";
 import { Cornicione, PizzaSlider } from "./components/IntroSliders";
+import { categoryOrder } from "./components/menu/useMenuNavigation";
 import { MenuSideSquares } from "./components/menu/MenuSideSquares";
 import Menu from "./components/Menu";
 import { Takeaway } from "./components/Takeaway";
@@ -24,7 +25,18 @@ function DialogHost() {
 function Page() {
   const { copy } = useI18n();
   useEffect(() => {
-    if (location.hash === "#storia") location.replace("#gallery");
+    function restoreOldLink() {
+      const hash = location.hash;
+      const target = hash === "#dove" ? "info" : hash === "#storia" ? "gallery"
+        : categoryOrder.find(id => hash === `#cat-${id}`);
+      if (target) {
+        history.replaceState(history.state, "", `#${target}`);
+        document.getElementById(target)?.scrollIntoView({ behavior: "instant" });
+      }
+    }
+    restoreOldLink();
+    window.addEventListener("hashchange", restoreOldLink);
+    return () => window.removeEventListener("hashchange", restoreOldLink);
   }, []);
   return (
     <>

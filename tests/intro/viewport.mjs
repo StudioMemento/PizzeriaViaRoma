@@ -27,10 +27,12 @@ function measureOven() {
   const answer = textBox(takeaway.querySelector("p").firstChild);
   const card = box(takeaway.querySelector(".crust-card"));
   const caption = box(takeaway.querySelector(".takeaway-copy"));
+  const mark = box(takeaway.querySelector(".takeaway-mark"));
   const x = caption.left - card.left, y = card.bottom - caption.bottom;
   const titleSize = parseFloat(getComputedStyle(takeawayTitle).fontSize);
   const captionSize = parseFloat(getComputedStyle(takeaway.querySelector("p")).fontSize);
-  const textFits = titleSize >= captionSize * 2 && question.length <= 2 && answer.length <= 2 &&
+  const markFits = Math.abs(mark.left - caption.left) < 1 && Math.abs(mark.top - card.top - x) < 1 && mark.bottom + 3 <= question[0].top;
+  const textFits = markFits && titleSize >= captionSize * 2 && question.length <= 2 && answer.length <= 2 &&
     question[0].top >= card.top && question.at(-1).top < answer[0].top && Math.abs(x - y) < 1 &&
     [...question, ...answer].every(r => Math.abs(r.left - caption.left) < 1 && r.right <= card.right - x + 1 && r.bottom <= card.bottom);
   const guest = document.querySelector("#customer");
@@ -63,9 +65,9 @@ function measureOven() {
   const problems = [];
   for (const caption of oven.querySelectorAll(".pizza-caption")) {
     const heading = caption.querySelector("h3");
-    const name = ink(heading);
     const text = document.createRange();
-    text.selectNodeContents(heading);
+    text.selectNodeContents(heading.querySelector("button"));
+    const name = text.getBoundingClientRect();
     const ingredients = [...caption.querySelectorAll("li")];
     const aligned = [heading, ...ingredients].every(el => Math.abs(captionX-box(el).left) < 1);
     const ordered = ingredients.every((li,i) => !i || ink(li).top > ink(ingredients[i-1]).bottom-4);

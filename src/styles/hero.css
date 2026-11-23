@@ -45,12 +45,11 @@
 .vr-edge-blur > div { position:absolute; inset:0; background:transparent; }
 /* The light sits in the glass. Glyphs inherit one opaque colour. */
 .dock-tile,.lang,.chips button {
-  isolation:isolate; color:var(--satin-ink); border-color:var(--satin-rim);
-  background:var(--specks),linear-gradient(145deg,#252525c9,#191919a8); box-shadow:0 2px 8px #0002;
+  isolation:isolate; color:var(--satin-ink); box-shadow:0 2px 8px #0002;
   -webkit-backdrop-filter:blur(var(--satin-blur,12px)); backdrop-filter:blur(var(--satin-blur,12px));
 }
 .lang { border-color:#ffffff12; background:linear-gradient(145deg,#242424ba,#161616a6); }
-.dock-tile,.chips button { overflow:hidden; }
+.dock-tile,.chips button { overflow:hidden; border-color:var(--satin-rim); background:var(--specks),linear-gradient(145deg,#252525c9,#191919a8); }
 .site-brand:focus-visible,.site-brand:active { color:var(--selected-ink); }
 .hero-down,.hero-down svg { width:clamp(72px,6.8vw,96px); height:clamp(72px,6.8vw,96px); }
 .hero-down svg path { stroke-width:1.55; }
@@ -59,8 +58,6 @@
 .lang button.on,.vr-dock a[aria-current] .dock-tile,.vr-dock a:active .dock-tile,.chips button.on {
   color:var(--selected-ink); border:1px solid var(--selected-rim); background:var(--specks),var(--selected-glass); box-shadow:var(--selected-light);
 }
-.vr-dock a:focus-visible,.lang button:focus-visible { outline-color:#eee; }
-.lang button:focus-visible { outline-offset:-2px; }
 @media(hover:hover) and (pointer:fine) {
   .site-brand:hover { color:var(--selected-ink); }
   .vr-dock a:hover,:is(.lang,.chips) button:hover { --specks:var(--lit-specks,none); }
@@ -88,7 +85,7 @@ input,textarea,[contenteditable=true] { -webkit-user-select:text; user-select:te
   .hero-slogan { color:CanvasText; -webkit-text-fill-color:CanvasText; background:none; text-shadow:none; }
   .hero-glimmer,.hero-liquid,.hero-logo::after,.vr-edge-blur { display:none; }
   .hero-logo[data-liquid-ready=true] > img { opacity:1; }
-  .vr-dock a[aria-current] .dock-tile,.lang button.on { outline:2px solid Highlight; outline-offset:-2px; }
+  .vr-dock a[aria-current] .dock-tile,.lang button.on { border-color:Highlight; }
   .vr-dock a[aria-current] .dock-tile,.lang button.on { color:Highlight; }
   .vr-scroll-progress > span { background:Highlight; forced-color-adjust:none; }
 }

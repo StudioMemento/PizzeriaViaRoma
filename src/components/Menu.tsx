@@ -219,7 +219,7 @@ export default function Menu() {
           const kitchenBreak = id === "cucina" && language === "it" ? tag.indexOf("...") + 3 : 0;
           const rows = (data.MENU as Record<string, string[][]>)[id];
           return (
-            <section className="mcat fx on has-art" id={`cat-${id}`} key={id}>
+            <section className="mcat fx on has-art" id={id} key={id}>
               <header className="mcat-head">
                 <h3><span>{title}</span></h3>
                 {tag && <p className="tag">{kitchenBreak > 2
